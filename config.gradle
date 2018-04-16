@@ -9,7 +9,7 @@
 ext {
     versions = [
             'kotlin'        : '1.2.31',
-            'supportLibrary': '27.1.1',
+            'supportLibrary': '27.0.2',
             'buildTools'    : '27.0.3',
             'compileSdk'    : 27,
             'espresso'      : '3.0.1'
@@ -84,6 +84,7 @@ ext {
         disable 'InvalidPackage'
         checkTestSources true
         ignoreWarnings true
+        disable 'GradleCompatible'
     }
 
     compileOption = {

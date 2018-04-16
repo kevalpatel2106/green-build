@@ -26,6 +26,9 @@ android:
         # Additional components
         - extra-google-m2repository
         - extra-android-m2repository
+
+        #system images
+        - sys-img-armeabi-v7a-android-21
   
 licenses:
     - 'android-sdk-preview-license-.+'
@@ -36,5 +39,7 @@ before_script:
     - chmod +x gradlew      #Grand permissions
 
 script:
-    - ./gradlew lint
-    - ./gradlew app:assembleDebug -PdisablePreDex --stacktrace
+    - ./gradlew lint jacocoTestReport app:assembleDebug -PdisablePreDex --stacktrace
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)

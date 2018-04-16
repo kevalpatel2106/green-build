@@ -25,7 +25,7 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
-        authentication_token_et.background.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+        authentication_token_et.background.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_OVER)
 
     }
 }
