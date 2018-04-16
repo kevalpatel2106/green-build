@@ -1,0 +1,134 @@
+/*
+ * Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
+ext {
+    versions = [
+            'kotlin'        : '1.2.31',
+            'supportLibrary': '27.1.1',
+            'buildTools'    : '27.0.3',
+            'compileSdk'    : 27
+    ]
+
+    packageExcludes = {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'protobuf.meta'
+    }
+
+    //Exclude group for dependency
+    excludeGrp = {
+        exclude group: 'com.android.support.test.espresso', module: 'espresso-core'
+        exclude group: 'com.android.support.test.espresso', module: 'espresso-idling-resource'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-fragment'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'android.arch.lifecycle', module: 'common'
+        exclude group: 'android.arch.core', module: 'common'
+        exclude group: 'android.arch.core', module: 'common'
+        exclude group: 'android.arch.lifecycle', module: 'runtime'
+        exclude group: 'com.jakewharton.timber', module: 'timber'
+        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
+    }
+
+    defaultAppConfig = {
+        multiDexEnabled true
+
+        applicationId "com.kevalpatel2106.ci.greenbuild"
+
+        minSdkVersion 21
+        targetSdkVersion 27
+
+        versionCode 1
+        versionName "1.0"
+
+        //strip other than english resources
+        resConfigs "en"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    libDefaultConfig = {
+
+        minSdkVersion 21
+        targetSdkVersion 27
+
+        //strip other than english resources
+        resConfigs "en"
+
+        //Versions config
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOption = {
+        abortOnError true
+        htmlReport true
+        xmlReport true
+        textReport true
+        disable 'InvalidPackage'
+        checkTestSources true
+        ignoreWarnings true
+    }
+
+    compileOption = {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dokkaConfig = {
+        outputFormat = 'jekyll'
+        outputDirectory = "${project.rootDir}/docs"
+        jdkVersion = 8 // Used for linking to JDK
+        includeNonPublic = false
+        skipDeprecated = false
+        skipEmptyPackages = true
+    }
+
+    testOption = {
+        unitTests.all {
+            minHeapSize = "1024m"
+            includeAndroidResources = true
+
+            // set heap size for the test JVM(s)
+            maxParallelForks 4
+            maxHeapSize = "1596m"
+
+            testLogging {
+                events 'passed', 'skipped', 'failed'
+            }
+        }
+    }
+
+    jacocoAndroidUnitTestReportConfig =  {
+        csv.enabled true
+        html.enabled true
+        xml.enabled false
+    }
+
+    kotlinOption = {
+        freeCompilerArgs = ['-Xno-param-assertions']
+        allWarningsAsErrors = true
+        jvmTarget = "1.8"
+    }
+
+    aaptOption = {
+        cruncherProcesses 2
+    }
+
+    adbOption = {
+        timeOutInMs 10_000
+    }
+}

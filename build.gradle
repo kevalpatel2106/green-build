@@ -1,27 +1,105 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+/*
+ * Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
 
 buildscript {
-    ext.kotlin_version = '1.2.31'
+    apply from: './config.gradle'
+
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.16"
+        classpath('com.dicedmelon.gradle:jacoco-android:0.1.2') {
+            //https://github.com/arturdm/jacoco-android-gradle-plugin/issues/42
+            exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+        }
     }
 }
+apply from: './config.gradle'
 
 allprojects {
     repositories {
         google()
         jcenter()
     }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        kotlinOptions kotlinOption
+    }
 }
 
+subprojects {
+    afterEvaluate { project ->
+        apply plugin: 'org.jetbrains.dokka-android'
+        apply from: "${project.rootDir}/config.gradle"
+
+        if (project.hasProperty("android")) {   //All the android projects
+
+            //Apply all the common plugins here.
+            project.pluginManager.apply('kotlin-android')
+            project.pluginManager.apply('kotlin-android-extensions')
+            project.pluginManager.apply('jacoco-android')
+
+            //Apply all the configs for the android block here.
+            android {
+                compileSdkVersion versions.compileSdk
+                buildToolsVersion versions.buildTools
+
+                if (project.pluginManager.hasPlugin("com.android.application")) {
+                    //This is the app module
+                    defaultConfig defaultAppConfig
+                } else if (project.pluginManager.hasPlugin("com.android.library")) {
+                    //This is the library module
+                    defaultConfig libDefaultConfig
+                }
+
+                //General options
+                compileOptions compileOption
+                packagingOptions packageExcludes
+                lintOptions lintOption
+                aaptOptions aaptOption
+                testOptions testOption
+                adbOptions adbOption
+            }
+
+            dokka dokkaConfig
+
+            //Common dependencies
+            dependencies{
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+                implementation 'androidx.core:core-ktx:0.3'
+                implementation 'com.jakewharton.timber:timber:4.7.0'
+
+                //Support libs
+                implementation "com.android.support:support-annotations:${versions.supportLibrary}"
+
+                // Test dependency
+                testImplementation 'junit:junit:4.12'
+                androidTestImplementation 'com.android.support.test:runner:1.0.1'
+                androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+            }
+
+            //https://stackoverflow.com/a/35815235/4690731
+            sourceSets {
+                main.java.srcDirs += 'src/main/java'
+                test.java.srcDirs += 'src/test/java'
+            }
+        }
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
