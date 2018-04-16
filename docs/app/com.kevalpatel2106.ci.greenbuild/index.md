@@ -8,5 +8,6 @@ title: com.kevalpatel2106.ci.greenbuild - app
 
 ### Types
 
-| [MainActivity](-main-activity/index.html) | `class MainActivity`<br>Main activity. |
+| [AuthenticationActivity](-authentication-activity/index.html) | `class AuthenticationActivity : AppCompatActivity`<br>Main activity. |
+| [SplashActivity](-splash-activity/index.html) | `class SplashActivity : AppCompatActivity`<br>Created by Kevalpatel2106 on 16-Apr-18. |
 
