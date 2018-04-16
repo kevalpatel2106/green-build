@@ -12,7 +12,9 @@ ext {
             'supportLibrary': '27.1.0',
             'buildTools'    : '27.0.3',
             'compileSdk'    : 27,
-            'espresso'      : '3.0.1'
+            'espresso'      : '3.0.1',
+            'okHttp'        : "3.10.0",
+            'retrofit'      : "2.3.0"
     ]
 
     packageExcludes = {

@@ -40,7 +40,7 @@ class MockServerManager : Closeable {
     fun getResponsesPath(): String {
 
         if (System.getenv("CI") == "true") {
-            return "/bitrise/src/test-utils/src/main/res/raw"
+            return "/home/travis/kevalpatel2106/green-build/testutils/src/main/res/raw"
         }
 
         @Suppress("UselessCallOnNotNull")
@@ -48,12 +48,12 @@ class MockServerManager : Closeable {
             if (it.isNullOrEmpty()) {
                 System.getenv("PROJECT_ROOT")
             } else {
-                it.substring(0 until it.lastIndexOf("Stand-Up"))
-                        .plus("Stand-Up")
+                it.substring(0 until it.lastIndexOf("green-build"))
+                        .plus("green-build")
             }
         }
 
-        return "$rootDirPath/test-utils/src/main/res/raw"
+        return "$rootDirPath/testutils/src/main/res/raw"
     }
 
     /**
