@@ -27,7 +27,7 @@ android {
             shrinkResources true
             pseudoLocalesEnabled false
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), './proguard-rules.pro'
         }
     }
 }

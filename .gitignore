@@ -11,11 +11,8 @@
 
 ## Generated files and folders
 *.exec
-/reports
-/responses/
 /projectFilesBackup*/
 /ajcore.*.txt
-/output/
 
 ## idea files
 /.idea/workspace.xml

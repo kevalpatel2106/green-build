@@ -12,9 +12,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
@@ -34,6 +31,9 @@ allprojects {
         jcenter()
     }
 
+    apply plugin: 'org.jetbrains.dokka-android'
+    dokka dokkaConfig
+
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -43,7 +43,6 @@ allprojects {
 
 subprojects {
     afterEvaluate { project ->
-        apply plugin: 'org.jetbrains.dokka-android'
         apply from: "${project.rootDir}/config.gradle"
 
         if (project.hasProperty("android")) {   //All the android projects
@@ -75,8 +74,6 @@ subprojects {
                 adbOptions adbOption
             }
 
-            dokka dokkaConfig
-
             //Common dependencies
             dependencies{
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
@@ -96,6 +93,7 @@ subprojects {
             sourceSets {
                 main.java.srcDirs += 'src/main/java'
                 test.java.srcDirs += 'src/test/java'
+                test.java.srcDirs += 'src/androidTest/java'
             }
         }
     }

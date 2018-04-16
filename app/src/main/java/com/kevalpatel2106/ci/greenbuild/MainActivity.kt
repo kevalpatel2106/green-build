@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity
 
 /**
  * Main activity.
+ *
+ * @author [Kevalpatel2106](https://github.com/kevalpatel2106)
  */
 class MainActivity : AppCompatActivity() {
 
