@@ -1,20 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-android {
-
-    android {
-        compileSdkVersion versions.compileSdk
-        buildToolsVersion versions.buildTools
-        defaultConfig libDefaultConfig
-        packagingOptions packageExcludes
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,29 +8,50 @@
     tools:context=".AuthenticationActivity">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/authentication_token_til"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleContentDescription="Toggle password visibility"
-        app:errorEnabled="true"
+        android:layout_marginTop="16dp"
         app:counterEnabled="true"
         app:counterMaxLength="22"
-        app:hintEnabled="true"
+        app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/authentication_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:passwordToggleContentDescription="Toggle password visibility"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/white">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/authentication_token_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter access token"/>
+            android:hint="@string/authentication_hint_enter_access_token"
+            android:inputType="textPassword"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"/>
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/authentication_btn"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/authentication_hint_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authentication_token_til"/>
 
 </android.support.constraint.ConstraintLayout>

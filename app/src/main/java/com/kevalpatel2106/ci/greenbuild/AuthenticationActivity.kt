@@ -8,8 +8,11 @@
 
 package com.kevalpatel2106.ci.greenbuild
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_authentication.*
 
 /**
  * Main activity.
@@ -21,5 +24,8 @@ class AuthenticationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
+
+        authentication_token_et.background.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+
     }
 }

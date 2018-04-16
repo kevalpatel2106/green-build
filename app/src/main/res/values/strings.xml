@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Green Build</string>
+    <string name="authentication_hint_enter_access_token">Enter access token</string>
+    <string name="authentication_hint_login">Login</string>
 </resources>

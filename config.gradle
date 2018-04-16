@@ -43,7 +43,7 @@ ext {
     }
 
     defaultAppConfig = {
-        multiDexEnabled true
+        multiDexEnabled false
 
         applicationId "com.kevalpatel2106.ci.greenbuild"
 
@@ -70,6 +70,8 @@ ext {
         //Versions config
         versionCode 1
         versionName "1.0"
+
+        consumerProguardFiles '../proguard-rules.pro'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
