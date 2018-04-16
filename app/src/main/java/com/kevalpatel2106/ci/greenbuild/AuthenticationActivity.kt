@@ -16,10 +16,10 @@ import android.support.v7.app.AppCompatActivity
  *
  * @author [Kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class MainActivity : AppCompatActivity() {
+class AuthenticationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_authentication)
     }
 }

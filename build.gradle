@@ -45,6 +45,7 @@ subprojects {
     afterEvaluate { project ->
         apply from: "${project.rootDir}/config.gradle"
 
+        if (project.name == "testutils") return
         if (project.hasProperty("android")) {   //All the android projects
 
             //Apply all the common plugins here.
@@ -75,7 +76,7 @@ subprojects {
             }
 
             //Common dependencies
-            dependencies{
+            dependencies {
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
                 implementation 'androidx.core:core-ktx:0.3'
                 implementation 'com.jakewharton.timber:timber:4.7.0'
@@ -85,8 +86,17 @@ subprojects {
 
                 // Test dependency
                 testImplementation 'junit:junit:4.12'
-                androidTestImplementation 'com.android.support.test:runner:1.0.1'
-                androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+                testImplementation "com.android.support.test:rules:1.0.2-alpha1"
+                testImplementation 'com.android.support.test:runner:1.0.1'
+                testImplementation "com.squareup.okhttp3:mockwebserver:3.10.0"
+                testImplementation "org.mockito:mockito-core:2.15.0"
+                testImplementation "org.robolectric:robolectric:3.8"
+                androidTestImplementation "com.squareup.okhttp3:mockwebserver:3.10.0"
+                androidTestImplementation "com.android.support.test.espresso:espresso-core:${versions.espresso}"
+                androidTestImplementation "com.android.support.test.espresso:espresso-intents:${versions.espresso}"
+                androidTestImplementation "com.android.support.test.espresso:espresso-contrib:${versions.espresso}"
+                androidTestImplementation "com.android.support.test.espresso:espresso-idling-resource:${versions.espresso}"
+                androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:2.1.3"
             }
 
             //https://stackoverflow.com/a/35815235/4690731

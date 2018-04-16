@@ -11,7 +11,8 @@ ext {
             'kotlin'        : '1.2.31',
             'supportLibrary': '27.1.1',
             'buildTools'    : '27.0.3',
-            'compileSdk'    : 27
+            'compileSdk'    : 27,
+            'espresso'      : '3.0.1'
     ]
 
     packageExcludes = {
@@ -112,7 +113,7 @@ ext {
         }
     }
 
-    jacocoAndroidUnitTestReportConfig =  {
+    jacocoAndroidUnitTestReportConfig = {
         csv.enabled true
         html.enabled true
         xml.enabled false

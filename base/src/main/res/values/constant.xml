@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~  Copyright 2018 Keval Patel.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+<resources>
+    <!--Application support parameters-->
+    <string name="support_email">standupsupport@gmail.com</string>
+    <string name="invitation_deep_link">https://r3pqj.app.goo.gl/KPoa</string>
+
+    <!--Author social detail-->
+    <string name="about_author_github_subtitle">github.com/kevalpatel2106</string>
+    <string name="about_author_twitter_subtitle">\@kevalpatel2106</string>
+    <string name="about_author_name_subtitle">kevalpatel2106</string>
+    <string name="author_twitter_profile_link">https://r3pqj.app.goo.gl/GZGa</string>
+    <string name="author_github">https://r3pqj.app.goo.gl/TYCN</string>
+
+    <!--Application social details-->
+    <string name="about_app_twitter_subtitle">\@standupapp</string>
+    <string name="slack_channel_url">https://stand-up-opensource.slack.com</string>
+    <string name="play_store_app_url">https://r3pqj.app.goo.gl/jdF1</string>
+    <string name="rate_app_url">https://r3pqj.app.goo.gl/jdF1</string>
+    <string name="join_slack_url">https://r3pqj.app.goo.gl/EawQ</string>
+    <string name="join_stand_up_twitter">https://r3pqj.app.goo.gl/7pFR</string>
+
+    <!--Paypal me links-->
+    <string name="donate_2_dollar_link">https://r3pqj.app.goo.gl/d9HP</string>
+    <string name="donate_5_dollar_link">https://r3pqj.app.goo.gl/Y5G9</string>
+    <string name="donate_10_dollar_link">https://r3pqj.app.goo.gl/wTxk</string>
+    <string name="donate_20_dollar_link">https://r3pqj.app.goo.gl/9tGa</string>
+</resources>
