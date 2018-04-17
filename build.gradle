@@ -93,9 +93,19 @@ subprojects {
                 implementation "com.android.support:support-annotations:${versions.supportLibrary}"
                 implementation "com.android.support:support-v4:${versions.supportLibrary}"
 
+                //Arch
+                implementation "android.arch.lifecycle:common-java8:${versions.archComponent}"
+                implementation "android.arch.lifecycle:extensions:${versions.archComponent}"
 
                 // Test dependency
                 if (project.name != "testutils") {
+                    //Dagger dependencies
+                    implementation "com.google.dagger:dagger-android:${versions.daggerVersion}"
+                    implementation "com.google.dagger:dagger-android-support:${versions.daggerVersion}"
+                    kapt "com.google.dagger:dagger-android-processor:${versions.daggerVersion}"
+                    kapt "com.google.dagger:dagger-compiler:${versions.daggerVersion}"
+                    compileOnly "javax.annotation:jsr250-api:1.0"
+
                     testImplementation 'junit:junit:4.12'
                     testImplementation "com.android.support.test:rules:1.0.2-alpha1"
                     testImplementation "com.android.support.test:monitor:1.0.2-alpha1"
@@ -103,6 +113,7 @@ subprojects {
                     testImplementation "com.squareup.okhttp3:mockwebserver:${versions.okHttp}"
                     testImplementation "org.mockito:mockito-core:2.15.0"
                     testImplementation "org.robolectric:robolectric:3.8"
+
                     androidTestImplementation "com.squareup.okhttp3:mockwebserver:${versions.okHttp}"
                     androidTestImplementation "com.android.support.test.espresso:espresso-core:${versions.espresso}"
                     androidTestImplementation "com.android.support.test.espresso:espresso-intents:${versions.espresso}"

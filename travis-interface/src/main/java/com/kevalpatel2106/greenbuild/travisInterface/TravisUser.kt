@@ -62,13 +62,14 @@ internal data class TravisUser(
     /**
      * Convert this [TravisUser] to [Account].
      */
-    internal fun getAccount(serverUrl: String): Account {
+    internal fun getAccount(serverUrl: String, accessToken: String): Account {
         return Account(
                 userId = id.toString(),
                 username = login,
                 name = name,
                 avatarUrl = avatarUrl,
-                serverUrl = serverUrl
+                serverUrl = serverUrl,
+                accessToken = accessToken
         )
     }
 }

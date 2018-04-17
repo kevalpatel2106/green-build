@@ -12,23 +12,31 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild
+package com.kevalpatel2106.ci.greenbuild.base.application
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.app.Application
+import android.content.Context
+import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.utils.SharedPrefsProvider
+import dagger.Component
 
 /**
- * This [AppCompatActivity] will take the API access token and validate the token by calling for the
- * user profile. If the token is valid, application will redirect the user to display the list of
- * travis repository.
+ * Created by Kevalpatel2106 on 17-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class TravisAuthenticationActivity : AppCompatActivity() {
+@Component(modules = [ApplicationModule::class])
+interface ApplicationComponent {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authentication)
+    fun inject(application: BaseApplication)
 
-    }
+    fun getContext(): Context
+
+    fun getApplication(): Application
+
+    fun getBaseApplication(): BaseApplication
+
+    fun getAccountManager(): AccountsManager
+
+    fun getSharedPrefsManager(): SharedPrefsProvider
 }

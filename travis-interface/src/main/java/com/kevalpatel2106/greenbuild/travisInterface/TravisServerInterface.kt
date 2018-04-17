@@ -64,7 +64,7 @@ class TravisServerInterface(private val baseUrl: String,
     override fun getMyAccount(): Observable<Account> {
         return travisEndpoints
                 .getMyProfile()
-                .map { it.getAccount(baseUrl) }
+                .map { it.getAccount(baseUrl, accessToken) }
     }
 
 }

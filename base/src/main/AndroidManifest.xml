@@ -12,4 +12,60 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.kevalpatel2106.ci.greenbuild.base" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.kevalpatel2106.ci.greenbuild.base">
+
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:maxSdkVersion="22"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission
+        android:name="android.permission.MANAGE_ACCOUNTS"
+        android:maxSdkVersion="22"/>
+
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+
+    <application>
+        <!--
+       This service implements our SyncAdapter. It needs to be exported, so that the system
+       sync framework can access it.
+       -->
+        <service
+            android:name=".account.SyncService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+
+            <!--
+            This intent filter is required. It allows the system to launch our sync service
+            as needed.
+            -->
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <!-- This points to a required XML file which describes our SyncAdapter. -->
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter"/>
+        </service>
+        <service
+            android:name=".account.AccountAuthenticatorService"
+            android:exported="false"
+            android:process=":auth">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
+        </service>
+
+        <provider
+            android:name=".account.StubContentProvider"
+            android:authorities="@string/sync_adapter_account_authority"
+            android:exported="false"
+            android:label="GitClient"
+            android:syncable="true"/>
+    </application>
+</manifest>

@@ -47,22 +47,22 @@ data class Account(
         /**
          * Base url off the CI server. Using URL, application can identify which endpoint to call.
          */
-        val serverUrl: String
+        val serverUrl: String,
+
+        /**
+         * URL of the user's avatar image.
+         */
+        var accessToken: String
 ) : Parcelable {
 
     /**
      * Unique local id of the user account that is assures that no two account from different ci providers
      * have the same [accountId].
      */
-    val accountId: String = preppareAccountId(userId, serverUrl)
-
-
-    /**
-     * URL of the user's avatar image.
-     */
-    var accessToken: String? = null
+    val accountId: String = prepareAccountId(userId, serverUrl)
 
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -98,7 +98,7 @@ data class Account(
     }
 
     companion object CREATOR : Parcelable.Creator<Account> {
-        fun preppareAccountId(userId: String, serverUrl: String): String = "$userId-$serverUrl"
+        fun prepareAccountId(userId: String, serverUrl: String): String = "$userId-$serverUrl"
 
         override fun createFromParcel(parcel: Parcel): Account {
             return Account(parcel)
