@@ -1,10 +1,10 @@
 ---
-title: com.kevalpatel2106.ci.greenbuild.base.progressButton - base
+title: com.kevalpatel2106.ci.greenbuild.base.view.progressButton - base
 ---
 
-[base](../index.html) / [com.kevalpatel2106.ci.greenbuild.base.progressButton](./index.html)
+[base](../index.html) / [com.kevalpatel2106.ci.greenbuild.base.view.progressButton](./index.html)
 
-## Package com.kevalpatel2106.ci.greenbuild.base.progressButton
+## Package com.kevalpatel2106.ci.greenbuild.base.view.progressButton
 
 ### Types
 

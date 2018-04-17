@@ -26,3 +26,6 @@
 /.idea/inspectionProfiles/
 /.idea/misc.xml
 /.idea/vcs.xml
+/.idea/gradle.xml
+/.idea/checkstyle-idea.xml
+/.idea/findbugs-idea.xml

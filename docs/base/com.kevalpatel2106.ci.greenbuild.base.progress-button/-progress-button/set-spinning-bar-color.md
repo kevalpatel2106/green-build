@@ -2,7 +2,7 @@
 title: ProgressButton.setSpinningBarColor - base
 ---
 
-[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.progressButton](../index.html) / [ProgressButton](index.html) / [setSpinningBarColor](./set-spinning-bar-color.html)
+[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.view.progressButton](../index.html) / [ProgressButton](index.html) / [setSpinningBarColor](./set-spinning-bar-color.html)
 
 # setSpinningBarColor
 

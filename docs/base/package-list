@@ -12,7 +12,7 @@ $dokka.location:com.kevalpatel2106.ci.greenbuild.base.utils$showToast(android.co
 $dokka.location:com.kevalpatel2106.ci.greenbuild.base.utils$toFloatSafe(kotlin.String)com.kevalpatel2106.ci.greenbuild.base.utils/kotlin.-string/to-float-safe.html
 $dokka.location:com.kevalpatel2106.ci.greenbuild.base.utils$toIntSafe(kotlin.String)com.kevalpatel2106.ci.greenbuild.base.utils/kotlin.-string/to-int-safe.html
 $dokka.location:com.kevalpatel2106.ci.greenbuild.base.utils$vibrate(android.content.Context, kotlin.Long)com.kevalpatel2106.ci.greenbuild.base.utils/android.content.-context/vibrate.html
-com.kevalpatel2106.ci.greenbuild.base.progressButton
+com.kevalpatel2106.ci.greenbuild.base.view.progressButton
 com.kevalpatel2106.ci.greenbuild.base.utils
 com.kevalpatel2106.ci.greenbuild.base.view
 com.kevalpatel2106.common.view

@@ -2,7 +2,7 @@
 title: ProgressButton.setPaddingProgress - base
 ---
 
-[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.progressButton](../index.html) / [ProgressButton](index.html) / [setPaddingProgress](./set-padding-progress.html)
+[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.view.progressButton](../index.html) / [ProgressButton](index.html) / [setPaddingProgress](./set-padding-progress.html)
 
 # setPaddingProgress
 

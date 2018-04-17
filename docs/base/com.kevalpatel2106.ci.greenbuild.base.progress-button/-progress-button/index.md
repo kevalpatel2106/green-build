@@ -2,7 +2,7 @@
 title: ProgressButton - base
 ---
 
-[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.progressButton](../index.html) / [ProgressButton](./index.html)
+[base](../../index.html) / [com.kevalpatel2106.ci.greenbuild.base.view.progressButton](../index.html) / [ProgressButton](./index.html)
 
 # ProgressButton
 
