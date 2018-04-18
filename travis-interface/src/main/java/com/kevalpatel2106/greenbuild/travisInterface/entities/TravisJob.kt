@@ -12,14 +12,15 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.greenbuild.travisInterface.entities
 
-/**
- * Created by Keval on 18/04/18.
- *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
- */
-data class Page<T>(
-        val list: ArrayList<T>,
-        val hasNext: Boolean
+import com.google.gson.annotations.SerializedName
+
+
+data class TravisJob(
+        @field:SerializedName("id")
+        val id: Int? = null,
+
+        @field:SerializedName("@href")
+        val href: String? = null
 )

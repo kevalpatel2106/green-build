@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
 import dagger.Binds
 import dagger.Module
@@ -45,4 +46,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(RepoListViewModel::class)
     internal abstract fun bindRepoListViewModel(viewModel: RepoListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BuildsListViewModel::class)
+    internal abstract fun bindBuildListViewModel(viewModel: BuildsListViewModel): ViewModel
 }

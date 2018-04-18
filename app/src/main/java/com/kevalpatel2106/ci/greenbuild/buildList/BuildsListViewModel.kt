@@ -12,14 +12,14 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.repoList
+package com.kevalpatel2106.ci.greenbuild.buildList
 
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -29,23 +29,23 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
+class BuildsListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
 
-    internal val repoList = MutableLiveData<ArrayList<Repo>>()
+    internal val buildsList = MutableLiveData<ArrayList<Build>>()
 
     internal val errorLoadingList = SingleLiveEvent<String>()
 
     init {
-        repoList.value = ArrayList()
+        buildsList.value = ArrayList()
     }
 
-    fun loadRepoList() {
-        serverInterface.getRepoList(1, RepoSortBy.NAME_ASC, false)
+    fun loadBuildsList(repoId: String) {
+        serverInterface.getBuildList(1, repoId, BuildSortBy.FINISHED_AT_DESC)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    repoList.value!!.addAll(it.list)
-                    repoList.value = repoList.value
+                    buildsList.value!!.addAll(it.list)
+                    buildsList.value = buildsList.value
                 }, {
                     errorLoadingList.value = it.message
                 })

@@ -12,34 +12,16 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
 
 /**
  * Created by Keval on 18/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-data class Repo(
-
-        val id: String,
-
-        val name: String,
-
-        val description: String? = null,
-
-        val isPrivate: Boolean,
-
-        val isEnabledForCi: Boolean,
-
-        val language: String? = null,
-
-        val owner: Owner,
-
-        val defaultBranch: String? = null
-) {
-
-    data class Owner(
-            val name: String,
-            val avatar: String? = null
-    )
+enum class BuildSortBy {
+    STARTED_AT_ASC,
+    STARTED_AT_DESC,
+    FINISHED_AT_ASC,
+    FINISHED_AT_DESC
 }

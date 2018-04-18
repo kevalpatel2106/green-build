@@ -12,14 +12,28 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
 
 /**
- * Created by Keval on 18/04/18.
+ * Created by Kevalpatel2106 on 18-Apr-18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-data class Page<T>(
-        val list: ArrayList<T>,
-        val hasNext: Boolean
+data class Build(
+
+        val id: Long,
+
+        val number: String,
+
+        val duration: Int,
+
+        val state: String,
+
+        val startedAt: String? = null,
+
+        val finishedAt: String? = null,
+
+        val branchName: String? = null,
+
+        val eventType: String
 )

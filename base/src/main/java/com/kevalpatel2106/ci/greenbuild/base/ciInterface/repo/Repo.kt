@@ -12,14 +12,34 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo
 
 /**
  * Created by Keval on 18/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-data class Page<T>(
-        val list: ArrayList<T>,
-        val hasNext: Boolean
-)
+data class Repo(
+
+        val id: String,
+
+        val name: String,
+
+        val description: String? = null,
+
+        val isPrivate: Boolean,
+
+        val isEnabledForCi: Boolean,
+
+        val language: String? = null,
+
+        val owner: Owner,
+
+        val defaultBranch: String? = null
+) {
+
+    data class Owner(
+            val name: String,
+            val avatar: String? = null
+    )
+}

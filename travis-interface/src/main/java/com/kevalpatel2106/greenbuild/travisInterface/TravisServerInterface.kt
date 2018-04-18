@@ -16,9 +16,12 @@ package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.SortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
 import io.reactivex.Observable
 
@@ -36,6 +39,9 @@ class TravisServerInterface(private val baseUrl: String,
             .create(TravisEndpoints::class.java)
 
     companion object {
+
+        const val PAGE_SIZE = 20
+
         /**
          * Get [TravisServerInterface] for travis-ci.org.
          */
@@ -59,10 +65,10 @@ class TravisServerInterface(private val baseUrl: String,
 
     /**
      * Get the information of the user based on the [accessToken] provided. This method will use
-     * [TravisEndpoints.getMyProfile] endpoint to get the user information in [TravisUser] object.
-     * Once the object is received, [TravisUser] will be converted to [Account].
+     * [TravisEndpoints.getMyProfile] endpoint to get the user information in [ResponseMyAccount] object.
+     * Once the object is received, [ResponseMyAccount] will be converted to [Account].
      *
-     * @see [TravisUser.getAccount]
+     * @see [ResponseMyAccount.getAccount]
      */
     override fun getMyAccount(): Observable<Account> {
         return travisEndpoints
@@ -71,24 +77,25 @@ class TravisServerInterface(private val baseUrl: String,
     }
 
     override fun getRepoList(page: Int,
-                             sortBy: SortBy,
-                             showOnlyPrivate: Boolean): Observable<Page<ArrayList<Repo>>> {
+                             repoSortBy: RepoSortBy,
+                             showOnlyPrivate: Boolean): Observable<Page<Repo>> {
 
-        val sortByQuery = when (sortBy) {
-            SortBy.NAME_ASC -> "name"
-            SortBy.NAME_DESC -> "name:desc"
-            SortBy.LAST_BUILD_TIME_ASC -> "default_branch.last_build"
-            SortBy.LAST_BUILD_TIME_DESC -> "default_branch.last_build:desc"
+        val sortByQuery = when (repoSortBy) {
+            RepoSortBy.NAME_ASC -> "name"
+            RepoSortBy.NAME_DESC -> "name:desc"
+            RepoSortBy.LAST_BUILD_TIME_ASC -> "default_branch.last_build"
+            RepoSortBy.LAST_BUILD_TIME_DESC -> "default_branch.last_build:desc"
         }
 
         return travisEndpoints
                 .getMyRepos(
                         sortBy = sortByQuery,
                         onlyActive = true,
+                        offset = (page - 1) * PAGE_SIZE,
                         onlyPrivate = showOnlyPrivate
                 ).map {
                     val repoList = ArrayList<Repo>(it.repositories.size)
-                    it.repositories.forEach { repoList.add(it.toReop()) }
+                    it.repositories.forEach { repoList.add(it.toRepo()) }
                     return@map Page(
                             hasNext = !it.pagination.isLast,
                             list = repoList
@@ -96,4 +103,39 @@ class TravisServerInterface(private val baseUrl: String,
                 }
     }
 
+    override fun getBuildList(page: Int,
+                              repoId: String,
+                              repoSortBy: BuildSortBy,
+                              buildState: BuildState?): Observable<Page<Build>> {
+        val sortByQuery = when (repoSortBy) {
+            BuildSortBy.STARTED_AT_ASC -> "started_at"
+            BuildSortBy.STARTED_AT_DESC -> "started_at:desc"
+            BuildSortBy.FINISHED_AT_ASC -> "finished_at"
+            BuildSortBy.FINISHED_AT_DESC -> "finished_at:desc"
+        }
+
+        val state = when (buildState) {
+            BuildState.CANCELED -> "canceled"
+            BuildState.PASSED -> "passed"
+            BuildState.RUNNING -> "running"
+            BuildState.FAILED -> "failed"
+            BuildState.ABORTED -> "aborted"
+            null -> null
+        }
+
+        return travisEndpoints
+                .getBuildsForRepo(
+                        sortBy = sortByQuery,
+                        offset = (page - 1) * PAGE_SIZE,
+                        repoId = repoId,
+                        state = state
+                ).map {
+                    val buildList = ArrayList<Build>(it.builds.size)
+                    it.builds.forEach { buildList.add(it.toBuild()) }
+                    return@map Page(
+                            hasNext = !it.pagination.isLast,
+                            list = buildList
+                    )
+                }
+    }
 }

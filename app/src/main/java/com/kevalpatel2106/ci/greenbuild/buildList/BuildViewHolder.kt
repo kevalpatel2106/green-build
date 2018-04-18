@@ -12,24 +12,33 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.repoList
+package com.kevalpatel2106.ci.greenbuild.buildList
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
 
 /**
  * Created by Keval on 18/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoListAdapter(private val repoList: ArrayList<Repo>)
-    : RecyclerView.Adapter<RepoViewHolder>() {
+class BuildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder = RepoViewHolder.create(parent)
+    companion object {
 
-    override fun getItemCount(): Int = repoList.size
+        fun create(parent: ViewGroup): BuildViewHolder {
+            return BuildViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.row_builds_list, parent, false))
+        }
+    }
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) = holder.bind(repoList[position])
+    fun bind(build: Build) {
+        itemView.findViewById<BaseTextView>(R.id.build_number_tv).text = build.number
+    }
 
 }

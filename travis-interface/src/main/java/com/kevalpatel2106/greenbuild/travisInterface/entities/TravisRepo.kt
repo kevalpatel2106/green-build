@@ -12,17 +12,15 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface
+package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Repo
-import javax.annotation.Generated
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 
-@Generated("com.robohorse.robopojogenerator")
 internal data class TravisRepo(
 
         @field:SerializedName("owner")
-        val owner: Owner,
+        val owner: TravisAuthor,
 
         @field:SerializedName("private")
         val isPrivate: Boolean,
@@ -40,13 +38,13 @@ internal data class TravisRepo(
         val starred: Boolean? = null,
 
         @field:SerializedName("@permissions")
-        val permissions: Permissions? = null,
+        val permissions: RepoPermissions? = null,
 
         @field:SerializedName("name")
         val name: String,
 
         @field:SerializedName("default_branch")
-        val defaultBranch: DefaultBranch? = null,
+        val defaultBranch: TravisBranch? = null,
 
         @field:SerializedName("id")
         val id: Int,
@@ -58,7 +56,7 @@ internal data class TravisRepo(
         val githubLanguage: String? = null
 ) {
 
-    internal fun toReop(): Repo {
+    internal fun toRepo(): Repo {
         return Repo(
                 id = id.toString(),
                 name = name,
@@ -74,7 +72,7 @@ internal data class TravisRepo(
         )
     }
 
-    internal data class Permissions(
+    internal data class RepoPermissions(
 
             @field:SerializedName("unstar")
             val unstar: Boolean,
@@ -108,26 +106,5 @@ internal data class TravisRepo(
 
             @field:SerializedName("deactivate")
             val deactivate: Boolean
-    )
-
-    internal data class DefaultBranch(
-
-            @field:SerializedName("name")
-            val name: String,
-
-            @field:SerializedName("@href")
-            val href: String? = null
-    )
-
-    internal data class Owner(
-
-            @field:SerializedName("id")
-            val id: Int,
-
-            @field:SerializedName("login")
-            val login: String,
-
-            @field:SerializedName("@href")
-            val href: String
     )
 }

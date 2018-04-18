@@ -15,6 +15,11 @@
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
 import io.reactivex.Observable
 
 /**
@@ -43,9 +48,19 @@ abstract class ServerInterface(protected val accessToken: String) {
      */
     abstract fun getRepoList(
             page: Int,
-            sortBy: SortBy,
+            repoSortBy: RepoSortBy,
             showOnlyPrivate: Boolean
-    ): Observable<Page<ArrayList<Repo>>>
+    ): Observable<Page<Repo>>
+
+    /**
+     * Get the list of [Build] for the given [Repo].
+     */
+    abstract fun getBuildList(
+            page: Int,
+            repoId: String,
+            repoSortBy: BuildSortBy,
+            buildState: BuildState? = null
+    ): Observable<Page<Build>>
 
 
     companion object {

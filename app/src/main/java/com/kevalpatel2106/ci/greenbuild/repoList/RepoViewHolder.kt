@@ -19,8 +19,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
 
 /**
  * Created by Keval on 18/04/18.
@@ -39,6 +40,9 @@ class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(repo: Repo) {
         itemView.findViewById<BaseTextView>(R.id.repo_title_tv).text = repo.name
+        itemView.setOnClickListener {
+            BuildListActivity.launch(itemView.context, repo.id)
+        }
     }
 
 }

@@ -12,14 +12,24 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.buildList
+
+import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 
 /**
  * Created by Keval on 18/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-data class Page<T>(
-        val list: ArrayList<T>,
-        val hasNext: Boolean
-)
+class BuildListAdapter(private val buildsList: ArrayList<Build>)
+    : RecyclerView.Adapter<BuildViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder = BuildViewHolder.create(parent)
+
+    override fun getItemCount(): Int = buildsList.size
+
+    override fun onBindViewHolder(holder: BuildViewHolder, position: Int) = holder.bind(buildsList[position])
+
+}

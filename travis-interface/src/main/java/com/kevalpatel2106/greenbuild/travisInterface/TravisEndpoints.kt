@@ -14,9 +14,14 @@
 
 package com.kevalpatel2106.greenbuild.travisInterface
 
+import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface.Companion.PAGE_SIZE
+import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseBuildsForRepo
+import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyAccount
+import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyRepo
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -34,14 +39,25 @@ internal interface TravisEndpoints {
      */
     @GET("user")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
-    fun getMyProfile(): Observable<TravisUser>
+    fun getMyProfile(): Observable<ResponseMyAccount>
 
     @GET("repos")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getMyRepos(
             @Query("sort_by") sortBy: String,
-            @Query("limit") limit: Int = 20,
+            @Query("limit") limit: Int = PAGE_SIZE,
+            @Query("offset") offset: Int,
             @Query("active") onlyActive: Boolean = false,
             @Query("private") onlyPrivate: Boolean = false
-    ): Observable<TravisMyRepo>
+    ): Observable<ResponseMyRepo>
+
+    @GET("repo/{repoId}/builds")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getBuildsForRepo(
+            @Path("repoId") repoId: String,
+            @Query("limit") limit: Int = PAGE_SIZE,
+            @Query("offset") offset: Int,
+            @Query("sort_by") sortBy: String,
+            @Query("state") state: String? = null
+    ): Observable<ResponseBuildsForRepo>
 }

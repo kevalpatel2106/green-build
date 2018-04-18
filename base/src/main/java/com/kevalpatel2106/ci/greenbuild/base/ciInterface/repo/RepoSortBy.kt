@@ -12,14 +12,16 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo
 
 /**
  * Created by Keval on 18/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-data class Page<T>(
-        val list: ArrayList<T>,
-        val hasNext: Boolean
-)
+enum class RepoSortBy {
+    NAME_ASC,
+    NAME_DESC,
+    LAST_BUILD_TIME_ASC,
+    LAST_BUILD_TIME_DESC
+}
