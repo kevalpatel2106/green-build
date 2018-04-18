@@ -12,16 +12,19 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.greenbuild.travisInterface.entities
+
+import com.google.gson.annotations.SerializedName
 
 /**
- * Created by Keval on 18/04/18.
+ * Created by Kevalpatel2106 on 18-Apr-18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-enum class SortBy {
-    NAME_ASC,
-    NAME_DESC,
-    LAST_BUILD_TIME_ASC,
-    LAST_BUILD_TIME_DESC
-}
+data class TravisTag(
+        @field:SerializedName("repository_id")
+        val repoId: Int,
+
+        @field:SerializedName("name")
+        val tagName: String
+)

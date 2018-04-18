@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="build_list_branch_name_color">#f57c00</color>
-
-    <color name="build_running">#fbc02d</color>
-    <color name="build_passed">#388e3c</color>
-    <color name="build_failed">#d32f2f</color>
-    <color name="build_canceled">#d32f2f</color>
-    <color name="build_aborted">#455a64</color>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportHeight="1024"
+        android:viewportWidth="896">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M694.88,448C666.38,337.78 567.13,256 448,256c-119.09,0 -218.38,81.78 -246.91,192H0v128h201.09C229.63,686.25 328.91,768 448,768c119.13,0 218.38,-81.75 246.88,-192H896V448H694.88zM448,640c-70.66,0 -128,-57.38 -128,-128 0,-70.66 57.34,-128 128,-128 70.63,0 128,57.34 128,128C576,582.63 518.63,640 448,640z"/>
+</vector>

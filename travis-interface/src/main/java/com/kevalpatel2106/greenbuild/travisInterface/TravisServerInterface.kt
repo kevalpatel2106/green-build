@@ -40,8 +40,6 @@ class TravisServerInterface(private val baseUrl: String,
 
     companion object {
 
-        const val PAGE_SIZE = 20
-
         /**
          * Get [TravisServerInterface] for travis-ci.org.
          */

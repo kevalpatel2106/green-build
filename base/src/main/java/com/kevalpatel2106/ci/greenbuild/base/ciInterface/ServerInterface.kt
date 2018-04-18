@@ -64,6 +64,7 @@ abstract class ServerInterface(protected val accessToken: String) {
 
 
     companion object {
+        const val PAGE_SIZE = 20
 
         //List of common ci server base urls
         /**

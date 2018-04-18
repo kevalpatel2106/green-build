@@ -12,12 +12,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="build_list_branch_name_color">#f57c00</color>
-
-    <color name="build_running">#fbc02d</color>
-    <color name="build_passed">#388e3c</color>
-    <color name="build_failed">#d32f2f</color>
-    <color name="build_canceled">#d32f2f</color>
-    <color name="build_aborted">#455a64</color>
-</resources>
+<ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/list_loading_progressbar_dimen"
+             android:layout_gravity="center"/>

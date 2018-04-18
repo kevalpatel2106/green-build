@@ -24,18 +24,23 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_build_list.*
 import javax.inject.Inject
 
-class BuildListActivity : AppCompatActivity() {
+class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
     private lateinit var model: BuildsListViewModel
+
+    private lateinit var repoId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +57,7 @@ class BuildListActivity : AppCompatActivity() {
 
         //Set the adapter
         builds_list_rv.layoutManager = LinearLayoutManager(this@BuildListActivity)
-        builds_list_rv.adapter = BuildListAdapter(model.buildsList.value!!)
+        builds_list_rv.adapter = BuildListAdapter(this@BuildListActivity, model.buildsList.value!!, this)
         builds_list_rv.itemAnimator = DefaultItemAnimator()
 
         model.buildsList.observe(this@BuildListActivity, Observer {
@@ -63,6 +68,12 @@ class BuildListActivity : AppCompatActivity() {
             it?.let { showSnack(it) }
         })
 
+        model.isLoadingList.observe(this@BuildListActivity, Observer {
+            it?.let { builds_list_refresher.isRefreshing = it }
+        })
+
+        builds_list_refresher.setOnRefreshListener { model.loadBuildsList(repoId, 1) }
+
         onNewIntent(intent)
     }
 
@@ -72,9 +83,13 @@ class BuildListActivity : AppCompatActivity() {
         with(intent.getStringExtra(ARG_REPO_ID)) {
             if (this == null)
                 throw IllegalArgumentException("No repo id available.")
-
-            model.loadBuildsList(this)
+            repoId = this
         }
+        model.loadBuildsList(repoId, 1)
+    }
+
+    override fun onPageComplete(pos: Int) {
+        model.loadBuildsList(repoId, pos % ServerInterface.PAGE_SIZE)
     }
 
     companion object {

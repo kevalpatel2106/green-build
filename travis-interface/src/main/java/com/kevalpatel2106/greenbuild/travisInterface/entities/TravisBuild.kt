@@ -16,6 +16,8 @@ package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
 
 
 internal data class TravisBuild(
@@ -42,7 +44,7 @@ internal data class TravisBuild(
         val jobs: List<TravisJob>? = null,
 
         @field:SerializedName("commit")
-        val commit: TravisCommit? = null,
+        val commit: TravisCommit,
 
         @field:SerializedName("repository")
         val repository: TravisRepo,
@@ -71,6 +73,9 @@ internal data class TravisBuild(
         @field:SerializedName("@permissions")
         val permissions: BuildPermissions,
 
+        @field:SerializedName("tag")
+        val tag: TravisTag? = null,
+
         @field:SerializedName("started_at")
         val startedAt: String? = null
 ) {
@@ -78,14 +83,47 @@ internal data class TravisBuild(
     fun toBuild(): Build {
         return Build(
                 id = id.toLong(),
-                state = state,
+                state = getBuildState(state),
                 branchName = branch.name,
                 duration = duration,
-                eventType = eventType,
+                eventType = getEventType(eventType),
                 number = number,
                 finishedAt = finishedAt,
-                startedAt = startedAt
+                startedAt = startedAt,
+                previousState = previousState,
+                author = Build.Author(
+                        id = createdBy.id.toString(),
+                        username = createdBy.login
+                ),
+                branch = Build.Branch(
+                        name = branch.name
+                ),
+                commit = Build.Commit(
+                        committedAt = commit.committedAt,
+                        message = commit.message,
+                        sha = commit.sha,
+                        tagName = tag?.tagName
+                )
         )
+    }
+
+    private fun getEventType(eventType: String): EventType {
+        return when (eventType) {
+            "push" -> EventType.PUSH
+            "pull_request" -> EventType.PULL_REQUEST
+            else -> throw IllegalArgumentException("Invalid trigger event type: $eventType")
+        }
+    }
+
+    private fun getBuildState(buildState: String): BuildState {
+        return when (buildState.toLowerCase().trim()) {
+            "failed" -> BuildState.FAILED
+            "passed" -> BuildState.PASSED
+            "aborted" -> BuildState.ABORTED
+            "canceled" -> BuildState.CANCELED
+            "running" -> BuildState.RUNNING
+            else -> throw IllegalArgumentException("Invalid build state: $buildState")
+        }
     }
 
     data class BuildPermissions(

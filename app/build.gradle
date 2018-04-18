@@ -52,4 +52,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${versions.supportLibrary}"
     implementation "com.android.support:design:${versions.supportLibrary}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

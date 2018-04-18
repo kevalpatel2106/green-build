@@ -14,8 +14,10 @@
 
 package com.kevalpatel2106.ci.greenbuild.buildList
 
-import android.support.v7.widget.RecyclerView
+import android.content.Context
 import android.view.ViewGroup
+import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 
 /**
@@ -23,13 +25,25 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class BuildListAdapter(private val buildsList: ArrayList<Build>)
-    : RecyclerView.Adapter<BuildViewHolder>() {
+class BuildListAdapter(
+        context: Context,
+        buildsList: ArrayList<Build>,
+        listener: PageRecyclerViewAdapter.RecyclerViewListener<Build>)
+    : PageRecyclerViewAdapter<BuildViewHolder, Build>(context, buildsList, listener) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder = BuildViewHolder.create(parent)
+    override fun bindView(holder: BuildViewHolder, item: Build) {
+        holder.bind(item)
+    }
 
-    override fun getItemCount(): Int = buildsList.size
+    override fun prepareViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
+        return BuildViewHolder.create(parent)
+    }
 
-    override fun onBindViewHolder(holder: BuildViewHolder, position: Int) = holder.bind(buildsList[position])
+    override fun prepareViewType(position: Int): Int {
+        return 1
+    }
 
+    override fun getPageSize(): Int {
+        return ServerInterface.PAGE_SIZE
+    }
 }

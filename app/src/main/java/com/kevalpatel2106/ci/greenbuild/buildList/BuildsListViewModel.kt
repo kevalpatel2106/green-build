@@ -35,14 +35,23 @@ class BuildsListViewModel @Inject constructor(private val serverInterface: Serve
 
     internal val errorLoadingList = SingleLiveEvent<String>()
 
+    internal var isLoadingList = MutableLiveData<Boolean>()
+
     init {
         buildsList.value = ArrayList()
+        isLoadingList.value = false
     }
 
-    fun loadBuildsList(repoId: String) {
-        serverInterface.getBuildList(1, repoId, BuildSortBy.FINISHED_AT_DESC)
+    fun loadBuildsList(repoId: String, page: Int) {
+        serverInterface.getBuildList(page, repoId, BuildSortBy.FINISHED_AT_DESC)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    isLoadingList.value = true
+                }
+                .doOnTerminate {
+                    isLoadingList.value = false
+                }
                 .subscribe({
                     buildsList.value!!.addAll(it.list)
                     buildsList.value = buildsList.value

@@ -19,48 +19,7 @@ package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-data class Build(
-
-        val id: Long,
-
-        val number: String,
-
-        val duration: Int,
-
-        val state: BuildState,
-
-        val previousState: String?,
-
-        val startedAt: String? = null,
-
-        val finishedAt: String? = null,
-
-        val branchName: String? = null,
-
-        val eventType: EventType,
-
-        val author: Author,
-
-        val branch: Branch,
-
-        val commit: Commit
-) {
-
-    data class Author(
-            val id: String,
-
-            val username: String
-    )
-
-    data class Branch(val name: String? = null)
-
-    data class Commit(
-            val committedAt: String? = null,
-
-            val message: String,
-
-            val sha: String,
-
-            val tagName: String?
-    )
+enum class EventType {
+    PUSH,
+    PULL_REQUEST
 }

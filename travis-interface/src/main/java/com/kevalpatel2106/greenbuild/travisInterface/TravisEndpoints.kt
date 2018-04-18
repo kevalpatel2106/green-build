@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.greenbuild.travisInterface
 
-import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface.Companion.PAGE_SIZE
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseBuildsForRepo
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyAccount
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyRepo
@@ -45,7 +45,7 @@ internal interface TravisEndpoints {
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getMyRepos(
             @Query("sort_by") sortBy: String,
-            @Query("limit") limit: Int = PAGE_SIZE,
+            @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
             @Query("offset") offset: Int,
             @Query("active") onlyActive: Boolean = false,
             @Query("private") onlyPrivate: Boolean = false
@@ -55,7 +55,7 @@ internal interface TravisEndpoints {
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getBuildsForRepo(
             @Path("repoId") repoId: String,
-            @Query("limit") limit: Int = PAGE_SIZE,
+            @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
             @Query("offset") offset: Int,
             @Query("sort_by") sortBy: String,
             @Query("state") state: String? = null
