@@ -20,6 +20,7 @@ import com.kevalpatel2106.ci.greenbuild.base.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.util.concurrent.TimeUnit
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -77,6 +78,7 @@ class NetworkApi(private val token: String? = null) {
     fun getRetrofitClient(baseUrl: String): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(NWResponseConverter.create(sGson))
             .build()
 }

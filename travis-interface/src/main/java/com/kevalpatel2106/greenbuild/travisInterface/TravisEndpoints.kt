@@ -17,6 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
 /**
  * Created by Keval on 17/04/18.
@@ -32,6 +33,15 @@ internal interface TravisEndpoints {
      * @see <a href="https://developer.travis-ci.org/explore/user">API Explorer</a>
      */
     @GET("user")
-    @Headers("Add-Auth: true")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getMyProfile(): Observable<TravisUser>
+
+    @GET("repos")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getMyRepos(
+            @Query("sort_by") sortBy: String,
+            @Query("limit") limit: Int = 20,
+            @Query("active") onlyActive: Boolean = false,
+            @Query("private") onlyPrivate: Boolean = false
+    ): Observable<TravisMyRepo>
 }

@@ -38,6 +38,15 @@ abstract class ServerInterface(protected val accessToken: String) {
      */
     abstract fun getMyAccount(): Observable<Account>
 
+    /**
+     * Get the list of [Repo] for the account.
+     */
+    abstract fun getRepoList(
+            page: Int,
+            sortBy: SortBy,
+            showOnlyPrivate: Boolean
+    ): Observable<Page<ArrayList<Repo>>>
+
 
     companion object {
 

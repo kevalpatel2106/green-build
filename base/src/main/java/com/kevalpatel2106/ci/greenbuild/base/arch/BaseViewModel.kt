@@ -14,7 +14,6 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.arch
 
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.CallSuper
 import android.support.annotation.VisibleForTesting
@@ -36,22 +35,6 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun addDisposable(disposable: Disposable) = mCompositeDisposable.add(disposable)
 
-    /**
-     * Boolean to change the value when authentication API call starts/ends. So that UI can change
-     * or enable/disable views.
-     */
-    val blockUi: MutableLiveData<Boolean> = MutableLiveData()
-
-    /**
-     * The string to display as the error message on the screen.
-     */
-    val errorMessage: SingleLiveEvent<ErrorMessage> = SingleLiveEvent()
-
-    init {
-        blockUi.value = false
-        errorMessage.value = null
-    }
-
     @CallSuper
     override fun onCleared() {
         super.onCleared()
@@ -59,10 +42,4 @@ abstract class BaseViewModel : ViewModel() {
         //Delete all the API connections.
         mCompositeDisposable.dispose()
     }
-
-    @VisibleForTesting
-    internal fun clear() = onCleared()
-
-    @VisibleForTesting
-    internal fun addDisp(disposable: Disposable) = addDisposable(disposable)
 }

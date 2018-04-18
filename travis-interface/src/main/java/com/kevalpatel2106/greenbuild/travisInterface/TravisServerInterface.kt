@@ -15,7 +15,10 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.SortBy
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
 import io.reactivex.Observable
 
@@ -65,6 +68,32 @@ class TravisServerInterface(private val baseUrl: String,
         return travisEndpoints
                 .getMyProfile()
                 .map { it.getAccount(baseUrl, accessToken) }
+    }
+
+    override fun getRepoList(page: Int,
+                             sortBy: SortBy,
+                             showOnlyPrivate: Boolean): Observable<Page<ArrayList<Repo>>> {
+
+        val sortByQuery = when (sortBy) {
+            SortBy.NAME_ASC -> "name"
+            SortBy.NAME_DESC -> "name:desc"
+            SortBy.LAST_BUILD_TIME_ASC -> "default_branch.last_build"
+            SortBy.LAST_BUILD_TIME_DESC -> "default_branch.last_build:desc"
+        }
+
+        return travisEndpoints
+                .getMyRepos(
+                        sortBy = sortByQuery,
+                        onlyActive = true,
+                        onlyPrivate = showOnlyPrivate
+                ).map {
+                    val repoList = ArrayList<Repo>(it.repositories.size)
+                    it.repositories.forEach { repoList.add(it.toReop()) }
+                    return@map Page(
+                            hasNext = !it.pagination.isLast,
+                            list = repoList
+                    )
+                }
     }
 
 }

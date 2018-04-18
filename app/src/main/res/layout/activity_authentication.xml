@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TravisAuthenticationActivity">
+    tools:context=".authentication.TravisAuthenticationActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -77,7 +77,7 @@
             android:paddingStart="10dp"/>
     </android.support.design.widget.TextInputLayout>
 
-    <Button
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
         android:id="@+id/authentication_btn"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/authentication_token_til"/>
 
-    <TextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/textView"
         style="@style/SmallText.Secondary"
         android:layout_width="wrap_content"

@@ -14,16 +14,20 @@
 
 package com.kevalpatel2106.ci.greenbuild.authentication
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_authentication.*
 import javax.inject.Inject
+
 
 /**
  * This [AppCompatActivity] will take the API access token and validate the token by calling for the
@@ -35,7 +39,11 @@ import javax.inject.Inject
 class TravisAuthenticationActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var accountManager: AccountsManager
+    internal lateinit var accountManager: AccountsManager
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,17 +53,28 @@ class TravisAuthenticationActivity : AppCompatActivity() {
                 .build()
                 .inject(this@TravisAuthenticationActivity)
 
+        val userViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(TravisAuthenticationViewModel::class.java)
+
         setContentView(R.layout.activity_authentication)
 
         authentication_btn.setOnClickListener {
-            accountManager.saveAccount(Account(
-                    userId = "2837",
-                    username = "kevalpatel2106",
-                    serverUrl = ServerInterface.TRAVIS_CI_ORG,
-                    avatarUrl = null,
-                    accessToken = "7286594356783645789",
-                    name = "Keval Patel"
-            ))
+            userViewModel.validateAuthToken(
+                    accessToken = authentication_token_et.text.toString(),
+                    serverUrl = ServerInterface.TRAVIS_CI_ORG
+            )
         }
+
+        userViewModel.authenticatedAccount.observe(this@TravisAuthenticationActivity, Observer {
+            it?.let { showSnack(getString(R.string.account_successfully_authenticated)) }
+        })
+
+        userViewModel.invalidAuthTokenError.observe(this@TravisAuthenticationActivity, Observer {
+            it?.let { showSnack(it) }
+        })
+
+        userViewModel.isValidationInProgress.observe(this@TravisAuthenticationActivity, Observer {
+            it?.let { authentication_btn.displayLoader(it) }
+        })
     }
 }

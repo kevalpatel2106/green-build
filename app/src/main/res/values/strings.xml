@@ -17,4 +17,7 @@
     <string name="authentication_hint_enter_access_token">Enter access token</string>
     <string name="authentication_hint_login">Login</string>
     <string name="authorization_hint_where_can_i_get_the_access_token">Where can I get the access token?</string>
+    <string name="error_invalid_travis_token">Invalid authentication token.</string>
+    <string name="error_account_already_registered">Account already registered.</string>
+    <string name="account_successfully_authenticated">Account successfully added.</string>
 </resources>

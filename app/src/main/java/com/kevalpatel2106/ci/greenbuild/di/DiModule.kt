@@ -25,7 +25,7 @@ import dagger.Provides
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-@Module
+@Module(includes = [ViewModelFactoryModule::class])
 class DiModule {
 
     @Provides

@@ -13,7 +13,7 @@
  */
 
 apply plugin: 'com.android.library'
-apply plugin: 'jacoco-android'
+apply plugin: "com.vanniktech.android.junit.jacoco"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -39,6 +39,5 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${versions.okHttp}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
 }

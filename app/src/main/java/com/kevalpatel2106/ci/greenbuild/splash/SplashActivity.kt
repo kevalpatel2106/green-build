@@ -21,6 +21,7 @@ import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationActiv
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
 import javax.inject.Inject
 
 /**
@@ -43,5 +44,7 @@ class SplashActivity : AppCompatActivity() {
 
         if (!accountsManager.isAnyAccountRegistered())
             startActivity(Intent(this@SplashActivity, TravisAuthenticationActivity::class.java))
+        else
+            startActivity(Intent(this@SplashActivity, RepoListActivity::class.java))
     }
 }

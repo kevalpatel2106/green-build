@@ -16,7 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.di
 
 import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
-import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationModule
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
 import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -31,12 +31,17 @@ import javax.inject.Singleton
 interface DiComponent {
 
     /**
-     * Inject the [ApplicationModule] in [SplashActivity].
+     * Inject the [DiModule] and [ApplicationComponent] in [SplashActivity].
      */
     fun inject(splashActivity: SplashActivity)
 
     /**
-     * Inject the [ApplicationModule] in [TravisAuthenticationActivity].
+     * Inject the [DiModule] and [ApplicationComponent] in [TravisAuthenticationActivity].
      */
     fun inject(travisAuthenticationActivity: TravisAuthenticationActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [RepoListActivity].
+     */
+    fun inject(repoListActivity: RepoListActivity)
 }
