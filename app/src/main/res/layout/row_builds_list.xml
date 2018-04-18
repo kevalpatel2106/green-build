@@ -12,8 +12,7 @@
   ~ limitations under the License.
   -->
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,35 +23,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/spacing_micro"/>
+        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/spacing_micro"/>
+        app:layout_constraintGuide_end="@dimen/spacing_micro" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp"/>
+        app:layout_constraintGuide_begin="16dp" />
 
     <View
         android:id="@+id/build_status_view"
@@ -61,7 +60,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        tools:background="@color/colorPrimary"/>
+        tools:background="@color/colorPrimary" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/built_number_tv"
@@ -71,7 +70,7 @@
         android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        tools:text="# 125.5"/>
+        tools:text="# 125.5" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
         android:id="@+id/build_trigger_type_iv"
@@ -82,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/commit_message_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/commit_message_tv"
-        tools:src="@tools:sample/avatars"/>
+        tools:src="@tools:sample/avatars" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/branch_name_tv"
@@ -96,23 +95,22 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/built_number_tv"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toEndOf="@+id/built_number_tv"
-        tools:text="@tools:sample/lorem/random"/>
+        tools:text="@tools:sample/lorem/random" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/commit_message_tv"
-        style="@style/SmallText.Secondary"
+        style="@style/SmallText.Primary"
         android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:lines="2"
         android:maxLines="2"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/build_trigger_type_iv"
         app:layout_constraintTop_toBottomOf="@+id/branch_name_tv"
-        tools:text="@tools:sample/lorem/random"/>
+        tools:text="@tools:sample/lorem/random" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/commit_author_avatar_iv"
@@ -121,79 +119,103 @@
         android:layout_marginTop="8dp"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/commit_author_name_tv"
-        app:layout_constraintEnd_toEndOf="@+id/build_trigger_type_iv"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/commit_message_tv"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:src="@drawable/ic_user"/>
+        tools:src="@drawable/ic_user" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/commit_author_name_tv"
+        style="@style/SmallText.Secondary"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="@+id/commit_hash_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/commit_author_avatar_iv"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/commit_message_tv"
-        app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:text="@tools:sample/full_names"/>
+        app:layout_constraintStart_toEndOf="@+id/commit_author_avatar_iv"
+        app:layout_constraintTop_toTopOf="@+id/commit_author_avatar_iv"
+        tools:text="@tools:sample/full_names" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/commit_hash_tv"
+        app:layout_constraintStart_toEndOf="@+id/commit_author_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/commit_hash_tv"
+        app:srcCompat="@drawable/git_commit" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/commit_hash_tv"
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/spacing_micro"
         android:layout_marginTop="8dp"
-        android:drawablePadding="@dimen/spacing_micro"
-        android:drawableStart="@drawable/git_commit"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:text="@tools:sample/us_zipcodes"/>
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/spacing_small"
+        android:layout_height="@dimen/spacing_small"
+        android:layout_marginStart="@dimen/spacing_micro"
+        app:layout_constraintBottom_toBottomOf="@+id/time_taken_tv"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/time_taken_tv"
+        app:srcCompat="@drawable/ic_sand_clock" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/time_taken_tv"
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:drawablePadding="@dimen/spacing_micro"
-        android:drawableStart="@drawable/ic_clock"
+        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toEndOf="@+id/guideline9"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/commit_hash_tv"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="@tools:sample/date/hhmmss"/>
+        tools:text="@tools:sample/date/hhmmss" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/imageView3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/spacing_micro"
+        app:layout_constraintBottom_toBottomOf="@+id/build_start_time_tv"
+        app:layout_constraintStart_toEndOf="@+id/time_taken_tv"
+        app:layout_constraintTop_toTopOf="@+id/build_start_time_tv"
+        app:srcCompat="@drawable/ic_history" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/build_start_time_tv"
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:drawablePadding="@dimen/spacing_micro"
-        android:drawableStart="@drawable/ic_calendar"
+        android:layout_marginBottom="@dimen/spacing_micro"
+        android:layout_marginStart="@dimen/spacing_micro"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/commit_hash_tv"
-        tools:text="@tools:sample/date/ddmmyy"/>
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/time_taken_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@tools:sample/date/ddmmyy" />
 
 </android.support.constraint.ConstraintLayout>

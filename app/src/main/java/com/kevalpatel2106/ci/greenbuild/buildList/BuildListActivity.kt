@@ -23,12 +23,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
+import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_build_list.*
 import javax.inject.Inject
@@ -46,6 +48,9 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_build_list)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         DaggerDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this).getApplicationComponent())
                 .build()
@@ -57,8 +62,13 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
 
         //Set the adapter
         builds_list_rv.layoutManager = LinearLayoutManager(this@BuildListActivity)
-        builds_list_rv.adapter = BuildListAdapter(this@BuildListActivity, model.buildsList.value!!, this)
+        builds_list_rv.adapter = BuildListAdapter(
+                context = this@BuildListActivity,
+                buildsList = model.buildsList.value!!,
+                listener = this
+        )
         builds_list_rv.itemAnimator = DefaultItemAnimator()
+        builds_list_rv.addItemDecoration(DividerItemDecoration(this@BuildListActivity))
 
         model.buildsList.observe(this@BuildListActivity, Observer {
             builds_list_rv.adapter.notifyDataSetChanged()
@@ -68,17 +78,29 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
             it?.let { showSnack(it) }
         })
 
-        model.isLoadingList.observe(this@BuildListActivity, Observer {
-            it?.let { builds_list_refresher.isRefreshing = it }
+        model.isLoadingFirstTime.observe(this@BuildListActivity, Observer {
+            it?.let {
+                build_list_view_flipper.displayedChild = if (it) 1 else 0
+            }
         })
 
-        builds_list_refresher.setOnRefreshListener { model.loadBuildsList(repoId, 1) }
+        model.isLoadingList.observe(this@BuildListActivity, Observer {
+            it?.let {
+                if (!it) {
+                    builds_list_refresher.isRefreshing = false
+                    (builds_list_rv.adapter as BuildListAdapter).onPageLoadComplete()
+                }
+            }
+        })
 
-        onNewIntent(intent)
-    }
+        model.hasModeData.observe(this@BuildListActivity, Observer {
+            it?.let { (builds_list_rv.adapter as BuildListAdapter).hasNextPage = it }
+        })
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
+        builds_list_refresher.setOnRefreshListener {
+            builds_list_refresher.isRefreshing = true
+            model.loadBuildsList(repoId, 1)
+        }
 
         with(intent.getStringExtra(ARG_REPO_ID)) {
             if (this == null)
@@ -86,19 +108,29 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
             repoId = this
         }
         model.loadBuildsList(repoId, 1)
+
+        //Set the title
+        supportActionBar?.title = intent.getStringExtra(ARG_REPO_NAME) ?: getString(R.string.title_activity_builds)
     }
 
     override fun onPageComplete(pos: Int) {
-        model.loadBuildsList(repoId, pos % ServerInterface.PAGE_SIZE)
+        model.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
 
         internal const val ARG_REPO_ID = "repo_id"
+        internal const val ARG_REPO_NAME = "repo_name"
 
-        fun launch(context: Context, repoId: String) {
+        fun launch(context: Context, repoId: String, repoName: String) {
             context.startActivity(Intent(context, BuildListActivity::class.java).apply {
                 putExtra(ARG_REPO_ID, repoId)
+                putExtra(ARG_REPO_NAME, repoName)
             })
         }
     }

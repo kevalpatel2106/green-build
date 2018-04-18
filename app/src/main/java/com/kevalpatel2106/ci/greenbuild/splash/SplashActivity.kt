@@ -43,8 +43,12 @@ class SplashActivity : AppCompatActivity() {
                 .inject(this@SplashActivity)
 
         if (!accountsManager.isAnyAccountRegistered())
-            startActivity(Intent(this@SplashActivity, TravisAuthenticationActivity::class.java))
+            startActivity(Intent(this@SplashActivity,
+                    TravisAuthenticationActivity::class.java))
         else
-            startActivity(Intent(this@SplashActivity, RepoListActivity::class.java))
+            startActivity(Intent(this@SplashActivity,
+                    RepoListActivity::class.java))
+
+        finish()
     }
 }

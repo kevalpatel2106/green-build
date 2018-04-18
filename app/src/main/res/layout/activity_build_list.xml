@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,26 +13,40 @@
   -->
 
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".repoList.RepoListActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/builds_list_refresher"
+    <ViewFlipper
         android:layout_width="0dp"
+        android:id="@+id/build_list_view_flipper"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/builds_list_rv"
+        <!--0. List-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/builds_list_refresher"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/builds_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <!--1. Progressbar-->
+        <ProgressBar
+            android:layout_width="@dimen/list_loading_progressbar_dimen"
+            android:layout_height="@dimen/list_loading_progressbar_dimen"
+            android:layout_gravity="center" />
+    </ViewFlipper>
+
 </android.support.constraint.ConstraintLayout>

@@ -20,4 +20,5 @@
     <string name="error_invalid_travis_token">Invalid authentication token.</string>
     <string name="error_account_already_registered">Account already registered.</string>
     <string name="account_successfully_authenticated">Account successfully added.</string>
+    <string name="title_activity_builds">Builds</string>
 </resources>

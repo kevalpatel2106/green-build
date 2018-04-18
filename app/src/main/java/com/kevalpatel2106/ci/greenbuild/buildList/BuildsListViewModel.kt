@@ -37,9 +37,15 @@ class BuildsListViewModel @Inject constructor(private val serverInterface: Serve
 
     internal var isLoadingList = MutableLiveData<Boolean>()
 
+    internal var isLoadingFirstTime = MutableLiveData<Boolean>()
+
+    internal var hasModeData = MutableLiveData<Boolean>()
+
     init {
         buildsList.value = ArrayList()
+        hasModeData.value = true
         isLoadingList.value = false
+        isLoadingFirstTime.value = false
     }
 
     fun loadBuildsList(repoId: String, page: Int) {
@@ -48,11 +54,20 @@ class BuildsListViewModel @Inject constructor(private val serverInterface: Serve
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     isLoadingList.value = true
+
+                    buildsList.value?.let {
+                        if (it.isEmpty()) isLoadingFirstTime.value = true
+                    }
                 }
                 .doOnTerminate {
                     isLoadingList.value = false
+                    isLoadingFirstTime.value = false
                 }
                 .subscribe({
+                    hasModeData.value = it.hasNext
+
+                    if (page == 1) buildsList.value!!.clear()
+
                     buildsList.value!!.addAll(it.list)
                     buildsList.value = buildsList.value
                 }, {

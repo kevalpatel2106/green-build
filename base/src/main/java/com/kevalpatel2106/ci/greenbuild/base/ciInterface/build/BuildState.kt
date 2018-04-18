@@ -24,5 +24,5 @@ enum class BuildState {
     RUNNING,
     FAILED,
     CANCELED,
-    ABORTED
+    ERRORED
 }

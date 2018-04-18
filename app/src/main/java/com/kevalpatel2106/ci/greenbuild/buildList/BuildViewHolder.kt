@@ -28,7 +28,6 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
 import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Created by Keval on 18/04/18.
@@ -105,7 +104,7 @@ class BuildViewHolder(itemView: View) : PageRecyclerViewAdapter.PageViewHolder(i
             BuildState.RUNNING -> context.getColorCompat(R.color.build_running)
             BuildState.FAILED -> context.getColorCompat(R.color.build_failed)
             BuildState.CANCELED -> context.getColorCompat(R.color.build_canceled)
-            BuildState.ABORTED -> context.getColorCompat(R.color.build_aborted)
+            BuildState.ERRORED -> context.getColorCompat(R.color.build_errored)
         }
 
     }

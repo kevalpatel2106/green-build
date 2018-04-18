@@ -41,7 +41,7 @@ class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(repo: Repo) {
         itemView.findViewById<BaseTextView>(R.id.repo_title_tv).text = repo.name
         itemView.setOnClickListener {
-            BuildListActivity.launch(itemView.context, repo.id)
+            BuildListActivity.launch(itemView.context, repo.id, repo.name)
         }
     }
 

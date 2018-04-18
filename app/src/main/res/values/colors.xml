@@ -18,6 +18,6 @@
     <color name="build_running">#fbc02d</color>
     <color name="build_passed">#388e3c</color>
     <color name="build_failed">#d32f2f</color>
-    <color name="build_canceled">#d32f2f</color>
-    <color name="build_aborted">#455a64</color>
+    <color name="build_canceled">#424242</color>
+    <color name="build_errored">#ff6e40</color>
 </resources>

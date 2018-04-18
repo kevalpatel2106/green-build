@@ -117,7 +117,7 @@ class TravisServerInterface(private val baseUrl: String,
             BuildState.PASSED -> "passed"
             BuildState.RUNNING -> "running"
             BuildState.FAILED -> "failed"
-            BuildState.ABORTED -> "aborted"
+            BuildState.ERRORED -> "aborted"
             null -> null
         }
 

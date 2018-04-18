@@ -119,7 +119,7 @@ internal data class TravisBuild(
         return when (buildState.toLowerCase().trim()) {
             "failed" -> BuildState.FAILED
             "passed" -> BuildState.PASSED
-            "aborted" -> BuildState.ABORTED
+            "errored" -> BuildState.ERRORED
             "canceled" -> BuildState.CANCELED
             "running" -> BuildState.RUNNING
             else -> throw IllegalArgumentException("Invalid build state: $buildState")

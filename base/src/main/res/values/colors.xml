@@ -13,8 +13,8 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#B63730</color>
-    <color name="colorPrimaryDark">#A82D26</color>
+    <color name="colorPrimary">#2D3035</color>
+    <color name="colorPrimaryDark">#26282C</color>
     <color name="colorAccent">#FFFFFF</color>
 
     <!--text colors-->
@@ -23,5 +23,6 @@
     <color name="colorBlackText">#111111</color>
     <color name="colorToolbarText">#FFFFFF</color>
 
+    <color name="window_background_color">#22252A</color>
     <color name="divider">#BDBDBD</color>
 </resources>
