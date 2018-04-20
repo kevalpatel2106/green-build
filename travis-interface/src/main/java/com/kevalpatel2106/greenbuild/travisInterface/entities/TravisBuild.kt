@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
+import com.kevalpatel2106.greenbuild.travisInterface.Constants
 
 
 internal data class TravisBuild(
@@ -109,19 +110,20 @@ internal data class TravisBuild(
 
     private fun getEventType(eventType: String): EventType {
         return when (eventType) {
-            "push" -> EventType.PUSH
-            "pull_request" -> EventType.PULL_REQUEST
+            Constants.PUSH_EVENT -> EventType.PUSH
+            Constants.PULL_REQUEST_EVENT -> EventType.PULL_REQUEST
             else -> throw IllegalArgumentException("Invalid trigger event type: $eventType")
         }
     }
 
     private fun getBuildState(buildState: String): BuildState {
         return when (buildState.toLowerCase().trim()) {
-            "failed" -> BuildState.FAILED
-            "passed" -> BuildState.PASSED
-            "errored" -> BuildState.ERRORED
-            "canceled" -> BuildState.CANCELED
-            "running" -> BuildState.RUNNING
+            Constants.FAILED_BUILD -> BuildState.FAILED
+            Constants.PASSED_BUILD -> BuildState.PASSED
+            Constants.ERRORED_BUILD -> BuildState.ERRORED
+            Constants.CANCEL_BUILD -> BuildState.CANCELED
+            Constants.RUNNING_BUILD -> BuildState.RUNNING
+            Constants.BOOTING_BUILD  -> BuildState.BOOTING
             else -> throw IllegalArgumentException("Invalid build state: $buildState")
         }
     }

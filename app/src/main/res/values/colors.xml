@@ -16,6 +16,7 @@
     <color name="build_list_branch_name_color">#f57c00</color>
 
     <color name="build_running">#fbc02d</color>
+    <color name="build_booting">#fbc02d</color>
     <color name="build_passed">#388e3c</color>
     <color name="build_failed">#d32f2f</color>
     <color name="build_canceled">#424242</color>

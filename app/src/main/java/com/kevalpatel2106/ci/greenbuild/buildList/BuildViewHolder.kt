@@ -105,6 +105,7 @@ class BuildViewHolder(itemView: View) : PageRecyclerViewAdapter.PageViewHolder(i
             BuildState.FAILED -> context.getColorCompat(R.color.build_failed)
             BuildState.CANCELED -> context.getColorCompat(R.color.build_canceled)
             BuildState.ERRORED -> context.getColorCompat(R.color.build_errored)
+            BuildState.BOOTING -> context.getColorCompat(R.color.build_booting)
         }
 
     }

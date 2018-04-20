@@ -12,18 +12,28 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
+package com.kevalpatel2106.greenbuild.travisInterface
 
 /**
- * Created by Kevalpatel2106 on 18-Apr-18.
+ * Created by Keval on 20/04/18.
  *
- * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
+ * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-enum class BuildState {
-    PASSED,
-    RUNNING,
-    FAILED,
-    CANCELED,
-    ERRORED,
-    BOOTING
+internal class Constants{
+
+    companion object {
+
+        const val CANCEL_BUILD = "canceled"
+        const val PASSED_BUILD = "passed"
+        const val RUNNING_BUILD = "started"
+        const val BOOTING_BUILD = "created"
+        const val FAILED_BUILD = "failed"
+        const val ERRORED_BUILD= "aborted"
+
+
+        const val PUSH_EVENT = "push"
+        const val PULL_REQUEST_EVENT = "pull_request"
+    }
+
+
 }

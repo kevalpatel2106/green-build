@@ -113,12 +113,14 @@ class TravisServerInterface(private val baseUrl: String,
         }
 
         val state = when (buildState) {
-            BuildState.CANCELED -> "canceled"
-            BuildState.PASSED -> "passed"
-            BuildState.RUNNING -> "running"
-            BuildState.FAILED -> "failed"
-            BuildState.ERRORED -> "aborted"
+            BuildState.CANCELED -> Constants.CANCEL_BUILD
+            BuildState.PASSED -> Constants.PASSED_BUILD
+            BuildState.RUNNING -> Constants.RUNNING_BUILD
+            BuildState.FAILED -> Constants.FAILED_BUILD
+            BuildState.ERRORED -> Constants.ERRORED_BUILD
+            BuildState.BOOTING -> Constants.BOOTING_BUILD
             null -> null
+            else -> null
         }
 
         return travisEndpoints
