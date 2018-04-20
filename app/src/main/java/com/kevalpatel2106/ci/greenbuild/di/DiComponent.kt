@@ -17,6 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.di
 import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
+import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
 import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
 import dagger.Component
@@ -50,4 +51,9 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [BuildListActivity].
      */
     fun inject(buildsListActivity: BuildListActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [CiSelectorViewModel].
+     */
+    fun inject(ciSelectorViewModel: CiSelectorViewModel)
 }

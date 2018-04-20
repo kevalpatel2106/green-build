@@ -35,15 +35,39 @@ class RepoListViewModel @Inject constructor(private val serverInterface: ServerI
 
     internal val errorLoadingList = SingleLiveEvent<String>()
 
+    internal val hasNextPage = MutableLiveData<Boolean>()
+
+    internal var isLoadingList = MutableLiveData<Boolean>()
+
+    internal var isLoadingFirstTime = MutableLiveData<Boolean>()
+
     init {
+        hasNextPage.value = true
+        isLoadingList.value = false
+        isLoadingFirstTime.value = false
         repoList.value = ArrayList()
     }
 
-    fun loadRepoList() {
-        serverInterface.getRepoList(1, RepoSortBy.NAME_ASC, false)
+    fun loadRepoList(page: Int) {
+        serverInterface.getRepoList(page, RepoSortBy.NAME_ASC, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    isLoadingList.value = true
+
+                    repoList.value?.let {
+                        if (it.isEmpty()) isLoadingFirstTime.value = true
+                    }
+                }
+                .doOnTerminate {
+                    isLoadingList.value = false
+                    isLoadingFirstTime.value = false
+                }
                 .subscribe({
+                    hasNextPage.value = it.hasNext
+
+                    if (page == 1) repoList.value!!.clear()
+
                     repoList.value!!.addAll(it.list)
                     repoList.value = repoList.value
                 }, {

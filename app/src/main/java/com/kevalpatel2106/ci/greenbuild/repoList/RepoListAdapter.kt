@@ -14,8 +14,10 @@
 
 package com.kevalpatel2106.ci.greenbuild.repoList
 
-import android.support.v7.widget.RecyclerView
+import android.content.Context
 import android.view.ViewGroup
+import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 
 /**
@@ -23,13 +25,24 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoListAdapter(private val repoList: ArrayList<Repo>)
-    : RecyclerView.Adapter<RepoViewHolder>() {
+class RepoListAdapter(context: Context,
+                      buildsList: ArrayList<Repo>,
+                      listener: PageRecyclerViewAdapter.RecyclerViewListener<Repo>)
+    : PageRecyclerViewAdapter<RepoViewHolder, Repo>(context, buildsList, listener) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder = RepoViewHolder.create(parent)
+    override fun bindView(holder: RepoViewHolder, item: Repo) {
+        holder.bind(item)
+    }
 
-    override fun getItemCount(): Int = repoList.size
+    override fun prepareViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
+        return RepoViewHolder.create(parent)
+    }
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) = holder.bind(repoList[position])
+    override fun prepareViewType(position: Int): Int {
+        return 1
+    }
 
+    override fun getPageSize(): Int {
+        return ServerInterface.PAGE_SIZE
+    }
 }

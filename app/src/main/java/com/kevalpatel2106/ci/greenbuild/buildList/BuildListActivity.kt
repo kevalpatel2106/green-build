@@ -107,7 +107,8 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
                 throw IllegalArgumentException("No repo id available.")
             repoId = this
         }
-        model.loadBuildsList(repoId, 1)
+
+        if (savedInstanceState == null) model.loadBuildsList(repoId, 1)
 
         //Set the title
         supportActionBar?.title = intent.getStringExtra(ARG_REPO_NAME) ?: getString(R.string.title_activity_builds)

@@ -41,7 +41,6 @@
                 android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-
         <!--1. Progressbar-->
         <ProgressBar
             android:layout_width="@dimen/list_loading_progressbar_dimen"

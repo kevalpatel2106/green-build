@@ -14,11 +14,11 @@
 
 package com.kevalpatel2106.ci.greenbuild.repoList
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
@@ -28,7 +28,7 @@ import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class RepoViewHolder(itemView: View) : PageRecyclerViewAdapter.PageViewHolder(itemView) {
 
     companion object {
 
@@ -39,7 +39,13 @@ class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun bind(repo: Repo) {
-        itemView.findViewById<BaseTextView>(R.id.repo_title_tv).text = repo.name
+        itemView.findViewById<BaseTextView>(R.id.repo_title_tv).text = "${repo.owner.name}/${repo.name}"
+
+        with(itemView.findViewById<BaseTextView>(R.id.repo_description_tv)) {
+            this.visibility = if (repo.description != null) View.VISIBLE else View.GONE
+            this.text = repo.description
+        }
+
         itemView.setOnClickListener {
             BuildListActivity.launch(itemView.context, repo.id, repo.name)
         }

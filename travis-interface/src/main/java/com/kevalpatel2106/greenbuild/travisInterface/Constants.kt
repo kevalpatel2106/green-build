@@ -23,14 +23,15 @@ internal class Constants{
 
     companion object {
 
+        // name of build states
         const val CANCEL_BUILD = "canceled"
         const val PASSED_BUILD = "passed"
         const val RUNNING_BUILD = "started"
         const val BOOTING_BUILD = "created"
         const val FAILED_BUILD = "failed"
-        const val ERRORED_BUILD= "aborted"
+        const val ERRORED_BUILD= "errored"
 
-
+        // name of the events
         const val PUSH_EVENT = "push"
         const val PULL_REQUEST_EVENT = "pull_request"
     }

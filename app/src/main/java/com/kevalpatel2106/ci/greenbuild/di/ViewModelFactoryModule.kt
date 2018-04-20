@@ -20,6 +20,7 @@ import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationViewM
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
 import dagger.Binds
 import dagger.Module
@@ -51,4 +52,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(BuildsListViewModel::class)
     internal abstract fun bindBuildListViewModel(viewModel: BuildsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CiSelectorViewModel::class)
+    internal abstract fun bindCiSelectorViewModel(viewModel: CiSelectorViewModel): ViewModel
 }
