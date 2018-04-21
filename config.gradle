@@ -14,8 +14,8 @@
 
 ext {
     versions = [
-            'kotlin'        : '1.2.31',
-            'supportLibrary': '27.1.0',
+            'kotlin'        : '1.2.40',
+            'supportLibrary': '27.1.1',
             'buildTools'    : '27.0.3',
             'compileSdk'    : 27,
             'espresso'      : '3.0.1',

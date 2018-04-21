@@ -18,7 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
@@ -28,7 +28,8 @@ import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoViewHolder(itemView: View) : PageRecyclerViewAdapter.PageViewHolder(itemView) {
+internal class RepoViewHolder private constructor(itemView: View)
+    : PageRecyclerViewAdapter.PageViewHolder(itemView) {
 
     companion object {
 

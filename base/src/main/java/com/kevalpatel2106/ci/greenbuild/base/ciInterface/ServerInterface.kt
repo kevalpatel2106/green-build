@@ -65,20 +65,5 @@ abstract class ServerInterface(protected val accessToken: String) {
 
     companion object {
         const val PAGE_SIZE = 20
-
-        //List of common ci server base urls
-        /**
-         * Base url for accessing the API for travis-ci.org.
-         *
-         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
-         */
-        const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
-
-        /**
-         * Base url for accessing the API for travis-ci.com.
-         *
-         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
-         */
-        const val TRAVIS_CI_COM = "https://api.travis-ci.com"
     }
 }

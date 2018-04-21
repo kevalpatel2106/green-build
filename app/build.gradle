@@ -53,4 +53,5 @@ dependencies {
     implementation "com.android.support:design:${versions.supportLibrary}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.bachors:Android-Prefix-Input:1.1'
 }

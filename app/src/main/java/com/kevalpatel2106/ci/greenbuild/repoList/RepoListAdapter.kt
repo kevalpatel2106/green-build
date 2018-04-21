@@ -16,7 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.repoList
 
 import android.content.Context
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 
@@ -25,7 +25,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoListAdapter(context: Context,
+internal class RepoListAdapter(context: Context,
                       buildsList: ArrayList<Repo>,
                       listener: PageRecyclerViewAdapter.RecyclerViewListener<Repo>)
     : PageRecyclerViewAdapter<RepoViewHolder, Repo>(context, buildsList, listener) {

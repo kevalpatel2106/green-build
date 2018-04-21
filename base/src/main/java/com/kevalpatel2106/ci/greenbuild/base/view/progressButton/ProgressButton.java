@@ -75,8 +75,8 @@ public class ProgressButton extends AppCompatButton implements CustomizableByCod
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressButton, defStyleAttr, defStyleRes);
 
             mParams.mSpinningBarColor = typedArray.getColor(R.styleable.ProgressButton_spinning_bar_color,
-                    ContextCompat.getColor(context, android.R.color.black));
-            mParams.mPaddingProgress = typedArray.getDimension(R.styleable.ProgressButton_spinning_bar_padding, 0);
+                    ContextCompat.getColor(context, android.R.color.white));
+            mParams.mPaddingProgress = typedArray.getDimension(R.styleable.ProgressButton_spinning_bar_padding, 5);
 
             typedArray.recycle();
         }

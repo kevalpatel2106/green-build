@@ -26,25 +26,18 @@ import dagger.Provides
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 @Module(includes = [ViewModelFactoryModule::class])
-class DiModule {
+internal class DiModule {
 
     @Provides
     fun provideServerInterface(accountsManager: AccountsManager): ServerInterface {
         val account = accountsManager.getCurrentAccount()
-        return when {
-            account.serverUrl == ServerInterface.TRAVIS_CI_ORG -> {
-                TravisServerInterface(ServerInterface.TRAVIS_CI_ORG, account.accessToken)
-            }
-            account.serverUrl == ServerInterface.TRAVIS_CI_COM -> {
-                TravisServerInterface(ServerInterface.TRAVIS_CI_COM, account.accessToken)
-            }
-            account.serverUrl.startsWith("https://travis.")
-                    && account.serverUrl.endsWith("/api/") -> {
-                TravisServerInterface(account.serverUrl, account.accessToken)
-            }
-            else -> {
-                throw IllegalStateException("Invalid server url: ${account.serverUrl}")
-            }
+
+        //Check if it is travis server?
+        TravisServerInterface.get(account.serverUrl, account.accessToken)?.let {
+            return it
         }
+
+        //Unknown CI server.
+        throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
     }
 }

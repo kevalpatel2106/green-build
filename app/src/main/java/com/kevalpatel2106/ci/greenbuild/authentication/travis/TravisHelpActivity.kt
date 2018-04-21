@@ -12,16 +12,35 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.ciSelector
+package com.kevalpatel2106.ci.greenbuild.authentication.travis
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 
-class CiSelectorActivity : AppCompatActivity() {
+class TravisHelpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ciselector_activty)
+        setContentView(R.layout.activity_travis_help)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = getString(R.string.title_activity_travis_help)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+
+        fun launch(context: Context){
+            context.startActivity(Intent(context, TravisHelpActivity::class.java))
+        }
     }
 }

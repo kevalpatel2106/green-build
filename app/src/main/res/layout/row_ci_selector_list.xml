@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/ci_server_logo"
+        android:layout_width="@dimen/spacing_xxlarge"
+        android:layout_height="@dimen/spacing_xxlarge"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        tools:src="@mipmap/ic_launcher_round" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/ci_server_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_micro"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAppearance="@style/MediumText.Primary"
+        android:textColor="@color/ci_server_title_text"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toEndOf="@+id/ci_server_logo"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        tools:text="@tools:sample/lorem" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/ci_server_domain_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_pico"
+        android:textAppearance="@style/NanoText.Secondary"
+        android:textColor="@color/ci_server_domain_text"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/ci_server_name"
+        app:layout_constraintStart_toStartOf="@+id/ci_server_name"
+        app:layout_constraintTop_toBottomOf="@+id/ci_server_name"
+        tools:text="https://travis-ci.org" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/ci_server_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_nano"
+        android:maxLines="4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/ci_server_name"
+        app:layout_constraintTop_toBottomOf="@+id/ci_server_domain_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@tools:sample/lorem/random" />
+
+</android.support.constraint.ConstraintLayout>

@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.account
+package com.kevalpatel2106.ci.greenbuild.syncAdapter
 
 import android.accounts.AccountManager
 import android.accounts.AccountManager.ACTION_AUTHENTICATOR_INTENT

@@ -29,7 +29,7 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class BuildsListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
+internal class BuildsListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
 
     internal val buildsList = MutableLiveData<ArrayList<Build>>()
 
@@ -42,10 +42,11 @@ class BuildsListViewModel @Inject constructor(private val serverInterface: Serve
     internal var hasModeData = MutableLiveData<Boolean>()
 
     init {
-        buildsList.value = ArrayList()
         hasModeData.value = true
         isLoadingList.value = false
         isLoadingFirstTime.value = false
+
+        buildsList.value = ArrayList()
     }
 
     fun loadBuildsList(repoId: String, page: Int) {

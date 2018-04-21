@@ -25,7 +25,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
@@ -108,7 +108,9 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
             repoId = this
         }
 
-        if (savedInstanceState == null) model.loadBuildsList(repoId, 1)
+        if (savedInstanceState == null || model.buildsList.value!!.isEmpty()) {
+            model.loadBuildsList(repoId, 1)
+        }
 
         //Set the title
         supportActionBar?.title = intent.getStringExtra(ARG_REPO_NAME) ?: getString(R.string.title_activity_builds)
@@ -128,7 +130,7 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
         internal const val ARG_REPO_ID = "repo_id"
         internal const val ARG_REPO_NAME = "repo_name"
 
-        fun launch(context: Context, repoId: String, repoName: String) {
+        internal fun launch(context: Context, repoId: String, repoName: String) {
             context.startActivity(Intent(context, BuildListActivity::class.java).apply {
                 putExtra(ARG_REPO_ID, repoId)
                 putExtra(ARG_REPO_NAME, repoName)

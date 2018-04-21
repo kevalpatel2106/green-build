@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
@@ -35,7 +35,8 @@ import de.hdodenhof.circleimageview.CircleImageView
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class BuildViewHolder(itemView: View) : PageRecyclerViewAdapter.PageViewHolder(itemView) {
+internal class BuildViewHolder private constructor(itemView: View)
+    : PageRecyclerViewAdapter.PageViewHolder(itemView) {
 
     companion object {
 

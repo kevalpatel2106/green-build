@@ -13,11 +13,6 @@
   -->
 
 <resources>
-
-    <style name="ErrorTextViewStyle" parent="Base.TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
-    </style>
-
     <style name="LargeText.Primary" parent="Base.TextAppearance.AppCompat.Large">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
@@ -68,6 +63,24 @@
 
     <style name="NanoText.Secondary" parent="Base.TextAppearance.AppCompat.Small">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="LargeText.Accent" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">?android:attr/colorAccent</item>
+    </style>
+
+    <style name="MediumText.Accent" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?android:attr/colorAccent</item>
+        <item name="android:textColorHint">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="SmallText.Accent" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?android:attr/colorAccent</item>
+    </style>
+
+    <style name="NanoText.Accent" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?android:attr/colorAccent</item>
         <item name="android:textSize">12sp</item>
     </style>
 </resources>

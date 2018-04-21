@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.splash
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.kevalpatel2106.ci.greenbuild.authentication.TravisAuthenticationActivity
+import com.kevalpatel2106.ci.greenbuild.authentication.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
@@ -42,12 +42,11 @@ class SplashActivity : AppCompatActivity() {
                 .build()
                 .inject(this@SplashActivity)
 
-        if (!accountsManager.isAnyAccountRegistered())
-            startActivity(Intent(this@SplashActivity,
-                    TravisAuthenticationActivity::class.java))
-        else
-            startActivity(Intent(this@SplashActivity,
-                    RepoListActivity::class.java))
+        if (!accountsManager.isAnyAccountRegistered()) {
+            CiSelectorActivity.launch(this@SplashActivity)
+        } else {
+            RepoListActivity.launch(this@SplashActivity)
+        }
 
         finish()
     }

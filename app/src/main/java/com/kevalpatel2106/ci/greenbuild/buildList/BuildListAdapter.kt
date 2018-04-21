@@ -16,7 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 
 import android.content.Context
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 
@@ -25,7 +25,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class BuildListAdapter(
+internal class BuildListAdapter(
         context: Context,
         buildsList: ArrayList<Build>,
         listener: PageRecyclerViewAdapter.RecyclerViewListener<Build>)

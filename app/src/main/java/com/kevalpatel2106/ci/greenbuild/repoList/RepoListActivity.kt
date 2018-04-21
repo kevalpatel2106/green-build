@@ -17,20 +17,20 @@ package com.kevalpatel2106.ci.greenbuild.repoList
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.activity_build_list.*
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import javax.inject.Inject
 
@@ -50,7 +50,7 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setTitle(R.string.app_name)
+        supportActionBar?.setTitle(R.string.application_name)
 
         DaggerDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this).getApplicationComponent())
@@ -98,11 +98,20 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
             repo_list_refresher.isRefreshing = true
             model.loadRepoList(1)
         }
-
-        if (savedInstanceState == null) model.loadRepoList(1)
     }
 
     override fun onPageComplete(pos: Int) {
         model.loadRepoList((pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    companion object {
+
+        internal fun launch(context: Context, isNewTask: Boolean = false) {
+            context.startActivity(Intent(context, RepoListActivity::class.java).apply {
+                if (isNewTask) {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
+            })
+        }
     }
 }

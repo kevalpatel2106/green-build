@@ -37,6 +37,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/repo_list_rv"
+                tools:listitem="@layout/row_repo_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>

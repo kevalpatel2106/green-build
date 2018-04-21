@@ -24,14 +24,14 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
 import io.reactivex.Observable
+import timber.log.Timber
 
 /**
  * Created by Keval on 16/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class TravisServerInterface(private val baseUrl: String,
-                            accessToken: String)
+class TravisServerInterface internal constructor(private val baseUrl: String, accessToken: String)
     : ServerInterface(accessToken) {
 
     private val travisEndpoints = NetworkApi(accessToken)
@@ -41,20 +41,46 @@ class TravisServerInterface(private val baseUrl: String,
     companion object {
 
         /**
-         * Get [TravisServerInterface] for travis-ci.org.
+         * Base url for accessing the API for travis-ci.org.
+         *
+         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
          */
-        fun getTravisOrgInterface(accessToken: String) = TravisServerInterface(
-                baseUrl = ServerInterface.TRAVIS_CI_ORG,
-                accessToken = accessToken
-        )
+        const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
 
         /**
-         * Get [TravisServerInterface] for travis-ci.com.
+         * Base url for accessing the API for travis-ci.com.
+         *
+         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
          */
-        fun getTravisComInterface(accessToken: String) = TravisServerInterface(
-                baseUrl = ServerInterface.TRAVIS_CI_COM,
-                accessToken = accessToken
-        )
+        const val TRAVIS_CI_COM = "https://api.travis-ci.com"
+
+        fun get(baseUrl: String, accessToken: String): TravisServerInterface? {
+            return when {
+                baseUrl == TRAVIS_CI_ORG -> {
+                    TravisServerInterface(
+                            baseUrl = TRAVIS_CI_ORG,
+                            accessToken = accessToken
+                    )
+                }
+                baseUrl == TRAVIS_CI_COM -> {
+                    TravisServerInterface(
+                            baseUrl = TRAVIS_CI_COM,
+                            accessToken = accessToken
+                    )
+                }
+                baseUrl.startsWith("https://travis.") && baseUrl.endsWith("/api/") -> {
+                    TravisServerInterface(baseUrl, accessToken)
+                }
+                else -> {
+                    Timber.i("Not a travis ci server: $baseUrl")
+                    null
+                }
+            }
+        }
+
+        fun prepareEnterpriseBaseUrl(domain: String): String{
+            return domain
+        }
     }
 
     override fun getBaseUrl(): String {

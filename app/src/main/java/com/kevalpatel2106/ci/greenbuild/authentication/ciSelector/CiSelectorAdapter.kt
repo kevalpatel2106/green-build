@@ -12,29 +12,28 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface
+package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
+
+import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup
 
 /**
- * Created by Keval on 20/04/18.
+ * Created by Keval on 21/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class Constants {
+internal class CiSelectorAdapter(private val ciServers: ArrayList<CiServer>)
+    : RecyclerView.Adapter<CiSelectorViewHolder>() {
 
-    companion object {
-
-        // name of build states
-        internal const val CANCEL_BUILD = "canceled"
-        internal const val PASSED_BUILD = "passed"
-        internal const val RUNNING_BUILD = "started"
-        internal const val BOOTING_BUILD = "created"
-        internal const val FAILED_BUILD = "failed"
-        internal const val ERRORED_BUILD = "errored"
-
-        // name of the events
-        internal const val PUSH_EVENT = "push"
-        internal const val PULL_REQUEST_EVENT = "pull_request"
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CiSelectorViewHolder {
+        return CiSelectorViewHolder.create(parent)
     }
 
+    override fun getItemCount(): Int {
+        return ciServers.size
+    }
 
+    override fun onBindViewHolder(holder: CiSelectorViewHolder, position: Int) {
+        holder.bind(ciServers[position])
+    }
 }

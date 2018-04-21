@@ -29,7 +29,7 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class RepoListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
+internal class RepoListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
 
     internal val repoList = MutableLiveData<ArrayList<Repo>>()
 
@@ -45,7 +45,9 @@ class RepoListViewModel @Inject constructor(private val serverInterface: ServerI
         hasNextPage.value = true
         isLoadingList.value = false
         isLoadingFirstTime.value = false
+
         repoList.value = ArrayList()
+        loadRepoList(1)
     }
 
     fun loadRepoList(page: Int) {

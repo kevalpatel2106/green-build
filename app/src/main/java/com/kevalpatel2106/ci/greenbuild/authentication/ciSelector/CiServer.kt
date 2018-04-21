@@ -12,7 +12,9 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.ciSelector
+package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
+
+import android.support.annotation.DrawableRes
 
 /**
  * Created by Kevalpatel2106 on 20-Apr-18.
@@ -22,13 +24,29 @@ package com.kevalpatel2106.ci.greenbuild.ciSelector
 data class CiServer(
 
         /**
+         * Resource of the logo of CI.
+         */
+        @DrawableRes
+        val icon: Int,
+
+        /**
          * Name of the ci server.
          */
         val name: String,
 
         /**
+         * Sort description off the CI server.
+         */
+        val description: String,
+
+        /**
          * Domain of the CI server. If the CI server has custom domain (enterprise edition) this
          * will be null.
          */
-        val domain: String?
+        val domain: String?,
+
+        /**
+         * Function to perform action when the ci server is clicked.
+         */
+        val onClick: () -> Unit
 )

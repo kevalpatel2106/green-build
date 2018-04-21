@@ -15,10 +15,13 @@
 <resources>
     <color name="build_list_branch_name_color">#f57c00</color>
 
-    <color name="build_running">#fbc02d</color>
-    <color name="build_booting">#fbc02d</color>
-    <color name="build_passed">#388e3c</color>
-    <color name="build_failed">#d32f2f</color>
-    <color name="build_canceled">#424242</color>
-    <color name="build_errored">#ff6e40</color>
+    <color name="build_running">#EDDE3F</color>
+    <color name="build_booting">#EDDE3F</color>
+    <color name="build_passed">#39AA56</color>
+    <color name="build_failed">#DB4545</color>
+    <color name="build_canceled">#666666</color>
+    <color name="build_errored">#3EAAAF</color>
+
+    <color name="ci_server_domain_text">#2e7d32</color>
+    <color name="ci_server_title_text">@color/colorAccent</color>
 </resources>
