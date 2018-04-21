@@ -16,9 +16,9 @@ package com.kevalpatel2106.ci.greenbuild.repoList
 
 import android.content.Context
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**
  * Created by Keval on 18/04/18.

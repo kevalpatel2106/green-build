@@ -14,7 +14,6 @@
 
 package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
 
-import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View

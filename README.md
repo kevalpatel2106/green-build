@@ -1,2 +1,5 @@
 # green-build
-An android app for managing your CI builds.
+![Graphic](./.github/feature-graphic.png)
+
+#### An android app for managing your CI builds.
+

@@ -14,14 +14,19 @@
 
 package com.kevalpatel2106.ci.greenbuild.repoList
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
-import com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
+import kotlinx.android.synthetic.main.row_repo_list.view.*
+
 
 /**
  * Created by Keval on 18/04/18.
@@ -40,12 +45,17 @@ internal class RepoViewHolder private constructor(itemView: View)
     }
 
     fun bind(repo: Repo) {
-        itemView.findViewById<BaseTextView>(R.id.repo_title_tv).text = "${repo.owner.name}/${repo.name}"
+        val spannableString = SpannableString("${repo.owner.name}/${repo.name}")
+        spannableString.setSpan(
+                ForegroundColorSpan(itemView.context.getColorCompat(R.color.colorAccent)),
+                repo.owner.name.length + 1,
+                spannableString.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        itemView.repo_title_tv.text = spannableString
 
-        with(itemView.findViewById<BaseTextView>(R.id.repo_description_tv)) {
-            this.visibility = if (repo.description != null) View.VISIBLE else View.GONE
-            this.text = repo.description
-        }
+        itemView.repo_description_tv.visibility = if (repo.description != null) View.VISIBLE else View.GONE
+        itemView.repo_description_tv.text = repo.description
 
         itemView.setOnClickListener {
             BuildListActivity.launch(itemView.context, repo.id, repo.name)
