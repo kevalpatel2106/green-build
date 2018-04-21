@@ -25,4 +25,6 @@
 
     <color name="window_background_color">#22252A</color>
     <color name="divider">#BDBDBD</color>
+
+    <color name="ic_launcher_background">#FF8800</color>
 </resources>
