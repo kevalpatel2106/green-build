@@ -69,7 +69,7 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
         repo_list_rv.addItemDecoration(DividerItemDecoration(this@RepoListActivity))
 
         model.repoList.observe(this@RepoListActivity, Observer {
-            repo_list_rv.adapter.notifyDataSetChanged()
+            (repo_list_rv.adapter as RepoListAdapter).notifyDataSetChanged()
         })
 
         model.errorLoadingList.observe(this@RepoListActivity, Observer {

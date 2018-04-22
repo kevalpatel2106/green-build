@@ -17,25 +17,25 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.activity_build_list.*
+import com.kevalpatel2106.common.base.uiController.showSnack
+import kotlinx.android.synthetic.main.fragment_build_list.*
 import javax.inject.Inject
 
-class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
+class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
@@ -44,47 +44,50 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
 
     private lateinit var repoId: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_build_list)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_build_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         DaggerDiComponent.builder()
-                .applicationComponent(BaseApplication.get(this).getApplicationComponent())
+                .applicationComponent(BaseApplication.get(context!!).getApplicationComponent())
                 .build()
-                .inject(this@BuildListActivity)
+                .inject(this@BuildListFragment)
 
         model = ViewModelProviders
-                .of(this@BuildListActivity, viewModelProvider)
+                .of(this@BuildListFragment, viewModelProvider)
                 .get(BuildsListViewModel::class.java)
 
         //Set the adapter
-        builds_list_rv.layoutManager = LinearLayoutManager(this@BuildListActivity)
+        builds_list_rv.layoutManager = LinearLayoutManager(context!!)
         builds_list_rv.adapter = BuildListAdapter(
-                context = this@BuildListActivity,
+                context = context!!,
                 buildsList = model.buildsList.value!!,
                 listener = this
         )
         builds_list_rv.itemAnimator = DefaultItemAnimator()
-        builds_list_rv.addItemDecoration(DividerItemDecoration(this@BuildListActivity))
+        builds_list_rv.addItemDecoration(DividerItemDecoration(context!!))
 
-        model.buildsList.observe(this@BuildListActivity, Observer {
-            builds_list_rv.adapter.notifyDataSetChanged()
+        model.buildsList.observe(this@BuildListFragment, Observer {
+            (builds_list_rv.adapter as BuildListAdapter).notifyDataSetChanged()
         })
 
-        model.errorLoadingList.observe(this@BuildListActivity, Observer {
+        model.errorLoadingList.observe(this@BuildListFragment, Observer {
             it?.let { showSnack(it) }
         })
 
-        model.isLoadingFirstTime.observe(this@BuildListActivity, Observer {
+        model.isLoadingFirstTime.observe(this@BuildListFragment, Observer {
             it?.let {
                 build_list_view_flipper.displayedChild = if (it) 1 else 0
             }
         })
 
-        model.isLoadingList.observe(this@BuildListActivity, Observer {
+        model.isLoadingList.observe(this@BuildListFragment, Observer {
             it?.let {
                 if (!it) {
                     builds_list_refresher.isRefreshing = false
@@ -93,7 +96,7 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
             }
         })
 
-        model.hasModeData.observe(this@BuildListActivity, Observer {
+        model.hasModeData.observe(this@BuildListFragment, Observer {
             it?.let { (builds_list_rv.adapter as BuildListAdapter).hasNextPage = it }
         })
 
@@ -102,39 +105,33 @@ class BuildListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerV
             model.loadBuildsList(repoId, 1)
         }
 
-        with(intent.getStringExtra(ARG_REPO_ID)) {
+        with(arguments?.getString(ARG_REPO_ID)) {
             if (this == null)
                 throw IllegalArgumentException("No repo id available.")
             repoId = this
         }
 
-        if (savedInstanceState == null || model.buildsList.value!!.isEmpty()) {
+        if (model.buildsList.value!!.isEmpty()) {
             model.loadBuildsList(repoId, 1)
         }
-
-        //Set the title
-        supportActionBar?.title = intent.getStringExtra(ARG_REPO_NAME) ?: getString(R.string.title_activity_builds)
     }
 
     override fun onPageComplete(pos: Int) {
         model.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        finish()
-        return super.onOptionsItemSelected(item)
-    }
-
     companion object {
 
         internal const val ARG_REPO_ID = "repo_id"
-        internal const val ARG_REPO_NAME = "repo_name"
 
-        internal fun launch(context: Context, repoId: String, repoName: String) {
-            context.startActivity(Intent(context, BuildListActivity::class.java).apply {
-                putExtra(ARG_REPO_ID, repoId)
-                putExtra(ARG_REPO_NAME, repoName)
-            })
+        internal fun get(repoId: String): BuildListFragment {
+            val buildListFragment = BuildListFragment()
+            buildListFragment.retainInstance = true
+            buildListFragment.arguments = Bundle().apply {
+                putString(ARG_REPO_ID, repoId)
+            }
+
+            return buildListFragment
         }
     }
 }

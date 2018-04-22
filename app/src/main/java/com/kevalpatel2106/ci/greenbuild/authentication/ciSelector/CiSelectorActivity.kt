@@ -60,7 +60,7 @@ class CiSelectorActivity : AppCompatActivity() {
         ci_selector_list.adapter = CiSelectorAdapter(model.ciServers.value!!)
 
         model.ciServers.observe(this@CiSelectorActivity, Observer {
-            ci_selector_list.adapter.notifyDataSetChanged()
+            (ci_selector_list.adapter as CiSelectorAdapter).notifyDataSetChanged()
         })
     }
 

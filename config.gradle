@@ -15,14 +15,16 @@
 ext {
     versions = [
             'kotlin'        : '1.2.40',
-            'supportLibrary': '27.1.1',
-            'buildTools'    : '27.0.3',
-            'compileSdk'    : 27,
+            'buildTools'    : '28.0.0 rc1',
+            'compileSdk'    : 'android-P',
+            'targetSdk'     : 28,
+            'minSdk'        : 21,
+            'supportLibrary': '28.0.0-alpha1',
             'espresso'      : '3.0.1',
             'okHttp'        : "3.10.0",
             'retrofit'      : "2.3.0",
             'archComponent' : "1.1.0",
-            daggerVersion   : "2.15",
+            'daggerVersion' : "2.15",
             'room'          : "1.0.0"
     ]
 
@@ -58,8 +60,8 @@ ext {
 
         applicationId "com.kevalpatel2106.ci.greenbuild"
 
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
 
         versionCode 1
         versionName "1.0"
@@ -72,8 +74,8 @@ ext {
 
     libDefaultConfig = {
 
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
 
         //strip other than english resources
         resConfigs "en"

@@ -33,4 +33,7 @@
     <string name="travis_help_step_2">2. Go to profile.</string>
     <string name="travis_help_step_3">3. Copy the access token from your profile.</string>
     <string name="travis_help_step_4">4. Paste this access token inside the application.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

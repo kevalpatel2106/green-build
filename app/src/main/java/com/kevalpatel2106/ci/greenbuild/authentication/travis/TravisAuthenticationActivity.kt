@@ -74,7 +74,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         val argumentBaseUrl: String? = with(intent.getStringExtra(ARG_API_BASE_URL)) {
             if (this.isNullOrEmpty()) {
                 authentication_base_url_til.visibility = View.VISIBLE
-                authentication_base_url_et.setSelection(authentication_base_url_et.text.length)
+                authentication_base_url_et.setSelection(authentication_base_url_et.text!!.length)
                 authentication_base_url_et.addTextChangedListener(this@TravisAuthenticationActivity)
 
                 return@with null
@@ -90,7 +90,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
             authentication_token_til.error = ""
 
             model.validateAuthToken(
-                    accessToken = authentication_token_et.text.trim().toString(),
+                    accessToken = authentication_token_et.text?.trim().toString(),
                     apiUrl = argumentBaseUrl
                             ?: model.prepareApiUrl(authentication_base_url_et.text.toString())
             )

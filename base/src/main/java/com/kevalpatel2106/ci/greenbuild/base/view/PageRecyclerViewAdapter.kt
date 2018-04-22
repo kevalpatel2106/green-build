@@ -21,8 +21,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter.RecyclerViewListener
 import com.kevalpatel2106.ci.greenbuild.base.R
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter.RecyclerViewListener
 
 /**
  * Created by Keval on 31-May-17.
@@ -183,12 +183,12 @@ abstract class PageRecyclerViewAdapter<VH : PageRecyclerViewAdapter.PageViewHold
     /**
      * Loading view holder
      */
-    internal class LoaderViewHolder(itemView: View?) : PageViewHolder(itemView)
+    internal class LoaderViewHolder(itemView: View) : PageViewHolder(itemView)
 
     /**
      * Base view holder for pagination
      */
-    open class PageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    open class PageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     /**
      * Listener to get notify when the list ends.

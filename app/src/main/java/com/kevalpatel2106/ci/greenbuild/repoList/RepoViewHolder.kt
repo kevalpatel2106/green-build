@@ -24,7 +24,7 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListActivity
+import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
 import kotlinx.android.synthetic.main.row_repo_list.view.*
 
 
@@ -58,7 +58,13 @@ internal class RepoViewHolder private constructor(itemView: View)
         itemView.repo_description_tv.text = repo.description
 
         itemView.setOnClickListener {
-            BuildListActivity.launch(itemView.context, repo.id, repo.name)
+            RepoDetailActivity.launch(
+                    context = itemView.context,
+                    repoId = repo.id,
+                    repoName = repo.name,
+                    repoDescription = repo.description,
+                    repoOwnerName = repo.owner.name
+            )
         }
     }
 

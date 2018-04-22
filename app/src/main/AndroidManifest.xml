@@ -10,7 +10,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kevalpatel2106.ci.greenbuild">
@@ -60,9 +60,9 @@
             android:theme="@style/AppTheme"
             tools:ignore="UnusedAttribute" />
         <activity
-            android:name=".buildList.BuildListActivity"
+            android:name=".repoDetail.RepoDetailActivity"
             android:resizeableActivity="true"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.NoActionbar"
             tools:ignore="UnusedAttribute" />
         <activity
             android:name=".authentication.ciSelector.CiSelectorActivity"
@@ -77,7 +77,7 @@
 
         <!-- This service implements our SyncAdapter. -->
         <service
-            android:name="com.kevalpatel2106.ci.greenbuild.syncAdapter.SyncService"
+            android:name=".syncAdapter.SyncService"
             android:exported="true"
             tools:ignore="ExportedService">
 
@@ -94,7 +94,7 @@
                 android:resource="@xml/syncadapter" />
         </service>
         <service
-            android:name="com.kevalpatel2106.ci.greenbuild.syncAdapter.AccountAuthenticatorService"
+            android:name=".syncAdapter.AccountAuthenticatorService"
             android:exported="false"
             android:process=":auth">
             <intent-filter>
@@ -107,7 +107,7 @@
         </service>
 
         <provider
-            android:name="com.kevalpatel2106.ci.greenbuild.syncAdapter.StubContentProvider"
+            android:name=".syncAdapter.StubContentProvider"
             android:authorities="@string/sync_adapter_account_authority"
             android:exported="false"
             android:label="GitClient"

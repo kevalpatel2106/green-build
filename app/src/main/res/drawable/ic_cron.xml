@@ -1,0 +1,32 @@
+<!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="59.003"
+    android:viewportWidth="59.003">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M56.201,47.024c-0.55,-0.104 -1.069,0.24 -1.18,0.781c-1.117,5.502 -5.446,9.199 -10.771,9.198c-5.028,0 -9.446,-3.301 -10.948,-8.001l3.699,0l0,-2l-7,-0.001l-0.001,7l2,0l0,-2.848c2.168,4.681 6.914,7.849 12.248,7.849c6.304,0.001 11.42,-4.34 12.732,-10.8C57.091,47.662 56.742,47.135 56.201,47.024z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M56.003,35.005l0,4.308c-2.25,-4.454 -6.704,-7.309 -11.75,-7.31c-6.109,0 -11.541,3.996 -13.21,9.719c-0.154,0.53 0.15,1.085 0.681,1.239c0.529,0.155 1.085,-0.15 1.239,-0.68c1.399,-4.797 6.146,-8.279 11.29,-8.278c4.565,0 8.561,2.766 10.329,7.001l-4.579,0l0,2l8,0.001l0.001,-8L56.003,35.005z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M53.006,5.004c0,-0.552 -0.448,-1 -1,-1l-5,0l0,-3c0,-0.553 -0.448,-1 -1,-1l-7,-0.001c-0.552,0 -1,0.447 -1,1l0,3l-22,-0.002l0,-3c0,-0.553 -0.448,-1 -1,-1L8.006,0c-0.552,0 -1,0.447 -1,1l0,3l-5,0c-0.552,0 -1,0.448 -1,1l-0.001,9l52,0.005L53.006,5.004zM14.006,5l0,3l-5,0l0,-3l0,-3l5,0L14.006,5zM45.006,5.003l0,3l-5,0l0,-3l0,-3l5,0L45.006,5.003z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38.003,29.966l0.001,-7.963l8,0.001l-0.001,7.21c2.577,0.395 4.958,1.378 7,2.823l0,-1.854l0.001,-13.178c0,-0.553 -0.448,-1 -1,-1L2.005,16c-0.552,0 -1,0.447 -1,1L1.001,56c0,0.553 0.448,1 1,1l29.691,0.003c-2.897,-2.975 -4.691,-7.03 -4.69,-11.5C27.002,38.335 31.605,32.238 38.003,29.966zM28.004,22.002l7,0l1,0l-0.001,8l-8,-0.001L28.004,22.002zM16.001,50.001l-8,-0.001l0.001,-8l8,0.001L16.001,50.001zM16.002,40.001l-8,-0.001l0.001,-8l8,0.001L16.002,40.001zM16.003,30.001l-8,-0.001l0.001,-8l8,0.001L16.003,30.001zM26.001,50.002l-7,-0.001h-1l0.001,-8l8,0.001L26.001,50.002zM26.002,40.002l-8,-0.001l0.001,-8l8,0.001L26.002,40.002zM26.003,30.002l-8,-0.001l0.001,-8h1l7,0.001L26.003,30.002z" />
+</vector>
