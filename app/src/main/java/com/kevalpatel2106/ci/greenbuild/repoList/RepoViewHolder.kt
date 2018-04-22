@@ -14,6 +14,10 @@
 
 package com.kevalpatel2106.ci.greenbuild.repoList
 
+import android.app.Activity
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
+import android.support.v4.view.ViewCompat
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -33,14 +37,16 @@ import kotlinx.android.synthetic.main.row_repo_list.view.*
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class RepoViewHolder private constructor(itemView: View)
+internal class RepoViewHolder private constructor(private val activity: Activity, itemView: View)
     : PageRecyclerViewAdapter.PageViewHolder(itemView) {
 
     companion object {
 
-        fun create(parent: ViewGroup): RepoViewHolder {
-            return RepoViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.row_repo_list, parent, false))
+        fun create(activity: Activity, parent: ViewGroup): RepoViewHolder {
+            return RepoViewHolder(
+                    activity,
+                    LayoutInflater.from(parent.context).inflate(R.layout.row_repo_list, parent, false)
+            )
         }
     }
 
@@ -58,12 +64,23 @@ internal class RepoViewHolder private constructor(itemView: View)
         itemView.repo_description_tv.text = repo.description
 
         itemView.setOnClickListener {
+            val pairs = arrayListOf<Pair<View, String>>(
+                    Pair.create(itemView.repo_title_tv, ViewCompat.getTransitionName(itemView.repo_title_tv)),
+                    Pair.create(itemView.repo_description_tv, ViewCompat.getTransitionName(itemView.repo_description_tv))
+            ).toTypedArray()
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    *pairs
+            )
+
             RepoDetailActivity.launch(
                     context = itemView.context,
                     repoId = repo.id,
                     repoName = repo.name,
                     repoDescription = repo.description,
-                    repoOwnerName = repo.owner.name
+                    repoOwnerName = repo.owner.name,
+                    options = options
             )
         }
     }

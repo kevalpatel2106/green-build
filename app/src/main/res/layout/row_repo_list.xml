@@ -50,6 +50,7 @@
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/repo_title_tv"
         style="@style/MediumText.Primary"
+        android:transitionName="@string/repo_title_tv_transition_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -66,6 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:maxLines="3"
+        android:transitionName="@string/repo_description_tv_transition_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"

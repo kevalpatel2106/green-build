@@ -75,6 +75,7 @@
                         android:layout_toEndOf="@id/repo_image_logo"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:transitionName="@string/repo_title_tv_transition_name"
                         app:layout_constraintBottom_toTopOf="@+id/repo_owner_name_tv"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -121,6 +122,7 @@
                     android:layout_marginEnd="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_small"
                     android:maxLines="4"
+                    android:transitionName="@string/repo_description_tv_transition_name"
                     tools:text="@tools:sample/lorem/random" />
 
                 <!--Repo information tags-->

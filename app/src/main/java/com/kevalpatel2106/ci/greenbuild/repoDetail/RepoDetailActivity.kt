@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.kevalpatel2106.ci.greenbuild.R
@@ -107,13 +108,14 @@ class RepoDetailActivity : AppCompatActivity() {
                             repoId: String,
                             repoName: String,
                             repoDescription: String?,
-                            repoOwnerName: String?) {
+                            repoOwnerName: String?,
+                            options: ActivityOptionsCompat? = null) {
             context.startActivity(Intent(context, RepoDetailActivity::class.java).apply {
                 putExtra(ARG_REPO_ID, repoId)
                 putExtra(ARG_REPO_NAME, repoName)
                 putExtra(ARG_REPO_DESCRIPTION, repoDescription)
                 putExtra(ARG_REPO_OWNER_NAME, repoOwnerName)
-            })
+            }, options?.toBundle())
         }
     }
 }
