@@ -31,7 +31,7 @@ internal data class ResponseMyAccount(
         @field:SerializedName("@representation")
         val representation: String,
 
-        @field:SerializedName("@permissions")
+        @field:SerializedName("@envVarsPermissions")
         val permissions: AccountPermissions,
 
         @field:SerializedName("name")

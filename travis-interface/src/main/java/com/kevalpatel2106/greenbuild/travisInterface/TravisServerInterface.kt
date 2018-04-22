@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
@@ -76,10 +77,6 @@ class TravisServerInterface internal constructor(private val baseUrl: String, ac
                     null
                 }
             }
-        }
-
-        fun prepareEnterpriseBaseUrl(domain: String): String{
-            return domain
         }
     }
 
@@ -164,4 +161,19 @@ class TravisServerInterface internal constructor(private val baseUrl: String, ac
                     )
                 }
     }
+
+    override fun getEnvironmentVariablesList(page: Int,
+                                             repoId: String): Observable<Page<EnvVars>> {
+        return travisEndpoints
+                .getEnvVariablesForRepo(repoId = repoId)
+                .map {
+                    val buildList = ArrayList<EnvVars>(it.envVars.size)
+                    it.envVars.forEach { buildList.add(it.toEnvVars()) }
+                    return@map Page(
+                            hasNext = false, /* This api is not designed for pagination */
+                            list = buildList
+                    )
+                }
+    }
+
 }

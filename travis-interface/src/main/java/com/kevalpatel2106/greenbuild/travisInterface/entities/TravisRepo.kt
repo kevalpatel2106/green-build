@@ -37,7 +37,7 @@ internal data class TravisRepo(
         @field:SerializedName("starred")
         val starred: Boolean? = null,
 
-        @field:SerializedName("@permissions")
+        @field:SerializedName("@envVarsPermissions")
         val permissions: RepoPermissions? = null,
 
         @field:SerializedName("name")

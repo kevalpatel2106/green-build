@@ -21,6 +21,7 @@ import com.kevalpatel2106.ci.greenbuild.authentication.travis.TravisAuthenticati
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
 import dagger.Binds
@@ -63,4 +64,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(RepoDetailViewModel::class)
     internal abstract fun bindRepoDetailViewModel(viewModel: RepoDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EnvVarsListViewModel::class)
+    internal abstract fun bindEnvVarsListViewModel(viewModel: EnvVarsListViewModel): ViewModel
 }

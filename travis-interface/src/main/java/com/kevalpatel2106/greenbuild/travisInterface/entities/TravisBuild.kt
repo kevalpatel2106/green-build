@@ -71,7 +71,7 @@ internal data class TravisBuild(
         @field:SerializedName("pull_request_number")
         val pullRequestNumber: String? = null,
 
-        @field:SerializedName("@permissions")
+        @field:SerializedName("@envVarsPermissions")
         val permissions: BuildPermissions,
 
         @field:SerializedName("tag")

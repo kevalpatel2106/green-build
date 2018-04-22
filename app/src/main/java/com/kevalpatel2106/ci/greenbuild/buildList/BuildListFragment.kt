@@ -31,7 +31,6 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import com.kevalpatel2106.common.base.uiController.showSnack
 import kotlinx.android.synthetic.main.fragment_build_list.*
 import javax.inject.Inject
 
@@ -74,16 +73,28 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
         builds_list_rv.addItemDecoration(DividerItemDecoration(context!!))
 
         model.buildsList.observe(this@BuildListFragment, Observer {
-            (builds_list_rv.adapter as BuildListAdapter).notifyDataSetChanged()
+
+            it?.let {
+                if (it.isNotEmpty()) {
+                    build_list_view_flipper.displayedChild = 0
+                    (builds_list_rv.adapter as BuildListAdapter).notifyDataSetChanged()
+                } else {
+                    build_list_view_flipper.displayedChild = 2
+                    builds_error_tv.text = getString(R.string.error_no_build_started)
+                }
+            }
         })
 
         model.errorLoadingList.observe(this@BuildListFragment, Observer {
-            it?.let { showSnack(it) }
+            it?.let {
+                build_list_view_flipper.displayedChild = 2
+                builds_error_tv.text = it
+            }
         })
 
         model.isLoadingFirstTime.observe(this@BuildListFragment, Observer {
             it?.let {
-                build_list_view_flipper.displayedChild = if (it) 1 else 0
+                if (it) build_list_view_flipper.displayedChild = 1
             }
         })
 

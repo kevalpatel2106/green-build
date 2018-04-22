@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.greenbuild.travisInterface.response.EnvVarsResponse
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseBuildsForRepo
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyAccount
 import com.kevalpatel2106.greenbuild.travisInterface.response.ResponseMyRepo
@@ -60,4 +61,10 @@ internal interface TravisEndpoints {
             @Query("sort_by") sortBy: String,
             @Query("state") state: String? = null
     ): Observable<ResponseBuildsForRepo>
+
+    @GET("repo/{repoId}/env_vars")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getEnvVariablesForRepo(
+            @Path("repoId") repoId: String
+    ): Observable<EnvVarsResponse>
 }

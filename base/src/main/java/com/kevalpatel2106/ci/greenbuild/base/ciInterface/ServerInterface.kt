@@ -62,6 +62,14 @@ abstract class ServerInterface(protected val accessToken: String) {
             buildState: BuildState? = null
     ): Observable<Page<Build>>
 
+    /**
+     * Get the list of [EnvVars] for the given [Repo].
+     */
+    abstract fun getEnvironmentVariablesList(
+            page: Int,
+            repoId: String
+    ): Observable<Page<EnvVars>>
+
 
     companion object {
         const val PAGE_SIZE = 20

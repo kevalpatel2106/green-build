@@ -36,4 +36,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_no_environment_variable_set">No environment variable set.</string>
+    <string name="error_no_build_started">No build started yet.</string>
 </resources>
