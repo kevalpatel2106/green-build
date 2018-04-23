@@ -15,8 +15,10 @@
 package com.kevalpatel2106.ci.greenbuild.repoDetail
 
 import android.arch.lifecycle.MutableLiveData
-import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import android.support.v4.app.Fragment
+import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
@@ -28,32 +30,94 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class RepoDetailViewModel
-@Inject internal constructor(private val application: BaseApplication) : BaseViewModel() {
+internal class RepoDetailViewModel @Inject internal constructor(
+        compatibilityCheck: CompatibilityCheck
+) : BaseViewModel() {
 
     internal val selectedItem = MutableLiveData<Int>()
 
-    internal var buildListFragment: BuildListFragment? = null
-    internal var cacheListFragment: CacheListFragment? = null
-    internal var envVarListFragment: EnvVariableListFragment? = null
-    internal var cronListFragment: CronListFragment? = null
+    // Compatibility
+    internal val isBuildListCompatible = compatibilityCheck.isBuildsListByRepoSupported()
+    internal val isCacheListCompatible = compatibilityCheck.isCacheListListSupported()
+    internal val isCronListCompatible = compatibilityCheck.isCronJobsListSupported()
+    internal val isEnvVarsListCompatible = compatibilityCheck.isEnvironmentVariableListSupported()
+
+    private val fragmentsList = ArrayList<Fragment>()
+    private var buildListFragment: BuildListFragment? = null
+    private var cacheListFragment: CacheListFragment? = null
+    private var envVarListFragment: EnvVariableListFragment? = null
+    private var cronListFragment: CronListFragment? = null
 
     init {
+        if (!isCacheListCompatible && !isBuildListCompatible && !isCronListCompatible && !isEnvVarsListCompatible) {
+            throw IllegalStateException("This CI provider doesn't support any features at all!!!")
+        }
         selectedItem.value = 0
     }
 
+
     /**
-     * Initialize all the fragments that are going to display into the viewpager.
+     * Initialize all the fragments that are going to display into the viewpager. This should be called
+     * whenever the [RepoDetailActivity] is created.
+     *
      */
     fun initializeFragments(repoId: String) {
-        if (buildListFragment == null) buildListFragment = BuildListFragment.get(repoId)
-        if (cacheListFragment == null) cacheListFragment = CacheListFragment.get(repoId)
-        if (cronListFragment == null) cronListFragment = CronListFragment.get(repoId)
-        if (envVarListFragment == null) envVarListFragment = EnvVariableListFragment.get(repoId)
+        //DON'T CHANGE THE ORDER OF THE FRAGMENTS IN ARRAY LIST.
+        //This order should be in sync with the bottom navigation list menu.
+
+        if (buildListFragment == null && isBuildListCompatible) {
+            buildListFragment = BuildListFragment.get(repoId)
+            fragmentsList.add(buildListFragment!!)
+        }
+        if (envVarListFragment == null && isEnvVarsListCompatible) {
+            envVarListFragment = EnvVariableListFragment.get(repoId)
+            fragmentsList.add(envVarListFragment!!)
+        }
+        if (cronListFragment == null && isCronListCompatible) {
+            cronListFragment = CronListFragment.get(repoId)
+            fragmentsList.add(cronListFragment!!)
+        }
+        if (cacheListFragment == null && isCacheListCompatible) {
+            cacheListFragment = CacheListFragment.get(repoId)
+            fragmentsList.add(cacheListFragment!!)
+        }
     }
 
-    fun changeSelectedItem(int: Int) {
-        selectedItem.value = int
+    /**
+     * Get the count of the [Fragment] to be displayed in the viewpager of the [RepoDetailActivity].
+     * This count must be same with the bottom navigation items that are enabled in [RepoDetailActivity].
+     */
+    internal fun getViewPagerCount(): Int {
+        return fragmentsList.size
+    }
+
+    /**
+     * Get the [Fragment] to display in the view pager of [RepoDetailActivity].
+     *
+     * @see RepoDetailPagerAdapter
+     */
+    internal fun getFragmentByPosition(position: Int): Fragment {
+        if (fragmentsList.size > position) {
+            return fragmentsList[position]
+        } else {
+            throw IllegalStateException("Invalid bottom navigation item position $position")
+        }
+    }
+
+    /**
+     * Change the currently selected item position. The activity can observe [selectedItem] to
+     * get notify when the selected item change.
+     */
+    fun changeSelectedItem(itemId: Int) {
+        selectedItem.value = when (itemId) {
+            R.id.repo_detail_menu_bottom_build -> fragmentsList.indexOf(buildListFragment as Fragment)
+            R.id.repo_detail_menu_bottom_env_var -> fragmentsList.indexOf(envVarListFragment as Fragment)
+            R.id.repo_detail_menu_bottom_cron -> fragmentsList.indexOf(cronListFragment as Fragment)
+            R.id.repo_detail_menu_bottom_cache -> fragmentsList.indexOf(cacheListFragment as Fragment)
+            else -> throw IllegalArgumentException("Invalid item id : $itemId")
+        }
+
+        if (selectedItem.value!! < -1) throw IllegalStateException("Cannot find the fragment for $itemId.")
     }
 
 }

@@ -17,6 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.envVariableList
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +29,13 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class EnvVarsListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
+internal class EnvVarsListViewModel @Inject constructor(
+        private val serverInterface: ServerInterface,
+        compatibilityCheck: CompatibilityCheck
+) : BaseViewModel() {
+    internal val isDeleteVariableSupported = compatibilityCheck.isEnvironmentVariableDeleteSupported()
+    internal val isEditPublicVariableSupported = compatibilityCheck.isPublicEnvironmentVariableEditSupported()
+    internal val isEditPrivateVariableSupported = compatibilityCheck.isPrivateEnvironmentVariableEditSupported()
 
     internal val envVarsList = MutableLiveData<ArrayList<EnvVars>>()
 
@@ -41,6 +48,9 @@ internal class EnvVarsListViewModel @Inject constructor(private val serverInterf
     internal var hasModeData = MutableLiveData<Boolean>()
 
     init {
+        if (!compatibilityCheck.isEnvironmentVariableListSupported())
+            throw IllegalStateException("Environment variables listing by repository is not supported for this CI.")
+
         hasModeData.value = true
         isLoadingList.value = false
         isLoadingFirstTime.value = false

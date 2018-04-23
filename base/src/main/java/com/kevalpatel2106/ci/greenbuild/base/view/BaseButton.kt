@@ -28,8 +28,8 @@ import com.kevalpatel2106.ci.greenbuild.base.view.progressButton.ProgressButton
  * Created by Keval Patel on 04/03/17.
  * This base class is to extend the functionality of [AppCompatButton]. Use this class instead
  * of [android.widget.Button] through out the application.
-
- * @author 'https://github.com/kevalpatel2106'
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class BaseButton : ProgressButton {
 

@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
@@ -63,4 +64,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(EnvVarsListViewModel::class)
     internal abstract fun bindEnvVarsListViewModel(viewModel: EnvVarsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CacheListViewModel::class)
+    internal abstract fun bindCacheListViewModel(viewModel: CacheListViewModel): ViewModel
 }

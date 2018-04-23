@@ -12,13 +12,13 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface
+package com.kevalpatel2106.greenbuild.travisInterface.response
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompitibilityCheck
+import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisCaches
 
-/**
- * Created by Keval on 23/04/18.
- *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
- */
-class TravisCompitibilityCheck : CompitibilityCheck
+internal data class CachesListResponse(
+
+        @field:SerializedName("caches")
+        val caches: ArrayList<TravisCaches>
+)

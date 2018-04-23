@@ -31,9 +31,9 @@ data class Build(
 
         val previousState: String?,
 
-        val startedAt: String? = null,
+        val startedAt: Long = 0,
 
-        val finishedAt: String? = null,
+        val finishedAt: Long = 0,
 
         val branchName: String? = null,
 

@@ -22,6 +22,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
@@ -45,32 +46,18 @@ class TravisServerInterface internal constructor(
 
     companion object {
 
-        /**
-         * Base url for accessing the API for travis-ci.org.
-         *
-         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
-         */
-        const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
-
-        /**
-         * Base url for accessing the API for travis-ci.com.
-         *
-         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
-         */
-        const val TRAVIS_CI_COM = "https://api.travis-ci.com"
-
         fun get(baseUrl: String, accessToken: String): TravisServerInterface? {
 
             return when {
-                baseUrl == TRAVIS_CI_ORG -> {
+                baseUrl == Constants.TRAVIS_CI_ORG -> {
                     TravisServerInterface(
-                            baseUrl = TRAVIS_CI_ORG,
+                            baseUrl = Constants.TRAVIS_CI_ORG,
                             accessToken = accessToken
                     )
                 }
-                baseUrl == TRAVIS_CI_COM -> {
+                baseUrl == Constants.TRAVIS_CI_COM -> {
                     TravisServerInterface(
-                            baseUrl = TRAVIS_CI_COM,
+                            baseUrl = Constants.TRAVIS_CI_COM,
                             accessToken = accessToken
                     )
                 }
@@ -96,7 +83,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for open source projects on GitHub.",
                     domain = "https://travis-ci.org",
                     onClick = {
-                        TravisAuthenticationActivity.launch(application, TravisServerInterface.TRAVIS_CI_ORG)
+                        TravisAuthenticationActivity.launch(application, Constants.TRAVIS_CI_ORG)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_com,
@@ -104,7 +91,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for private repositories on GitHub.",
                     domain = "https://travis-ci.com",
                     onClick = {
-                        TravisAuthenticationActivity.launch(application, TravisServerInterface.TRAVIS_CI_COM)
+                        TravisAuthenticationActivity.launch(application, Constants.TRAVIS_CI_COM)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_enterprice,
@@ -118,7 +105,6 @@ class TravisServerInterface internal constructor(
             return ciServers
         }
     }
-
 
     override fun getBaseUrl(): String {
         return baseUrl
@@ -209,6 +195,22 @@ class TravisServerInterface internal constructor(
                 .map {
                     val buildList = ArrayList<EnvVars>(it.envVars.size)
                     it.envVars.forEach { buildList.add(it.toEnvVars()) }
+                    return@map Page(
+                            hasNext = false, /* This api is not designed for pagination */
+                            list = buildList
+                    )
+                }
+    }
+
+    /**
+     * Get the list of [Cache] for the given [Repo].
+     */
+    override fun getCachesList(page: Int, repoId: String): Observable<Page<Cache>> {
+        return travisEndpoints
+                .getCachesForRepo(repoId = repoId)
+                .map {
+                    val buildList = ArrayList<Cache>(it.caches.size)
+                    it.caches.forEach { buildList.add(it.toCache()) }
                     return@map Page(
                             hasNext = false, /* This api is not designed for pagination */
                             list = buildList

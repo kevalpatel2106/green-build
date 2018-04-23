@@ -12,13 +12,13 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.envVariableList
+package com.kevalpatel2106.ci.greenbuild.cacheList
 
 import android.content.Context
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**
@@ -26,23 +26,21 @@ import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class EnvListAdapter(
+internal class CacheListAdapter(
         context: Context,
-        list: ArrayList<EnvVars>,
+        list: ArrayList<Cache>,
         private val compatibilityCheck: CompatibilityCheck,
-        listener: PageRecyclerViewAdapter.RecyclerViewListener<EnvVars>)
-    : PageRecyclerViewAdapter<EnvListViewHolder, EnvVars>(context, list, listener) {
+        listener: PageRecyclerViewAdapter.RecyclerViewListener<Cache>)
+    : PageRecyclerViewAdapter<CacheListViewHolder, Cache>(context, list, listener) {
 
-    override fun bindView(holder: EnvListViewHolder, item: EnvVars) {
+    override fun bindView(holder: CacheListViewHolder, item: Cache) {
         holder.bind(item)
     }
 
-    override fun prepareViewHolder(parent: ViewGroup, viewType: Int): EnvListViewHolder {
-        return EnvListViewHolder.create(
+    override fun prepareViewHolder(parent: ViewGroup, viewType: Int): CacheListViewHolder {
+        return CacheListViewHolder.create(
                 parent = parent,
-                isDeleteSupported = compatibilityCheck.isEnvironmentVariableDeleteSupported(),
-                isEditPublicSupported = compatibilityCheck.isPublicEnvironmentVariableEditSupported(),
-                isEditPrivateSupported = compatibilityCheck.isPrivateEnvironmentVariableEditSupported()
+                isDeleteSupported = compatibilityCheck.isCacheDeleteSupported()
         )
     }
 

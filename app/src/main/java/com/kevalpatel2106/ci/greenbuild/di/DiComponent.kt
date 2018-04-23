@@ -16,6 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.di
 
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVariableListFragment
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
@@ -62,4 +63,9 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [EnvVariableListFragment].
      */
     fun inject(envVariableListFragment: EnvVariableListFragment)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [CacheListFragment].
+     */
+    fun inject(cacheListFragment: CacheListFragment)
 }

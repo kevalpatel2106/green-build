@@ -15,7 +15,9 @@
 package com.kevalpatel2106.ci.greenbuild.di
 
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.greenbuild.travisInterface.TravisCompatibilityCheck
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import dagger.Module
 import dagger.Provides
@@ -37,6 +39,22 @@ internal class DiModule {
         TravisServerInterface.get(
                 baseUrl = account.serverUrl,
                 accessToken = account.accessToken
+        )?.let {
+            return it
+        }
+
+        //Unknown CI server.
+        throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
+    }
+
+    @Provides
+    fun provideCompatibilityCheck(accountsManager: AccountsManager): CompatibilityCheck {
+
+        val account = accountsManager.getCurrentAccount()
+
+        //Check if it is travis server?
+        TravisCompatibilityCheck.get(
+                baseUrl = account.serverUrl
         )?.let {
             return it
         }

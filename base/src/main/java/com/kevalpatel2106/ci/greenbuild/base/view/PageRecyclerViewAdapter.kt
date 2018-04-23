@@ -28,9 +28,8 @@ import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter.Recycl
  * Created by Keval on 31-May-17.
  * Base class for loading [RecyclerView.Adapter] that handles page
  * complete callbacks. Use this class instead of [RecyclerView.Adapter] through out the application.
-
- * @author [&#39;https://github.com/kevalpatel2106&#39;]['https://github.com/kevalpatel2106']
- * *
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  * @see RecyclerViewListener
  */
 

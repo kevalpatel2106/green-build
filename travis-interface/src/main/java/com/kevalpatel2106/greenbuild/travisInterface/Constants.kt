@@ -23,6 +23,20 @@ internal class Constants {
 
     companion object {
 
+        /**
+         * Base url for accessing the API for travis-ci.org.
+         *
+         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
+         */
+        const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
+
+        /**
+         * Base url for accessing the API for travis-ci.com.
+         *
+         * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
+         */
+        const val TRAVIS_CI_COM = "https://api.travis-ci.com"
+
         // name of build states
         internal const val CANCEL_BUILD = "canceled"
         internal const val PASSED_BUILD = "passed"

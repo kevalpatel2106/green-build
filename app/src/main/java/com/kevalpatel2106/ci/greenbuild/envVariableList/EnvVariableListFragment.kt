@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
@@ -44,6 +45,9 @@ class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerView
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
+
+    @Inject
+    internal lateinit var compatibilityCheck: CompatibilityCheck
 
     private lateinit var model: EnvVarsListViewModel
 
@@ -72,7 +76,8 @@ class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerView
         env_var_list_rv.layoutManager = LinearLayoutManager(context!!)
         env_var_list_rv.adapter = EnvListAdapter(
                 context = context!!,
-                envVarsList = model.envVarsList.value!!,
+                list = model.envVarsList.value!!,
+                compatibilityCheck = compatibilityCheck,
                 listener = this
         )
         env_var_list_rv.itemAnimator = DefaultItemAnimator()

@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
+import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.greenbuild.travisInterface.Constants
 
 
@@ -89,8 +90,8 @@ internal data class TravisBuild(
                 duration = duration,
                 eventType = getEventType(eventType),
                 number = number,
-                finishedAt = finishedAt,
-                startedAt = startedAt,
+                finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),
+                startedAt = if (startedAt == null) 0 else ConversationUtils.rfc3339ToMills(startedAt),
                 previousState = previousState,
                 author = Build.Author(
                         id = createdBy.id.toString(),

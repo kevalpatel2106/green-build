@@ -27,14 +27,28 @@ import kotlinx.android.synthetic.main.row_env_vars.view.*
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class EnvListViewHolder private constructor(itemView: View)
-    : PageRecyclerViewAdapter.PageViewHolder(itemView) {
+internal class EnvListViewHolder private constructor(
+        itemView: View,
+        private val isDeleteSupported: Boolean,
+        private val isEditPublicSupported: Boolean,
+        private val isEditPrivateSupported: Boolean
+) : PageRecyclerViewAdapter.PageViewHolder(itemView) {
 
     companion object {
 
-        fun create(parent: ViewGroup): EnvListViewHolder {
-            return EnvListViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.row_env_vars, parent, false))
+        fun create(parent: ViewGroup,
+                   isDeleteSupported: Boolean,
+                   isEditPublicSupported: Boolean,
+                   isEditPrivateSupported: Boolean
+        ): EnvListViewHolder {
+
+            return EnvListViewHolder(
+                    itemView = LayoutInflater.from(parent.context)
+                            .inflate(R.layout.row_env_vars, parent, false),
+                    isDeleteSupported = isDeleteSupported,
+                    isEditPublicSupported = isEditPublicSupported,
+                    isEditPrivateSupported = isEditPrivateSupported
+            )
         }
     }
 
@@ -46,8 +60,21 @@ internal class EnvListViewHolder private constructor(itemView: View)
         else
             R.drawable.ic_private)
 
+        //Set delete button
+        if (isDeleteSupported) {
+            itemView.row_env_var_delete_btn.visibility = View.VISIBLE
+            itemView.row_env_var_delete_btn.setOnClickListener { }
+        } else {
+            itemView.row_env_var_delete_btn.visibility = View.GONE
+        }
 
-        itemView.row_env_var_delete_btn.setOnClickListener { }
+        //Set edit button
+        if (envVars.public) {
+            itemView.row_env_var_edit_btn.visibility = if (isEditPublicSupported) View.VISIBLE else View.GONE
+        } else {
+            itemView.row_env_var_edit_btn.visibility = if (isEditPrivateSupported) View.VISIBLE else View.GONE
+        }
+
         itemView.row_env_var_edit_btn.setOnClickListener { }
 
         //TODO

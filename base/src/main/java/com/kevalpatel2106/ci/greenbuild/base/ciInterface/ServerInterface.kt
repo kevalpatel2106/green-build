@@ -18,6 +18,7 @@ import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
@@ -70,6 +71,15 @@ abstract class ServerInterface(protected val accessToken: String) {
             page: Int,
             repoId: String
     ): Observable<Page<EnvVars>>
+
+
+    /**
+     * Get the list of [Cache] for the given [Repo].
+     */
+    abstract fun getCachesList(
+            page: Int,
+            repoId: String
+    ): Observable<Page<Cache>>
 
 
     companion object {

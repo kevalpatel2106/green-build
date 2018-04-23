@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/spacing_micro"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/spacing_micro"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/cache_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textAppearance="@style/MediumText.Accent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline27"
+        app:layout_constraintStart_toStartOf="@+id/guideline26"
+        app:layout_constraintTop_toTopOf="@+id/guideline28"
+        tools:text="@tools:sample/lorem/random"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/cache_branch_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintStart_toStartOf="@+id/guideline26"
+        app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
+        app:srcCompat="@drawable/git_commit"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/cache_branch_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/SmallText.Secondary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline27"
+        app:layout_constraintStart_toEndOf="@+id/cache_branch_iv"
+        app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
+        tools:text="@tools:sample/lorem"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/cache_size_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/spacing_pico"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="@+id/cache_size_tv"
+        app:layout_constraintStart_toEndOf="@+id/cache_last_modified_tv"
+        app:layout_constraintTop_toTopOf="@+id/cache_size_tv"
+        app:srcCompat="@drawable/ic_cache_size"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/cache_size_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cache_last_modified_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline27"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cache_size_iv"
+        tools:text="125 KB"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+        android:id="@+id/cache_last_modified_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="@+id/cache_last_modified_tv"
+        app:layout_constraintStart_toStartOf="@+id/guideline26"
+        app:layout_constraintTop_toTopOf="@+id/cache_last_modified_tv"
+        app:srcCompat="@drawable/ic_history"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/cache_last_modified_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/SmallText.Secondary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline30"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cache_last_modified_iv"
+        app:layout_constraintTop_toBottomOf="@+id/cache_branch_tv"
+        tools:text="@tools:sample/date/ddmmyy"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+        android:id="@+id/row_cache_delete_btn"
+        style="@style/RoundButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_env_var_delete_btn"
+        android:drawablePadding="@dimen/spacing_micro"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawableTint="@android:color/holo_red_dark"
+        android:text="@string/btn_title_delete"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline29"
+        app:layout_constraintStart_toStartOf="@+id/guideline26"
+        app:layout_constraintTop_toBottomOf="@+id/cache_last_modified_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UnusedAttribute"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -20,7 +20,7 @@ import android.os.Parcelable
 /**
  * Created by Keval on 16/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 data class Account(
 

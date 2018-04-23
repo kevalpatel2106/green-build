@@ -12,15 +12,14 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.buildList
+package com.kevalpatel2106.ci.greenbuild.cacheList
 
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -30,12 +29,13 @@ import javax.inject.Inject
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class BuildsListViewModel @Inject constructor(
+internal class CacheListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
+    internal val isDeleteVariableSupported = compatibilityCheck.isCacheDeleteSupported()
 
-    internal val buildsList = MutableLiveData<ArrayList<Build>>()
+    internal val cacheList = MutableLiveData<ArrayList<Cache>>()
 
     internal val errorLoadingList = SingleLiveEvent<String>()
 
@@ -46,24 +46,24 @@ internal class BuildsListViewModel @Inject constructor(
     internal var hasModeData = MutableLiveData<Boolean>()
 
     init {
-        if (!compatibilityCheck.isBuildsListByRepoSupported())
-            throw IllegalStateException("Builds listing by repository is not supported for this CI.")
+        if (!compatibilityCheck.isCacheListListSupported())
+            throw IllegalStateException("Cache listing by repository is not supported for this CI.")
 
         hasModeData.value = true
         isLoadingList.value = false
         isLoadingFirstTime.value = false
 
-        buildsList.value = ArrayList()
+        cacheList.value = ArrayList()
     }
 
-    fun loadBuildsList(repoId: String, page: Int) {
-        serverInterface.getBuildList(page, repoId, BuildSortBy.FINISHED_AT_DESC)
+    fun loadCacheList(repoId: String, page: Int) {
+        serverInterface.getCachesList(page, repoId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     isLoadingList.value = true
 
-                    buildsList.value?.let {
+                    cacheList.value?.let {
                         if (it.isEmpty()) isLoadingFirstTime.value = true
                     }
                 }
@@ -74,10 +74,10 @@ internal class BuildsListViewModel @Inject constructor(
                 .subscribe({
                     hasModeData.value = it.hasNext
 
-                    if (page == 1) buildsList.value!!.clear()
+                    if (page == 1) cacheList.value!!.clear()
 
-                    buildsList.value!!.addAll(it.list)
-                    buildsList.value = buildsList.value
+                    cacheList.value!!.addAll(it.list)
+                    cacheList.value = cacheList.value
                 }, {
                     errorLoadingList.value = it.message
                 })

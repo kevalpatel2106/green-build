@@ -24,8 +24,8 @@ import android.view.MotionEvent
  * Created by Keval on 31-May-17.
  * This class is to extend the functionality of [ViewPager]. Use this class instead
  * of [ViewPager] through out the application.
-
- * @author 'https://github.com/kevalpatel2106'
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
 class BaseViewPager : ViewPager {

@@ -15,24 +15,134 @@
 package com.kevalpatel2106.ci.greenbuild.cacheList
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import kotlinx.android.synthetic.main.fragment_cache_list.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class CacheListFragment : Fragment() {
+class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Cache> {
+
+    @Inject
+    internal lateinit var viewModelProvider: ViewModelProvider.Factory
+
+    @Inject
+    internal lateinit var compatibilityCheck: CompatibilityCheck
+
+    private lateinit var model: CacheListViewModel
+
+    private lateinit var repoId: String
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cache_list, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        DaggerDiComponent.builder()
+                .applicationComponent(BaseApplication.get(context!!).getApplicationComponent())
+                .build()
+                .inject(this@CacheListFragment)
+
+        model = ViewModelProviders
+                .of(this@CacheListFragment, viewModelProvider)
+                .get(CacheListViewModel::class.java)
+
+        //Set the adapter
+        cache_list_rv.layoutManager = LinearLayoutManager(context!!)
+        cache_list_rv.adapter = CacheListAdapter(
+                context = context!!,
+                list = model.cacheList.value!!,
+                compatibilityCheck = compatibilityCheck,
+                listener = this
+        )
+        cache_list_rv.itemAnimator = DefaultItemAnimator()
+        cache_list_rv.addItemDecoration(DividerItemDecoration(context!!))
+
+        model.cacheList.observe(this@CacheListFragment, Observer {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    cache_list_view_flipper.displayedChild = 0
+                    (cache_list_rv.adapter as CacheListAdapter).notifyDataSetChanged()
+                } else {
+                    cache_list_view_flipper.displayedChild = 2
+                    caches_error_tv.text = getString(R.string.error_cache_available)
+                }
+            }
+        })
+
+        model.errorLoadingList.observe(this@CacheListFragment, Observer {
+            it?.let {
+                cache_list_view_flipper.displayedChild = 2
+                caches_error_tv.text = it
+            }
+        })
+
+        model.isLoadingFirstTime.observe(this@CacheListFragment, Observer {
+            it?.let {
+                if (it) {
+                    cache_list_view_flipper.displayedChild = 1
+                }
+            }
+        })
+
+        model.isLoadingList.observe(this@CacheListFragment, Observer {
+            it?.let {
+                if (!it) {
+                    cache_list_refresher.isRefreshing = false
+                    (cache_list_rv.adapter as CacheListAdapter).onPageLoadComplete()
+                }
+            }
+        })
+
+        model.hasModeData.observe(this@CacheListFragment, Observer {
+            it?.let { (cache_list_rv.adapter as CacheListAdapter).hasNextPage = it }
+        })
+
+        cache_list_refresher.setOnRefreshListener {
+            cache_list_refresher.isRefreshing = true
+            model.loadCacheList(repoId, 1)
+        }
+
+        with(arguments?.getString(BuildListFragment.ARG_REPO_ID)) {
+            if (this == null)
+                throw IllegalArgumentException("No repo id available.")
+            repoId = this
+        }
+
+        if (model.cacheList.value!!.isEmpty()) {
+            model.loadCacheList(repoId, 1)
+        }
+    }
+
+    override fun onPageComplete(pos: Int) {
+        model.loadCacheList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
     companion object {

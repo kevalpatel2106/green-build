@@ -58,26 +58,49 @@ class RepoDetailActivity : AppCompatActivity() {
         model.initializeFragments(repoId)
 
         setToolbar()
+        setBottomNavigation()
+        setViewPager()
+    }
+
+    /**
+     * Set the bottom navigation view.
+     */
+    private fun setBottomNavigation() {
+        //Set up the menu items.
+        repo_detail_bottom_navigation.menu
+                .findItem(R.id.repo_detail_menu_bottom_build)
+                .isVisible = model.isBuildListCompatible
+        repo_detail_bottom_navigation.menu
+                .findItem(R.id.repo_detail_menu_bottom_env_var)
+                .isVisible = model.isEnvVarsListCompatible
+        repo_detail_bottom_navigation.menu
+                .findItem(R.id.repo_detail_menu_bottom_cron)
+                .isVisible = model.isCronListCompatible
+        repo_detail_bottom_navigation.menu
+                .findItem(R.id.repo_detail_menu_bottom_cache)
+                .isVisible = model.isCacheListCompatible
 
         repo_detail_bottom_navigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.repo_detail_menu_bottom_build -> model.changeSelectedItem(0)
-                R.id.repo_detail_menu_bottom_env_var -> model.changeSelectedItem(1)
-                R.id.repo_detail_menu_bottom_cron -> model.changeSelectedItem(2)
-                R.id.repo_detail_menu_bottom_cache -> model.changeSelectedItem(3)
-            }
+            model.changeSelectedItem(it.itemId)
             return@setOnNavigationItemSelectedListener true
         }
+    }
 
-        //Set view pager
+    /**
+     * Set up the [RepoDetailPagerAdapter].
+     */
+    private fun setViewPager() {
         repo_detail_view_pager.adapter = RepoDetailPagerAdapter(model, supportFragmentManager)
         repo_detail_view_pager.setSwipeGestureEnable(false)
-
         model.selectedItem.observe(this@RepoDetailActivity, Observer {
             it?.let { repo_detail_view_pager.currentItem = it }
         })
     }
 
+    /**
+     * Set the [toolbar] for the activity. It will set the name of the repo, owner name, repo image
+     * and description of the repo.
+     */
     private fun setToolbar() {
         setSupportActionBar(toolbar)
 

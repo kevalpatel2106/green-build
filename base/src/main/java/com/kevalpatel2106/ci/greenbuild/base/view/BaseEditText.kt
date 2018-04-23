@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.common.view
+package com.kevalpatel2106.ci.greenbuild.base.view
 
 import android.content.Context
 import android.support.v7.widget.AppCompatEditText
@@ -22,8 +22,8 @@ import android.util.AttributeSet
  * Created by Keval Patel on 04/03/17.
  * This base class is to extend the functionality of [AppCompatEditText]. Use this class instead
  * of [android.widget.EditText] through out the application.
-
- * @author 'https://github.com/kevalpatel2106'
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
 class BaseEditText : AppCompatEditText {

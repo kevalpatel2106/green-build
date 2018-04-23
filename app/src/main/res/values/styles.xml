@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2018 Keval Patel.
   ~
@@ -13,14 +14,14 @@
   -->
 
 <resources>
-    <string name="title_activity_builds">Builds</string>
-    <string name="title_activity_ci_selector">Select CI server</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="error_no_environment_variable_set">No environment variable set.</string>
-    <string name="error_cache_available">There is nothing in cache!!!</string>
-    <string name="error_no_build_started">No build started yet.</string>
-    <string name="btn_title_edit">Edit</string>
-    <string name="btn_title_delete">Delete</string>
-    <string name="cache_prefix">Cache_%s</string>
+    <style name="RoundButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing_micro</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:paddingEnd">@dimen/spacing_small</item>
+        <item name="android:paddingStart">@dimen/spacing_small</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>

@@ -22,8 +22,8 @@ import android.util.AttributeSet
  * Created by Keval Patel on 04/03/17.
  * This base class is to extend the functionality of [AppCompatImageView]. Use this class instead
  * of [android.widget.ImageView] through out the application.
-
- * @author 'https://github.com/kevalpatel2106'
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
 class BaseImageView : AppCompatImageView {
@@ -31,6 +31,6 @@ class BaseImageView : AppCompatImageView {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs,
-            defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
+            : super(context, attrs, defStyleAttr)
 }
