@@ -12,14 +12,14 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.travis
+package com.kevalpatel2106.greenbuild.travisInterface.authentication
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.greenbuild.travisInterface.R
 
 class TravisHelpActivity : AppCompatActivity() {
 

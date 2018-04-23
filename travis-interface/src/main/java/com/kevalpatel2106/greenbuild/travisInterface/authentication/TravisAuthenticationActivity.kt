@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.travis
+package com.kevalpatel2106.greenbuild.travisInterface.authentication
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -20,17 +20,20 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
-import com.kevalpatel2106.ci.greenbuild.R
+import androidx.core.os.postDelayed
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
-import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import com.kevalpatel2106.greenbuild.travisInterface.R
+import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
+import com.kevalpatel2106.greenbuild.travisInterface.di.DaggerTravisDiComponent
 import kotlinx.android.synthetic.main.activity_travis_authentication.*
 import javax.inject.Inject
 
@@ -60,7 +63,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = getString(R.string.title_activity_authenticate_travis_account)
 
-        DaggerDiComponent.builder()
+        DaggerTravisDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this).getApplicationComponent())
                 .build()
                 .inject(this@TravisAuthenticationActivity)
@@ -99,6 +102,11 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         model.authenticatedAccount.observe(this@TravisAuthenticationActivity, Observer {
             it?.let {
                 showSnack(getString(R.string.account_successfully_authenticated))
+
+                Handler().postDelayed(3000) {
+                    TravisModuleCallbacks.instance.openHome(this@TravisAuthenticationActivity)
+                    finish()
+                }
             }
         })
 

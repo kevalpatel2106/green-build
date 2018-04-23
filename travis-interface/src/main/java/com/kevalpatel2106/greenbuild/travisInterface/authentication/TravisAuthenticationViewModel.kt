@@ -12,16 +12,16 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.travis
+package com.kevalpatel2106.greenbuild.travisInterface.authentication
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Patterns
-import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.greenbuild.travisInterface.R
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.exceptions.Exceptions

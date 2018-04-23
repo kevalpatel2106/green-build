@@ -15,15 +15,18 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CiServer
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
+import com.kevalpatel2106.greenbuild.travisInterface.authentication.TravisAuthenticationActivity
 import io.reactivex.Observable
 import timber.log.Timber
 
@@ -32,8 +35,9 @@ import timber.log.Timber
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-class TravisServerInterface internal constructor(private val baseUrl: String, accessToken: String)
-    : ServerInterface(accessToken) {
+class TravisServerInterface internal constructor(
+        private val baseUrl: String,
+        accessToken: String) : ServerInterface(accessToken) {
 
     private val travisEndpoints = NetworkApi(accessToken)
             .getRetrofitClient(baseUrl)
@@ -56,6 +60,7 @@ class TravisServerInterface internal constructor(private val baseUrl: String, ac
         const val TRAVIS_CI_COM = "https://api.travis-ci.com"
 
         fun get(baseUrl: String, accessToken: String): TravisServerInterface? {
+
             return when {
                 baseUrl == TRAVIS_CI_ORG -> {
                     TravisServerInterface(
@@ -70,7 +75,10 @@ class TravisServerInterface internal constructor(private val baseUrl: String, ac
                     )
                 }
                 baseUrl.startsWith("https://travis.") && baseUrl.endsWith("/api/") -> {
-                    TravisServerInterface(baseUrl, accessToken)
+                    TravisServerInterface(
+                            baseUrl = baseUrl,
+                            accessToken = accessToken
+                    )
                 }
                 else -> {
                     Timber.i("Not a travis ci server: $baseUrl")
@@ -78,7 +86,39 @@ class TravisServerInterface internal constructor(private val baseUrl: String, ac
                 }
             }
         }
+
+        fun getCiServers(application: BaseApplication): ArrayList<CiServer> {
+            val ciServers = ArrayList<CiServer>(3)
+
+            ciServers.add(CiServer(
+                    icon = R.drawable.logo_travis_ci_org,
+                    name = "Travis CI (Open Source repo)",
+                    description = "Travis continuous integration for open source projects on GitHub.",
+                    domain = "https://travis-ci.org",
+                    onClick = {
+                        TravisAuthenticationActivity.launch(application, TravisServerInterface.TRAVIS_CI_ORG)
+                    }))
+            ciServers.add(CiServer(
+                    icon = R.drawable.logo_travis_ci_com,
+                    name = "Travis CI (Private repo)",
+                    description = "Travis continuous integration for private repositories on GitHub.",
+                    domain = "https://travis-ci.com",
+                    onClick = {
+                        TravisAuthenticationActivity.launch(application, TravisServerInterface.TRAVIS_CI_COM)
+                    }))
+            ciServers.add(CiServer(
+                    icon = R.drawable.logo_travis_ci_enterprice,
+                    name = "Travis CI (Enterprise)",
+                    description = "Self hosted continuous integration from Travis CI.",
+                    domain = null,
+                    onClick = {
+                        TravisAuthenticationActivity.launch(application, null)
+                    }))
+
+            return ciServers
+        }
     }
+
 
     override fun getBaseUrl(): String {
         return baseUrl

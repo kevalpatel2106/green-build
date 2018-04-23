@@ -17,8 +17,8 @@ package com.kevalpatel2106.ci.greenbuild.envVariableList
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

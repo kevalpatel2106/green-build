@@ -12,10 +12,13 @@
   ~ limitations under the License.
   -->
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ci_selector_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ciSelector.CiSelectorActivity"
-    tools:listitem="@layout/row_ci_selector_list" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <stroke
+        android:width="2dp"
+        android:color="@color/colorAccent" />
+
+    <corners android:radius="@dimen/spacing_xlarge" />
+
+</shape>

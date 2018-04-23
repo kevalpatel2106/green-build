@@ -9,7 +9,7 @@ title: FileUtils.getCacheDir - base
 `@JvmStatic fun getCacheDir(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`): `[`File`](https://developer.android.com/reference/java/io/File.html)
 
 Get the cache directory for the application. If external cache directory is not available,
-it will return internal (data/data) cache directory.
+ciServers will return internal (data/data) cache directory.
 
 ### Parameters
 

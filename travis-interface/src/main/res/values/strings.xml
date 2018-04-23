@@ -1,0 +1,33 @@
+<!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="title_activity_authenticate_travis_account">Add Travis CI account</string>
+    <string name="title_activity_travis_help">Access token help</string>
+
+    <string name="authentication_hint_enter_access_token">Enter access token</string>
+    <string name="authentication_hint_enter_domain">CI server domain (e.g.ci-server.com)</string>
+    <string name="authentication_hint_login">Login</string>
+    <string name="authorization_hint_where_can_i_get_the_access_token"><u>Where can I get the access token?</u></string>
+    <string name="error_invalid_travis_token">Invalid authentication token.</string>
+    <string name="error_invalid_travis_domain">Invalid Travis CI server domain.</string>
+    <string name="error_account_already_registered">Account already registered.</string>
+    <string name="account_successfully_authenticated">Account successfully added.</string>
+
+    <string name="travis_help_title">Where can I find my access token?</string>
+    <string name="travis_help_step_1">1. Login to the travis account.</string>
+    <string name="travis_help_step_2">2. Go to profile.</string>
+    <string name="travis_help_step_3">3. Copy the access token from your profile.</string>
+    <string name="travis_help_step_4">4. Paste this access token inside the application.</string>
+</resources>

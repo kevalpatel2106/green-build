@@ -12,13 +12,14 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
+package com.kevalpatel2106.ci.greenbuild.ciSelector
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CiServer
 import kotlinx.android.synthetic.main.row_ci_selector_list.view.*
 
 /**

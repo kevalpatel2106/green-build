@@ -16,11 +16,10 @@ package com.kevalpatel2106.ci.greenbuild.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.kevalpatel2106.ci.greenbuild.authentication.ciSelector.CiSelectorViewModel
-import com.kevalpatel2106.ci.greenbuild.authentication.travis.TravisAuthenticationViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
@@ -39,11 +38,6 @@ abstract class ViewModelFactoryModule {
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: DaggerViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(TravisAuthenticationViewModel::class)
-    internal abstract fun bindTravisAuthenticationViewModel(viewModel: TravisAuthenticationViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -12,4 +12,20 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.kevalpatel2106.greenbuild.travisInterface" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kevalpatel2106.greenbuild.travisInterface">
+
+    <application>
+        <activity
+            android:name=".authentication.TravisAuthenticationActivity"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="UnusedAttribute" />
+        <activity
+            android:name=".authentication.TravisHelpActivity"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="UnusedAttribute" />
+    </application>
+</manifest>

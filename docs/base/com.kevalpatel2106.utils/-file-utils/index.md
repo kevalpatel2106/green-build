@@ -16,5 +16,5 @@ kevalpatel2106
 
 ### Functions
 
-| [getCacheDir](get-cache-dir.html) | `fun getCacheDir(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`): `[`File`](https://developer.android.com/reference/java/io/File.html)<br>Get the cache directory for the application. If external cache directory is not available, it will return internal (data/data) cache directory. |
+| [getCacheDir](get-cache-dir.html) | `fun getCacheDir(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`): `[`File`](https://developer.android.com/reference/java/io/File.html)<br>Get the cache directory for the application. If external cache directory is not available, ciServers will return internal (data/data) cache directory. |
 

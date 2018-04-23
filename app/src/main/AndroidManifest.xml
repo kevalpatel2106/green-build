@@ -26,7 +26,7 @@
         android:maxSdkVersion="22" />
 
     <application
-        android:name=".base.application.BaseApplication"
+        android:name=".GBApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
@@ -50,11 +50,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".authentication.travis.TravisAuthenticationActivity"
-            android:resizeableActivity="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="UnusedAttribute" />
-        <activity
             android:name=".repoList.RepoListActivity"
             android:resizeableActivity="true"
             android:theme="@style/AppTheme"
@@ -65,12 +60,7 @@
             android:theme="@style/AppTheme.NoActionbar"
             tools:ignore="UnusedAttribute" />
         <activity
-            android:name=".authentication.ciSelector.CiSelectorActivity"
-            android:resizeableActivity="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="UnusedAttribute" />
-        <activity
-            android:name=".authentication.travis.TravisHelpActivity"
+            android:name="com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity"
             android:resizeableActivity="true"
             android:theme="@style/AppTheme"
             tools:ignore="UnusedAttribute" />

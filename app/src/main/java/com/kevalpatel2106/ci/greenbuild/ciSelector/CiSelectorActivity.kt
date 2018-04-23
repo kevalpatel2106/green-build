@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
+package com.kevalpatel2106.ci.greenbuild.ciSelector
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider

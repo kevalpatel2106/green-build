@@ -18,7 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_env_vars.view.*
 
@@ -39,7 +39,16 @@ internal class EnvListViewHolder private constructor(itemView: View)
     }
 
     fun bind(envVars: EnvVars) {
-        itemView.env_var_name_tv.text = envVars.name
+        itemView.row_env_var_name_tv.text = envVars.name
+        itemView.row_env_var_value_tv.text = if (envVars.public) envVars.value else "***************"
+        itemView.row_env_var_private_iv.setImageResource(if (envVars.public)
+            R.drawable.ic_public
+        else
+            R.drawable.ic_private)
+
+
+        itemView.row_env_var_delete_btn.setOnClickListener { }
+        itemView.row_env_var_edit_btn.setOnClickListener { }
 
         //TODO
     }

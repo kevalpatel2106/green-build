@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    implementation 'com.github.bachors:Android-Prefix-Input:1.1'
 }

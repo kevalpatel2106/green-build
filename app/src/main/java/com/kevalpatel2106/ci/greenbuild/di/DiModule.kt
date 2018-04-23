@@ -30,10 +30,14 @@ internal class DiModule {
 
     @Provides
     fun provideServerInterface(accountsManager: AccountsManager): ServerInterface {
+
         val account = accountsManager.getCurrentAccount()
 
         //Check if it is travis server?
-        TravisServerInterface.get(account.serverUrl, account.accessToken)?.let {
+        TravisServerInterface.get(
+                baseUrl = account.serverUrl,
+                accessToken = account.accessToken
+        )?.let {
             return it
         }
 

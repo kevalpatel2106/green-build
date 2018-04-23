@@ -22,7 +22,7 @@ import android.content.Context
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class BaseApplication : Application() {
+abstract class BaseApplication : Application() {
     private lateinit var appComponent: ApplicationComponent
 
     companion object {

@@ -12,28 +12,24 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.authentication.ciSelector
+package com.kevalpatel2106.ci.greenbuild.moduleCallback
 
-import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
+import android.content.Context
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
+import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
 
 /**
- * Created by Keval on 21/04/18.
+ * Created by Keval on 23/04/18.
  *
  * @author [kevalpatel2106](https://github.com/kevalpatel2106)
  */
-internal class CiSelectorAdapter(private val ciServers: ArrayList<CiServer>)
-    : RecyclerView.Adapter<CiSelectorViewHolder>() {
+internal class TravisCallbacks : TravisModuleCallbacks() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CiSelectorViewHolder {
-        return CiSelectorViewHolder.create(parent)
+    init {
+        TravisModuleCallbacks.init(this)
     }
 
-    override fun getItemCount(): Int {
-        return ciServers.size
-    }
-
-    override fun onBindViewHolder(holder: CiSelectorViewHolder, position: Int) {
-        holder.bind(ciServers[position])
+    override fun openHome(context: Context) {
+        RepoListActivity.launch(context)
     }
 }

@@ -90,6 +90,9 @@ subprojects {
                 //Support libs
                 implementation "com.android.support:support-annotations:${versions.supportLibrary}"
                 implementation "com.android.support:support-v4:${versions.supportLibrary}"
+                implementation "com.android.support:appcompat-v7:${versions.supportLibrary}"
+                implementation "com.android.support:design:${versions.supportLibrary}"
+                implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
                 //Arch
                 implementation "android.arch.lifecycle:common-java8:${versions.archComponent}"

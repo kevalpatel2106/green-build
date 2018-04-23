@@ -16,8 +16,8 @@ package com.kevalpatel2106.ci.greenbuild.envVariableList
 
 import android.content.Context
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**
