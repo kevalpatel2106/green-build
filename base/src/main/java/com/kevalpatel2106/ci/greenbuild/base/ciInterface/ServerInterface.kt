@@ -81,6 +81,14 @@ abstract class ServerInterface(protected val accessToken: String) {
             repoId: String
     ): Observable<Page<Cache>>
 
+    /**
+     * Delete [Cache] for [branchName] for the given [Repo].
+     */
+    abstract fun deleteCache(
+            repoId: String,
+            branchName: String
+    ): Observable<Int>
+
 
     companion object {
         const val PAGE_SIZE = 20

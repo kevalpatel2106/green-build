@@ -38,7 +38,8 @@ import timber.log.Timber
  */
 class TravisServerInterface internal constructor(
         private val baseUrl: String,
-        accessToken: String) : ServerInterface(accessToken) {
+        accessToken: String
+) : ServerInterface(accessToken) {
 
     private val travisEndpoints = NetworkApi(accessToken)
             .getRetrofitClient(baseUrl)
@@ -218,4 +219,12 @@ class TravisServerInterface internal constructor(
                 }
     }
 
+    /**
+     * Delete [Cache] for [branchName] for the given [Repo].
+     */
+    override fun deleteCache(repoId: String, branchName: String): Observable<Int> {
+        return travisEndpoints
+                .deleteCacheByBranch(branchName = branchName, repoId = repoId)
+                .map { it.caches.size }
+    }
 }

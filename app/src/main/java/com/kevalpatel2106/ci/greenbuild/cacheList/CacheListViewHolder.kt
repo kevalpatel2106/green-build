@@ -35,7 +35,9 @@ internal class CacheListViewHolder private constructor(
 
     companion object {
 
-        fun create(parent: ViewGroup, isDeleteSupported: Boolean): CacheListViewHolder {
+        fun create(parent: ViewGroup,
+                   isDeleteSupported: Boolean
+        ): CacheListViewHolder {
 
             return CacheListViewHolder(
                     itemView = LayoutInflater.from(parent.context)
@@ -45,7 +47,7 @@ internal class CacheListViewHolder private constructor(
         }
     }
 
-    fun bind(cache: Cache) {
+    fun bind(cache: Cache, onDeleteClick: () -> Unit) {
         val formattedDate = ConversationUtils.millsToDateFormat(cache.lastModified)
         itemView.cache_name_tv.text = cache.name ?: itemView.context.getString(R.string.cache_prefix, formattedDate)
 
@@ -55,9 +57,8 @@ internal class CacheListViewHolder private constructor(
 
         if (isDeleteSupported) {
             itemView.row_cache_delete_btn.visibility = View.VISIBLE
-            itemView.row_cache_delete_btn.setOnClickListener {
-                //TODO
-            }
+            itemView.row_cache_delete_btn.displayLoader(cache.isDeleting)
+            itemView.row_cache_delete_btn.setOnClickListener { onDeleteClick.invoke() }
         } else {
             itemView.row_cache_delete_btn.visibility = View.GONE
         }

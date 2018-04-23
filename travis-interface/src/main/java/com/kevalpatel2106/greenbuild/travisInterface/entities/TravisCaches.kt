@@ -45,7 +45,7 @@ internal data class TravisCaches(
                 size = size.toLong(),
                 branchName = branch,
                 lastModified = ConversationUtils.rfc3339ToMills(lastModified),
-                repositoryId = repositoryId
+                repositoryId = repositoryId.toString()
         )
     }
 }

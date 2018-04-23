@@ -49,6 +49,9 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
     @Inject
     internal lateinit var compatibilityCheck: CompatibilityCheck
 
+    @Inject
+    internal lateinit var serverInterface: ServerInterface
+
     private lateinit var model: CacheListViewModel
 
     private lateinit var repoId: String
@@ -80,7 +83,8 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
                 context = context!!,
                 list = model.cacheList.value!!,
                 compatibilityCheck = compatibilityCheck,
-                listener = this
+                listener = this,
+                serverInterface = serverInterface
         )
         cache_list_rv.itemAnimator = DefaultItemAnimator()
         cache_list_rv.addItemDecoration(DividerItemDecoration(context!!))

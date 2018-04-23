@@ -17,10 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Created by Keval on 17/04/18.
@@ -65,10 +62,16 @@ internal interface TravisEndpoints {
             @Path("repoId") repoId: String
     ): Observable<EnvVarsResponse>
 
-
     @GET("repo/{repoId}/caches")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getCachesForRepo(
             @Path("repoId") repoId: String
     ): Observable<CachesListResponse>
+
+    @DELETE("repo/{repoId}/caches")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun deleteCacheByBranch(
+            @Path("repoId") repoId: String,
+            @Query("branch") branchName: String
+    ): Observable<DeleteCacheResponse>
 }

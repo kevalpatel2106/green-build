@@ -23,17 +23,19 @@ data class Cache(
 
         val name: String? = null,
 
-        val repositoryId: Int,
+        val repositoryId: String,
 
         val branchName: String,
 
         val lastModified: Long
 ) : Parcelable {
 
+    var isDeleting = false
+
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString(),
-            parcel.readInt(),
+            parcel.readString(),
             parcel.readString(),
             parcel.readLong())
 
@@ -51,7 +53,7 @@ data class Cache(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(size)
         parcel.writeString(name)
-        parcel.writeInt(repositoryId)
+        parcel.writeString(repositoryId)
         parcel.writeString(branchName)
         parcel.writeLong(lastModified)
     }
