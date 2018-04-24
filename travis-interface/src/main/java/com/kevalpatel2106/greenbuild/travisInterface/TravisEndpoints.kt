@@ -15,7 +15,6 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable
@@ -82,7 +81,7 @@ internal interface TravisEndpoints {
     fun deleteEnvVariable(
             @Path("repoId") repoId: String,
             @Path("varId") envVarId: String
-    ): Observable<DeleteEnvVarResponse>
+    ): Observable<EmptyResponse>
 
     @PATCH("repo/{repoId}/env_var/{varId}")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
@@ -93,4 +92,18 @@ internal interface TravisEndpoints {
             @Query("env_var.value") envValue: String,
             @Query("env_var.public") isPublic: Boolean
     ): Observable<TravisEnvVars>
+
+    @GET("repo/{repoId}/crons")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getCronList(
+            @Path("repoId") repoId: String,
+            @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
+            @Query("offset") offset: Int
+    ): Observable<CronListResponse>
+
+    @DELETE("cron/{cronId}")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun deleteCron(
+            @Path("cronId") cronId: String
+    ): Observable<EmptyResponse>
 }

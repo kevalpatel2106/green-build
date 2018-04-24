@@ -15,18 +15,40 @@
 package com.kevalpatel2106.ci.greenbuild.cronList
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
+import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
+import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import kotlinx.android.synthetic.main.fragment_cron_list.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class CronListFragment : Fragment() {
+class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Cron>, CronListEventListener {
+
+    @Inject
+    internal lateinit var viewModelProvider: ViewModelProvider.Factory
+
+    private lateinit var model: CronListViewModel
+
+    private lateinit var repoId: String
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -35,9 +57,118 @@ class CronListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cron_list, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        DaggerDiComponent.builder()
+                .applicationComponent(BaseApplication.get(context!!).getApplicationComponent())
+                .build()
+                .inject(this@CronListFragment)
+
+        model = ViewModelProviders
+                .of(this@CronListFragment, viewModelProvider)
+                .get(CronListViewModel::class.java)
+
+        //Set the adapter
+        cron_list_rv.layoutManager = LinearLayoutManager(context!!)
+        cron_list_rv.adapter = CronListAdapter(
+                context = context!!,
+                cronList = model.cronList.value!!,
+                isDeleteSupported = model.isDeleteCronSupported,
+                isRunCronSupported = model.isRunCronSupported,
+                listener = this,
+                eventListener = this@CronListFragment
+        )
+        cron_list_rv.itemAnimator = DefaultItemAnimator()
+        cron_list_rv.addItemDecoration(DividerItemDecoration(context!!))
+
+        model.cronList.observe(this@CronListFragment, Observer {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    cron_list_view_flipper.displayedChild = 0
+                    (cron_list_rv.adapter as CronListAdapter).notifyDataSetChanged()
+                } else {
+                    cron_list_view_flipper.displayedChild = 2
+                    crons_error_tv.text = getString(R.string.error_cron_available)
+                }
+            }
+        })
+
+        model.errorLoadingList.observe(this@CronListFragment, Observer {
+            it?.let {
+                cron_list_view_flipper.displayedChild = 2
+                crons_error_tv.text = it
+            }
+        })
+
+        model.isLoadingFirstTime.observe(this@CronListFragment, Observer {
+            it?.let {
+                if (it) {
+                    cron_list_view_flipper.displayedChild = 1
+                }
+            }
+        })
+
+        model.isLoadingList.observe(this@CronListFragment, Observer {
+            it?.let {
+                if (!it) {
+                    cron_list_refresher.isRefreshing = false
+                    (cron_list_rv.adapter as CronListAdapter).onPageLoadComplete()
+                }
+            }
+        })
+
+        model.hasModeData.observe(this@CronListFragment, Observer {
+            it?.let { (cron_list_rv.adapter as CronListAdapter).hasNextPage = it }
+        })
+
+        cron_list_refresher.setOnRefreshListener {
+            cron_list_refresher.isRefreshing = true
+            model.loadCronList(repoId, 1)
+        }
+
+        with(arguments?.getString(BuildListFragment.ARG_REPO_ID)) {
+            if (this == null)
+                throw IllegalArgumentException("No repo id available.")
+            repoId = this
+        }
+
+        if (model.cronList.value!!.isEmpty()) model.loadCronList(repoId, 1)
+    }
+
+    override fun onPageComplete(pos: Int) {
+        model.loadCronList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    override fun deleteCron(cron: Cron) {
+        alert(title = null,
+                message = getString(R.string.delete_cron_title_confirmation_title, cron.branchName),
+                func = {
+                    positiveButton(R.string.btn_title_delete, {
+                        model.deleteCron(cron = cron, repoId = repoId)
+                    })
+                    negativeButton(android.R.string.cancel)
+                    cancelable = false
+                }
+        )
+    }
+
+    override fun runCron(cron: Cron) {
+        alert(title = null,
+                message = getString(R.string.start_cron_title_confirmation_title),
+                func = {
+                    positiveButton(R.string.btn_title_start, {
+                        model.runCron(cron = cron, repoId = repoId)
+                    })
+                    negativeButton(android.R.string.cancel)
+                    cancelable = false
+                }
+        )
+    }
+
     companion object {
 
-        internal const val ARG_REPO_ID = "repo_id"
+        private const val ARG_REPO_ID = "repo_id"
 
         internal fun get(repoId: String): CronListFragment {
             val cronListFragment = CronListFragment()

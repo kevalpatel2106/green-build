@@ -17,6 +17,8 @@ package com.kevalpatel2106.ci.greenbuild.envVariableList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
@@ -68,11 +70,11 @@ internal class EnvListViewHolder private constructor(
 
         //Set delete button
         if (isDeleteSupported) {
-            itemView.row_env_var_delete_btn.visibility = View.VISIBLE
+            itemView.row_env_var_delete_btn.isVisible = true
             itemView.row_env_var_delete_btn.displayLoader(envVars.isDeleting)
             itemView.row_env_var_delete_btn.setOnClickListener { onDelete.invoke(envVars) }
         } else {
-            itemView.row_env_var_delete_btn.visibility = View.GONE
+            itemView.row_env_var_delete_btn.isGone = true
         }
 
         //Set edit button

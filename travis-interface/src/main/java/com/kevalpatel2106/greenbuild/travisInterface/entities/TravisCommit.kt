@@ -17,7 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface.entities
 import com.google.gson.annotations.SerializedName
 
 
-data class TravisCommit(
+internal data class TravisCommit(
 
         @field:SerializedName("compare_url")
         val compareUrl: String? = null,

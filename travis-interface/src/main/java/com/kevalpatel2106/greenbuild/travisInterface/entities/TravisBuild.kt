@@ -17,7 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface.entities
 import com.google.gson.annotations.SerializedName
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.EventType
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.TriggerType
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.greenbuild.travisInterface.Constants
 
@@ -87,8 +87,8 @@ internal data class TravisBuild(
                 id = id.toLong(),
                 state = getBuildState(state),
                 branchName = branch.name,
-                duration = duration,
-                eventType = getEventType(eventType),
+                duration = duration.toLong(),
+                triggerType = getEventType(eventType),
                 number = number,
                 finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),
                 startedAt = if (startedAt == null) 0 else ConversationUtils.rfc3339ToMills(startedAt),
@@ -109,10 +109,11 @@ internal data class TravisBuild(
         )
     }
 
-    private fun getEventType(eventType: String): EventType {
+    private fun getEventType(eventType: String): TriggerType {
         return when (eventType) {
-            Constants.PUSH_EVENT -> EventType.PUSH
-            Constants.PULL_REQUEST_EVENT -> EventType.PULL_REQUEST
+            Constants.PUSH_EVENT -> TriggerType.PUSH
+            Constants.PULL_REQUEST_EVENT -> TriggerType.PULL_REQUEST
+            Constants.CRON_EVENT -> TriggerType.CRON
             else -> throw IllegalArgumentException("Invalid trigger event type: $eventType")
         }
     }

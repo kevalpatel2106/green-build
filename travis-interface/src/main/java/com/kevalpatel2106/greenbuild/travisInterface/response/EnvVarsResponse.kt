@@ -19,7 +19,7 @@ import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
-data class EnvVarsResponse(
+internal data class EnvVarsResponse(
         @field:SerializedName("env_vars")
         val envVars: ArrayList<TravisEnvVars>
 )

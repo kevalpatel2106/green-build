@@ -12,6 +12,20 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface.response
+package com.kevalpatel2106.ci.greenbuild.cronList
 
-class DeleteEnvVarResponse
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+
+/**
+ * Created by Keval on 23/04/18.
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
+ */
+interface CronListEventListener {
+
+    fun deleteCron(cron: Cron)
+
+    fun runCron(cron: Cron)
+
+}

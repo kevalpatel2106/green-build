@@ -17,7 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface.entities
 import com.google.gson.annotations.SerializedName
 
 
-data class TravisBranch(
+internal data class TravisBranch(
         @field:SerializedName("name")
         val name: String? = null,
 

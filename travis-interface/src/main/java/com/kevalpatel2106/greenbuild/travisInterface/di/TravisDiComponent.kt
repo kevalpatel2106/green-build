@@ -26,7 +26,7 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(dependencies = [ApplicationComponent::class], modules = [TravisViewModelFactoryModule::class])
-interface TravisDiComponent {
+internal interface TravisDiComponent {
 
     /**
      * Inject the [DiModule] and [ApplicationComponent] in [TravisAuthenticationActivity].

@@ -17,6 +17,8 @@ package com.kevalpatel2106.ci.greenbuild.cacheList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
@@ -48,7 +50,7 @@ internal class CacheListViewHolder private constructor(
     }
 
     fun bind(cache: Cache, onDeleteClick: () -> Unit) {
-        val formattedDate = ConversationUtils.millsToDateFormat(cache.lastModified)
+        val formattedDate = ConversationUtils.getDate(cache.lastModified)
         itemView.cache_name_tv.text = cache.name ?: itemView.context.getString(R.string.cache_prefix, formattedDate)
 
         itemView.cache_branch_tv.text = cache.branchName
@@ -56,11 +58,11 @@ internal class CacheListViewHolder private constructor(
         itemView.cache_size_tv.text = ConversationUtils.humanReadableByteCount(cache.size)
 
         if (isDeleteSupported) {
-            itemView.row_cache_delete_btn.visibility = View.VISIBLE
+            itemView.row_cache_delete_btn.isVisible = true
             itemView.row_cache_delete_btn.displayLoader(cache.isDeleting)
             itemView.row_cache_delete_btn.setOnClickListener { onDeleteClick.invoke() }
         } else {
-            itemView.row_cache_delete_btn.visibility = View.GONE
+            itemView.row_cache_delete_btn.isGone = true
         }
     }
 }

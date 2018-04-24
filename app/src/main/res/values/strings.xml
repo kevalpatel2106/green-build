@@ -22,12 +22,22 @@
     <string name="error_no_build_started">No build started yet.</string>
     <string name="btn_title_edit">Edit</string>
     <string name="btn_title_delete">Delete</string>
+    <string name="btn_title_start">Start</string>
+    <string name="btn_title_run_now">Run now</string>
     <string name="cache_prefix">Cache_%s</string>
     <string name="delete_cache_title_confirmation_title">Do you want to delete cache?</string>
     <string name="delete_env_variable_title_confirmation_title">Do you want to delete %s?</string>
+    <string name="delete_cron_title_confirmation_title">Do you want to delete cron on %s branch?</string>
+    <string name="start_cron_title_confirmation_title">Do you want to start cron manually?</string>
     <string name="btn_title_save">Save</string>
     <string name="edit_variable_switch_title_display_value_in_logs">Display value in logs?</string>
     <string name="message_variable_edit_success">Variable edited successfully.</string>
     <string name="error_edit_variable_empty_name">Enter variable name.</string>
     <string name="error_edit_variable_empty_value">Enter variable value.</string>
+    <string name="error_cron_available">No crons are scheduled.</string>
+    <string name="cron_last_ran_never">Never ran before.</string>
+    <string name="cron_last_ran_before">Ran %s ago.</string>
+    <string name="cron_next_run_never">Next run is not scheduled.</string>
+    <string name="cron_next_run_after">Scheduled in %s from now.</string>
+    <string name="cron_started_success">Cron started successfully.</string>
 </resources>

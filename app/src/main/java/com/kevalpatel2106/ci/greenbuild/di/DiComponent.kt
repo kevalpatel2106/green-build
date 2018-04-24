@@ -18,6 +18,7 @@ import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
+import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
 import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableDialog
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVariableListFragment
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
@@ -74,4 +75,9 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [EditVariableDialog].
      */
     fun inject(editVariableDialog: EditVariableDialog)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [CronListFragment].
+     */
+    fun inject(cronListFragment: CronListFragment)
 }

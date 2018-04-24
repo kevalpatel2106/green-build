@@ -15,7 +15,6 @@
 package com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable
 
 
-import android.app.Fragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders

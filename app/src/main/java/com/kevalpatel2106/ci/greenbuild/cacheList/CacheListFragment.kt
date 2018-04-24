@@ -159,7 +159,7 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
 
     companion object {
 
-        internal const val ARG_REPO_ID = "repo_id"
+        private const val ARG_REPO_ID = "repo_id"
 
         internal fun get(repoId: String): CacheListFragment {
             val cacheListFragment = CacheListFragment()

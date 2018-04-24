@@ -25,7 +25,7 @@ data class Build(
 
         val number: String,
 
-        val duration: Int,
+        val duration: Long,
 
         val state: BuildState,
 
@@ -37,7 +37,7 @@ data class Build(
 
         val branchName: String? = null,
 
-        val eventType: EventType,
+        val triggerType: TriggerType,
 
         val author: Author,
 

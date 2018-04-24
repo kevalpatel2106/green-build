@@ -12,22 +12,11 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface.entities
-
-import com.google.gson.annotations.SerializedName
+package com.kevalpatel2106.ci.greenbuild.base.utils
 
 /**
- * Created by Kevalpatel2106 on 18-Apr-18.
+ * Created by Kevalpatel2106 on 24-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal data class TravisAuthor(
-        @field:SerializedName("id")
-        val id: Int,
-
-        @field:SerializedName("login")
-        val login: String,
-
-        @field:SerializedName("@href")
-        val href: String
-)
+fun Long.isEmpty() = this == 0L

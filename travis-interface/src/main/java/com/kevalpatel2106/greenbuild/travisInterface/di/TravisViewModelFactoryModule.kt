@@ -30,7 +30,7 @@ import dagger.multibindings.IntoMap
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 @Module
-abstract class TravisViewModelFactoryModule {
+internal abstract class TravisViewModelFactoryModule {
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: DaggerViewModelFactory): ViewModelProvider.Factory

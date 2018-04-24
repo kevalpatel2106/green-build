@@ -23,6 +23,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
@@ -259,5 +260,40 @@ class TravisServerInterface internal constructor(
                         isPublic = isPublic
                 )
                 .map { it.toEnvVars() }
+    }
+
+    /**
+     * Get the list of [Cron] for the given [Repo]. It will return the [Observable] with the
+     * paginated list of [Cron].
+     */
+    override fun getCronsList(page: Int, repoId: String): Observable<Page<Cron>> {
+        return travisEndpoints
+                .getCronList(
+                        offset = (page - 1) * PAGE_SIZE,
+                        repoId = repoId
+                ).map {
+                    val cronList = ArrayList<Cron>(it.crons.size)
+                    it.crons.forEach { cronList.add(it.toCron()) }
+                    return@map Page(
+                            hasNext = !it.pagination.isLast,
+                            list = cronList
+                    )
+                }
+    }
+
+    /**
+     * Start [Cron] with [cronId]. It will return the [Observable] with the id of the [Cron] that
+     * is started.
+     */
+    override fun startCronManually(cronId: String, repoId: String): Observable<String> {
+        throw IllegalStateException("Travis CI doesn't support manual run.")
+    }
+
+    /**
+     * Delete [Cron] with [cronId]. It will return the [Observable] with the id of the [Cron] that
+     * was deleted
+     */
+    override fun deleteCron(cronId: String, repoId: String): Observable<String> {
+        return travisEndpoints.deleteCron(cronId).map { cronId }
     }
 }

@@ -15,7 +15,7 @@
 <meta name="keywords" content="getStartedAt()">
 <meta name="keywords" content="getFinishedAt()">
 <meta name="keywords" content="getBranchName()">
-<meta name="keywords" content="getEventType()">
+<meta name="keywords" content="getTriggerType()">
 <meta name="keywords" content="getAuthor()">
 <meta name="keywords" content="getBranch()">
 <meta name="keywords" content="getCommit()">
@@ -180,7 +180,7 @@ var activeTableTab = "activeTableTab";
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#Build-id-number-duration-state-previousState-startedAt-finishedAt-branchName-eventType-author-branch-commit-">Build</a></span>(long&nbsp;id,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#Build-id-number-duration-state-previousState-startedAt-finishedAt-branchName-triggerType-author-branch-commit-">Build</a></span>(long&nbsp;id,
      java.lang.String&nbsp;number,
      int&nbsp;duration,
      <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/BuildState.html" title="type parameter in BuildState">BuildState</a>&nbsp;state,
@@ -188,7 +188,7 @@ var activeTableTab = "activeTableTab";
      long&nbsp;startedAt,
      long&nbsp;finishedAt,
      java.lang.String&nbsp;branchName,
-     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;eventType,
+     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;triggerType,
      <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Author.html" title="type parameter in Build.Author">Build.Author</a>&nbsp;author,
      <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Branch.html" title="type parameter in Build.Branch">Build.Branch</a>&nbsp;branch,
      <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Commit.html" title="type parameter in Build.Commit">Build.Commit</a>&nbsp;commit)</code>
@@ -260,7 +260,7 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html" title="type parameter in Build">Build</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#copy-id-number-duration-state-previousState-startedAt-finishedAt-branchName-eventType-author-branch-commit-">copy</a></span>(long&nbsp;id,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#copy-id-number-duration-state-previousState-startedAt-finishedAt-branchName-triggerType-author-branch-commit-">copy</a></span>(long&nbsp;id,
     java.lang.String&nbsp;number,
     int&nbsp;duration,
     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/BuildState.html" title="type parameter in BuildState">BuildState</a>&nbsp;state,
@@ -268,7 +268,7 @@ var activeTableTab = "activeTableTab";
     long&nbsp;startedAt,
     long&nbsp;finishedAt,
     java.lang.String&nbsp;branchName,
-    <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;eventType,
+    <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;triggerType,
     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Author.html" title="type parameter in Build.Author">Build.Author</a>&nbsp;author,
     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Branch.html" title="type parameter in Build.Branch">Build.Branch</a>&nbsp;branch,
     <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Commit.html" title="type parameter in Build.Commit">Build.Commit</a>&nbsp;commit)</code>
@@ -301,7 +301,7 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#getEventType--">getEventType</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.html#getTriggerType--">getTriggerType</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>long</code></td>
@@ -350,7 +350,7 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="Build-id-number-duration-state-previousState-startedAt-finishedAt-branchName-eventType-author-branch-commit-">
+<a name="Build-id-number-duration-state-previousState-startedAt-finishedAt-branchName-triggerType-author-branch-commit-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -364,7 +364,7 @@ var activeTableTab = "activeTableTab";
              long&nbsp;startedAt,
              long&nbsp;finishedAt,
              java.lang.String&nbsp;branchName,
-             <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;eventType,
+             <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;triggerType,
              <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Author.html" title="type parameter in Build.Author">Build.Author</a>&nbsp;author,
              <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Branch.html" title="type parameter in Build.Branch">Build.Branch</a>&nbsp;branch,
              <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Commit.html" title="type parameter in Build.Commit">Build.Commit</a>&nbsp;commit)</pre>
@@ -451,13 +451,13 @@ var activeTableTab = "activeTableTab";
 <pre>public&nbsp;java.lang.String&nbsp;getBranchName()</pre>
 </li>
 </ul>
-<a name="getEventType--">
+<a name="getTriggerType--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getEventType</h4>
-<pre>public&nbsp;<a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;getEventType()</pre>
+<h4>getTriggerType</h4>
+<pre>public&nbsp;<a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;getTriggerType()</pre>
 </li>
 </ul>
 <a name="getAuthor--">
@@ -595,7 +595,7 @@ var activeTableTab = "activeTableTab";
 <pre>public&nbsp;<a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Commit.html" title="type parameter in Build.Commit">Build.Commit</a>&nbsp;component12()</pre>
 </li>
 </ul>
-<a name="copy-id-number-duration-state-previousState-startedAt-finishedAt-branchName-eventType-author-branch-commit-">
+<a name="copy-id-number-duration-state-previousState-startedAt-finishedAt-branchName-triggerType-author-branch-commit-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -609,7 +609,7 @@ var activeTableTab = "activeTableTab";
                   long&nbsp;startedAt,
                   long&nbsp;finishedAt,
                   java.lang.String&nbsp;branchName,
-                  <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;eventType,
+                  <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/EventType.html" title="type parameter in EventType">EventType</a>&nbsp;triggerType,
                   <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Author.html" title="type parameter in Build.Author">Build.Author</a>&nbsp;author,
                   <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Branch.html" title="type parameter in Build.Branch">Build.Branch</a>&nbsp;branch,
                   <a href="../../../../../../../com/kevalpatel2106/ci/greenbuild/base/ciInterface/build/Build.Commit.html" title="type parameter in Build.Commit">Build.Commit</a>&nbsp;commit)</pre>

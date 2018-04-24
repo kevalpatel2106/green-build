@@ -17,7 +17,7 @@ package com.kevalpatel2106.greenbuild.travisInterface.entities
 import com.google.gson.annotations.SerializedName
 
 
-data class TravisJob(
+internal data class TravisJob(
         @field:SerializedName("id")
         val id: Int? = null,
 

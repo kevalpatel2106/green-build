@@ -28,14 +28,14 @@ internal class Constants {
          *
          * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
          */
-        const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
+        internal  const val TRAVIS_CI_ORG = "https://api.travis-ci.org"
 
         /**
          * Base url for accessing the API for travis-ci.com.
          *
          * @see <a href="https://developer.travis-ci.org/gettingstarted">API Doc</a>
          */
-        const val TRAVIS_CI_COM = "https://api.travis-ci.com"
+        internal  const val TRAVIS_CI_COM = "https://api.travis-ci.com"
 
         // name of build states
         internal const val CANCEL_BUILD = "canceled"
@@ -45,9 +45,10 @@ internal class Constants {
         internal const val FAILED_BUILD = "failed"
         internal const val ERRORED_BUILD = "errored"
 
-        // name of the events
+        // name of trigger events
         internal const val PUSH_EVENT = "push"
         internal const val PULL_REQUEST_EVENT = "pull_request"
+        internal const val CRON_EVENT = "cron"
     }
 
 

@@ -26,7 +26,13 @@ import java.util.*
 class ConversationUtils {
 
     companion object {
-        private val dateFormatter = SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
+        private const val ONE_SECOND_MILLS = 1000L
+        private const val ONE_MINUTE_MILLS = ONE_SECOND_MILLS * 60
+        private const val ONE_HOUR_MILLS = ONE_MINUTE_MILLS * 60
+        private const val ONE_DAY_MILLS = ONE_HOUR_MILLS * 24
+        private const val ONE_MONTH_MILLS = ONE_HOUR_MILLS * 31
+
+        private val dateFormatter = SimpleDateFormat("dd-MMM-yyyy hh:mm a", Locale.getDefault())
 
         fun rfc3339ToMills(dateInString: String): Long {
             val cal = Calendar.getInstance()
@@ -48,36 +54,63 @@ class ConversationUtils {
             return String.format("%.1f %sB", bytes / Math.pow(unit.toDouble(), exp.toDouble()), ("KMGTPE")[exp - 1])
         }
 
-        fun millsToDateFormat(mills: Long): String {
-            return dateFormatter.format(Date(mills))
+        fun getDate(timeMills: Long): String {
+            val duration = System.currentTimeMillis() - timeMills
+
+            return if (duration > ONE_MONTH_MILLS) {
+                return dateFormatter.format(Date(timeMills))
+            } else {
+                convertToHumanReadableDuration(duration)
+            }
         }
 
-        fun convertToHumanReadableDuration(timeSeconds: Int): String {
-            var duration = ""
+        /**
+         * converts time (in milliseconds) to human-readable format "<w> days, <x> hours, <y> minutes
+         * and (z) seconds" </y></x></w>
+         */
+        fun convertToHumanReadableDuration(durationMills: Long, accurate: Boolean = false): String {
+            var duration = durationMills
+            val buffer = StringBuffer()
+            var temp: Long
 
-            with(timeSeconds / 3600) {
-                if (this != 0) {
-                    duration = if (this > 1)
-                        duration.plus("$this hours ")
-                    else
-                        duration.plus("$this hour ")
+            if (duration >= ONE_SECOND_MILLS) {
+                //Calculate days
+                temp = duration / ONE_DAY_MILLS
+                if (temp > 0) {
+                    duration -= temp * ONE_DAY_MILLS
+                    buffer.append(temp)
+                            .append(" day")
+                            .append(if (temp > 1) "s " else " ")
                 }
-            }
 
-            with((timeSeconds / 60) - (timeSeconds / 3600)) {
-                if (this != 0) {
-                    duration = duration.plus("$this min ")
+                //Calculate hours
+                temp = duration / ONE_HOUR_MILLS
+                if (temp > 0) {
+                    duration -= temp * ONE_HOUR_MILLS
+                    buffer.append(temp)
+                            .append(" hour")
+                            .append(if (temp > 1) "s " else " ")
                 }
-            }
 
-            with(timeSeconds % 60) {
-                if (this != 0) {
-                    duration = duration.plus("$this sec")
+                if (accurate || !buffer.contains("days")) {
+
+                    //Calculate minutes
+                    temp = duration / ONE_MINUTE_MILLS
+                    if (temp > 0) {
+                        duration -= temp * ONE_MINUTE_MILLS
+                        buffer.append(temp).append(" min ")
+                    }
+
+                    //Calculate seconds
+                    temp = duration / ONE_SECOND_MILLS
+                    if (temp > 0) {
+                        buffer.append(temp).append(" sec")
+                    }
                 }
+                return buffer.toString()
+            } else {
+                return "now"
             }
-
-            return duration
         }
     }
-
 }

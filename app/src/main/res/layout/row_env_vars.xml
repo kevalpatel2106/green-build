@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_micro"
         android:layout_marginTop="@dimen/spacing_micro"
-        android:background="@drawable/bg_env_var_value"
+        android:background="@drawable/bg_light_round_corner"
         android:padding="@dimen/spacing_micro"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toEndOf="@+id/row_env_var_private_iv"

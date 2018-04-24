@@ -21,7 +21,7 @@ import com.google.gson.annotations.SerializedName
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-data class TravisTag(
+internal data class TravisTag(
         @field:SerializedName("repository_id")
         val repoId: Int,
 

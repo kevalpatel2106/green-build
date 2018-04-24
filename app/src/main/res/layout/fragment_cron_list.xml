@@ -12,16 +12,40 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".cacheList.CacheListFragment">
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/cron_list_view_flipper"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--0. List-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/cron_list_refresher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cron_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_cron"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--1. Progressbar-->
+    <ProgressBar
+        android:layout_width="@dimen/list_loading_progressbar_dimen"
+        android:layout_height="@dimen/list_loading_progressbar_dimen"
+        android:layout_gravity="center"/>
+
+    <!--2. No item-->
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+        android:id="@+id/crons_error_tv"
+        style="@style/MediumText.Secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/md_activity_horizontal_margin"
+        android:layout_marginStart="@dimen/md_activity_horizontal_margin"
+        android:layout_marginTop="@dimen/spacing_xxlarge"
+        android:gravity="center_horizontal"
+        tools:text="@string/error_cron_available"/>
+</ViewFlipper>

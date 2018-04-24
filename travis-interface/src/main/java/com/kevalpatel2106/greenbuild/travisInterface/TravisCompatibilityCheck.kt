@@ -77,32 +77,29 @@ class TravisCompatibilityCheck : CompatibilityCheck {
     override fun isEnvironmentVariableDeleteSupported() = true
 
     /**
-     * TODO
      * Method to check if the CI provider allows to edit the public environment variables. Application
-     * can retrieve the  builds list by calling [TravisServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [TravisServerInterface.editEnvVariable].
      *
      * @return true if the feature is possible.
-     * @see TravisServerInterface.getEnvironmentVariablesList
+     * @see TravisServerInterface.editEnvVariable
      */
     override fun isPublicEnvironmentVariableEditSupported() = true
 
     /**
-     * TODO
      * Method to check if the CI provider allows to edit the private/secrete environment variables.
-     * Application can retrieve the  builds list by calling [TravisServerInterface.getEnvironmentVariablesList].
+     * Application can retrieve the  builds list by calling [TravisServerInterface.editEnvVariable].
      *
      * @return true if the feature is possible.
-     * @see TravisServerInterface.getEnvironmentVariablesList
+     * @see TravisServerInterface.editEnvVariable
      */
     override fun isPrivateEnvironmentVariableEditSupported() = true
 
     /**
-     * TODO
      * Method to check if the CI provider allows to list all the cron jobs.  Application
-     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [TravisServerInterface.getCronsList].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see TravisServerInterface.getCronsList
      */
     override fun isCronJobsListSupported() = true
 
@@ -116,12 +113,30 @@ class TravisCompatibilityCheck : CompatibilityCheck {
     override fun isCacheListListSupported() = true
 
     /**
-     * TODO
      * Method to check if the CI provider allows to delete the cache. Application can retrieve the
-     * builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * builds list by calling [TravisServerInterface.deleteCache].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see TravisServerInterface.deleteCache
      */
     override fun isCacheDeleteSupported() = true
+
+    /**
+     * Method to check if the CI provider allows to start the cron job manually. This is not supported
+     * on Travis CI platform
+     *
+     * @return true if the feature is possible.
+     */
+    override fun isInitiateCronJobsSupported(): Boolean {
+        return false
+    }
+
+    /**
+     * Method to check if the CI provider allows to delete the cron job. Application
+     * can retrieve the  builds list by calling [TravisServerInterface.deleteCron].
+     *
+     * @return true if the feature is possible.
+     * @see TravisServerInterface.deleteCron
+     */
+    override fun isDeleteCronJobsSupported(): Boolean = true
 }

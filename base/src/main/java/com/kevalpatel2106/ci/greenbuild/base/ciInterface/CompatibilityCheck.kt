@@ -62,34 +62,49 @@ interface CompatibilityCheck {
     fun isEnvironmentVariableDeleteSupported(): Boolean
 
     /**
-     * TODO
      * Method to check if the CI provider allows to edit the public environment variables. Application
-     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [ServerInterface.editEnvVariable].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see ServerInterface.editEnvVariable
      */
     fun isPublicEnvironmentVariableEditSupported(): Boolean
 
     /**
-     * TODO
      * Method to check if the CI provider allows to edit the private/secrete environment variables.
-     * Application can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * Application can retrieve the  builds list by calling [ServerInterface.editEnvVariable].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see ServerInterface.editEnvVariable
      */
     fun isPrivateEnvironmentVariableEditSupported(): Boolean
 
     /**
-     * TODO
      * Method to check if the CI provider allows to list all the cron jobs.  Application
-     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [ServerInterface.getCronsList].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see ServerInterface.getCronsList
      */
     fun isCronJobsListSupported(): Boolean
+
+    /**
+     * Method to check if the CI provider allows to start the cron job manually. Application
+     * can retrieve the  builds list by calling [ServerInterface.startCronManually].
+     *
+     * @return true if the feature is possible.
+     * @see ServerInterface.startCronManually
+     */
+    fun isInitiateCronJobsSupported(): Boolean
+
+    /**
+     * Method to check if the CI provider allows to delete the cron job. Application
+     * can retrieve the  builds list by calling [ServerInterface.deleteCron].
+     *
+     * @return true if the feature is possible.
+     * @see ServerInterface.deleteCron
+     */
+    fun isDeleteCronJobsSupported(): Boolean
 
     /**
      * Method to check if the CI provider allows to list all the caches for the repository. Application
@@ -101,12 +116,11 @@ interface CompatibilityCheck {
     fun isCacheListListSupported(): Boolean
 
     /**
-     * TODO
      * Method to check if the CI provider allows to delete the cache. Application can retrieve the
-     * builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * builds list by calling [ServerInterface.deleteCache].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see ServerInterface.deleteCache
      */
     fun isCacheDeleteSupported(): Boolean
 
