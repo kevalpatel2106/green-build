@@ -26,7 +26,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter

@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 
 internal data class TravisRepo(
 

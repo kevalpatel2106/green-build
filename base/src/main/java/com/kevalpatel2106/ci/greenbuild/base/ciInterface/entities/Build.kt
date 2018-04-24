@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 /**
  * Created by Kevalpatel2106 on 18-Apr-18.
@@ -51,8 +51,6 @@ data class Build(
 
             val username: String
     )
-
-    data class Branch(val name: String? = null)
 
     data class Commit(
             val committedAt: String? = null,

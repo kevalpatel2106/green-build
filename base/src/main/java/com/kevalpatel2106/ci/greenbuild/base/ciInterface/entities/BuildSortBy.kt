@@ -12,15 +12,16 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 /**
- * Created by Kevalpatel2106 on 18-Apr-18.
+ * Created by Keval on 18/04/18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-enum class TriggerType {
-    PUSH,
-    PULL_REQUEST,
-    CRON
+enum class BuildSortBy {
+    STARTED_AT_ASC,
+    STARTED_AT_DESC,
+    FINISHED_AT_ASC,
+    FINISHED_AT_DESC
 }

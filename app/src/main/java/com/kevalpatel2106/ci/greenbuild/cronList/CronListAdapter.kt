@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.cronList
 import android.content.Context
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**

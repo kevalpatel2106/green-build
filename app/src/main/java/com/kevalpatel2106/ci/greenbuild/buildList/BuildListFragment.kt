@@ -27,7 +27,7 @@ import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent

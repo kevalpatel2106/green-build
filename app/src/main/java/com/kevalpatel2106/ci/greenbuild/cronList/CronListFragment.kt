@@ -15,9 +15,11 @@
 package com.kevalpatel2106.ci.greenbuild.cronList
 
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -28,11 +30,12 @@ import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.fragment_cron_list.*
 import javax.inject.Inject
@@ -166,8 +169,24 @@ class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
         )
     }
 
-    companion object {
+    internal fun addCron() {
+        context?.let {
+            AddCronActivity.launch(it, this@CronListFragment, NEW_CRON_REQUEST_CODE)
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            NEW_CRON_REQUEST_CODE -> {
+                //Refresh tje list
+                if (resultCode == Activity.RESULT_OK) model.loadCronList(repoId, 1)
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    companion object {
+        private const val NEW_CRON_REQUEST_CODE = 7234
         private const val ARG_REPO_ID = "repo_id"
 
         internal fun get(repoId: String): CronListFragment {

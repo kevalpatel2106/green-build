@@ -25,7 +25,7 @@ import android.view.*
 import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.dialog_edit_variable.*
 import javax.inject.Inject

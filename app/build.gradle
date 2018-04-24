@@ -46,6 +46,7 @@ android {
 dependencies {
     implementation project(':base')
     implementation project(':travis-interface')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation project(':testutils')
     androidTestImplementation project(':testutils')
 

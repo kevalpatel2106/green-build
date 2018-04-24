@@ -20,8 +20,8 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

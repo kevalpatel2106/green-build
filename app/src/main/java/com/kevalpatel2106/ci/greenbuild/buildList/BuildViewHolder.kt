@@ -21,9 +21,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.TriggerType
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.TriggerType
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty

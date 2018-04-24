@@ -15,16 +15,13 @@
 package com.kevalpatel2106.ci.greenbuild.cacheList
 
 import android.arch.lifecycle.MutableLiveData
-import androidx.core.widget.toast
-import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
-import com.kevalpatel2106.ci.greenbuild.base.utils.alert
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

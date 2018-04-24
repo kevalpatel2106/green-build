@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
@@ -60,6 +61,12 @@ class RepoDetailActivity : AppCompatActivity() {
         setToolbar()
         setBottomNavigation()
         setViewPager()
+
+        //Set FAB.
+        repo_detail_add_fab.setOnClickListener { model.fabClicked() }
+        model.isDisplayFab.observe(this@RepoDetailActivity, Observer {
+            it?.let { repo_detail_add_fab.visibility = if (it) View.VISIBLE else View.GONE }
+        })
     }
 
     /**

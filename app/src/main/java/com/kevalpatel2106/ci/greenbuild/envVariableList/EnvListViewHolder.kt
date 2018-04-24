@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_env_vars.view.*
 

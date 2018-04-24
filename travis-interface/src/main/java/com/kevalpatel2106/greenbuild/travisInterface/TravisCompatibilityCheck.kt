@@ -68,6 +68,12 @@ class TravisCompatibilityCheck : CompatibilityCheck {
     override fun isEnvironmentVariableListSupported() = true
 
     /**
+     * Method to check if the CI provider allows to add the environment variables. This method is
+     * not supported.
+     */
+    override fun isAddEnvironmentVariableSupported() = false
+
+    /**
      * Method to check if the CI provider allows to delete the environment variables. Application
      * can retrieve the  builds list by calling [TravisServerInterface.deleteEnvironmentVariable].
      *
@@ -102,6 +108,16 @@ class TravisCompatibilityCheck : CompatibilityCheck {
      * @see TravisServerInterface.getCronsList
      */
     override fun isCronJobsListSupported() = true
+
+    /**
+     * TODO
+     * Method to check if the CI provider allows to schedule new cron jobs. Application
+     * can retrieve the  builds list by calling [ServerInterface.getCronsList].
+     *
+     * @return true if the feature is possible.
+     * @see ServerInterface.getCronsList
+     */
+    override fun isAddCronJobsSupported() = false //TODO Remaining to implement.
 
     /**
      * Method to check if the CI provider allows to list all the caches for the repository. Application

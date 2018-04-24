@@ -14,11 +14,11 @@
 
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".repoList.RepoListActivity">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 tools:context=".repoList.RepoListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -63,7 +63,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        tools:src="@tools:sample/avatars"/>
 
                     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
                         android:id="@+id/repo_name_tv"
@@ -82,7 +82,7 @@
                         app:layout_constraintStart_toEndOf="@+id/repo_image_logo"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        tools:text="@tools:sample/lorem" />
+                        tools:text="@tools:sample/lorem"/>
 
                     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
                         android:id="@+id/repo_owner_name_tv"
@@ -100,7 +100,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/repo_image_logo"
                         app:layout_constraintTop_toBottomOf="@+id/repo_name_tv"
-                        tools:text="@tools:sample/lorem" />
+                        tools:text="@tools:sample/lorem"/>
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -123,7 +123,7 @@
                     android:layout_marginStart="@dimen/spacing_small"
                     android:maxLines="4"
                     android:transitionName="@string/repo_description_tv_transition_name"
-                    tools:text="@tools:sample/lorem/random" />
+                    tools:text="@tools:sample/lorem/random"/>
 
                 <!--Repo information tags-->
                 <!--TODO Enable this with chips -->
@@ -146,7 +146,7 @@
                         android:backgroundTint="@color/colorPrimaryDark"
                         android:elevation="@dimen/spacing_micro"
                         android:textAppearance="@style/SmallText.Primary"
-                        app:chipText="Private" />
+                        app:chipText="Private"/>
 
                     <!--Private repo-->
                     <android.support.design.chip.Chip
@@ -157,12 +157,18 @@
                         android:backgroundTint="@color/colorPrimaryDark"
                         android:elevation="@dimen/spacing_micro"
                         android:textAppearance="@style/SmallText.Primary"
-                        app:chipText="Owner" />
+                        app:chipText="Owner"/>
 
                 </android.support.design.chip.ChipGroup>
             </LinearLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseViewPager
+        android:id="@+id/repo_detail_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/repo_detail_bottom_navigation"
@@ -176,11 +182,18 @@
         app:itemTextColor="@color/bottom_text_color"
         app:labelVisibilityMode="labeled"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:menu="@menu/menu_repo_detail_bottom" />
+        app:menu="@menu/menu_repo_detail_bottom"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseViewPager
-        android:id="@+id/repo_detail_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/repo_detail_add_fab"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:src="@drawable/ic_add"
+        app:useCompatPadding="false"
+        app:elevation="@dimen/spacing_micro"
+        app:fabSize="normal"
+        app:layout_anchor="@id/repo_detail_bottom_navigation"
+        app:layout_anchorGravity="top|end"
+        app:layout_insetEdge="bottom"/>
 </android.support.design.widget.CoordinatorLayout>

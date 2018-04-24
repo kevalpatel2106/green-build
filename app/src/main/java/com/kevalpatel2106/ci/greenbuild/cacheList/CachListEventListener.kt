@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.cacheList
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
 
 /**
  * Created by Keval on 23/04/18.

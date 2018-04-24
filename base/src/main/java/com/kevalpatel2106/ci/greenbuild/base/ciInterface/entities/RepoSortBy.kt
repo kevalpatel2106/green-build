@@ -12,18 +12,16 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.envVariableList
-
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 /**
- * Created by Keval on 23/04/18.
+ * Created by Keval on 18/04/18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal interface EnvVarsListEventListener{
-
-    fun onEdit(envVars: EnvVars)
-
-    fun onDelete(envVars: EnvVars)
+enum class RepoSortBy {
+    NAME_ASC,
+    NAME_DESC,
+    LAST_BUILD_TIME_ASC,
+    LAST_BUILD_TIME_DESC
 }

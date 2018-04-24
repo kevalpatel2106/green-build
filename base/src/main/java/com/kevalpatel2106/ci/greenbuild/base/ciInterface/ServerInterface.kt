@@ -15,14 +15,15 @@
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
 import io.reactivex.Observable
 
 /**
@@ -46,6 +47,11 @@ abstract class ServerInterface(protected val accessToken: String) {
      * [Observable] to get the [Account] information.
      */
     abstract fun getMyAccount(): Observable<Account>
+
+    /**
+     * Get the branches for the repo.
+     */
+    abstract fun getBranches(page: Int,repoId: String): Observable<Page<Branch>>
 
     /**
      * Get the list of [Repo] for the account.

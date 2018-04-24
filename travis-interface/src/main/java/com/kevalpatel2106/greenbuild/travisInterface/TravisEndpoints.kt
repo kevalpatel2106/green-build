@@ -37,6 +37,14 @@ internal interface TravisEndpoints {
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getMyProfile(): Observable<ResponseMyAccount>
 
+    @GET("repo/{repoId}/branches")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getBranches(
+            @Path("repoId") repoId: String,
+            @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
+            @Query("offset") offset: Int
+    ): Observable<BranchesResponse>
+
     @GET("repos")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getMyRepos(

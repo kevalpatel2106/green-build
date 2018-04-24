@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
 
 
 internal data class TravisBranch(
@@ -22,5 +23,20 @@ internal data class TravisBranch(
         val name: String? = null,
 
         @field:SerializedName("@href")
-        val href: String? = null
-)
+        val href: String? = null,
+
+        @field:SerializedName("default_branch")
+        val isDefault: Boolean,
+
+        @field:SerializedName("last_build")
+        val lastBuild: TravisBuild?
+) {
+
+    fun toBranch(): Branch {
+        return Branch(
+                name = name,
+                isDefault = isDefault,
+                lastBuild = lastBuild?.toBuild()
+        )
+    }
+}

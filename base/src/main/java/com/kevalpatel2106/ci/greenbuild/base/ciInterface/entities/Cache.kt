@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 import android.support.annotation.DrawableRes
 

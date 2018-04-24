@@ -19,7 +19,7 @@ import android.support.annotation.VisibleForTesting
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CiServer
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import javax.inject.Inject
 

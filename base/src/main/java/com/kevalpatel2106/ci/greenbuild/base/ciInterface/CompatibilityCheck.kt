@@ -53,6 +53,16 @@ interface CompatibilityCheck {
     fun isEnvironmentVariableListSupported(): Boolean
 
     /**
+     * TODO
+     * Method to check if the CI provider allows to add the environment variables.  Application
+     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     *
+     * @return true if the feature is possible.
+     * @see ServerInterface.getEnvironmentVariablesList
+     */
+    fun isAddEnvironmentVariableSupported(): Boolean
+
+    /**
      * Method to check if the CI provider allows to delete the environment variables. Application
      * can retrieve the  builds list by calling [ServerInterface.deleteEnvironmentVariable].
      *
@@ -87,6 +97,16 @@ interface CompatibilityCheck {
      * @see ServerInterface.getCronsList
      */
     fun isCronJobsListSupported(): Boolean
+
+    /**
+     * TODO
+     * Method to check if the CI provider allows to schedule new cron jobs.  Application
+     * can retrieve the  builds list by calling [ServerInterface.getCronsList].
+     *
+     * @return true if the feature is possible.
+     * @see ServerInterface.getCronsList
+     */
+    fun isAddCronJobsSupported(): Boolean
 
     /**
      * Method to check if the CI provider allows to start the cron job manually. Application

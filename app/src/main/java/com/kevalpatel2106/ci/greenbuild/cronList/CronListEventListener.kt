@@ -14,8 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.cronList
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 
 /**
  * Created by Keval on 23/04/18.

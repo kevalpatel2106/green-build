@@ -12,16 +12,20 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
+
+import com.google.gson.annotations.SerializedName
 
 /**
- * Created by Keval on 18/04/18.
+ * Created by Kevalpatel2106 on 24-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-enum class BuildSortBy {
-    STARTED_AT_ASC,
-    STARTED_AT_DESC,
-    FINISHED_AT_ASC,
-    FINISHED_AT_DESC
-}
+data class Branch(
+        @field:SerializedName("name")
+        val name: String? = null,
+
+        val isDefault: Boolean,
+
+        val lastBuild : Build?
+)

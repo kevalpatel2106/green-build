@@ -31,10 +31,11 @@ import javax.inject.Inject
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class RepoDetailViewModel @Inject internal constructor(
-        compatibilityCheck: CompatibilityCheck
+        private val compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
 
     internal val selectedItem = MutableLiveData<Int>()
+    internal val isDisplayFab = MutableLiveData<Boolean>()
 
     // Compatibility
     internal val isBuildListCompatible = compatibilityCheck.isBuildsListByRepoSupported()
@@ -53,6 +54,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
             throw IllegalStateException("This CI provider doesn't support any features at all!!!")
         }
         selectedItem.value = 0
+        isDisplayFab.value = false
     }
 
 
@@ -110,14 +112,38 @@ internal class RepoDetailViewModel @Inject internal constructor(
      */
     fun changeSelectedItem(itemId: Int) {
         selectedItem.value = when (itemId) {
-            R.id.repo_detail_menu_bottom_build -> fragmentsList.indexOf(buildListFragment as Fragment)
-            R.id.repo_detail_menu_bottom_env_var -> fragmentsList.indexOf(envVarListFragment as Fragment)
-            R.id.repo_detail_menu_bottom_cron -> fragmentsList.indexOf(cronListFragment as Fragment)
-            R.id.repo_detail_menu_bottom_cache -> fragmentsList.indexOf(cacheListFragment as Fragment)
+            R.id.repo_detail_menu_bottom_build -> {
+                isDisplayFab.value = false
+                fragmentsList.indexOf(buildListFragment as Fragment)
+            }
+            R.id.repo_detail_menu_bottom_env_var -> {
+                isDisplayFab.value = true && compatibilityCheck.isAddEnvironmentVariableSupported()
+                fragmentsList.indexOf(envVarListFragment as Fragment)
+            }
+            R.id.repo_detail_menu_bottom_cron -> {
+                isDisplayFab.value = true && compatibilityCheck.isAddCronJobsSupported()
+                fragmentsList.indexOf(cronListFragment as Fragment)
+            }
+            R.id.repo_detail_menu_bottom_cache -> {
+                isDisplayFab.value = false
+                fragmentsList.indexOf(cacheListFragment as Fragment)
+            }
             else -> throw IllegalArgumentException("Invalid item id : $itemId")
         }
 
         if (selectedItem.value!! < -1) throw IllegalStateException("Cannot find the fragment for $itemId.")
     }
 
+    fun fabClicked() {
+        when {
+            selectedItem.value == fragmentsList.indexOf(cronListFragment as Fragment) -> {
+                //Add new cron
+                cronListFragment?.addCron()
+            }
+            selectedItem.value == fragmentsList.indexOf(envVarListFragment as Fragment) -> {
+                //Add new environment variable
+                TODO ("Add environment variable.")
+            }
+        }
+    }
 }

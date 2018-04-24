@@ -21,6 +21,7 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
+import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
@@ -81,4 +82,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(CronListViewModel::class)
     internal abstract fun bindCronListViewModel(viewModel: CronListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddCronViewModel::class)
+    internal abstract fun bindAddCronViewModel(viewModel: AddCronViewModel): ViewModel
 }

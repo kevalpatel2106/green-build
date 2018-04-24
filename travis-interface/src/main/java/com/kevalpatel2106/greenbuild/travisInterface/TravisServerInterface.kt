@@ -16,17 +16,18 @@ package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CiServer
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildSortBy
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
 import com.kevalpatel2106.greenbuild.travisInterface.authentication.TravisAuthenticationActivity
 import io.reactivex.Observable
@@ -114,15 +115,33 @@ class TravisServerInterface internal constructor(
 
     /**
      * Get the information of the user based on the [accessToken] provided. This method will use
-     * [TravisEndpoints.getMyProfile] endpoint to get the user information in [ResponseMyAccount] object.
-     * Once the object is received, [ResponseMyAccount] will be converted to [Account].
+     * [TravisEndpoints.getMyProfile] endpoint to get the user information.
      *
-     * @see [ResponseMyAccount.getAccount]
+     * @see [TravisEndpoints.getMyProfile]
      */
     override fun getMyAccount(): Observable<Account> {
         return travisEndpoints
                 .getMyProfile()
                 .map { it.getAccount(baseUrl, accessToken) }
+    }
+
+    /**
+     * Get the branches for the repo.
+     */
+    override fun getBranches(page: Int,
+                             repoId: String): Observable<Page<Branch>> {
+        return travisEndpoints
+                .getBranches(
+                        repoId = repoId,
+                        offset = (page - 1) * PAGE_SIZE
+                ).map {
+                    val branchList = ArrayList<Branch>(it.branches.size)
+                    it.branches.forEach { branchList.add(it.toBranch()) }
+                    return@map Page(
+                            hasNext = !it.pagination.isLast,
+                            list = branchList
+                    )
+                }
     }
 
     override fun getRepoList(page: Int,

@@ -12,34 +12,15 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo
+package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 /**
- * Created by Keval on 18/04/18.
+ * Created by Kevalpatel2106 on 18-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-data class Repo(
-
-        val id: String,
-
-        val name: String,
-
-        val description: String? = null,
-
-        val isPrivate: Boolean,
-
-        val isEnabledForCi: Boolean,
-
-        val language: String? = null,
-
-        val owner: Owner,
-
-        val defaultBranch: String? = null
-) {
-
-    data class Owner(
-            val name: String,
-            val avatar: String? = null
-    )
+enum class TriggerType {
+    PUSH,
+    PULL_REQUEST,
+    CRON
 }

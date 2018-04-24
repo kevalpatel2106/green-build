@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cron.Cron
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 
 internal data class TravisCron(
