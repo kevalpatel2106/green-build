@@ -24,4 +24,9 @@
         <item name="android:paddingStart">@dimen/spacing_small</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+    </style>
 </resources>

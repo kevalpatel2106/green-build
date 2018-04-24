@@ -23,34 +23,47 @@ import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**
  * Created by Keval on 18/04/18.
+ * [PageRecyclerViewAdapter] to display the list of [EnvVars]. This list will allow user to edit/delete
+ * the [EnvVars]. This is paginated list.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @param context Instance of the caller.
+ * @param list [ArrayList] of the [EnvVars] to display.
+ * @param isDeletingSupported True if the current CI platform supports deleting the environment variables.
+ * Based on this value, UI will show/hide delete button.
+ * @param isEditingPrivateVarsSupported True if the current CI platform supports editing the private
+ * /secrete environment variables. Based on this value, UI will show/hide edit button for private
+ * variables.
+ * @param isEditingPublicVarsSupported True if the current CI platform supports editing the public
+ * environment variables. Based on this value, UI will show/hide edit button for public variables.
+ * @param eventListener [EnvVarsListEventListener] to notify caller when any [EnvVars] should be edited
+ * or deleted.
+ * @param pageCompleteListener [PageRecyclerViewAdapter.RecyclerViewListener] to notify caller when
+ * the page ends.
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class EnvListAdapter(
         context: Context,
         list: ArrayList<EnvVars>,
-        private val compatibilityCheck: CompatibilityCheck,
-        listener: PageRecyclerViewAdapter.RecyclerViewListener<EnvVars>)
-    : PageRecyclerViewAdapter<EnvListViewHolder, EnvVars>(context, list, listener) {
+        private val isDeletingSupported: Boolean,
+        private val isEditingPublicVarsSupported: Boolean,
+        private val isEditingPrivateVarsSupported: Boolean,
+        pageCompleteListener: PageRecyclerViewAdapter.RecyclerViewListener<EnvVars>,
+        private val eventListener: EnvVarsListEventListener)
+    : PageRecyclerViewAdapter<EnvListViewHolder, EnvVars>(context, list, pageCompleteListener) {
 
-    override fun bindView(holder: EnvListViewHolder, item: EnvVars) {
-        holder.bind(item)
-    }
+    override fun bindView(holder: EnvListViewHolder, item: EnvVars) =
+            holder.bind(item, { eventListener.onEdit(it) }, { eventListener.onDelete(it) })
 
     override fun prepareViewHolder(parent: ViewGroup, viewType: Int): EnvListViewHolder {
         return EnvListViewHolder.create(
                 parent = parent,
-                isDeleteSupported = compatibilityCheck.isEnvironmentVariableDeleteSupported(),
-                isEditPublicSupported = compatibilityCheck.isPublicEnvironmentVariableEditSupported(),
-                isEditPrivateSupported = compatibilityCheck.isPrivateEnvironmentVariableEditSupported()
+                isDeleteSupported = isDeletingSupported,
+                isEditPublicSupported = isEditingPublicVarsSupported,
+                isEditPrivateSupported = isEditingPrivateVarsSupported
         )
     }
 
-    override fun prepareViewType(position: Int): Int {
-        return 1
-    }
+    override fun prepareViewType(position: Int): Int = 1
 
-    override fun getPageSize(): Int {
-        return ServerInterface.PAGE_SIZE
-    }
+    override fun getPageSize(): Int = ServerInterface.PAGE_SIZE
 }

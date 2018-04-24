@@ -20,7 +20,7 @@ import com.kevalpatel2106.ci.greenbuild.moduleCallback.TravisCallbacks
 /**
  * Created by Keval on 23/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class GBApplication : BaseApplication() {
 

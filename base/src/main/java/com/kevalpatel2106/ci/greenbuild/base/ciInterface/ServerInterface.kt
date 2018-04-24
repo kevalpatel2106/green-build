@@ -28,7 +28,8 @@ import io.reactivex.Observable
  * Created by Keval on 16/04/18.
  * This class defines basic interface between the application and the CI server.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @constructor Public constructor to provide the [accessToken] off the account.
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 abstract class ServerInterface(protected val accessToken: String) {
 
@@ -74,7 +75,30 @@ abstract class ServerInterface(protected val accessToken: String) {
 
 
     /**
-     * Get the list of [Cache] for the given [Repo].
+     * Delete [EnvVars] with [envVarId] id for the given [Repo].It will return the [Observable] with the
+     * count of deleted [EnvVars] items.
+     */
+    abstract fun deleteEnvironmentVariable(
+            repoId: String,
+            envVarId: String
+    ): Observable<Int>
+
+    /**
+     * Edit the [EnvVars] which has id [envVarId] and repository id [repoId]. This will return the
+     * [Observable] with the updated [EnvVars].
+     */
+    abstract fun editEnvVariable(
+            repoId: String,
+            envVarId: String,
+            newName: String,
+            newValue: String,
+            isPublic: Boolean
+    ): Observable<EnvVars>
+
+
+    /**
+     * Get the list of [Cache] for the given [Repo]. It will return the [Observable] with the
+     * paginated list of [Cache].
      */
     abstract fun getCachesList(
             page: Int,
@@ -82,15 +106,19 @@ abstract class ServerInterface(protected val accessToken: String) {
     ): Observable<Page<Cache>>
 
     /**
-     * Delete [Cache] for [branchName] for the given [Repo].
+     * Delete [Cache] for [branchName] for the given [Repo]. It will return the [Observable] with the
+     * count of deleted [Cache] items.
      */
     abstract fun deleteCache(
             repoId: String,
             branchName: String
     ): Observable<Int>
 
-
     companion object {
+
+        /**
+         * Number of items in the single page of the list. This value is constant. Never change!!!
+         */
         const val PAGE_SIZE = 20
     }
 }

@@ -21,6 +21,7 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
@@ -32,7 +33,7 @@ import dagger.multibindings.IntoMap
 /**
  * Created by Keval on 17/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 @Module
 abstract class ViewModelFactoryModule {
@@ -69,4 +70,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(CacheListViewModel::class)
     internal abstract fun bindCacheListViewModel(viewModel: CacheListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditVariableViewModel::class)
+    internal abstract fun bindEditVariableViewModel(viewModel: EditVariableViewModel): ViewModel
 }

@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.base.ciInterface.build
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 enum class BuildSortBy {
     STARTED_AT_ASC,

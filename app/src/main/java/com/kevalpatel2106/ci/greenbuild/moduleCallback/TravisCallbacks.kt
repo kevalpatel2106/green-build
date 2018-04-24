@@ -21,7 +21,7 @@ import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
 /**
  * Created by Keval on 23/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class TravisCallbacks : TravisModuleCallbacks() {
 

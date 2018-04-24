@@ -68,12 +68,11 @@ class TravisCompatibilityCheck : CompatibilityCheck {
     override fun isEnvironmentVariableListSupported() = true
 
     /**
-     * TODO
      * Method to check if the CI provider allows to delete the environment variables. Application
-     * can retrieve the  builds list by calling [TravisServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [TravisServerInterface.deleteEnvironmentVariable].
      *
      * @return true if the feature is possible.
-     * @see TravisServerInterface.getEnvironmentVariablesList
+     * @see TravisServerInterface.deleteEnvironmentVariable
      */
     override fun isEnvironmentVariableDeleteSupported() = true
 

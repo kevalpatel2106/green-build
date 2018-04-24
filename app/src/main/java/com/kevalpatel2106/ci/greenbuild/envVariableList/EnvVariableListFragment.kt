@@ -18,6 +18,7 @@ package com.kevalpatel2106.ci.greenbuild.envVariableList
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -25,29 +26,32 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableDialog
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.VariableEditListener
 import kotlinx.android.synthetic.main.fragment_env_variables_list.*
 import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
- *
  */
-class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<EnvVars> {
+class EnvVariableListFragment : Fragment(),
+        PageRecyclerViewAdapter.RecyclerViewListener<EnvVars>,
+        EnvVarsListEventListener,
+        VariableEditListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
-
-    @Inject
-    internal lateinit var compatibilityCheck: CompatibilityCheck
 
     private lateinit var model: EnvVarsListViewModel
 
@@ -77,8 +81,11 @@ class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerView
         env_var_list_rv.adapter = EnvListAdapter(
                 context = context!!,
                 list = model.envVarsList.value!!,
-                compatibilityCheck = compatibilityCheck,
-                listener = this
+                isDeletingSupported = model.isDeleteVariableSupported,
+                isEditingPrivateVarsSupported = model.isEditPrivateVariableSupported,
+                isEditingPublicVarsSupported = model.isEditPublicVariableSupported,
+                pageCompleteListener = this,
+                eventListener = this@EnvVariableListFragment
         )
         env_var_list_rv.itemAnimator = DefaultItemAnimator()
         env_var_list_rv.addItemDecoration(DividerItemDecoration(context!!))
@@ -100,6 +107,10 @@ class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerView
                 env_list_view_flipper.displayedChild = 2
                 env_vars_error_tv.text = it
             }
+        })
+
+        model.errorDeletingVar.observe(this@EnvVariableListFragment, Observer {
+            it?.let { context?.toast(it) }
         })
 
         model.isLoadingFirstTime.observe(this@EnvVariableListFragment, Observer {
@@ -141,6 +152,35 @@ class EnvVariableListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerView
 
     override fun onPageComplete(pos: Int) {
         model.loadEnvVarsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    override fun onEdit(envVars: EnvVars) {
+        EditVariableDialog.launch(
+                fragmentManager = childFragmentManager,
+                repoId = repoId,
+                envVar = envVars,
+                editListener = this@EnvVariableListFragment
+        )
+    }
+
+    override fun onDelete(envVars: EnvVars) {
+        alert(title = null,
+                message = getString(R.string.delete_env_variable_title_confirmation_title, envVars.name),
+                func = {
+                    positiveButton(R.string.btn_title_delete, {
+                        model.deleteVariable(envVars = envVars, repoId = repoId)
+                    })
+                    negativeButton(android.R.string.cancel)
+                    cancelable = false
+                }
+        )
+    }
+
+    override fun onEditCompleted(envVars: EnvVars) {
+        model.envVarsList.value?.let {
+            it[it.indexOf(envVars)] = envVars
+            model.envVarsList.recall()
+        }
     }
 
     companion object {

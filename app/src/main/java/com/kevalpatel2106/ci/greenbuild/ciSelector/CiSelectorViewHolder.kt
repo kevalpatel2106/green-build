@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.row_ci_selector_list.view.*
 /**
  * Created by Keval on 21/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class CiSelectorViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

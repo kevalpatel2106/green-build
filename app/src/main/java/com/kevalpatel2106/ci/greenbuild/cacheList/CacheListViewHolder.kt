@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.row_caches.view.*
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class CacheListViewHolder private constructor(
         itemView: View,

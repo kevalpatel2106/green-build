@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.row_env_vars.view.*
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class EnvListViewHolder private constructor(
         itemView: View,
@@ -52,9 +52,15 @@ internal class EnvListViewHolder private constructor(
         }
     }
 
-    fun bind(envVars: EnvVars) {
+    fun bind(envVars: EnvVars,
+             onEdit: (envVar: EnvVars) -> Unit,
+             onDelete: (envVar: EnvVars) -> Unit) {
         itemView.row_env_var_name_tv.text = envVars.name
-        itemView.row_env_var_value_tv.text = if (envVars.public) envVars.value else "***************"
+        itemView.row_env_var_value_tv.text = if (envVars.public) {
+            envVars.value
+        } else {
+            itemView.context.getString(R.string.private_variable_value_mask)
+        }
         itemView.row_env_var_private_iv.setImageResource(if (envVars.public)
             R.drawable.ic_public
         else
@@ -63,7 +69,8 @@ internal class EnvListViewHolder private constructor(
         //Set delete button
         if (isDeleteSupported) {
             itemView.row_env_var_delete_btn.visibility = View.VISIBLE
-            itemView.row_env_var_delete_btn.setOnClickListener { }
+            itemView.row_env_var_delete_btn.displayLoader(envVars.isDeleting)
+            itemView.row_env_var_delete_btn.setOnClickListener { onDelete.invoke(envVars) }
         } else {
             itemView.row_env_var_delete_btn.visibility = View.GONE
         }
@@ -75,8 +82,6 @@ internal class EnvListViewHolder private constructor(
             itemView.row_env_var_edit_btn.visibility = if (isEditPrivateSupported) View.VISIBLE else View.GONE
         }
 
-        itemView.row_env_var_edit_btn.setOnClickListener { }
-
-        //TODO
+        itemView.row_env_var_edit_btn.setOnClickListener { onEdit.invoke(envVars) }
     }
 }

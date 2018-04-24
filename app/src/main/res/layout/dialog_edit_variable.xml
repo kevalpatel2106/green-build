@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".envVariableList.editVariable.EditVariableDialog">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/md_activity_vertical_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edit_variable_name_til"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        app:counterEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/edit_variable_value_til"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline32"
+        app:layout_constraintTop_toTopOf="@+id/guideline33"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/edit_variable_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="2" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edit_variable_value_til"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_micro"
+        android:hint="Value"
+        app:counterEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/edit_variable_is_private_switch"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline32"
+        app:layout_constraintTop_toBottomOf="@+id/edit_variable_name_til">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/edit_variable_value_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="2" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/edit_variable_is_private_switch"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spacing_xxlarge"
+        android:layout_marginTop="@dimen/spacing_micro"
+        android:text="@string/edit_variable_switch_title_display_value_in_logs"
+        android:background="?selectableItemBackground"
+        android:textAppearance="@style/MediumText.Secondary"
+        android:textColor="@color/colorSecondaryText"
+        app:layout_constraintBottom_toTopOf="@+id/save_variable_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline32"
+        app:layout_constraintTop_toBottomOf="@+id/edit_variable_value_til"
+        app:showText="false"
+        app:thumbTint="@color/colorAccent" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+        android:id="@+id/save_variable_btn"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/btn_title_save"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/edit_variable_is_private_switch" />
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+        android:id="@+id/cancel_variable_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/save_variable_btn"
+        app:layout_constraintEnd_toStartOf="@+id/save_variable_btn"
+        app:layout_constraintTop_toTopOf="@+id/save_variable_btn" />
+
+</android.support.constraint.ConstraintLayout>

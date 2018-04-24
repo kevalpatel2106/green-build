@@ -34,7 +34,7 @@ import timber.log.Timber
 /**
  * Created by Keval on 16/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class TravisServerInterface internal constructor(
         private val baseUrl: String,
@@ -204,7 +204,8 @@ class TravisServerInterface internal constructor(
     }
 
     /**
-     * Get the list of [Cache] for the given [Repo].
+     * Get the list of [Cache] for the given [Repo]. It will return the [Observable] with the
+     * paginated list of [Cache].
      */
     override fun getCachesList(page: Int, repoId: String): Observable<Page<Cache>> {
         return travisEndpoints
@@ -220,11 +221,43 @@ class TravisServerInterface internal constructor(
     }
 
     /**
-     * Delete [Cache] for [branchName] for the given [Repo].
+     * Delete [Cache] for [branchName] for the given [Repo]. It will return the [Observable] with the
+     * count of deleted [Cache] items.
      */
     override fun deleteCache(repoId: String, branchName: String): Observable<Int> {
         return travisEndpoints
                 .deleteCacheByBranch(branchName = branchName, repoId = repoId)
                 .map { it.caches.size }
+    }
+
+    /**
+     * Delete [EnvVars] with [envVarId] id for the given [Repo].It will return the [Observable] with the
+     * count of deleted [EnvVars] items.
+     */
+    override fun deleteEnvironmentVariable(repoId: String, envVarId: String): Observable<Int> {
+        return travisEndpoints
+                .deleteEnvVariable(envVarId = envVarId, repoId = repoId)
+                .map { 1 }
+    }
+
+    /**
+     * Edit the [EnvVars] which has id [envVarId] and repository id [repoId]. This will return the
+     * [Observable] with the updated [EnvVars].
+     */
+    override fun editEnvVariable(repoId: String,
+                                 envVarId: String,
+                                 newName: String,
+                                 newValue: String,
+                                 isPublic: Boolean
+    ): Observable<EnvVars> {
+        return travisEndpoints
+                .editEnvVariable(
+                        envVarId = envVarId,
+                        repoId = repoId,
+                        envName = newName,
+                        envValue = newValue,
+                        isPublic = isPublic
+                )
+                .map { it.toEnvVars() }
     }
 }

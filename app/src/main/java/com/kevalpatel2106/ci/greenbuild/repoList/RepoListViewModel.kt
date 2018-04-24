@@ -17,6 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.repoList
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.repo.RepoSortBy
@@ -27,7 +28,7 @@ import javax.inject.Inject
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class RepoListViewModel @Inject constructor(private val serverInterface: ServerInterface) : BaseViewModel() {
 
@@ -71,7 +72,7 @@ internal class RepoListViewModel @Inject constructor(private val serverInterface
                     if (page == 1) repoList.value!!.clear()
 
                     repoList.value!!.addAll(it.list)
-                    repoList.value = repoList.value
+                    repoList.recall()
                 }, {
                     errorLoadingList.value = it.message
                 })

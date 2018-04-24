@@ -23,7 +23,7 @@ import android.support.v7.widget.RecyclerView
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 

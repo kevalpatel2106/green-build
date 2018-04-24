@@ -27,6 +27,7 @@ object NetworkConfig {
     internal const val CONNECTION_TIMEOUT = 1L
 
     //Error messages.
+    const val ALL_OK = "Success!!!"
     const val ERROR_MESSAGE_INTERNET_NOT_AVAILABLE = "Internet is not available. Please try again."
     const val ERROR_MESSAGE_SOMETHING_WRONG = "Something went wrong."
     const val ERROR_MESSAGE_BAD_REQUEST = "Invalid request. Please try again."

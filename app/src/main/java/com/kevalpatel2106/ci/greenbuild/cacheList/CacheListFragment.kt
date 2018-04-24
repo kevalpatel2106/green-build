@@ -25,11 +25,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
@@ -41,16 +42,10 @@ import javax.inject.Inject
  * A simple [Fragment] subclass.
  *
  */
-class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Cache> {
+class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Cache>, CachListEventListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
-
-    @Inject
-    internal lateinit var compatibilityCheck: CompatibilityCheck
-
-    @Inject
-    internal lateinit var serverInterface: ServerInterface
 
     private lateinit var model: CacheListViewModel
 
@@ -82,9 +77,9 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
         cache_list_rv.adapter = CacheListAdapter(
                 context = context!!,
                 list = model.cacheList.value!!,
-                compatibilityCheck = compatibilityCheck,
-                listener = this,
-                serverInterface = serverInterface
+                isDeleteSupported = model.isDeleteVariableSupported,
+                pageCompleteListener = this,
+                cacheEventListener = this@CacheListFragment
         )
         cache_list_rv.itemAnimator = DefaultItemAnimator()
         cache_list_rv.addItemDecoration(DividerItemDecoration(context!!))
@@ -106,6 +101,10 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
                 cache_list_view_flipper.displayedChild = 2
                 caches_error_tv.text = it
             }
+        })
+
+        model.errorDeletingCache.observe(this@CacheListFragment, Observer {
+            it?.let { context?.toast(it) }
         })
 
         model.isLoadingFirstTime.observe(this@CacheListFragment, Observer {
@@ -140,13 +139,22 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
             repoId = this
         }
 
-        if (model.cacheList.value!!.isEmpty()) {
-            model.loadCacheList(repoId, 1)
-        }
+        if (model.cacheList.value!!.isEmpty()) model.loadCacheList(repoId, 1)
     }
 
     override fun onPageComplete(pos: Int) {
         model.loadCacheList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    override fun deleteCache(cache: Cache) {
+        alert(title = null,
+                message = getString(R.string.delete_cache_title_confirmation_title),
+                func = {
+                    positiveButton(R.string.btn_title_delete, { model.deleteCache(cache) })
+                    negativeButton(android.R.string.cancel)
+                    cancelable = false
+                }
+        )
     }
 
     companion object {

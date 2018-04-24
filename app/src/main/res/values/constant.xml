@@ -15,4 +15,5 @@
 <resources>
     <string name="repo_title_tv_transition_name">repo_name_tv</string>
     <string name="repo_description_tv_transition_name">repo_description_tv</string>
+    <string name="private_variable_value_mask">***************</string>
 </resources>

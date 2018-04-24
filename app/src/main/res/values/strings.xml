@@ -24,4 +24,10 @@
     <string name="btn_title_delete">Delete</string>
     <string name="cache_prefix">Cache_%s</string>
     <string name="delete_cache_title_confirmation_title">Do you want to delete cache?</string>
+    <string name="delete_env_variable_title_confirmation_title">Do you want to delete %s?</string>
+    <string name="btn_title_save">Save</string>
+    <string name="edit_variable_switch_title_display_value_in_logs">Display value in logs?</string>
+    <string name="message_variable_edit_success">Variable edited successfully.</string>
+    <string name="error_edit_variable_empty_name">Enter variable name.</string>
+    <string name="error_edit_variable_empty_value">Enter variable value.</string>
 </resources>

@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.row_builds_list.view.*
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class BuildViewHolder private constructor(itemView: View)
     : PageRecyclerViewAdapter.PageViewHolder(itemView) {
@@ -52,7 +52,7 @@ internal class BuildViewHolder private constructor(itemView: View)
         itemView.branch_name_tv.text = build.branchName
 
         itemView.commit_message_tv.text = build.commit.message
-        itemView.commit_hash_tv.text = build.commit.sha
+        itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)
         itemView.build_trigger_type_iv.setImageResource(getEventTypeImage(build.eventType))
 
         itemView.commit_author_name_tv.text = build.author.username

@@ -17,6 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.build.Build
@@ -28,7 +29,7 @@ import javax.inject.Inject
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class BuildsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
@@ -77,7 +78,7 @@ internal class BuildsListViewModel @Inject constructor(
                     if (page == 1) buildsList.value!!.clear()
 
                     buildsList.value!!.addAll(it.list)
-                    buildsList.value = buildsList.value
+                    buildsList.recall()
                 }, {
                     errorLoadingList.value = it.message
                 })

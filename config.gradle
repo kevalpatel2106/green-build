@@ -106,7 +106,7 @@ ext {
     }
 
     dokkaConfig = {
-        outputFormat = 'jekyll'
+        outputFormat = 'javadoc'
         outputDirectory = "${project.rootDir}/docs"
         jdkVersion = 8 // Used for linking to JDK
         includeNonPublic = false

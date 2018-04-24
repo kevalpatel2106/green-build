@@ -15,11 +15,16 @@
 package com.kevalpatel2106.ci.greenbuild.cacheList
 
 import android.arch.lifecycle.MutableLiveData
+import androidx.core.widget.toast
+import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.cache.Cache
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -27,9 +32,10 @@ import javax.inject.Inject
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class CacheListViewModel @Inject constructor(
+        private val application: BaseApplication,
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
@@ -44,6 +50,8 @@ internal class CacheListViewModel @Inject constructor(
     internal var isLoadingFirstTime = MutableLiveData<Boolean>()
 
     internal var hasModeData = MutableLiveData<Boolean>()
+
+    internal var errorDeletingCache = MutableLiveData<String>()
 
     init {
         if (!compatibilityCheck.isCacheListListSupported())
@@ -77,9 +85,34 @@ internal class CacheListViewModel @Inject constructor(
                     if (page == 1) cacheList.value!!.clear()
 
                     cacheList.value!!.addAll(it.list)
-                    cacheList.value = cacheList.value
+                    cacheList.recall()
                 }, {
                     errorLoadingList.value = it.message
+                })
+    }
+
+    /**
+     * Delete [cache] from the server. This method will display the confirmation dialog and if user
+     * confirms delete operation it will delete [cache] by calling [ServerInterface.deleteCache].
+     *
+     * @see ServerInterface.deleteCache
+     */
+    internal fun deleteCache(cache: Cache) {
+        serverInterface.deleteCache(cache.repositoryId, cache.branchName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    cache.isDeleting = true
+                    cacheList.recall()
+                }
+                .doOnTerminate {
+                    cache.isDeleting = false
+                    cacheList.recall()
+                }
+                .subscribe({
+                    cacheList.value!!.remove(cache)
+                }, {
+                    errorDeletingCache.value = it.message
                 })
     }
 }

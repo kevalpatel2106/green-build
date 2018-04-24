@@ -15,6 +15,8 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
+import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -22,7 +24,7 @@ import retrofit2.http.*
 /**
  * Created by Keval on 17/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal interface TravisEndpoints {
 
@@ -74,4 +76,21 @@ internal interface TravisEndpoints {
             @Path("repoId") repoId: String,
             @Query("branch") branchName: String
     ): Observable<DeleteCacheResponse>
+
+    @DELETE("repo/{repoId}/env_var/{varId}")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun deleteEnvVariable(
+            @Path("repoId") repoId: String,
+            @Path("varId") envVarId: String
+    ): Observable<DeleteEnvVarResponse>
+
+    @PATCH("repo/{repoId}/env_var/{varId}")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun editEnvVariable(
+            @Path("repoId") repoId: String,
+            @Path("varId") envVarId: String,
+            @Query("env_var.name") envName: String,
+            @Query("env_var.value") envValue: String,
+            @Query("env_var.public") isPublic: Boolean
+    ): Observable<TravisEnvVars>
 }

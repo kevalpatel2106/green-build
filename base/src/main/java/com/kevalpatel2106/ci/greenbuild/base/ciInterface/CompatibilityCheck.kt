@@ -53,12 +53,11 @@ interface CompatibilityCheck {
     fun isEnvironmentVariableListSupported(): Boolean
 
     /**
-     * TODO
      * Method to check if the CI provider allows to delete the environment variables. Application
-     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * can retrieve the  builds list by calling [ServerInterface.deleteEnvironmentVariable].
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
+     * @see ServerInterface.deleteEnvironmentVariable
      */
     fun isEnvironmentVariableDeleteSupported(): Boolean
 

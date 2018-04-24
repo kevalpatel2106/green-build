@@ -17,10 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.base.network
 import android.annotation.SuppressLint
 import android.content.Context
 import com.google.gson.GsonBuilder
-import okhttp3.Cache
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -84,6 +81,13 @@ internal class NWInterceptor(private val token: String?) : Interceptor {
                 //String response. Cannot do anything.
                 response
             }
+        } else if (response.code() == HttpURLConnection.HTTP_NO_CONTENT
+                || response.code() == HttpURLConnection.HTTP_ACCEPTED) {
+            return response.newBuilder()
+                    .message(NetworkConfig.ALL_OK)
+                    .body(ResponseBody.create(MediaType.parse("application/json"), "{}"))
+                    .code(HttpURLConnection.HTTP_OK)
+                    .build()
         } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED
                 || response.code() == HttpURLConnection.HTTP_FORBIDDEN) {  //Unauthorized or forbidden
 

@@ -25,7 +25,7 @@ import com.kevalpatel2106.ci.greenbuild.base.R
 /**
  * Created by Keval on 17/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 /**
  * Display the snack bar.

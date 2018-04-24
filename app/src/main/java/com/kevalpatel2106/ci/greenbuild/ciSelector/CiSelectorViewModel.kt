@@ -18,6 +18,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.VisibleForTesting
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CiServer
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import javax.inject.Inject
@@ -49,7 +50,7 @@ internal class CiSelectorViewModel @Inject constructor(
             //Add more CI servers when you have new interfaces.
 
             //Notify
-            ciServers.value = ciServers.value
+            ciServers.recall()
         }
     }
 

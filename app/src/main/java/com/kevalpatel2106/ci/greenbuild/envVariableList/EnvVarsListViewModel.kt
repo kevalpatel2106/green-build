@@ -23,23 +23,27 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.envVars.EnvVars
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
-
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 /**
  * Created by Keval on 18/04/18.
  *
- * @author [kevalpatel2106](https://github.com/kevalpatel2106)
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class EnvVarsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
     internal val isDeleteVariableSupported = compatibilityCheck.isEnvironmentVariableDeleteSupported()
+
     internal val isEditPublicVariableSupported = compatibilityCheck.isPublicEnvironmentVariableEditSupported()
+
     internal val isEditPrivateVariableSupported = compatibilityCheck.isPrivateEnvironmentVariableEditSupported()
 
     internal val envVarsList = MutableLiveData<ArrayList<EnvVars>>()
 
     internal val errorLoadingList = SingleLiveEvent<String>()
+
+    internal val errorDeletingVar = SingleLiveEvent<String>()
 
     internal var isLoadingList = MutableLiveData<Boolean>()
 
@@ -79,9 +83,31 @@ internal class EnvVarsListViewModel @Inject constructor(
                     if (page == 1) envVarsList.value!!.clear()
 
                     envVarsList.value!!.addAll(it.list)
-                    envVarsList.value = envVarsList.value
+                    envVarsList.recall()
                 }, {
                     errorLoadingList.value = it.message
+                })
+    }
+
+    fun deleteVariable(envVars: EnvVars, repoId: String) {
+        if (!isDeleteVariableSupported)
+            throw IllegalStateException("Deleting environment variable is not supported for this CI platform")
+
+        serverInterface.deleteEnvironmentVariable(repoId = repoId, envVarId = envVars.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    envVars.isDeleting = true
+                    envVarsList.recall()
+                }
+                .doOnTerminate {
+                    envVars.isDeleting = false
+                    envVarsList.recall()
+                }
+                .subscribe({
+                    envVarsList.value!!.remove(envVars)
+                }, {
+                    errorDeletingVar.value = it.message
                 })
     }
 }

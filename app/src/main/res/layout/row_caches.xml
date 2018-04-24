@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,8 +12,7 @@
   ~ limitations under the License.
   -->
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,35 +23,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin"/>
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/spacing_micro"/>
+        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/spacing_micro"/>
+        app:layout_constraintGuide_end="@dimen/spacing_micro" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6"/>
+        app:layout_constraintGuide_percent="0.6" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/cache_name_tv"
@@ -64,7 +62,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline27"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
         app:layout_constraintTop_toTopOf="@+id/guideline28"
-        tools:text="@tools:sample/lorem/random"/>
+        tools:text="@tools:sample/lorem/random" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
         android:id="@+id/cache_branch_iv"
@@ -74,7 +72,7 @@
         android:tint="@color/colorSecondaryText"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
         app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
-        app:srcCompat="@drawable/git_commit"/>
+        app:srcCompat="@drawable/ic_repo_branch" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/cache_branch_tv"
@@ -86,7 +84,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline27"
         app:layout_constraintStart_toEndOf="@+id/cache_branch_iv"
         app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
-        tools:text="@tools:sample/lorem"/>
+        tools:text="@tools:sample/lorem" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
         android:id="@+id/cache_size_iv"
@@ -98,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/cache_size_tv"
         app:layout_constraintStart_toEndOf="@+id/cache_last_modified_tv"
         app:layout_constraintTop_toTopOf="@+id/cache_size_tv"
-        app:srcCompat="@drawable/ic_cache_size"/>
+        app:srcCompat="@drawable/ic_cache_size" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/cache_size_tv"
@@ -109,7 +107,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline27"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cache_size_iv"
-        tools:text="125 KB"/>
+        tools:text="125 KB" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
         android:id="@+id/cache_last_modified_iv"
@@ -119,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/cache_last_modified_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
         app:layout_constraintTop_toTopOf="@+id/cache_last_modified_tv"
-        app:srcCompat="@drawable/ic_history"/>
+        app:srcCompat="@drawable/ic_history" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/cache_last_modified_tv"
@@ -134,7 +132,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cache_last_modified_iv"
         app:layout_constraintTop_toBottomOf="@+id/cache_branch_tv"
-        tools:text="@tools:sample/date/ddmmyy"/>
+        tools:text="@tools:sample/date/ddmmyy" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
         android:id="@+id/row_cache_delete_btn"
@@ -151,6 +149,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline26"
         app:layout_constraintTop_toBottomOf="@+id/cache_last_modified_tv"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="UnusedAttribute"/>
+        tools:ignore="UnusedAttribute" />
 
 </android.support.constraint.ConstraintLayout>
