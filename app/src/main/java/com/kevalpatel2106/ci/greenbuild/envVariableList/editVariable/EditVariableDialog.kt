@@ -21,22 +21,25 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.view.BaseDialogFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.dialog_edit_variable.*
 import javax.inject.Inject
 
 
 /**
- * A simple [Fragment] subclass.
+ * A simple [DialogFragment] subclass.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class EditVariableDialog : DialogFragment() {
+class EditVariableDialog : BaseDialogFragment() {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
@@ -130,39 +133,10 @@ class EditVariableDialog : DialogFragment() {
         })
     }
 
-    /**
-     * Make the dialog at least 90% of the screen width. The height will be wrap content. Also apply
-     * [R.style.DialogAnimation] to the dialog.
-     */
-    override fun onStart() {
-        super.onStart()
-        val window = dialog.window ?: return
 
-        //Display the dialog full width of the screen
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+    override fun fullHeight() = false
 
-        //Display the at the bottom of the screen
-        val wlp = window.attributes
-        wlp.gravity = Gravity.CENTER
-        wlp.windowAnimations = R.style.DialogAnimation
-        wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
-        window.attributes = wlp
-    }
-
-    /**
-     * This code is to stop the dialog from being dismissed on rotation, due to a
-     * [bug](https://code.google.com/p/android/issues/detail?id=17423) with the compatibility library.
-     *
-     * See: [POST](https://stackoverflow.com/a/15444485/4690731)
-     */
-    override fun onDestroyView() {
-        val dialog = dialog
-        // handles https://code.google.com/p/android/issues/detail?id=17423
-        if (dialog != null && retainInstance) {
-            dialog.setDismissMessage(null)
-        }
-        super.onDestroyView()
-    }
+    override fun fullWidth() = true
 
     companion object {
 

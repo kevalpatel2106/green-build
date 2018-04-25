@@ -64,7 +64,7 @@ internal data class TravisCron(
     fun toCron(): Cron {
         return Cron(
                 id = id.toString(),
-                branchName = branch.name ?: "default",
+                branchName = branch.name,
                 canIDelete = permissions.delete,
                 canIStartCron = permissions.start,
                 isRunIfRecentlyBuilt = dontRunIfRecentBuildExists,

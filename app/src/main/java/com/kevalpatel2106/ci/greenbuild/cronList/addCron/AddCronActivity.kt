@@ -22,20 +22,39 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerDialog
+import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerListener
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import kotlinx.android.synthetic.main.activity_add_cron.*
 import javax.inject.Inject
 
-class AddCronActivity : AppCompatActivity() {
+class AddCronActivity : AppCompatActivity(), BranchPickerListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
     private lateinit var model: AddCronViewModel
 
+    private lateinit var repoId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_cron)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = getString(R.string.title_activity_add_cron)
+
+        with(intent.getStringExtra(ARG_REPO_ID)) {
+            if (this == null)
+                throw IllegalArgumentException("No repo id available.")
+            repoId = this
+        }
 
         DaggerDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this).getApplicationComponent())
@@ -46,17 +65,42 @@ class AddCronActivity : AppCompatActivity() {
                 .of(this@AddCronActivity, viewModelProvider)
                 .get(AddCronViewModel::class.java)
 
-        setContentView(R.layout.activity_add_cron)
+        add_cron_branch_drop_down_tv.setOnClickListener {
+            BranchPickerDialog.launch(supportFragmentManager, repoId, this)
+        }
+    }
+
+    override fun onBranchSelected(branch: Branch) {
+        add_cron_branch_drop_down_tv.text = branch.name
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
 
-        fun launch(context: Context, fragment: Fragment, resultCode: Int) {
-            fragment.startActivityForResult(Intent(context, AddCronActivity::class.java), resultCode)
+        private const val ARG_REPO_ID = "arg_repo_id"
+        fun launch(
+                context: Context,
+                fragment: Fragment,
+                resultCode: Int,
+                repoId: String
+        ) {
+            fragment.startActivityForResult(Intent(context, AddCronActivity::class.java).apply {
+                putExtra(ARG_REPO_ID, repoId)
+            }, resultCode)
         }
 
-        fun launch(activity: Activity, resultCode: Int) {
-            activity.startActivityForResult(Intent(activity, AddCronActivity::class.java), resultCode)
+        fun launch(
+                activity: Activity,
+                resultCode: Int,
+                repoId: String
+        ) {
+            activity.startActivityForResult(Intent(activity, AddCronActivity::class.java).apply {
+                putExtra(ARG_REPO_ID, repoId)
+            }, resultCode)
         }
     }
 }

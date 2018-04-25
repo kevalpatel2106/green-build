@@ -35,8 +35,6 @@ data class Build(
 
         val finishedAt: Long = 0,
 
-        val branchName: String? = null,
-
         val triggerType: TriggerType,
 
         val author: Author,

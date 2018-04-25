@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.TriggerType
@@ -52,7 +53,7 @@ internal data class TravisBuild(
         val repository: TravisRepo,
 
         @field:SerializedName("branch")
-        val branch: TravisBranch,
+        val branch: TravisBranch?,
 
         @field:SerializedName("created_by")
         val createdBy: TravisAuthor,
@@ -86,7 +87,6 @@ internal data class TravisBuild(
         return Build(
                 id = id.toLong(),
                 state = getBuildState(state),
-                branchName = branch.name,
                 duration = duration.toLong(),
                 triggerType = getEventType(eventType),
                 number = number,
@@ -97,8 +97,8 @@ internal data class TravisBuild(
                         id = createdBy.id.toString(),
                         username = createdBy.login
                 ),
-                branch = Build.Branch(
-                        name = branch.name
+                branch = Branch(
+                        name = branch?.name ?: "default"
                 ),
                 commit = Build.Commit(
                         committedAt = commit.committedAt,
@@ -125,7 +125,7 @@ internal data class TravisBuild(
             Constants.ERRORED_BUILD -> BuildState.ERRORED
             Constants.CANCEL_BUILD -> BuildState.CANCELED
             Constants.RUNNING_BUILD -> BuildState.RUNNING
-            Constants.BOOTING_BUILD  -> BuildState.BOOTING
+            Constants.BOOTING_BUILD -> BuildState.BOOTING
             else -> throw IllegalArgumentException("Invalid build state: $buildState")
         }
     }

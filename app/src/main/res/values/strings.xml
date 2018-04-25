@@ -20,6 +20,7 @@
     <string name="error_no_environment_variable_set">No environment variable set.</string>
     <string name="error_cache_available">There is nothing in cache!!!</string>
     <string name="error_no_build_started">No build started yet.</string>
+    <string name="error_no_branch_found">No branch found.</string>
     <string name="btn_title_edit">Edit</string>
     <string name="btn_title_delete">Delete</string>
     <string name="btn_title_start">Start</string>
@@ -40,4 +41,8 @@
     <string name="cron_next_run_never">Next run is not scheduled.</string>
     <string name="cron_next_run_after">Scheduled in %s from now.</string>
     <string name="cron_started_success">Cron started successfully.</string>
+    <string name="btn_title_select">Select</string>
+    <string name="branch_default">Default</string>
+    <string name="title_dialog_branch_picker">Select branch</string>
+    <string name="title_activity_add_cron">Schedule new cron</string>
 </resources>

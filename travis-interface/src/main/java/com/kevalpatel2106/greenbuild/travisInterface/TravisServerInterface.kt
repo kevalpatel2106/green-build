@@ -39,33 +39,37 @@ import timber.log.Timber
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class TravisServerInterface internal constructor(
+        application: BaseApplication,
         private val baseUrl: String,
         accessToken: String
 ) : ServerInterface(accessToken) {
 
-    private val travisEndpoints = NetworkApi(accessToken)
+    private val travisEndpoints = NetworkApi(application, accessToken)
             .getRetrofitClient(baseUrl)
             .create(TravisEndpoints::class.java)
 
     companion object {
 
-        fun get(baseUrl: String, accessToken: String): TravisServerInterface? {
+        fun get(application: BaseApplication, baseUrl: String, accessToken: String): TravisServerInterface? {
 
             return when {
                 baseUrl == Constants.TRAVIS_CI_ORG -> {
                     TravisServerInterface(
+                            application =application,
                             baseUrl = Constants.TRAVIS_CI_ORG,
                             accessToken = accessToken
                     )
                 }
                 baseUrl == Constants.TRAVIS_CI_COM -> {
                     TravisServerInterface(
+                            application =application,
                             baseUrl = Constants.TRAVIS_CI_COM,
                             accessToken = accessToken
                     )
                 }
                 baseUrl.startsWith("https://travis.") && baseUrl.endsWith("/api/") -> {
                     TravisServerInterface(
+                            application =application,
                             baseUrl = baseUrl,
                             accessToken = accessToken
                     )

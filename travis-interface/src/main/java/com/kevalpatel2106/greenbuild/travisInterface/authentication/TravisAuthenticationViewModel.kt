@@ -19,6 +19,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Patterns
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.greenbuild.travisInterface.R
@@ -34,7 +35,7 @@ import javax.inject.Inject
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class TravisAuthenticationViewModel @Inject constructor(
-        private val application: Application,
+        private val application: BaseApplication,
         private val accountManager: AccountsManager
 ) : BaseViewModel() {
 
@@ -76,7 +77,7 @@ internal class TravisAuthenticationViewModel @Inject constructor(
         }
 
         //We won't be injecting the server interface by dagger as there is no such token.
-        with(TravisServerInterface.get(baseUrl = apiUrl, accessToken = accessToken)) {
+        with(TravisServerInterface.get(application = application, baseUrl = apiUrl, accessToken = accessToken)) {
 
             if (this == null) {
                 //Invalid base URL format.

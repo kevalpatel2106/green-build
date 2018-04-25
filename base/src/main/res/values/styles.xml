@@ -83,4 +83,9 @@
         <item name="android:textColor">?android:attr/colorAccent</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+    </style>
 </resources>

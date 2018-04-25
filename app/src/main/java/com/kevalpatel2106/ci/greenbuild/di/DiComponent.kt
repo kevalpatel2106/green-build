@@ -15,6 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.di
 
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
+import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerDialog
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
@@ -86,4 +87,9 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [AddCronActivity].
      */
     fun inject(addCronActivity: AddCronActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [BranchPickerDialog].
+     */
+    fun inject(branchPickerDialog: BranchPickerDialog)
 }

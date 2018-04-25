@@ -18,6 +18,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
+import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerViewModel
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
@@ -87,4 +88,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(AddCronViewModel::class)
     internal abstract fun bindAddCronViewModel(viewModel: AddCronViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BranchPickerViewModel::class)
+    internal abstract fun bindBranchPickerViewModel(viewModel: BranchPickerViewModel): ViewModel
 }

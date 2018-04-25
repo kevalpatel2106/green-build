@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.network
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kevalpatel2106.ci.greenbuild.base.BuildConfig
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit
  *
  * @author 'https://github.com/kevalpatel2106'
  */
-class NetworkApi(private val token: String? = null) {
+class NetworkApi(context: Context? = null, private val token: String? = null) {
 
     /**
      * OkHttp instance. New instances will be shallow copy of this instance.
@@ -46,7 +47,7 @@ class NetworkApi(private val token: String? = null) {
             .setLenient()
             .create()
 
-    internal fun prepareOkHttpClient(): OkHttpClient {
+    internal fun prepareOkHttpClient(context: Context? = null): OkHttpClient {
         val httpClientBuilder = OkHttpClient.Builder()
                 .readTimeout(NetworkConfig.READ_TIMEOUT, TimeUnit.MINUTES)
                 .writeTimeout(NetworkConfig.WRITE_TIMEOUT, TimeUnit.MINUTES)
@@ -61,13 +62,14 @@ class NetworkApi(private val token: String? = null) {
             )
         }
 
-        return httpClientBuilder
-                .addInterceptor(NWInterceptor(token))  /* Add the interceptor. */
-                .build()
+        return httpClientBuilder.apply {
+            addInterceptor(NWInterceptor(token))
+            context?.let { cache(NWInterceptor.getCache(context)) }
+        }.build()
     }
 
     init {
-        okHttpClient = prepareOkHttpClient()
+        okHttpClient = prepareOkHttpClient(context)
     }
 
     /**

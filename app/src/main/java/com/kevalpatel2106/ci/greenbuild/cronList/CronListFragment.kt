@@ -171,7 +171,12 @@ class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
 
     internal fun addCron() {
         context?.let {
-            AddCronActivity.launch(it, this@CronListFragment, NEW_CRON_REQUEST_CODE)
+            AddCronActivity.launch(
+                    context = it,
+                    fragment = this@CronListFragment,
+                    resultCode = NEW_CRON_REQUEST_CODE,
+                    repoId = repoId
+            )
         }
     }
 

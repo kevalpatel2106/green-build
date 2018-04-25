@@ -12,24 +12,17 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.greenbuild.travisInterface.entities
+package com.kevalpatel2106.ci.greenbuild.branchPicker
 
-import com.google.gson.annotations.SerializedName
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import java.io.Serializable
 
+/**
+ * Created by Keval on 24/04/18.
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
+ */
+internal interface BranchPickerListener :Serializable{
 
-internal data class TravisBranch(
-        @field:SerializedName("name")
-        val name: String,
-
-        @field:SerializedName("default_branch")
-        val isDefault: Boolean
-) {
-
-    fun toBranch(): Branch {
-        return Branch(
-                name = name,
-                isDefault = isDefault
-        )
-    }
+    fun onBranchSelected(branch: Branch)
 }

@@ -15,6 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.di
 
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.greenbuild.travisInterface.TravisCompatibilityCheck
@@ -31,12 +32,13 @@ import dagger.Provides
 internal class DiModule {
 
     @Provides
-    fun provideServerInterface(accountsManager: AccountsManager): ServerInterface {
+    fun provideServerInterface(application: BaseApplication, accountsManager: AccountsManager): ServerInterface {
 
         val account = accountsManager.getCurrentAccount()
 
         //Check if it is travis server?
         TravisServerInterface.get(
+                application = application,
                 baseUrl = account.serverUrl,
                 accessToken = account.accessToken
         )?.let {

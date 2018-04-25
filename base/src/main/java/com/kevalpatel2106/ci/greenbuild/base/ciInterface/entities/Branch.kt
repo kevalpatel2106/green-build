@@ -23,9 +23,18 @@ import com.google.gson.annotations.SerializedName
  */
 data class Branch(
         @field:SerializedName("name")
-        val name: String? = null,
+        val name: String,
 
-        val isDefault: Boolean,
+        val isDefault: Boolean = false
+) {
 
-        val lastBuild : Build?
-)
+    var isSelected = false
+
+    override fun equals(other: Any?): Boolean {
+        return other != null && other is Branch && other.name == name && other.isDefault == isDefault
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode() * 10 + isDefault.hashCode()
+    }
+}

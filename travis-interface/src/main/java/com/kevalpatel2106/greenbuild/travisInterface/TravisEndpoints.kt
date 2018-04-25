@@ -38,7 +38,7 @@ internal interface TravisEndpoints {
     fun getMyProfile(): Observable<ResponseMyAccount>
 
     @GET("repo/{repoId}/branches")
-    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true", "Cache-Time: 300" /* 5 min */)
     fun getBranches(
             @Path("repoId") repoId: String,
             @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,

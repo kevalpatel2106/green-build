@@ -50,7 +50,7 @@ internal class BuildViewHolder private constructor(itemView: View)
         itemView.build_status_view.setBackgroundColor(getBuildStateColor(itemView.context, build.state))
 
         itemView.built_number_tv.text = "#${build.number}"
-        itemView.branch_name_tv.text = build.branchName
+        itemView.branch_name_tv.text = build.branch.name
 
         itemView.commit_message_tv.text = build.commit.message
         itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)

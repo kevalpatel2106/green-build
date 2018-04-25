@@ -117,7 +117,7 @@ class TravisCompatibilityCheck : CompatibilityCheck {
      * @return true if the feature is possible.
      * @see ServerInterface.getCronsList
      */
-    override fun isAddCronJobsSupported() = false //TODO Remaining to implement.
+    override fun isAddCronJobsSupported() = true
 
     /**
      * Method to check if the CI provider allows to list all the caches for the repository. Application

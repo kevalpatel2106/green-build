@@ -22,6 +22,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
@@ -125,6 +126,11 @@ class RepoDetailActivity : AppCompatActivity() {
         } else {
             repo_description_tv.visibility = View.GONE
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

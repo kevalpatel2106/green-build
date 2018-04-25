@@ -67,7 +67,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_drop_down_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -78,8 +78,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_add" />
-                            <entry key="sourceFile" value="C:\Users\Keval\Desktop\gk-branch-icon.svg" />
+                            <entry key="outputName" value="ic_arrow_drop_down" />
+                            <entry key="sourceFile" value="$APPLICATION_HOME_DIR$/bin/C:\Users\Keval\Desktop\gk-branch-icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
