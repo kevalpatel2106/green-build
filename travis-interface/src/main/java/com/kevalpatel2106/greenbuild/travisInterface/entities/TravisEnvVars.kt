@@ -37,7 +37,7 @@ internal data class TravisEnvVars(
 
     data class EnvVarsPermissions(
 
-            @field:SerializedName("read")
+            @field:SerializedName("canRead")
             val read: Boolean? = null,
 
             @field:SerializedName("write")

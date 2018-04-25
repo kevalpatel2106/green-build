@@ -126,14 +126,12 @@
                     tools:text="@tools:sample/lorem/random"/>
 
                 <!--Repo information tags-->
-                <!--TODO Enable this with chips -->
                 <android.support.design.chip.ChipGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_small"
                     android:layout_marginTop="@dimen/spacing_micro"
-                    android:visibility="gone"
                     app:chipSpacingHorizontal="@dimen/spacing_nano"
                     app:chipSpacingVertical="@dimen/spacing_pico">
 
@@ -148,7 +146,7 @@
                         android:textAppearance="@style/SmallText.Primary"
                         app:chipText="Private"/>
 
-                    <!--Private repo-->
+                    <!--Owner of the repo-->
                     <android.support.design.chip.Chip
                         android:id="@+id/chip_owner_of_repo"
                         android:layout_width="wrap_content"
@@ -158,6 +156,17 @@
                         android:elevation="@dimen/spacing_micro"
                         android:textAppearance="@style/SmallText.Primary"
                         app:chipText="Owner"/>
+
+                    <!--Language repo-->
+                    <android.support.design.chip.Chip
+                        android:id="@+id/chip_language_of_repo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_large"
+                        android:background="@color/colorPrimary"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:elevation="@dimen/spacing_micro"
+                        android:textAppearance="@style/SmallText.Primary"
+                        tools:chipText="Java"/>
 
                 </android.support.design.chip.ChipGroup>
             </LinearLayout>

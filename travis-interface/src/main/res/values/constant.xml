@@ -13,5 +13,5 @@
   -->
 
 <resources>
-    <string name="schema_https">https://</string>
+    <string name="schema_https" translatable="false">https://</string>
 </resources>

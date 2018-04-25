@@ -26,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColor
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
@@ -63,6 +64,10 @@ internal class RepoViewHolder private constructor(private val activity: Activity
         itemView.repo_description_tv.visibility = if (repo.description != null) View.VISIBLE else View.GONE
         itemView.repo_description_tv.text = repo.description
 
+        repo.lastBuild?.let {
+            itemView.repo_last_build_status_view.setBackgroundColor(it.state.getBuildStateColor(itemView.context))
+        }
+
         itemView.setOnClickListener {
             val pairs = arrayListOf<Pair<View, String>>(
                     Pair.create(itemView.repo_title_tv, ViewCompat.getTransitionName(itemView.repo_title_tv)),
@@ -77,9 +82,7 @@ internal class RepoViewHolder private constructor(private val activity: Activity
             RepoDetailActivity.launch(
                     context = itemView.context,
                     repoId = repo.id,
-                    repoName = repo.name,
-                    repoDescription = repo.description,
-                    repoOwnerName = repo.owner.name,
+                    repo = repo,
                     options = options
             )
         }

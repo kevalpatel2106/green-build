@@ -75,9 +75,10 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
+        android:tint="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@+id/guideline35"
         app:layout_constraintTop_toBottomOf="@+id/row_cron_id_tv"
-        app:srcCompat="@drawable/ic_edit_orange"/>
+        app:srcCompat="@drawable/ic_history"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/row_cron_last_run_time_tv"
@@ -95,10 +96,12 @@
         android:id="@+id/row_cron_next_run_icon_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:padding="1.5dp"
         android:layout_marginTop="8dp"
+        android:tint="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@+id/guideline35"
         app:layout_constraintTop_toBottomOf="@+id/row_cron_last_run_icon_iv"
-        app:srcCompat="@drawable/ic_edit_orange"/>
+        app:srcCompat="@drawable/ic_sand_clock"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
         android:id="@+id/row_cron_next_run_tv"

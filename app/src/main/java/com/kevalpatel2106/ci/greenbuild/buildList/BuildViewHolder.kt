@@ -14,18 +14,14 @@
 
 package com.kevalpatel2106.ci.greenbuild.buildList
 
-import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.TriggerType
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColor
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getTriggerTypeText
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_builds_list.view.*
@@ -47,14 +43,14 @@ internal class BuildViewHolder private constructor(itemView: View)
     }
 
     fun bind(build: Build) {
-        itemView.build_status_view.setBackgroundColor(getBuildStateColor(itemView.context, build.state))
+        itemView.build_status_view.setBackgroundColor(build.state.getBuildStateColor(itemView.context))
 
         itemView.built_number_tv.text = "#${build.number}"
         itemView.branch_name_tv.text = build.branch.name
 
         itemView.commit_message_tv.text = build.commit.message
         itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)
-        itemView.build_trigger_type_iv.setImageResource(getEventTypeImage(build.triggerType))
+        itemView.build_trigger_type_iv.chipText = build.triggerType.getTriggerTypeText(itemView.context)
 
         itemView.commit_author_name_tv.text = build.author.username
         itemView.commit_author_avatar_iv.setImageResource(R.drawable.ic_user)
@@ -62,8 +58,10 @@ internal class BuildViewHolder private constructor(itemView: View)
         if (build.duration.isEmpty()) {
             itemView.time_taken_tv.text = "-"
         } else {
-            itemView.time_taken_tv.text = ConversationUtils
-                    .convertToHumanReadableDuration(build.duration * 1000L)
+            itemView.time_taken_tv.text = itemView.context.getString(
+                    R.string.build_row_ran_for,
+                    ConversationUtils.convertToHumanReadableDuration(build.duration * 1000L)
+            )
         }
 
         if (build.startedAt == 0L) {
@@ -72,27 +70,4 @@ internal class BuildViewHolder private constructor(itemView: View)
             itemView.build_start_time_tv.text = ConversationUtils.getDate(build.startedAt)
         }
     }
-
-    @DrawableRes
-    private fun getEventTypeImage(triggerType: TriggerType): Int {
-        return when (triggerType) {
-            TriggerType.PUSH -> R.drawable.git_commit
-            TriggerType.PULL_REQUEST -> R.drawable.git_pull_request
-            TriggerType.CRON -> R.drawable.ic_cron
-        }
-    }
-
-    @ColorInt
-    private fun getBuildStateColor(context: Context, buildState: BuildState): Int {
-        return when (buildState) {
-            BuildState.PASSED -> context.getColorCompat(R.color.build_passed)
-            BuildState.RUNNING -> context.getColorCompat(R.color.build_running)
-            BuildState.FAILED -> context.getColorCompat(R.color.build_failed)
-            BuildState.CANCELED -> context.getColorCompat(R.color.build_canceled)
-            BuildState.ERRORED -> context.getColorCompat(R.color.build_errored)
-            BuildState.BOOTING -> context.getColorCompat(R.color.build_booting)
-        }
-
-    }
-
 }

@@ -92,7 +92,7 @@ internal data class TravisBuild(
                 number = number,
                 finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),
                 startedAt = if (startedAt == null) 0 else ConversationUtils.rfc3339ToMills(startedAt),
-                previousState = previousState,
+                previousState = if (previousState != null) getBuildState(previousState) else null,
                 author = Build.Author(
                         id = createdBy.id.toString(),
                         username = createdBy.login
@@ -135,7 +135,7 @@ internal data class TravisBuild(
             @field:SerializedName("cancel")
             val cancel: Boolean,
 
-            @field:SerializedName("read")
+            @field:SerializedName("canRead")
             val read: Boolean,
 
             @field:SerializedName("restart")

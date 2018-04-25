@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
@@ -49,6 +50,8 @@ internal class RepoDetailViewModel @Inject internal constructor(
     private var envVarListFragment: EnvVariableListFragment? = null
     private var cronListFragment: CronListFragment? = null
 
+    internal lateinit var repo: Repo
+
     init {
         if (!isCacheListCompatible && !isBuildListCompatible && !isCronListCompatible && !isEnvVarsListCompatible) {
             throw IllegalStateException("This CI provider doesn't support any features at all!!!")
@@ -56,7 +59,6 @@ internal class RepoDetailViewModel @Inject internal constructor(
         selectedItem.value = 0
         isDisplayFab.value = false
     }
-
 
     /**
      * Initialize all the fragments that are going to display into the viewpager. This should be called
@@ -117,11 +119,13 @@ internal class RepoDetailViewModel @Inject internal constructor(
                 fragmentsList.indexOf(buildListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_env_var -> {
-                isDisplayFab.value = true && compatibilityCheck.isAddEnvironmentVariableSupported()
+                isDisplayFab.value = compatibilityCheck.isAddEnvironmentVariableSupported()
+                        && repo.permissions?.canCreateEnvVar ?: true /* Check the permission */
                 fragmentsList.indexOf(envVarListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_cron -> {
-                isDisplayFab.value = true && compatibilityCheck.isAddCronJobsSupported()
+                isDisplayFab.value = compatibilityCheck.isAddCronJobsSupported()
+                        && repo.permissions?.canScheduleCron ?: true /* Check the permission */
                 fragmentsList.indexOf(cronListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_cache -> {
@@ -142,7 +146,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
             }
             selectedItem.value == fragmentsList.indexOf(envVarListFragment as Fragment) -> {
                 //Add new environment variable
-                TODO ("Add environment variable.")
+                TODO("Add environment variable.")
             }
         }
     }

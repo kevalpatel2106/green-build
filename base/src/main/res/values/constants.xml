@@ -14,7 +14,7 @@
   -->
 
 <resources>
-    <string name="sync_adapter_account_type">com.kevalpatel2106.greenbuild</string>
-    <string name="sync_adapter_account_authority">com.kevalpatel2106.greenbuild</string>
-    <string name="application_name">Green Build</string>
+    <string name="sync_adapter_account_type" translatable="false">com.kevalpatel2106.greenbuild</string>
+    <string name="sync_adapter_account_authority" translatable="false">com.kevalpatel2106.greenbuild</string>
+    <string name="application_name" translatable="false">Green Build</string>
 </resources>

@@ -14,6 +14,9 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
+import android.content.Context
+import com.kevalpatel2106.ci.greenbuild.base.R
+
 /**
  * Created by Kevalpatel2106 on 18-Apr-18.
  *
@@ -23,4 +26,12 @@ enum class TriggerType {
     PUSH,
     PULL_REQUEST,
     CRON
+}
+
+fun TriggerType.getTriggerTypeText(context: Context): String {
+    return when (this) {
+        TriggerType.PUSH -> context.getString(R.string.trigger_type_commit)
+        TriggerType.PULL_REQUEST -> context.getString(R.string.trigger_type_pull_request)
+        TriggerType.CRON -> context.getString(R.string.trigger_type_cron)
+    }
 }

@@ -53,7 +53,10 @@ internal data class TravisRepo(
         val slug: String,
 
         @field:SerializedName("github_language")
-        val githubLanguage: String? = null
+        val githubLanguage: String? = null,
+
+        @field:SerializedName("last_started_build")
+        val lastBuild: TravisBuild?
 ) {
 
     internal fun toRepo(): Repo {
@@ -64,11 +67,13 @@ internal data class TravisRepo(
                 defaultBranch = defaultBranch?.name,
                 isEnabledForCi = isEnabledOnCi,
                 isPrivate = isPrivate,
+                permissions = permissions?.toRepoPermission(),
                 language = githubLanguage,
                 owner = Repo.Owner(
                         name = owner.login,
                         avatar = null
-                )
+                ),
+                lastBuild = lastBuild?.toBuild()
         )
     }
 
@@ -80,7 +85,7 @@ internal data class TravisRepo(
             @field:SerializedName("delete_key_pair")
             val deleteKeyPair: Boolean,
 
-            @field:SerializedName("read")
+            @field:SerializedName("canRead")
             val read: Boolean,
 
             @field:SerializedName("star")
@@ -106,5 +111,18 @@ internal data class TravisRepo(
 
             @field:SerializedName("deactivate")
             val deactivate: Boolean
-    )
+    ) {
+
+        fun toRepoPermission(): Repo.Permissions {
+            return Repo.Permissions(
+                    isAdmin = admin,
+                    canCreateEnvVar = createEnvVar,
+                    canDisableCIBuild = deactivate,
+                    canEnableCIBuild = activate,
+                    canRead = read,
+                    canRequestBuild = createRequest,
+                    canScheduleCron = createCron
+            )
+        }
+    }
 }

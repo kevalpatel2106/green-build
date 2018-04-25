@@ -53,4 +53,5 @@
     <string name="error_invalid_branch">Invalid branch name.</string>
     <string name="btn_title_schedule">Schedule</string>
     <string name="schedule_cron_success_message">Cron scheduled successfully.</string>
+    <string name="build_row_ran_for">Ran for %s</string>
 </resources>

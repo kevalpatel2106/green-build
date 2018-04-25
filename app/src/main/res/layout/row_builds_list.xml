@@ -88,13 +88,18 @@
         app:layout_constraintStart_toEndOf="@+id/built_number_tv"
         tools:text="@tools:sample/lorem/random"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <android.support.design.chip.Chip
         android:id="@+id/build_trigger_type_iv"
-        android:layout_width="@dimen/spacing_large"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:background="@color/window_background_color_light"
+        android:backgroundTint="@color/window_background_color_light"
+        android:elevation="@dimen/spacing_nano"
+        android:textAppearance="@style/SmallText.Secondary"
+        app:layout_constraintBottom_toBottomOf="@+id/commit_message_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/commit_message_tv"
+        tools:chipText="Cron"
         tools:src="@tools:sample/avatars"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
@@ -114,12 +119,12 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/commit_author_avatar_iv"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="1dp"
-        app:layout_constraintStart_toStartOf="@+id/commit_message_tv"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
         tools:src="@drawable/ic_user"/>
 
@@ -168,7 +173,7 @@
         android:id="@+id/imageView2"
         android:layout_width="@dimen/spacing_small"
         android:layout_height="@dimen/spacing_small"
-        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/time_taken_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/time_taken_tv"
@@ -179,7 +184,7 @@
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:maxLines="1"

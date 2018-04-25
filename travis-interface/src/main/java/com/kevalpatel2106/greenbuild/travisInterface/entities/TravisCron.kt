@@ -50,7 +50,7 @@ internal data class TravisCron(
 
     internal data class CronPermissions(
 
-            @field:SerializedName("read")
+            @field:SerializedName("canRead")
             val read: Boolean,
 
             @field:SerializedName("start")

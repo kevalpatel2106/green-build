@@ -27,6 +27,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_repo_detail.*
@@ -115,17 +116,25 @@ class RepoDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        repo_name_tv.text = intent.getStringExtra(ARG_REPO_NAME) ?: getString(R.string.title_activity_builds)
-        repo_owner_name_tv.text = intent.getStringExtra(ARG_REPO_OWNER_NAME)
+        model.repo = intent.getParcelableExtra(ARG_REPO)
+
+        repo_name_tv.text = model.repo.name
+        repo_owner_name_tv.text = model.repo.owner.name
 
         repo_image_logo.setImageResource(R.drawable.ic_repo)
 
-        if (intent.getStringExtra(ARG_REPO_DESCRIPTION) != null) {
+        if (model.repo.description != null) {
             repo_description_tv.visibility = View.VISIBLE
-            repo_description_tv.text = intent.getStringExtra(ARG_REPO_DESCRIPTION)
+            repo_description_tv.text = model.repo.description
         } else {
             repo_description_tv.visibility = View.GONE
         }
+
+        //Add chips
+        chip_private_repo.isVisible = model.repo.isPrivate
+        chip_owner_of_repo.isVisible = model.repo.permissions?.isAdmin ?: false
+        chip_language_of_repo.isVisible = model.repo.language != null
+        model.repo.language?.let { chip_language_of_repo.chipText = it }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -136,21 +145,15 @@ class RepoDetailActivity : AppCompatActivity() {
     companion object {
 
         private const val ARG_REPO_ID = "repo_id"
-        private const val ARG_REPO_NAME = "repo_name"
-        private const val ARG_REPO_DESCRIPTION = "repo_description"
-        private const val ARG_REPO_OWNER_NAME = "repo_owner_name"
+        private const val ARG_REPO = "repo"
 
         internal fun launch(context: Context,
                             repoId: String,
-                            repoName: String,
-                            repoDescription: String?,
-                            repoOwnerName: String?,
+                            repo: Repo,
                             options: ActivityOptionsCompat? = null) {
             context.startActivity(Intent(context, RepoDetailActivity::class.java).apply {
                 putExtra(ARG_REPO_ID, repoId)
-                putExtra(ARG_REPO_NAME, repoName)
-                putExtra(ARG_REPO_DESCRIPTION, repoDescription)
-                putExtra(ARG_REPO_OWNER_NAME, repoOwnerName)
+                putExtra(ARG_REPO, repo)
             }, options?.toBundle())
         }
     }

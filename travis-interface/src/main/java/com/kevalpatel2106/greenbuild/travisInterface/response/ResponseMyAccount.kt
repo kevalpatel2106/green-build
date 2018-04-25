@@ -52,7 +52,7 @@ internal data class ResponseMyAccount(
 
     internal data class AccountPermissions(
 
-            @field:SerializedName("read")
+            @field:SerializedName("canRead")
             val read: Boolean,
 
             @field:SerializedName("sync")
