@@ -155,4 +155,25 @@ class TravisCompatibilityCheck : CompatibilityCheck {
      * @see TravisServerInterface.deleteCron
      */
     override fun isDeleteCronJobsSupported(): Boolean = true
+
+    /**
+     * Check if the CI platform supports an API for restarting the build.
+     *
+     * @return True if CI supports restarting the build which is completed.
+     */
+    override fun isRestartBuildSupported() = true
+
+    /**
+     * Check if the CI platform supports an API for aborting the running build.
+     *
+     * @return True if CI supports aborting the build which is running.
+     */
+    override fun isAbortBuildSupported() = true
+
+    /**
+     * Method to check if the CI platform provides option to don't run cron if the recent build exist.
+     *
+     * @return true if the feature is possible.
+     */
+    override fun isDontRunIfRecentBuildExistSupported() = true
 }

@@ -55,21 +55,21 @@ class TravisServerInterface internal constructor(
             return when {
                 baseUrl == Constants.TRAVIS_CI_ORG -> {
                     TravisServerInterface(
-                            application =application,
+                            application = application,
                             baseUrl = Constants.TRAVIS_CI_ORG,
                             accessToken = accessToken
                     )
                 }
                 baseUrl == Constants.TRAVIS_CI_COM -> {
                     TravisServerInterface(
-                            application =application,
+                            application = application,
                             baseUrl = Constants.TRAVIS_CI_COM,
                             accessToken = accessToken
                     )
                 }
                 baseUrl.startsWith("https://travis.") && baseUrl.endsWith("/api/") -> {
                     TravisServerInterface(
-                            application =application,
+                            application = application,
                             baseUrl = baseUrl,
                             accessToken = accessToken
                     )
@@ -319,4 +319,30 @@ class TravisServerInterface internal constructor(
     override fun deleteCron(cronId: String, repoId: String): Observable<String> {
         return travisEndpoints.deleteCron(cronId).map { cronId }
     }
+
+    /**
+     * Method to provide the list of all the supported intervals.
+     *
+     * @return [ArrayList] of all the supported cron intervals.
+     */
+    override fun supportedCronIntervals(): Observable<ArrayList<String>> {
+        return Observable.just(arrayListOf("daily", "weekly", "monthly"))
+    }
+
+    /**
+     * Schedule new [Cron] for the branch with [branchName] and with [interval]. Use [dontRunIfRecentlyBuilt]
+     * to don't run the cron if the build vor that branch recently completed.
+     *
+     * @return It will return the [Observable] with the id of the [Cron] that was deleted.
+     */
+    override fun scheduleCron(
+            repoId: String,
+            branchName: String,
+            interval: String,
+            dontRunIfRecentlyBuilt: Boolean
+    ): Observable<Cron> {
+        return travisEndpoints.scheuleNewCron(repoId, branchName, interval, dontRunIfRecentlyBuilt)
+
+    }
+
 }

@@ -14,6 +14,8 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -26,9 +28,15 @@ data class Branch(
         val name: String,
 
         val isDefault: Boolean = false
-) {
+) : Parcelable {
 
     var isSelected = false
+
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readByte() != 0.toByte()) {
+        isSelected = parcel.readByte() != 0.toByte()
+    }
 
     override fun equals(other: Any?): Boolean {
         return other != null && other is Branch && other.name == name && other.isDefault == isDefault
@@ -36,5 +44,25 @@ data class Branch(
 
     override fun hashCode(): Int {
         return name.hashCode() * 10 + isDefault.hashCode()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeByte(if (isDefault) 1 else 0)
+        parcel.writeByte(if (isSelected) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Branch> {
+        override fun createFromParcel(parcel: Parcel): Branch {
+            return Branch(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Branch?> {
+            return arrayOfNulls(size)
+        }
     }
 }

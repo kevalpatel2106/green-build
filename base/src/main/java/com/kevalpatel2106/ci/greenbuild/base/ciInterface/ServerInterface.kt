@@ -51,7 +51,7 @@ abstract class ServerInterface(protected val accessToken: String) {
     /**
      * Get the branches for the repo.
      */
-    abstract fun getBranches(page: Int,repoId: String): Observable<Page<Branch>>
+    abstract fun getBranches(page: Int, repoId: String): Observable<Page<Branch>>
 
     /**
      * Get the list of [Repo] for the account.
@@ -147,6 +147,31 @@ abstract class ServerInterface(protected val accessToken: String) {
             cronId: String,
             repoId: String
     ): Observable<String>
+
+    /**
+     * Schedule new [Cron] for the branch with [branchName] and with [interval]. Use [dontRunIfRecentlyBuilt]
+     * to don't run the cron if the build vor that branch recently completed.
+     *
+     * Note that all the CI platform does not support [dontRunIfRecentlyBuilt]. Check
+     * [CompatibilityCheck.isDontRunIfRecentBuildExistSupported] to check if CI platform has support
+     * for [dontRunIfRecentlyBuilt] flag.
+     *
+     * @return It will return the [Observable] with the id of the [Cron] that was deleted.
+     */
+    abstract fun scheduleCron(
+            repoId: String,
+            branchName: String,
+            interval: String,
+            dontRunIfRecentlyBuilt: Boolean
+    ): Observable<Cron>
+
+
+    /**
+     * Method to provide the list of all the supported intervals.
+     *
+     * @return [ArrayList] of all the supported cron intervals.
+     */
+    abstract fun supportedCronIntervals(): Observable<ArrayList<String>>
 
 
     companion object {

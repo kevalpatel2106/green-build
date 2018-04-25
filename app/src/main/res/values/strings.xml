@@ -44,5 +44,13 @@
     <string name="btn_title_select">Select</string>
     <string name="branch_default">Default</string>
     <string name="title_dialog_branch_picker">Select branch</string>
+    <string name="title_dialog_interval_picker">Select interval</string>
     <string name="title_activity_add_cron">Schedule new cron</string>
+    <string name="hint_select_branch">-- Select branch --</string>
+    <string name="switch_title_don_t_run_if_recent_build_exists">Don\'t run if recent build exists?</string>
+    <string name="add_cron_error_cannot_load_interval">Cannot load intervals.</string>
+    <string name="error_invalid_interval">Invalid interval.</string>
+    <string name="error_invalid_branch">Invalid branch name.</string>
+    <string name="btn_title_schedule">Schedule</string>
+    <string name="schedule_cron_success_message">Cron scheduled successfully.</string>
 </resources>

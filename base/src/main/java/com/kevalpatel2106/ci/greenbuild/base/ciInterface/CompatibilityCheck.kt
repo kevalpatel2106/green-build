@@ -29,6 +29,8 @@ package com.kevalpatel2106.ci.greenbuild.base.ciInterface
  */
 interface CompatibilityCheck {
 
+    ////////////////// Builds management ///////////////////
+
     /**
      * Returns true if the CI server provides way to list all the recent builds (for all the repositories)
      * else false.
@@ -44,6 +46,22 @@ interface CompatibilityCheck {
     fun isBuildsListByRepoSupported(): Boolean
 
     /**
+     * Check if the CI platform supports an API for restarting the build.
+     *
+     * @return True if CI supports restarting the build which is completed.
+     */
+    fun isRestartBuildSupported(): Boolean
+
+    /**
+     * Check if the CI platform supports an API for aborting the running build.
+     *
+     * @return True if CI supports aborting the build which is running.
+     */
+    fun isAbortBuildSupported(): Boolean
+
+    ////////////////// Environment variable management ///////////////////
+
+    /**
      * Method to check if the CI provider allows to list the environment variables.  Application
      * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
      *
@@ -53,12 +71,9 @@ interface CompatibilityCheck {
     fun isEnvironmentVariableListSupported(): Boolean
 
     /**
-     * TODO
-     * Method to check if the CI provider allows to add the environment variables.  Application
-     * can retrieve the  builds list by calling [ServerInterface.getEnvironmentVariablesList].
+     * Method to check if the CI provider allows to add the environment variables.
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getEnvironmentVariablesList
      */
     fun isAddEnvironmentVariableSupported(): Boolean
 
@@ -89,6 +104,8 @@ interface CompatibilityCheck {
      */
     fun isPrivateEnvironmentVariableEditSupported(): Boolean
 
+    ////////////////// Cron management ///////////////////
+
     /**
      * Method to check if the CI provider allows to list all the cron jobs.  Application
      * can retrieve the  builds list by calling [ServerInterface.getCronsList].
@@ -99,12 +116,9 @@ interface CompatibilityCheck {
     fun isCronJobsListSupported(): Boolean
 
     /**
-     * TODO
-     * Method to check if the CI provider allows to schedule new cron jobs.  Application
-     * can retrieve the  builds list by calling [ServerInterface.getCronsList].
+     * Method to check if the CI provider allows to schedule new cron jobs.
      *
      * @return true if the feature is possible.
-     * @see ServerInterface.getCronsList
      */
     fun isAddCronJobsSupported(): Boolean
 
@@ -125,6 +139,16 @@ interface CompatibilityCheck {
      * @see ServerInterface.deleteCron
      */
     fun isDeleteCronJobsSupported(): Boolean
+
+    /**
+     * Method to check if the CI platform provides option to don't run cron if the recent build exist.
+     *
+     * @return true if the feature is possible.
+     */
+    fun isDontRunIfRecentBuildExistSupported(): Boolean
+
+
+    ////////////////// Cache management ///////////////////
 
     /**
      * Method to check if the CI provider allows to list all the caches for the repository. Application

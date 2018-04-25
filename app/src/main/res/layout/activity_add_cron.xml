@@ -12,73 +12,133 @@
   ~ limitations under the License.
   -->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".cronList.addCron.AddCronActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".cronList.addCron.AddCronActivity">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline43"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline44"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/md_activity_vertical_margin" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin"/>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/md_activity_vertical_margin"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
-        android:id="@+id/add_cron_select_branch_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_dialog_branch_picker"
-        android:textAppearance="@style/MediumText.Secondary"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toTopOf="@+id/guideline45" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
-        android:id="@+id/add_cron_branch_drop_down_tv"
-        style="@style/SmallText.Primary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="?selectableItemBackground"
-        android:paddingTop="@dimen/spacing_nano"
-        android:paddingBottom="@dimen/spacing_nano"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toStartOf="@+id/guideline43"
-        app:layout_constraintStart_toEndOf="@+id/add_cron_branch_icon_tv"
-        app:layout_constraintTop_toBottomOf="@+id/add_cron_select_branch_title_tv"
-        tools:text="master" />
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+            android:id="@+id/add_cron_select_branch_title_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/title_dialog_branch_picker"
+            android:textAppearance="@style/MediumText.Secondary"
+            app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintStart_toStartOf="@+id/guideline44"
+            app:layout_constraintTop_toTopOf="@+id/guideline45"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
-        android:id="@+id/add_cron_branch_icon_tv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/add_cron_branch_drop_down_tv"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toTopOf="@+id/add_cron_branch_drop_down_tv"
-        app:srcCompat="@drawable/ic_repo_branch" />
-</android.support.constraint.ConstraintLayout>
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+            android:id="@+id/add_cron_branch_drop_down_tv"
+            style="@style/SmallText.Primary"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_xxlarge"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?selectableItemBackground"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/spacing_nano"
+            android:paddingTop="@dimen/spacing_nano"
+            android:text="@string/hint_select_branch"
+            app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintStart_toEndOf="@+id/add_cron_branch_icon_tv"
+            app:layout_constraintTop_toBottomOf="@+id/add_cron_select_branch_title_tv"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+            android:id="@+id/add_cron_branch_icon_tv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_cron_branch_drop_down_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline44"
+            app:layout_constraintTop_toTopOf="@+id/add_cron_branch_drop_down_tv"
+            app:srcCompat="@drawable/ic_repo_branch"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+            android:id="@+id/add_cron_select_interval_title_tv"
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_dialog_interval_picker"
+            android:textAppearance="@style/MediumText.Secondary"
+            app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline44"
+            app:layout_constraintTop_toBottomOf="@+id/add_cron_branch_drop_down_tv"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/add_cron_interval_drop_down_tv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_xxlarge"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:dropDownWidth="match_parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintStart_toEndOf="@+id/add_cron_interval_icon_iv"
+            app:layout_constraintTop_toBottomOf="@+id/add_cron_select_interval_title_tv"
+            tools:listitem="@android:layout/simple_spinner_dropdown_item"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+            android:id="@+id/add_cron_interval_icon_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_cron_interval_drop_down_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline44"
+            app:layout_constraintTop_toTopOf="@+id/add_cron_interval_drop_down_tv"
+            app:srcCompat="@drawable/ic_history"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/dont_run_if_recent_build_exists_switch"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_xlarge"
+            android:layout_marginTop="16dp"
+            android:text="@string/switch_title_don_t_run_if_recent_build_exists"
+            app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintStart_toStartOf="@+id/guideline44"
+            app:layout_constraintTop_toBottomOf="@+id/add_cron_interval_drop_down_tv"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+            android:id="@+id/add_cron_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_title_schedule"
+            app:layout_constraintBottom_toTopOf="@id/guideline46"
+            app:layout_constraintEnd_toStartOf="@id/guideline43"
+            app:layout_constraintStart_toStartOf="@id/guideline44"
+            app:layout_constraintTop_toBottomOf="@id/dont_run_if_recent_build_exists_switch"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

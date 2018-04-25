@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable
@@ -114,4 +115,14 @@ internal interface TravisEndpoints {
     fun deleteCron(
             @Path("cronId") cronId: String
     ): Observable<EmptyResponse>
+
+    @POST("/repo/{repoid}/branch/{branchName}/cron")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    @FormUrlEncoded
+    fun scheuleNewCron(
+            @Path("repoid") repoid: String,
+            @Path("branchName") branchName: String,
+            @Field("cron.interval") interval: String,
+            @Field("cron.dont_run_if_recent_build_exists") dontRunIfRecentlyBuilt: Boolean
+    ): Observable<Cron>
 }

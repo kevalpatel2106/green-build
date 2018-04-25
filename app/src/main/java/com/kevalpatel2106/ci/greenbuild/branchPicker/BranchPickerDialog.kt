@@ -124,6 +124,7 @@ class BranchPickerDialog : BaseDialogFragment(), PageRecyclerViewAdapter.Recycle
 
                 if (it.isNotEmpty()) {
                     (branch_picker_list.adapter as BranchSelectAdapter).selectedName = it[0].name
+                    listener.onBranchSelected(it[0])
                 }
             }
         })
@@ -169,7 +170,6 @@ class BranchPickerDialog : BaseDialogFragment(), PageRecyclerViewAdapter.Recycle
     override fun fullWidth() = true
 
     companion object {
-
         private const val ARG_BRANCH_SELECT_LISTENER = "arg_branch_select_listener"
         private const val ARG_REPO_ID = "arg_repo_id"
 
