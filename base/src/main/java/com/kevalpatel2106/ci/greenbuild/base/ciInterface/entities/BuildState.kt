@@ -16,6 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 import android.content.Context
 import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
 import com.kevalpatel2106.ci.greenbuild.base.R
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 
@@ -30,7 +31,8 @@ enum class BuildState {
     FAILED,
     CANCELED,
     ERRORED,
-    BOOTING
+    BOOTING,
+    UNKNOWN
 }
 
 @ColorInt
@@ -42,6 +44,20 @@ fun BuildState.getBuildStateColor(context: Context): Int {
         BuildState.CANCELED -> context.getColorCompat(R.color.build_canceled)
         BuildState.ERRORED -> context.getColorCompat(R.color.build_errored)
         BuildState.BOOTING -> context.getColorCompat(R.color.build_booting)
+        BuildState.UNKNOWN -> context.getColorCompat(R.color.build_unknown)
+    }
+}
+
+@ColorRes
+fun BuildState.getBuildStateColorRes(context: Context): Int {
+    return when (this) {
+        BuildState.PASSED -> R.color.build_passed
+        BuildState.RUNNING -> R.color.build_running
+        BuildState.FAILED -> R.color.build_failed
+        BuildState.CANCELED -> R.color.build_canceled
+        BuildState.ERRORED -> R.color.build_errored
+        BuildState.BOOTING -> R.color.build_booting
+        BuildState.UNKNOWN -> R.color.build_unknown
     }
 }
 
@@ -53,5 +69,6 @@ fun BuildState.getBuildStateName(context: Context): String {
         BuildState.CANCELED -> context.getString(R.string.build_state_canceled)
         BuildState.ERRORED -> context.getString(R.string.build_state_error)
         BuildState.BOOTING -> context.getString(R.string.build_state_booting)
+        BuildState.UNKNOWN -> context.getString(R.string.build_state_unknown)
     }
 }

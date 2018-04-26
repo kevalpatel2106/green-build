@@ -37,6 +37,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
 
     internal val selectedItem = MutableLiveData<Int>()
     internal val isDisplayFab = MutableLiveData<Boolean>()
+    internal val repo = MutableLiveData<Repo>()
 
     // Compatibility
     internal val isBuildListCompatible = compatibilityCheck.isBuildsListByRepoSupported()
@@ -50,7 +51,6 @@ internal class RepoDetailViewModel @Inject internal constructor(
     private var envVarListFragment: EnvVariableListFragment? = null
     private var cronListFragment: CronListFragment? = null
 
-    internal lateinit var repo: Repo
 
     init {
         if (!isCacheListCompatible && !isBuildListCompatible && !isCronListCompatible && !isEnvVarsListCompatible) {
@@ -58,6 +58,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
         }
         selectedItem.value = 0
         isDisplayFab.value = false
+        repo.value = null
     }
 
     /**
@@ -120,12 +121,12 @@ internal class RepoDetailViewModel @Inject internal constructor(
             }
             R.id.repo_detail_menu_bottom_env_var -> {
                 isDisplayFab.value = compatibilityCheck.isAddEnvironmentVariableSupported()
-                        && repo.permissions?.canCreateEnvVar ?: true /* Check the permission */
+                        && repo.value?.permissions?.canCreateEnvVar ?: true /* Check the permission */
                 fragmentsList.indexOf(envVarListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_cron -> {
                 isDisplayFab.value = compatibilityCheck.isAddCronJobsSupported()
-                        && repo.permissions?.canScheduleCron ?: true /* Check the permission */
+                        && repo.value?.permissions?.canScheduleCron ?: true /* Check the permission */
                 fragmentsList.indexOf(cronListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_cache -> {

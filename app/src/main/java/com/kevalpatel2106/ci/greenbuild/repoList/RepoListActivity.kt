@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
@@ -102,6 +103,11 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
 
     override fun onPageComplete(pos: Int) {
         model.loadRepoList((pos / ServerInterface.PAGE_SIZE) + 1)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

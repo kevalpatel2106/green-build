@@ -16,7 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.repoDetail
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 
 /**
  * Created by Keval on 22/04/18.
@@ -24,7 +24,7 @@ import android.support.v4.app.FragmentPagerAdapter
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class RepoDetailPagerAdapter(private val model: RepoDetailViewModel,
-                                      fm: FragmentManager) : FragmentPagerAdapter(fm) {
+                                      fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment = model.getFragmentByPosition(position)
     override fun getCount(): Int = model.getViewPagerCount()
 }

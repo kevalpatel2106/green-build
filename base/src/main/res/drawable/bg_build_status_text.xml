@@ -12,9 +12,15 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="repo_title_tv_transition_name" translatable="false">repo_name_tv</string>
-    <string name="repo_description_tv_transition_name" translatable="false">repo_description_tv</string>
-    <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
-    <string name="private_variable_value_mask" translatable="false">***************</string>
-</resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/colorPrimary" />
+
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="@dimen/spacing_nano"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="@dimen/spacing_nano" />
+
+</shape>

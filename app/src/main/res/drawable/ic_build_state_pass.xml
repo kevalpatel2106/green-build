@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="repo_title_tv_transition_name" translatable="false">repo_name_tv</string>
-    <string name="repo_description_tv_transition_name" translatable="false">repo_description_tv</string>
-    <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
-    <string name="private_variable_value_mask" translatable="false">***************</string>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="78.369"
+    android:viewportWidth="78.369">
+    <path
+        android:fillColor="@color/build_passed"
+        android:pathData="M78.049,19.015L29.458,67.606c-0.428,0.428 -1.121,0.428 -1.548,0L0.32,40.015c-0.427,-0.426 -0.427,-1.119 0,-1.547l6.704,-6.704c0.428,-0.427 1.121,-0.427 1.548,0l20.113,20.112l41.113,-41.113c0.429,-0.427 1.12,-0.427 1.548,0l6.703,6.704C78.477,17.894 78.477,18.586 78.049,19.015z" />
+</vector>

@@ -27,6 +27,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
@@ -69,6 +70,8 @@ class RepoDetailActivity : AppCompatActivity() {
         model.isDisplayFab.observe(this@RepoDetailActivity, Observer {
             it?.let { repo_detail_add_fab.visibility = if (it) View.VISIBLE else View.GONE }
         })
+
+        model.repo.value = intent.getParcelableExtra(ARG_REPO)
     }
 
     /**
@@ -116,25 +119,32 @@ class RepoDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        model.repo = intent.getParcelableExtra(ARG_REPO)
+        model.repo.observe(this@RepoDetailActivity, Observer {
+            it?.let {
+                repo_name_tv.text = it.name
+                repo_owner_name_tv.text = it.owner.name
 
-        repo_name_tv.text = model.repo.name
-        repo_owner_name_tv.text = model.repo.owner.name
+                repo_image_logo.setImageResource(R.drawable.ic_repo)
 
-        repo_image_logo.setImageResource(R.drawable.ic_repo)
+                if (it.description != null) {
+                    repo_description_tv.visibility = View.VISIBLE
+                    repo_description_tv.text = it.description
+                } else {
+                    repo_description_tv.visibility = View.GONE
+                }
 
-        if (model.repo.description != null) {
-            repo_description_tv.visibility = View.VISIBLE
-            repo_description_tv.text = model.repo.description
-        } else {
-            repo_description_tv.visibility = View.GONE
-        }
+                //Set build status
+                build_status_badge.isVisible = it.defaultBranch != null
+                build_status_badge.title = getString(R.string.build_status_badge_title, it.defaultBranch)
+                build_status_badge.buildStatus = it.lastBuild?.state ?: BuildState.UNKNOWN
 
-        //Add chips
-        chip_private_repo.isVisible = model.repo.isPrivate
-        chip_owner_of_repo.isVisible = model.repo.permissions?.isAdmin ?: false
-        chip_language_of_repo.isVisible = model.repo.language != null
-        model.repo.language?.let { chip_language_of_repo.chipText = it }
+                //Add chips
+                chip_private_repo.isVisible = it.isPrivate
+                chip_owner_of_repo.isVisible = it.permissions?.isAdmin ?: false
+                chip_language_of_repo.isVisible = it.language != null
+                it.language?.let { chip_language_of_repo.chipText = it }
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

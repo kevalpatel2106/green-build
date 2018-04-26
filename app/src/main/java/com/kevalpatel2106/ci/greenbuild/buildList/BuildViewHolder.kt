@@ -17,10 +17,9 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColor
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getTriggerTypeText
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.*
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
@@ -45,12 +44,28 @@ internal class BuildViewHolder private constructor(itemView: View)
     fun bind(build: Build) {
         itemView.build_status_view.setBackgroundColor(build.state.getBuildStateColor(itemView.context))
 
+
+        when (build.state) {
+            BuildState.PASSED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_pass)
+            BuildState.RUNNING -> itemView.build_state_iv.setAnimation(R.raw.loading_3_dots_animation)
+            BuildState.FAILED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_fail)
+            BuildState.CANCELED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_cancel)
+            BuildState.ERRORED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_error)
+            BuildState.BOOTING -> itemView.build_state_iv.setAnimation(R.raw.sync_animation)
+            BuildState.UNKNOWN -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_unknown)
+        }
         itemView.built_number_tv.text = "#${build.number}"
         itemView.branch_name_tv.text = build.branch.name
 
         itemView.commit_message_tv.text = build.commit.message
         itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)
-        itemView.build_trigger_type_iv.chipText = build.triggerType.getTriggerTypeText(itemView.context)
+
+        if (build.triggerType == TriggerType.PUSH) {
+            itemView.build_trigger_type_iv.isVisible = false
+        } else {
+            itemView.build_trigger_type_iv.isVisible = true
+            itemView.build_trigger_type_iv.chipText = build.triggerType.getTriggerTypeText(itemView.context)
+        }
 
         itemView.commit_author_name_tv.text = build.author.username
         itemView.commit_author_avatar_iv.setImageResource(R.drawable.ic_user)

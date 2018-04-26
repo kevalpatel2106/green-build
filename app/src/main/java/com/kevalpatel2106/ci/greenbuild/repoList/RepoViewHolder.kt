@@ -24,9 +24,13 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColor
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateName
+import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
@@ -61,17 +65,42 @@ internal class RepoViewHolder private constructor(private val activity: Activity
         )
         itemView.repo_title_tv.text = spannableString
 
-        itemView.repo_description_tv.visibility = if (repo.description != null) View.VISIBLE else View.GONE
-        itemView.repo_description_tv.text = repo.description
-
+        itemView.last_build_status_group.isVisible = repo.lastBuild != null
         repo.lastBuild?.let {
-            itemView.repo_last_build_status_view.setBackgroundColor(it.state.getBuildStateColor(itemView.context))
+
+            //Set the last build status
+            with(it.state.getBuildStateName(itemView.context)) {
+
+                val buildStatusSpannable = SpannableString(
+                        itemView.context.getString(R.string.recent_build_status, this)
+                )
+                buildStatusSpannable.setSpan(
+                        ForegroundColorSpan(it.state.getBuildStateColor(itemView.context)),
+                        buildStatusSpannable.length - this.length,
+                        buildStatusSpannable.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                itemView.last_build_status_tv.text = buildStatusSpannable
+            }
+
+            //Set the last build time
+            itemView.last_run_time_tv.text = when (it.state) {
+                BuildState.BOOTING -> it.state.getBuildStateName(itemView.context)
+                BuildState.RUNNING -> it.state.getBuildStateName(itemView.context)
+                else -> with(ConversationUtils.getDate(it.finishedAt)) {
+                    if (this.contains("AM", true) || this.contains("PM", true)) {
+                        itemView.context.getString(R.string.last_build_time_1, this)
+                    } else {
+                        itemView.context.getString(R.string.last_build_time, this)
+                    }
+                }
+            }
         }
 
         itemView.setOnClickListener {
             val pairs = arrayListOf<Pair<View, String>>(
                     Pair.create(itemView.repo_title_tv, ViewCompat.getTransitionName(itemView.repo_title_tv)),
-                    Pair.create(itemView.repo_description_tv, ViewCompat.getTransitionName(itemView.repo_description_tv))
+                    Pair.create(itemView.last_build_status_tv, ViewCompat.getTransitionName(itemView.last_build_status_tv))
             ).toTypedArray()
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(

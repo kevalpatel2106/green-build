@@ -54,4 +54,8 @@
     <string name="btn_title_schedule">Schedule</string>
     <string name="schedule_cron_success_message">Cron scheduled successfully.</string>
     <string name="build_row_ran_for">Ran for %s</string>
+    <string name="recent_build_status">Recent build: %s</string>
+    <string name="last_build_time">Ran %s ago</string>
+    <string name="last_build_time_1">Ran on %s</string>
+    <string name="build_status_badge_title">Build on %s</string>
 </resources>

@@ -35,6 +35,8 @@ import android.widget.Toast
  */
 fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
+fun Context.getColorStateListCompat(@ColorRes color: Int) = ContextCompat.getColorStateList(this, color)
+
 @SuppressLint("MissingPermission")
 fun Context.vibrate(mills: Long): Boolean {
     val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
