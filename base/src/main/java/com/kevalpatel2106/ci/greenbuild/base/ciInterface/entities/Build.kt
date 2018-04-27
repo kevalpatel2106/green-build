@@ -16,6 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 /**
  * Created by Kevalpatel2106 on 18-Apr-18.
@@ -28,7 +29,7 @@ data class Build(
 
         val number: String,
 
-        val duration: Long,
+        var duration: Long,
 
         val state: BuildState,
 
@@ -52,7 +53,9 @@ data class Build(
             parcel.readString(),
             parcel.readLong(),
             BuildState.valueOf(parcel.readString()),
-            BuildState.valueOf(parcel.readString()),
+            with(parcel.readString()) {
+                return@with if (this == null) null else BuildState.valueOf(parcel.readString())
+            },
             parcel.readLong(),
             parcel.readLong(),
             TriggerType.valueOf(parcel.readString()),
@@ -123,6 +126,12 @@ data class Build(
             override fun newArray(size: Int): Array<Commit?> {
                 return arrayOfNulls(size)
             }
+        }
+    }
+
+    init {
+        if (startedAt != 0L && state in setOf(BuildState.RUNNING, BuildState.BOOTING)) {
+            duration = System.currentTimeMillis() - startedAt
         }
     }
 

@@ -20,7 +20,6 @@ import android.os.Handler
 import android.os.Looper
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.kevalpatel2106.common.view.BaseEditText
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -31,12 +30,12 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class BaseEditTextTest {
-    private var mBaseEditText: BaseEditText? = null
+    private var mBaseEditText: GBEditText? = null
 
     @Before
     @Throws(Exception::class)
     fun init() {
-        mBaseEditText = BaseEditText(InstrumentationRegistry.getTargetContext())
+        mBaseEditText = GBEditText(InstrumentationRegistry.getTargetContext())
         mBaseEditText!!.setText("")
     }
 
@@ -78,7 +77,7 @@ class BaseEditTextTest {
     fun clear() {
         mBaseEditText!!.setText("123456789")
         mBaseEditText!!.clear()
-        assertEquals(mBaseEditText!!.text.length.toLong(), 0)
+        assertEquals(mBaseEditText!!.text!!.length.toLong(), 0)
     }
 
     @SuppressLint("SetTextI18n")

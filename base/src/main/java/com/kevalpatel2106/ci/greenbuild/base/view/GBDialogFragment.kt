@@ -24,7 +24,7 @@ import com.kevalpatel2106.ci.greenbuild.base.R
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-abstract class BaseDialogFragment : DialogFragment() {
+abstract class GBDialogFragment : DialogFragment() {
 
     abstract fun fullWidth(): Boolean
 

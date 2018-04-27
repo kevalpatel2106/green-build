@@ -16,6 +16,8 @@
     <color name="colorPrimary">#2D3035</color>
     <color name="colorPrimaryDark">#26282C</color>
     <color name="colorAccent">@android:color/holo_orange_dark</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="ic_launcher_background">#FF8800</color>
 
     <!--text colors-->
     <color name="colorPrimaryText">#FFFFFF</color>
@@ -23,13 +25,11 @@
     <color name="colorBlackText">#111111</color>
     <color name="colorToolbarText">#FFFFFF</color>
 
+    <!--Background colors-->
     <color name="window_background_color">#22252A</color>
     <color name="window_background_color_light">#4f5763</color>
 
-    <color name="divider">#BDBDBD</color>
-
-    <color name="ic_launcher_background">#FF8800</color>
-
+    <!--Build status colors-->
     <color name="build_running">#E9D816</color>
     <color name="build_booting">#E9D816</color>
     <color name="build_unknown">#666666</color>
@@ -37,4 +37,20 @@
     <color name="build_failed">#DB4545</color>
     <color name="build_canceled">#5d4037</color>
     <color name="build_errored">#C2185B</color>
+
+    <!--Avatar view background color-->
+    <color name="avatar_view_bg_0">#41A6F6</color>
+    <color name="avatar_view_bg_1">#CE6D4A</color>
+    <color name="avatar_view_bg_2">#E7A642</color>
+    <color name="avatar_view_bg_3">#7CC329</color>
+    <color name="avatar_view_bg_4">#9375CD</color>
+    <color name="avatar_view_bg_5">#21C7DF</color>
+    <color name="avatar_view_bg_6">#F86194</color>
+    <color name="avatar_view_bg_7">#BD6AC6</color>
+
+    <!--Swipe list-->
+    <color name="swipe_color_0">#CC6D00</color>
+    <color name="swipe_color_1">#FF8800</color>
+    <color name="swipe_color_2">#FFA033</color>
+    <color name="swipe_color_3">#FFB866</color>
 </resources>

@@ -40,6 +40,7 @@ import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.fragment_cron_list.*
 import javax.inject.Inject
 
+
 /**
  * A simple [Fragment] subclass.
  *

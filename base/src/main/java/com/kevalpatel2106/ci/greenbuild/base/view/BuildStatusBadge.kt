@@ -34,8 +34,8 @@ class BuildStatusBadge @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private val titleTv: BaseTextView
-    private val statusTv: BaseTextView
+    private val titleTv: GBTextView
+    private val statusTv: GBTextView
 
     var title: String = context.getString(R.string.build_status_view_default_title)
         set(value) {
@@ -49,7 +49,7 @@ class BuildStatusBadge @JvmOverloads constructor(
             field = value
             statusTv.text = buildStatus.getBuildStateName(context)
             statusTv.backgroundTintList = context.getColorStateListCompat(buildStatus
-                    .getBuildStateColorRes(context))
+                    .getBuildStateColorRes())
         }
 
     init {

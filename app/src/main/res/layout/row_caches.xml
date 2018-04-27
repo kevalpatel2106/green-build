@@ -53,7 +53,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.6" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/cache_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline28"
         tools:text="@tools:sample/lorem/random" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/cache_branch_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
         app:srcCompat="@drawable/ic_repo_branch" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/cache_branch_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cache_name_tv"
         tools:text="@tools:sample/lorem" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/cache_size_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="@+id/cache_size_tv"
         app:srcCompat="@drawable/ic_cache_size" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/cache_size_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toEndOf="@+id/cache_size_iv"
         tools:text="125 KB" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/cache_last_modified_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -119,7 +119,7 @@
         app:layout_constraintTop_toTopOf="@+id/cache_last_modified_tv"
         app:srcCompat="@drawable/ic_history" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/cache_last_modified_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cache_branch_tv"
         tools:text="@tools:sample/date/ddmmyy" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/row_cache_delete_btn"
         style="@style/RoundButton"
         android:layout_marginTop="8dp"

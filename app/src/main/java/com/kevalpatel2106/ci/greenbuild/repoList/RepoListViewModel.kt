@@ -52,7 +52,7 @@ internal class RepoListViewModel @Inject constructor(private val serverInterface
     }
 
     fun loadRepoList(page: Int) {
-        serverInterface.getRepoList(page, RepoSortBy.NAME_ASC, false)
+        serverInterface.getRepoList(page, RepoSortBy.LAST_BUILD_TIME_DESC, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
@@ -66,12 +66,15 @@ internal class RepoListViewModel @Inject constructor(private val serverInterface
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasNextPage.value = it.hasNext
 
                     if (page == 1) repoList.value!!.clear()
 
                     repoList.value!!.addAll(it.list)
+                    return@map repoList
+                }
+                .subscribe({
                     repoList.recall()
                 }, {
                     errorLoadingList.value = it.message

@@ -47,7 +47,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/ci_server_logo"
         android:layout_width="@dimen/spacing_xxlarge"
         android:layout_height="@dimen/spacing_xxlarge"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         tools:src="@mipmap/ic_launcher_round" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/ci_server_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         tools:text="@tools:sample/lorem" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/ci_server_domain_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ci_server_name"
         tools:text="https://travis-ci.org" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/ci_server_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

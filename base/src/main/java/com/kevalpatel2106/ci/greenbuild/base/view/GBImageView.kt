@@ -16,6 +16,7 @@ package com.kevalpatel2106.ci.greenbuild.base.view
 
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 
 /**
@@ -26,11 +27,8 @@ import android.util.AttributeSet
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
-class BaseImageView : AppCompatImageView {
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr)
-}
+class GBImageView@JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+): AppCompatImageView(context, attrs, defStyleAttr)

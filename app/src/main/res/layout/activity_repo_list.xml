@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!--0. List-->
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh
             android:id="@+id/repo_list_refresher"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -40,7 +40,7 @@
                 tools:listitem="@layout/row_repo_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh>
 
         <!--1. Progressbar-->
         <ProgressBar

@@ -23,8 +23,11 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -70,13 +73,16 @@ internal class BranchPickerViewModel @Inject constructor(
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasModeData.value = it.hasNext
 
                     if (page == 1) branchList.value!!.clear()
 
                     branchList.value!!.addAll(it.list)
-                    branchList.recall()
+                    return@map branchList
+                }
+                .subscribe({
+                    it.recall()
 
                     if (branchList.value!!.isEmpty())
                         errorLoadingList.value = application.getString(R.string.error_no_branch_found)

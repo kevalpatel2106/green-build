@@ -31,7 +31,7 @@ import com.kevalpatel2106.ci.greenbuild.base.view.progressButton.ProgressButton
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class BaseButton : ProgressButton {
+class GBButton : ProgressButton {
 
     constructor(context: Context) : super(context) {
         init(context)

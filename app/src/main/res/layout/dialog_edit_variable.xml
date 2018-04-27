@@ -109,7 +109,7 @@
         app:showText="false"
         app:thumbTint="@color/colorAccent" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/save_variable_btn"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline31"
         app:layout_constraintTop_toBottomOf="@+id/edit_variable_is_private_switch" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/cancel_variable_btn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"

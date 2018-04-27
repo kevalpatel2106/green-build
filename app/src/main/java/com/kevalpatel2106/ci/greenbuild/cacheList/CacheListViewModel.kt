@@ -76,12 +76,15 @@ internal class CacheListViewModel @Inject constructor(
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasModeData.value = it.hasNext
 
                     if (page == 1) cacheList.value!!.clear()
 
                     cacheList.value!!.addAll(it.list)
+                    return@map cacheList
+                }
+                .subscribe({
                     cacheList.recall()
                 }, {
                     errorLoadingList.value = it.message

@@ -29,7 +29,7 @@ class BaseViewPagerTest  {
     @Test
     @Throws(Exception::class)
     fun setSwipeGestureEnable() {
-        val baseViewPager = BaseViewPager(InstrumentationRegistry.getTargetContext())
+        val baseViewPager = GBViewPager(InstrumentationRegistry.getTargetContext())
         baseViewPager.setSwipeGestureEnable(false)
         assertTrue(!baseViewPager.onInterceptTouchEvent(null))
         assertTrue(!baseViewPager.onTouchEvent(null))

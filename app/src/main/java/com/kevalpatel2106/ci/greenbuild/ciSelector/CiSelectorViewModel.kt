@@ -15,7 +15,6 @@
 package com.kevalpatel2106.ci.greenbuild.ciSelector
 
 import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.VisibleForTesting
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
@@ -36,16 +35,14 @@ internal class CiSelectorViewModel @Inject constructor(
 
     init {
         ciServers.value = ArrayList()
-        loadCiServerList()
     }
 
-    @VisibleForTesting
-    internal fun loadCiServerList() {
+    internal fun loadCiServerList(activity: CiSelectorActivity) {
         ciServers.value?.let {
             it.clear()
 
             //Add possible travis configs
-            it.addAll(TravisServerInterface.getCiServers(application))
+            it.addAll(TravisServerInterface.getCiServers(activity))
 
             //Add more CI servers when you have new interfaces.
 

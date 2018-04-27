@@ -124,7 +124,7 @@ class RepoDetailActivity : AppCompatActivity() {
                 repo_name_tv.text = it.name
                 repo_owner_name_tv.text = it.owner.name
 
-                repo_image_logo.setImageResource(R.drawable.ic_repo)
+                repo_image_logo.text = it.name
 
                 if (it.description != null) {
                     repo_description_tv.visibility = View.VISIBLE
@@ -148,7 +148,7 @@ class RepoDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        finish()
+        supportFinishAfterTransition()
         return super.onOptionsItemSelected(item)
     }
 

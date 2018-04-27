@@ -29,10 +29,8 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
-import com.kevalpatel2106.ci.greenbuild.base.view.BaseDialogFragment
-import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
+import com.kevalpatel2106.ci.greenbuild.base.view.GBDialogFragment
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.dialog_branch_picker.*
 import kotlinx.android.synthetic.main.fragment_build_list.*
@@ -43,7 +41,7 @@ import javax.inject.Inject
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class BranchPickerDialog : BaseDialogFragment(), PageRecyclerViewAdapter.RecyclerViewListener<Branch> {
+class BranchPickerDialog : GBDialogFragment(), PageRecyclerViewAdapter.RecyclerViewListener<Branch> {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory

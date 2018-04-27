@@ -19,11 +19,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.*
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.row_builds_list.view.*
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Keval on 18/04/18.
@@ -32,6 +38,7 @@ import kotlinx.android.synthetic.main.row_builds_list.view.*
  */
 internal class BuildViewHolder private constructor(itemView: View)
     : PageRecyclerViewAdapter.PageViewHolder(itemView) {
+    private var timerDisposable: Disposable? = null
 
     companion object {
 
@@ -43,7 +50,6 @@ internal class BuildViewHolder private constructor(itemView: View)
 
     fun bind(build: Build) {
         itemView.build_status_view.setBackgroundColor(build.state.getBuildStateColor(itemView.context))
-
 
         when (build.state) {
             BuildState.PASSED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_pass)
@@ -68,14 +74,14 @@ internal class BuildViewHolder private constructor(itemView: View)
         }
 
         itemView.commit_author_name_tv.text = build.author.username
-        itemView.commit_author_avatar_iv.setImageResource(R.drawable.ic_user)
+        itemView.commit_author_avatar_iv.text = build.author.username
 
         if (build.duration.isEmpty()) {
             itemView.time_taken_tv.text = "-"
         } else {
             itemView.time_taken_tv.text = itemView.context.getString(
                     R.string.build_row_ran_for,
-                    ConversationUtils.convertToHumanReadableDuration(build.duration * 1000L)
+                    ConversationUtils.convertToHumanReadableDuration(build.duration)
             )
         }
 
@@ -84,5 +90,30 @@ internal class BuildViewHolder private constructor(itemView: View)
         } else {
             itemView.build_start_time_tv.text = ConversationUtils.getDate(build.startedAt)
         }
+
+        if (build.state == BuildState.RUNNING) startTimerForUpdatingBuildTimes(build)
+    }
+
+    private fun startTimerForUpdatingBuildTimes(build: Build) {
+        timerDisposable?.dispose()
+        timerDisposable = Observable
+                .interval(1 /* Observable will emmit every second */, TimeUnit.SECONDS)
+                .timeInterval()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    build.duration += 1000 //Add a second
+
+                    with(ConversationUtils.convertToHumanReadableDuration(build.duration)) {
+
+                        itemView.time_taken_tv.text = itemView.context.getString(R.string.build_row_ran_for,
+                                this)
+                        itemView.build_start_time_tv.text = this
+                    }
+                }
+    }
+
+    internal fun cancelTimer() {
+        timerDisposable?.dispose()
     }
 }

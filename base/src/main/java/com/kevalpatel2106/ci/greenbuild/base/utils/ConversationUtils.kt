@@ -32,7 +32,9 @@ class ConversationUtils {
         private const val ONE_DAY_MILLS = ONE_HOUR_MILLS * 24
         private const val ONE_MONTH_MILLS = ONE_HOUR_MILLS * 31
 
-        private val dateFormatter = SimpleDateFormat("dd-MMM-yyyy hh:mm a", Locale.getDefault())
+        private val timelineOffset = TimeZone.getDefault().rawOffset
+
+        private val dateFormatter = SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault())
 
         fun rfc3339ToMills(dateInString: String): Long {
             val cal = Calendar.getInstance()
@@ -41,8 +43,7 @@ class ConversationUtils {
                     .replace("Z", "")
                     .replace("T", "-")
             )
-
-            return cal.timeInMillis
+            return cal.timeInMillis + timelineOffset
         }
 
         fun humanReadableByteCount(bytes: Long): String {
@@ -92,7 +93,7 @@ class ConversationUtils {
                             .append(if (temp > 1) "s " else " ")
                 }
 
-                if (accurate || !buffer.contains("days")) {
+                if (accurate || !buffer.contains("day")) {
 
                     //Calculate minutes
                     temp = duration / ONE_MINUTE_MILLS
@@ -100,6 +101,9 @@ class ConversationUtils {
                         duration -= temp * ONE_MINUTE_MILLS
                         buffer.append(temp).append(" min ")
                     }
+                }
+
+                if (accurate || !buffer.contains("hours")) {
 
                     //Calculate seconds
                     temp = duration / ONE_SECOND_MILLS

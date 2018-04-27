@@ -19,7 +19,7 @@
     android:layout_height="match_parent">
 
     <!--0. List-->
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh
         android:id="@+id/builds_list_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/row_builds_list" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh>
 
     <!--1. Progressbar-->
     <ProgressBar
@@ -39,7 +39,7 @@
 
 
     <!--2. No item-->
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/builds_error_tv"
         style="@style/MediumText.Secondary"
         android:layout_width="match_parent"

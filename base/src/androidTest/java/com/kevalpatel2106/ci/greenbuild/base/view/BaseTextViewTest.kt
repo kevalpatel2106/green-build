@@ -26,12 +26,12 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class BaseTextViewTest {
-    private var mBaseTextView: BaseTextView? = null
+    private var mBaseTextView: GBTextView? = null
 
     @Before
     @Throws(Exception::class)
     fun init() {
-        mBaseTextView = BaseTextView(InstrumentationRegistry.getTargetContext())
+        mBaseTextView = GBTextView(InstrumentationRegistry.getTargetContext())
     }
 
     @Test

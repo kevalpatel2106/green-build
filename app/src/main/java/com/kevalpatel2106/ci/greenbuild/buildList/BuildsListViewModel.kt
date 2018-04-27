@@ -22,8 +22,12 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -35,7 +39,6 @@ internal class BuildsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
-
     internal val buildsList = MutableLiveData<ArrayList<Build>>()
 
     internal val errorLoadingList = SingleLiveEvent<String>()
@@ -63,21 +66,21 @@ internal class BuildsListViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     isLoadingList.value = true
-
-                    buildsList.value?.let {
-                        if (it.isEmpty()) isLoadingFirstTime.value = true
-                    }
+                    buildsList.value?.let { if (it.isEmpty()) isLoadingFirstTime.value = true }
                 }
                 .doOnTerminate {
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasModeData.value = it.hasNext
 
                     if (page == 1) buildsList.value!!.clear()
-
                     buildsList.value!!.addAll(it.list)
+
+                    return@map buildsList.value
+                }
+                .subscribe({
                     buildsList.recall()
                 }, {
                     errorLoadingList.value = it.message

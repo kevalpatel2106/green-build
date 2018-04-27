@@ -28,13 +28,12 @@ import android.view.MotionEvent
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
-class BaseViewPager : ViewPager {
+class GBViewPager @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null
+): ViewPager(context, attrs)  {
 
     private var mIsSwipeGestureEnable = true
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {

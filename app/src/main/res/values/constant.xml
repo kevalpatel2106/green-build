@@ -14,6 +14,7 @@
 
 <resources>
     <string name="repo_title_tv_transition_name" translatable="false">repo_name_tv</string>
+    <string name="repo_image_iv_transition_name" translatable="false">repo_image_iv</string>
     <string name="repo_description_tv_transition_name" translatable="false">repo_description_tv</string>
     <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
     <string name="private_variable_value_mask" translatable="false">***************</string>

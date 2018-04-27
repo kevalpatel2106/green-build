@@ -44,5 +44,5 @@ dependencies {
 
     implementation "com.android.support:design:${versions.supportLibrary}"
     implementation "com.android.support:appcompat-v7:${versions.supportLibrary}"
-
+    api "com.github.mklimek:circle-initials-view:1.0.9"
 }

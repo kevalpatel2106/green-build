@@ -107,7 +107,7 @@
             android:paddingStart="10dp" />
     </android.support.design.widget.TextInputLayout>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/authentication_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/authentication_token_til" />
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/travis_access_token_hint_tv"
         android:background="?selectableItemBackground"
         android:padding="@dimen/spacing_micro"

@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import java.io.Closeable
 
 /**
  * Created by Keval on 18/04/18.
@@ -29,21 +30,30 @@ internal class BuildListAdapter(
         context: Context,
         buildsList: ArrayList<Build>,
         listener: PageRecyclerViewAdapter.RecyclerViewListener<Build>)
-    : PageRecyclerViewAdapter<BuildViewHolder, Build>(context, buildsList, listener) {
+    : PageRecyclerViewAdapter<BuildViewHolder, Build>(context, buildsList, listener), Closeable {
+
+    private val visibleViewHolder = ArrayList<BuildViewHolder>()
 
     override fun bindView(holder: BuildViewHolder, item: Build) {
+        visibleViewHolder.add(holder)
         holder.bind(item)
+    }
+
+    override fun onViewRecycled(holder: PageViewHolder) {
+        super.onViewRecycled(holder)
+        if (holder is BuildViewHolder) {
+            holder.cancelTimer()
+            visibleViewHolder.remove(holder)
+        }
     }
 
     override fun prepareViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
         return BuildViewHolder.create(parent)
     }
 
-    override fun prepareViewType(position: Int): Int {
-        return 1
-    }
+    override fun prepareViewType(position: Int): Int = 1
 
-    override fun getPageSize(): Int {
-        return ServerInterface.PAGE_SIZE
-    }
+    override fun close() = visibleViewHolder.forEach { it.cancelTimer() }
+
+    override fun getPageSize(): Int = ServerInterface.PAGE_SIZE
 }

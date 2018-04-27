@@ -49,7 +49,7 @@ fun BuildState.getBuildStateColor(context: Context): Int {
 }
 
 @ColorRes
-fun BuildState.getBuildStateColorRes(context: Context): Int {
+fun BuildState.getBuildStateColorRes(): Int {
     return when (this) {
         BuildState.PASSED -> R.color.build_passed
         BuildState.RUNNING -> R.color.build_running

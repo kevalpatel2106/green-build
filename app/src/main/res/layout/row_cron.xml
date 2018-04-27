@@ -48,7 +48,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/spacing_micro"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/row_cron_id_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline38"
         tools:text="#23"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/row_cron_branch_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         app:layout_constraintStart_toEndOf="@+id/row_cron_id_tv"
         tools:text="@tools:sample/lorem/random"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/row_cron_last_run_icon_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/row_cron_id_tv"
         app:srcCompat="@drawable/ic_history"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/row_cron_last_run_time_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="@+id/row_cron_last_run_icon_iv"
         tools:text="Ran 7 days before"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseImageView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/row_cron_next_run_icon_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/row_cron_last_run_icon_iv"
         app:srcCompat="@drawable/ic_sand_clock"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseTextView
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/row_cron_next_run_tv"
         android:layout_width="0dp"
         android:layout_height="18dp"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toTopOf="@+id/row_cron_next_run_icon_iv"
         tools:text="Scheduled in 7 days from now"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/row_cron_run_btn"
         style="@style/RoundButton"
         android:layout_marginEnd="@dimen/spacing_small"
@@ -136,7 +136,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="UnusedAttribute"/>
 
-    <com.kevalpatel2106.ci.greenbuild.base.view.BaseButton
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
         android:id="@+id/row_cron_delete_btn"
         style="@style/RoundButton"
         android:layout_marginTop="@dimen/spacing_micro"

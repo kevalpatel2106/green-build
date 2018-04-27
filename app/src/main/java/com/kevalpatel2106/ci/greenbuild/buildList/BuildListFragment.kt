@@ -131,6 +131,11 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
         model.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
+    override fun onStop() {
+        super.onStop()
+        (builds_list_rv.adapter as BuildListAdapter).close()
+    }
+
     companion object {
 
         internal const val ARG_REPO_ID = "repo_id"

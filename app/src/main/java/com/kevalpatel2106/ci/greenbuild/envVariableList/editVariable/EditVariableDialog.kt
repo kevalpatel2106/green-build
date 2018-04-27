@@ -28,7 +28,7 @@ import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
-import com.kevalpatel2106.ci.greenbuild.base.view.BaseDialogFragment
+import com.kevalpatel2106.ci.greenbuild.base.view.GBDialogFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.dialog_edit_variable.*
 import javax.inject.Inject
@@ -39,7 +39,7 @@ import javax.inject.Inject
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class EditVariableDialog : BaseDialogFragment() {
+class EditVariableDialog : GBDialogFragment() {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory

@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.greenbuild.travisInterface
 
+import android.app.Activity
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
@@ -81,7 +82,7 @@ class TravisServerInterface internal constructor(
             }
         }
 
-        fun getCiServers(application: BaseApplication): ArrayList<CiServer> {
+        fun getCiServers(activity: Activity): ArrayList<CiServer> {
             val ciServers = ArrayList<CiServer>(3)
 
             ciServers.add(CiServer(
@@ -90,7 +91,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for open source projects on GitHub.",
                     domain = "https://travis-ci.org",
                     onClick = {
-                        TravisAuthenticationActivity.launch(application, Constants.TRAVIS_CI_ORG)
+                        TravisAuthenticationActivity.launch(activity, Constants.TRAVIS_CI_ORG)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_com,
@@ -98,7 +99,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for private repositories on GitHub.",
                     domain = "https://travis-ci.com",
                     onClick = {
-                        TravisAuthenticationActivity.launch(application, Constants.TRAVIS_CI_COM)
+                        TravisAuthenticationActivity.launch(activity, Constants.TRAVIS_CI_COM)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_enterprice,
@@ -106,7 +107,7 @@ class TravisServerInterface internal constructor(
                     description = "Self hosted continuous integration from Travis CI.",
                     domain = null,
                     onClick = {
-                        TravisAuthenticationActivity.launch(application, null)
+                        TravisAuthenticationActivity.launch(activity, null)
                     }))
 
             return ciServers
@@ -164,7 +165,7 @@ class TravisServerInterface internal constructor(
                         sortBy = sortByQuery,
                         onlyActive = true,
                         offset = (page - 1) * PAGE_SIZE,
-                        onlyPrivate = showOnlyPrivate
+                        onlyPrivate = baseUrl == Constants.TRAVIS_CI_COM
                 ).map {
                     val repoList = ArrayList<Repo>(it.repositories.size)
                     it.repositories.forEach { repoList.add(it.toRepo()) }

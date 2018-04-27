@@ -87,7 +87,7 @@ internal data class TravisBuild(
         return Build(
                 id = id.toLong(),
                 state = getBuildState(state),
-                duration = duration.toLong(),
+                duration = duration.toLong() * 1000 /* Converting to mills */,
                 triggerType = getEventType(eventType),
                 number = number,
                 finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),

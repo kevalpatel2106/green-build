@@ -83,12 +83,15 @@ internal class CronListViewModel @Inject constructor(
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasModeData.value = it.hasNext
 
                     if (page == 1) cronList.value!!.clear()
 
                     cronList.value!!.addAll(it.list)
+                    return@map cronList
+                }
+                .subscribe({
                     cronList.recall()
                 }, {
                     errorLoadingList.value = it.message

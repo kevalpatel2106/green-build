@@ -64,6 +64,7 @@ internal class RepoViewHolder private constructor(private val activity: Activity
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         itemView.repo_title_tv.text = spannableString
+        itemView.repo_title_iv.text = repo.name
 
         itemView.last_build_status_group.isVisible = repo.lastBuild != null
         repo.lastBuild?.let {
@@ -99,8 +100,9 @@ internal class RepoViewHolder private constructor(private val activity: Activity
 
         itemView.setOnClickListener {
             val pairs = arrayListOf<Pair<View, String>>(
+                    Pair.create(itemView.repo_title_iv, ViewCompat.getTransitionName(itemView.repo_title_iv)),
                     Pair.create(itemView.repo_title_tv, ViewCompat.getTransitionName(itemView.repo_title_tv)),
-                    Pair.create(itemView.last_build_status_tv, ViewCompat.getTransitionName(itemView.last_build_status_tv))
+                    Pair.create(itemView.repo_title_iv, ViewCompat.getTransitionName(itemView.last_build_status_tv))
             ).toTypedArray()
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(

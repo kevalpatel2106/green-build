@@ -15,39 +15,39 @@
 package com.kevalpatel2106.ci.greenbuild.base.view
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
+import android.support.v7.widget.AppCompatEditText
 import android.util.AttributeSet
 
 /**
  * Created by Keval Patel on 04/03/17.
- * This base class is to extend the functionality of [AppCompatTextView]. Use this class instead
- * of [android.widget.TextView] through out the application.
+ * This base class is to extend the functionality of [AppCompatEditText]. Use this class instead
+ * of [android.widget.EditText] through out the application.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
-class BaseTextView : AppCompatTextView {
-    constructor(context: Context) : super(context) {
-        init(context)
-    }
+class GBEditText @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+): AppCompatEditText(context, attrs, defStyleAttr){
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context)
-    }
+/**
+     * Check if the edit text is empty.
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :
-            super(context, attrs, defStyleAttr) {
-        init(context)
-    }
+     * @return True uf there is no text entered in edit text.
+     */
+    fun isEmpty() = getTrimmedText().isEmpty()
 
-    private fun init(@Suppress("UNUSED_PARAMETER") context: Context) {
-        //set type face
-        //setTypeface(ResourcesCompat.getFont(context, R.font.open_sans));
-
+    override fun setError(error: CharSequence) {
+        requestFocus()
+        super.setError(error)
     }
 
     /**
      * @return Trimmed text.
      */
     fun getTrimmedText() = text.toString().trim { it <= ' ' }
+
+    fun clear() = setText("")
 }

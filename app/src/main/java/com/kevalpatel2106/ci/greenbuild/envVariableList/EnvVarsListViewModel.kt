@@ -24,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
+
 /**
  * Created by Keval on 18/04/18.
  *
@@ -77,12 +78,15 @@ internal class EnvVarsListViewModel @Inject constructor(
                     isLoadingList.value = false
                     isLoadingFirstTime.value = false
                 }
-                .subscribe({
+                .map {
                     hasModeData.value = it.hasNext
 
                     if (page == 1) envVarsList.value!!.clear()
 
                     envVarsList.value!!.addAll(it.list)
+                    return@map envVarsList
+                }
+                .subscribe({
                     envVarsList.recall()
                 }, {
                     errorLoadingList.value = it.message

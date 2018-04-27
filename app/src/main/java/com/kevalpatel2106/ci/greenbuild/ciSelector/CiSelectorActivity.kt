@@ -53,6 +53,7 @@ class CiSelectorActivity : AppCompatActivity() {
 
         model = ViewModelProviders.of(this, viewModelFactory)
                 .get(CiSelectorViewModel::class.java)
+        model.loadCiServerList(this@CiSelectorActivity)
 
         ci_selector_list.layoutManager = LinearLayoutManager(this@CiSelectorActivity)
         ci_selector_list.itemAnimator = DefaultItemAnimator()

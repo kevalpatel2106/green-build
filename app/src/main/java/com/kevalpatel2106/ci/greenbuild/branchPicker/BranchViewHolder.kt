@@ -17,8 +17,6 @@ package com.kevalpatel2106.ci.greenbuild.branchPicker
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter

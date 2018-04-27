@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/branch_picker_title_tv">
 
         <!--0. List-->
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh
             android:id="@+id/branch_list_refresher"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -53,7 +53,7 @@
                 tools:listitem="@layout/row_branch_select"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh>
 
         <!--1. Progress dialog-->
         <ProgressBar
