@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.ciSelector
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
@@ -23,11 +24,13 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal class CiSelectorAdapter(private val ciServers: ArrayList<CiServer>)
+internal class CiSelectorAdapter(
+        private val activity: Activity,
+        private val ciServers: ArrayList<CiServer>)
     : RecyclerView.Adapter<CiSelectorViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CiSelectorViewHolder {
-        return CiSelectorViewHolder.create(parent)
+        return CiSelectorViewHolder.create(activity, parent)
     }
 
     override fun getItemCount(): Int {

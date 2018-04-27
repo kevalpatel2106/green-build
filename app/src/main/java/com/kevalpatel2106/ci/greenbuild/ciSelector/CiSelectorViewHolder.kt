@@ -14,6 +14,10 @@
 
 package com.kevalpatel2106.ci.greenbuild.ciSelector
 
+import android.app.Activity
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -27,13 +31,18 @@ import kotlinx.android.synthetic.main.row_ci_selector_list.view.*
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal class CiSelectorViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+internal class CiSelectorViewHolder private constructor(itemView: View,
+                                                        private val activity: Activity)
+    : RecyclerView.ViewHolder(itemView) {
 
     companion object {
 
-        fun create(parent: ViewGroup): CiSelectorViewHolder {
-            return CiSelectorViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.row_ci_selector_list, parent, false))
+        fun create(activity: Activity, parent: ViewGroup): CiSelectorViewHolder {
+            return CiSelectorViewHolder(
+                    activity = activity,
+                    itemView = LayoutInflater.from(parent.context)
+                            .inflate(R.layout.row_ci_selector_list, parent, false)
+            )
         }
     }
 
@@ -48,7 +57,17 @@ internal class CiSelectorViewHolder private constructor(itemView: View) : Recycl
 
         itemView.ci_server_logo.setImageResource(ciServer.icon)
 
-        itemView.setOnClickListener { ciServer.onClick.invoke() }
+        val pairs = arrayListOf<Pair<View, String>>(
+                Pair.create(itemView.ci_server_name, ViewCompat.getTransitionName(itemView.ci_server_name)),
+                Pair.create(itemView.ci_server_logo, ViewCompat.getTransitionName(itemView.ci_server_logo))
+                ).toTypedArray()
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,
+                *pairs
+        )
+
+        itemView.setOnClickListener { ciServer.onClick.invoke(options) }
     }
 
 }

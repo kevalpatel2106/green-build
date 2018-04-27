@@ -52,7 +52,6 @@
         android:id="@+id/authentication_base_url_til"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:visibility="visible"
         app:counterEnabled="true"
         app:counterMaxLength="50"
@@ -62,9 +61,8 @@
         app:layout_constraintBottom_toTopOf="@+id/authentication_token_til"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/authentication_ci_provider_tv"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_chainStyle="packed"
         app:passwordToggleEnabled="false">
 
@@ -93,7 +91,7 @@
         app:layout_constraintBottom_toTopOf="@+id/authentication_btn"
         app:layout_constraintEnd_toStartOf="@+id/authentication_paste_btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/authentication_base_url_til"
         app:passwordToggleContentDescription="Toggle password visibility"
         app:passwordToggleEnabled="true"
@@ -135,7 +133,7 @@
         app:layout_constraintBottom_toTopOf="@+id/travis_access_token_hint_tv"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/authentication_token_til"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
@@ -154,22 +152,34 @@
         android:id="@+id/authentication_ci_provider_iv"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:transitionName="@string/ci_provider_image_iv_transition_name"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/authentication_ci_provider_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
+        android:transitionName="@string/ci_provider_image_iv_transition_name"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:src="@drawable/logo_travis_ci_com"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/authentication_ci_provider_tv"
+        style="@style/LargeText.Accent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:transitionName="@string/ci_provider_title_tv_transition_name"
-        style="@style/LargeText.Accent"
-        tools:text="Travis CI"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/authentication_ci_provider_iv"/>
+        app:layout_constraintTop_toBottomOf="@+id/authentication_ci_provider_iv"
+        tools:text="Travis CI"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="200dp"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -91,7 +91,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for open source projects on GitHub.",
                     domain = "https://travis-ci.org",
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity, Constants.TRAVIS_CI_ORG)
+                        TravisAuthenticationActivity.launch(activity, it, Constants.TRAVIS_CI_ORG)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_com,
@@ -99,7 +99,7 @@ class TravisServerInterface internal constructor(
                     description = "Travis continuous integration for private repositories on GitHub.",
                     domain = "https://travis-ci.com",
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity, Constants.TRAVIS_CI_COM)
+                        TravisAuthenticationActivity.launch(activity, it,Constants.TRAVIS_CI_COM)
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_enterprice,
@@ -107,7 +107,7 @@ class TravisServerInterface internal constructor(
                     description = "Self hosted continuous integration from Travis CI.",
                     domain = null,
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity, null)
+                        TravisAuthenticationActivity.launch(activity,it, null)
                     }))
 
             return ciServers

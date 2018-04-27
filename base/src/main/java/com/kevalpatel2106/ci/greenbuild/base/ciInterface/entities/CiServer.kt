@@ -15,6 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities
 
 import android.support.annotation.DrawableRes
+import android.support.v4.app.ActivityOptionsCompat
 
 /**
  * Created by Kevalpatel2106 on 20-Apr-18.
@@ -48,5 +49,5 @@ data class CiServer(
         /**
          * Function to perform action when the ci server is clicked.
          */
-        val onClick: () -> Unit
+        val onClick: (options: ActivityOptionsCompat?) -> Unit
 )

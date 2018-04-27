@@ -17,4 +17,6 @@
     <string name="sync_adapter_account_type" translatable="false">com.kevalpatel2106.greenbuild</string>
     <string name="sync_adapter_account_authority" translatable="false">com.kevalpatel2106.greenbuild</string>
     <string name="application_name" translatable="false">Green Build</string>
+    <string name="ci_provider_title_tv_transition_name" translatable="false">ci_provider_title_tv</string>
+    <string name="ci_provider_image_iv_transition_name" translatable="false">ci_provider_image_iv</string>
 </resources>

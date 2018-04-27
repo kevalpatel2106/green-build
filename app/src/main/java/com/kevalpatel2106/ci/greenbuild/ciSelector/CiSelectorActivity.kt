@@ -58,7 +58,7 @@ class CiSelectorActivity : AppCompatActivity() {
         ci_selector_list.layoutManager = LinearLayoutManager(this@CiSelectorActivity)
         ci_selector_list.itemAnimator = DefaultItemAnimator()
         ci_selector_list.addItemDecoration(DividerItemDecoration(this@CiSelectorActivity))
-        ci_selector_list.adapter = CiSelectorAdapter(model.ciServers.value!!)
+        ci_selector_list.adapter = CiSelectorAdapter(this, model.ciServers.value!!)
 
         model.ciServers.observe(this@CiSelectorActivity, Observer {
             (ci_selector_list.adapter as CiSelectorAdapter).notifyDataSetChanged()

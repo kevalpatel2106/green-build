@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -187,10 +188,10 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
 
         private const val ARG_API_BASE_URL = "arg_api_base_url"
 
-        internal fun launch(context: Context, baseUrl: String?) {
+        internal fun launch(context: Context, options: ActivityOptionsCompat? = null, baseUrl: String?) {
             context.startActivity(Intent(context, TravisAuthenticationActivity::class.java).apply {
                 putExtra(ARG_API_BASE_URL, baseUrl)
-            })
+            }, options?.toBundle())
         }
     }
 }
