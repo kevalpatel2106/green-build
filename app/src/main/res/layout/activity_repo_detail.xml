@@ -187,7 +187,7 @@
         app:elevation="@dimen/spacing_small"
         app:itemIconTint="@color/bottom_text_color"
         app:itemTextColor="@color/bottom_text_color"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_behavior="com.kevalpatel2106.ci.greenbuild.base.view.HideBottomViewOnScrollBehavior"
         app:menu="@menu/menu_repo_detail_bottom"/>
 
     <android.support.design.widget.FloatingActionButton
