@@ -16,8 +16,10 @@ package com.kevalpatel2106.ci.greenbuild.base.utils
 
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.POWER_SERVICE
+import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.os.VibrationEffect
@@ -26,6 +28,8 @@ import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import android.support.customtabs.CustomTabsIntent
+import com.kevalpatel2106.ci.greenbuild.base.R
 
 
 /**
@@ -80,4 +84,13 @@ fun Context.showToast(message: String) {
  */
 fun Context.showToast(@StringRes message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.openLink(url: String) {
+    val builder = CustomTabsIntent.Builder()
+    builder.setToolbarColor(getColorCompat(R.color.colorAccent))
+    builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(this, Uri.parse(url))
 }

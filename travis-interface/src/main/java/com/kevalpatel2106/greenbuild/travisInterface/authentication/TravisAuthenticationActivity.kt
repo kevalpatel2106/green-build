@@ -17,6 +17,8 @@ package com.kevalpatel2106.greenbuild.travisInterface.authentication
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -28,6 +30,7 @@ import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.postDelayed
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
@@ -55,9 +58,10 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
 
     private lateinit var model: TravisAuthenticationViewModel
 
+    private var clipboardManager: ClipboardManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -70,6 +74,8 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
 
         model = ViewModelProviders.of(this, viewModelFactory)
                 .get(TravisAuthenticationViewModel::class.java)
+
+        clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         setContentView(R.layout.activity_travis_authentication)
 
@@ -133,8 +139,25 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         })
 
         travis_access_token_hint_tv.setOnClickListener {
-            TravisHelpActivity.launch(this@TravisAuthenticationActivity)
+            TravisHelpActivity.launch(
+                    context = this@TravisAuthenticationActivity,
+                    profileUrl = model.getProfileUrl(argumentBaseUrl
+                            ?: authentication_base_url_et.text.toString())
+            )
         }
+
+        authentication_paste_btn.setOnClickListener {
+            clipboardManager?.let {
+                authentication_token_et.setText(it.primaryClip.getItemAt(0).text)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        authentication_paste_btn.isEnabled = clipboardManager != null
+                && clipboardManager!!.hasPrimaryClip()  /* Check that there is there anything in clipboard? */
+                && clipboardManager!!.primaryClipDescription.hasMimeType(MIMETYPE_TEXT_PLAIN)   /* Check that the item in clipboard is text. */
     }
 
     override fun afterTextChanged(p0: Editable?) {

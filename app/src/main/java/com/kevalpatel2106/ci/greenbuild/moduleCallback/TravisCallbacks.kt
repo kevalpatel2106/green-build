@@ -30,6 +30,6 @@ internal class TravisCallbacks : TravisModuleCallbacks() {
     }
 
     override fun openHome(context: Context) {
-        RepoListActivity.launch(context)
+        RepoListActivity.launch(context, true)
     }
 }

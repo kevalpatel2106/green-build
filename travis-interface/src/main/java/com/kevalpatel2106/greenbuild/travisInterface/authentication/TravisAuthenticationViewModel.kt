@@ -22,6 +22,7 @@ import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.greenbuild.travisInterface.Constants
 import com.kevalpatel2106.greenbuild.travisInterface.R
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -55,11 +56,22 @@ internal class TravisAuthenticationViewModel @Inject constructor(
 
     fun prepareApiUrl(serverUrl: String): String {
         if (serverUrl.contains(application.getString(R.string.schema_https))) {
-            return serverUrl.replace(application.getString(R.string.schema_https),
-                    "${application.getString(R.string.schema_https)}travis.")
+            return serverUrl.replace(
+                    oldValue = application.getString(R.string.schema_https),
+                    newValue = "${application.getString(R.string.schema_https)}travis.")
                     .plus("/api/")
         }
         return ""
+    }
+
+    fun getProfileUrl(apiUrl: String): String? {
+        return when (apiUrl) {
+            Constants.TRAVIS_CI_COM -> "https://travis-ci.com/profile"
+            Constants.TRAVIS_CI_ORG -> "https://travis-ci.org/profile"
+            application.getString(R.string.schema_https) -> null
+            else -> apiUrl.plus("/profile")
+        }
+
     }
 
     fun validateAuthToken(accessToken: String, apiUrl: String) {
