@@ -58,4 +58,7 @@
     <string name="last_build_time">Ran %s ago</string>
     <string name="last_build_time_1">Ran on %s</string>
     <string name="build_status_badge_title">Build on %s</string>
+    <string name="chip_private">Private</string>
+    <string name="chip_owner">Owner</string>
+    <string name="chip_java">Java</string>
 </resources>

@@ -51,5 +51,6 @@ dependencies {
     androidTestImplementation project(':testutils')
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.nex3z:flow-layout:1.2.2'
     implementation 'com.airbnb.android:lottie:2.5.4'
 }

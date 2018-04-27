@@ -15,11 +15,11 @@
 ext {
     versions = [
             'kotlin'        : '1.2.40',
-            'buildTools'    : '28.0.0 rc1',
-            'compileSdk'    : 'android-P',
-            'targetSdk'     : 28,
+            'buildTools'    : '27.0.3',
+            'compileSdk'    : 27,
+            'targetSdk'     : 27,
             'minSdk'        : 21,
-            'supportLibrary': '28.0.0-alpha1',
+            'supportLibrary': '27.1.1',
             'espresso'      : '3.0.1',
             'okHttp'        : "3.10.0",
             'retrofit'      : "2.3.0",

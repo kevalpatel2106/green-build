@@ -142,7 +142,7 @@ class RepoDetailActivity : AppCompatActivity() {
                 chip_private_repo.isVisible = it.isPrivate
                 chip_owner_of_repo.isVisible = it.permissions?.isAdmin ?: false
                 chip_language_of_repo.isVisible = it.language != null
-                it.language?.let { chip_language_of_repo.chipText = it }
+                it.language?.let { chip_language_of_repo.text = it }
             }
         })
     }

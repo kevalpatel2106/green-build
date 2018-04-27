@@ -135,52 +135,39 @@
                     app:layout_constraintStart_toStartOf="@+id/repo_description_tv"
                     app:layout_constraintTop_toBottomOf="@+id/repo_description_tv"/>
 
-                <!--Repo information tags-->
-                <android.support.design.chip.ChipGroup
+                <com.nex3z.flowlayout.FlowLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:chipSpacingHorizontal="@dimen/spacing_micro"
-                    app:chipSpacingVertical="@dimen/spacing_nano"
+                    android:layout_marginTop="@dimen/spacing_micro"
                     app:layout_constraintEnd_toEndOf="@+id/repo_description_tv"
                     app:layout_constraintStart_toStartOf="@+id/build_status_badge"
                     app:layout_constraintTop_toBottomOf="@+id/build_status_badge">
 
                     <!--Private repo-->
-                    <android.support.design.chip.Chip
+                    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
                         android:id="@+id/chip_private_repo"
+                        style="@style/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/spacing_large"
-                        android:background="@color/colorPrimary"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:elevation="@dimen/spacing_nano"
-                        android:textAppearance="@style/SmallText.Primary"
-                        app:chipText="Private"/>
+                        android:text="@string/chip_private"/>
 
                     <!--Owner of the repo-->
-                    <android.support.design.chip.Chip
+                    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
                         android:id="@+id/chip_owner_of_repo"
+                        style="@style/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/spacing_large"
-                        android:background="@color/colorPrimary"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:elevation="@dimen/spacing_nano"
-                        android:textAppearance="@style/SmallText.Primary"
-                        app:chipText="Owner"/>
+                        android:text="@string/chip_owner"/>
 
                     <!--Language repo-->
-                    <android.support.design.chip.Chip
+                    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
                         android:id="@+id/chip_language_of_repo"
+                        style="@style/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/spacing_large"
-                        android:background="@color/colorPrimary"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:elevation="@dimen/spacing_nano"
-                        android:textAppearance="@style/SmallText.Primary"
-                        tools:chipText="Java"/>
+                        android:text="@string/chip_java"/>
 
-                </android.support.design.chip.ChipGroup>
-
+                </com.nex3z.flowlayout.FlowLayout>
             </android.support.constraint.ConstraintLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -198,11 +185,9 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
         app:elevation="@dimen/spacing_small"
-        app:itemIconSize="@dimen/spacing_large"
         app:itemIconTint="@color/bottom_text_color"
         app:itemTextColor="@color/bottom_text_color"
-        app:labelVisibilityMode="labeled"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:menu="@menu/menu_repo_detail_bottom"/>
 
     <android.support.design.widget.FloatingActionButton

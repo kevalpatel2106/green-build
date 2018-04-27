@@ -99,21 +99,16 @@
         app:layout_constraintStart_toEndOf="@+id/built_number_tv"
         tools:text="@tools:sample/lorem/random" />
 
-    <android.support.design.chip.Chip
-        android:id="@+id/build_trigger_type_iv"
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+        android:id="@+id/build_trigger_type_tv"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/window_background_color_light"
-        android:backgroundTint="@color/window_background_color_light"
-        android:elevation="@dimen/spacing_nano"
-        android:textAppearance="@style/SmallText.Secondary"
+        style="@style/chip"
         app:layout_constraintBottom_toBottomOf="@+id/commit_message_tv"
         app:layout_constraintEnd_toStartOf="@+id/commit_message_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/commit_message_tv"
-        tools:chipText="Cron"
-        tools:src="@tools:sample/avatars" />
+        tools:text="Cron" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/commit_message_tv"
@@ -125,7 +120,7 @@
         android:maxLines="2"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/build_trigger_type_iv"
+        app:layout_constraintStart_toEndOf="@+id/build_trigger_type_tv"
         app:layout_constraintTop_toBottomOf="@+id/branch_name_tv"
         tools:text="@tools:sample/lorem/random" />
 

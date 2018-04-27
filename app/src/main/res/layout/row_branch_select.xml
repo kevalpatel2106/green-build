@@ -13,39 +13,39 @@
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="#424242"
-    android:layout_height="wrap_content">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="#424242">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
+        app:layout_constraintGuide_begin="@dimen/spacing_micro"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/spacing_micro" />
+        app:layout_constraintGuide_end="@dimen/spacing_micro"/>
 
     <RadioButton
         android:id="@+id/row_branch_name_radio"
@@ -59,19 +59,15 @@
         app:layout_constraintStart_toStartOf="@+id/guideline37"
         app:layout_constraintTop_toTopOf="@+id/guideline41"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem/random"/>
 
-    <android.support.design.chip.Chip
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/row_branch_default_chip"
+        style="@style/chip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/spacing_large"
-        android:background="@color/default_branch_chip"
-        android:backgroundTint="@color/default_branch_chip"
-        android:elevation="@dimen/spacing_pico"
-        android:textAppearance="@style/SmallText.Accent"
         android:textColor="@color/colorAccent"
-        app:chipText="@string/branch_default"
         app:layout_constraintBottom_toBottomOf="@+id/row_branch_name_radio"
         app:layout_constraintEnd_toStartOf="@+id/guideline40"
-        app:layout_constraintTop_toTopOf="@+id/row_branch_name_radio" />
+        app:layout_constraintTop_toTopOf="@+id/row_branch_name_radio"/>
 </android.support.constraint.ConstraintLayout>

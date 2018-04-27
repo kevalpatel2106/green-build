@@ -54,7 +54,7 @@ data class Build(
             parcel.readLong(),
             BuildState.valueOf(parcel.readString()),
             with(parcel.readString()) {
-                return@with if (this == null) null else BuildState.valueOf(parcel.readString())
+                return@with if (this == null) null else BuildState.valueOf(this)
             },
             parcel.readLong(),
             parcel.readLong(),

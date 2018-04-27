@@ -24,4 +24,14 @@
         <item name="android:paddingStart">@dimen/spacing_small</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="chip">
+        <item name="android:background">@drawable/bg_chip</item>
+        <item name="android:elevation">@dimen/spacing_nano</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingEnd">@dimen/spacing_micro</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_micro</item>
+        <item name="android:paddingStart">@dimen/spacing_micro</item>
+        <item name="android:textAppearance">@style/SmallText.Primary</item>
+    </style>
 </resources>

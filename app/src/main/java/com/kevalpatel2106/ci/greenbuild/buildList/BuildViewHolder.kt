@@ -19,7 +19,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.*
 import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
@@ -67,10 +66,10 @@ internal class BuildViewHolder private constructor(itemView: View)
         itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)
 
         if (build.triggerType == TriggerType.PUSH) {
-            itemView.build_trigger_type_iv.isVisible = false
+            itemView.build_trigger_type_tv.isVisible = false
         } else {
-            itemView.build_trigger_type_iv.isVisible = true
-            itemView.build_trigger_type_iv.chipText = build.triggerType.getTriggerTypeText(itemView.context)
+            itemView.build_trigger_type_tv.isVisible = true
+            itemView.build_trigger_type_tv.text = build.triggerType.getTriggerTypeText(itemView.context)
         }
 
         itemView.commit_author_name_tv.text = build.author.username
