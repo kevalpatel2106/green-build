@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.DrawableRes
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -31,7 +32,6 @@ import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.postDelayed
-import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
@@ -64,10 +64,6 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.title = getString(R.string.title_activity_authenticate_travis_account)
-
         DaggerTravisDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this).getApplicationComponent())
                 .build()
@@ -79,6 +75,15 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         setContentView(R.layout.activity_travis_authentication)
+
+        setSupportActionBar(auth_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        //Set the title.
+        authentication_ci_provider_iv.setImageResource(intent.getIntExtra(ARG_CI_ICON,0))
+        authentication_ci_provider_tv.text = intent.getStringExtra(ARG_CI_NAME)
 
         //Set the api base url.
         val argumentBaseUrl: String? = with(intent.getStringExtra(ARG_API_BASE_URL)) {
@@ -187,11 +192,19 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
     companion object {
 
         private const val ARG_API_BASE_URL = "arg_api_base_url"
+        private const val ARG_CI_NAME = "arg_ci_name"
+        private const val ARG_CI_ICON = "arg_ci_icon"
 
-        internal fun launch(context: Context, options: ActivityOptionsCompat? = null, baseUrl: String?) {
+        internal fun launch(context: Context,
+                            baseUrl: String?,
+                            ciName: String,
+                            @DrawableRes ciIcon: Int,
+                            options: ActivityOptionsCompat? = null) {
             context.startActivity(Intent(context, TravisAuthenticationActivity::class.java).apply {
                 putExtra(ARG_API_BASE_URL, baseUrl)
-            }, options?.toBundle())
+                putExtra(ARG_CI_NAME, ciName)
+                putExtra(ARG_CI_ICON, ciIcon)
+            }, null)
         }
     }
 }

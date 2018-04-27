@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import android.app.Activity
+import android.content.Context
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
@@ -40,7 +41,7 @@ import timber.log.Timber
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 class TravisServerInterface internal constructor(
-        application: BaseApplication,
+        private val application: BaseApplication,
         private val baseUrl: String,
         accessToken: String
 ) : ServerInterface(accessToken) {
@@ -82,32 +83,50 @@ class TravisServerInterface internal constructor(
             }
         }
 
-        fun getCiServers(activity: Activity): ArrayList<CiServer> {
+        fun getCiServers(activity: Context): ArrayList<CiServer> {
             val ciServers = ArrayList<CiServer>(3)
 
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_org,
-                    name = "Travis CI (Open Source repo)",
-                    description = "Travis continuous integration for open source projects on GitHub.",
-                    domain = "https://travis-ci.org",
+                    name = activity.getString(R.string.ci_provider_name_travis_org),
+                    description = activity.getString(R.string.ci_provider_description_travis_org),
+                    domain = activity.getString(R.string.travis_org_domain),
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity, it, Constants.TRAVIS_CI_ORG)
+                        TravisAuthenticationActivity.launch(
+                                context = activity,
+                                options = it,
+                                ciName = "Travis CI",
+                                ciIcon = R.drawable.logo_travis_ci_org,
+                                baseUrl = Constants.TRAVIS_CI_ORG
+                        )
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_com,
-                    name = "Travis CI (Private repo)",
-                    description = "Travis continuous integration for private repositories on GitHub.",
-                    domain = "https://travis-ci.com",
+                    name = activity.getString(R.string.ci_provider_name_travis_com),
+                    description = activity.getString(R.string.ci_provider_description_travis_com),
+                    domain = activity.getString(R.string.travis_com_domain),
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity, it,Constants.TRAVIS_CI_COM)
+                        TravisAuthenticationActivity.launch(
+                                context = activity,
+                                options = it,
+                                ciName = "Travis CI",
+                                ciIcon = R.drawable.logo_travis_ci_com,
+                                baseUrl = Constants.TRAVIS_CI_COM
+                        )
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_enterprice,
-                    name = "Travis CI (Enterprise)",
-                    description = "Self hosted continuous integration from Travis CI.",
+                    name = activity.getString(R.string.ci_provider_name_travis_enterprice),
+                    description = activity.getString(R.string.ci_provider_description_travis_enterprice),
                     domain = null,
                     onClick = {
-                        TravisAuthenticationActivity.launch(activity,it, null)
+                        TravisAuthenticationActivity.launch(
+                                context = activity,
+                                options = it,
+                                ciName = "Travis CI (Enterprise)",
+                                ciIcon = R.drawable.logo_travis_ci_com,
+                                baseUrl = null
+                        )
                     }))
 
             return ciServers

@@ -66,8 +66,8 @@ internal class TravisAuthenticationViewModel @Inject constructor(
 
     fun getProfileUrl(apiUrl: String): String? {
         return when (apiUrl) {
-            Constants.TRAVIS_CI_COM -> "https://travis-ci.com/profile"
-            Constants.TRAVIS_CI_ORG -> "https://travis-ci.org/profile"
+            Constants.TRAVIS_CI_COM -> application.getString(R.string.profile_url_travis_org)
+            Constants.TRAVIS_CI_ORG -> application.getString(R.string.profile_url_travis_com)
             application.getString(R.string.schema_https) -> null
             else -> apiUrl.plus("/profile")
         }

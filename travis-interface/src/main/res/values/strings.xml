@@ -13,7 +13,6 @@
   -->
 
 <resources>
-    <string name="title_activity_authenticate_travis_account">Add Travis CI account</string>
     <string name="title_activity_travis_help">Access token help</string>
 
     <string name="authentication_hint_enter_access_token">Enter access token</string>
@@ -30,4 +29,10 @@
     <string name="travis_help_step_2">2. Go to profile.</string>
     <string name="travis_help_step_3">3. Copy the access token from your profile.</string>
     <string name="travis_help_step_4">4. Paste this access token inside the application.</string>
+    <string name="ci_provider_name_travis_org">Travis CI (Open Source repo)</string>
+    <string name="ci_provider_name_travis_com">Travis CI (Private repo)</string>
+    <string name="ci_provider_name_travis_enterprice">Travis CI (Enterprise)</string>
+    <string name="ci_provider_description_travis_org">Travis continuous integration for open source projects on GitHub.</string>
+    <string name="ci_provider_description_travis_com">Travis continuous integration for private repositories on GitHub.</string>
+    <string name="ci_provider_description_travis_enterprice">Self hosted continuous integration from Travis CI.</string>
 </resources>

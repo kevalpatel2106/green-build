@@ -28,7 +28,7 @@ import javax.inject.Inject
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class CiSelectorViewModel @Inject constructor(
-        private val application: BaseApplication
+        @Suppress("UNUSED_PARAMETER") application: BaseApplication
 ) : BaseViewModel() {
 
     internal val ciServers = MutableLiveData<ArrayList<CiServer>>()

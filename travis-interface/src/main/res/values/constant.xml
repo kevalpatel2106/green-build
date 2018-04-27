@@ -14,4 +14,8 @@
 
 <resources>
     <string name="schema_https" translatable="false">https://</string>
+    <string name="profile_url_travis_org" translatable="false">https://travis-ci.com/profile</string>
+    <string name="profile_url_travis_com" translatable="false">https://travis-ci.org/profile</string>
+    <string name="travis_org_domain">https://travis-ci.org</string>
+    <string name="travis_com_domain">https://travis-ci.com</string>
 </resources>
