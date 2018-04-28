@@ -19,10 +19,13 @@ Green Build is an **open source** android application built from the ground up t
 - Schedule new cron jobs.
 - Manage caches.
 
+_Green Build is actively developed🚀. More features will come! Stay tuned!!!_
+
 ## Supported CI platforms:
 - Travis CI (For open source projects) 
 - Travis CI (For private projects) 
 - Travis CI Enterprise
+
 _More CI platforms support is coming soon!!! Stay tuned. Meanwhile you can generate [issue](https://github.com/kevalpatel2106/green-build/issues/new) if you want to add support for other CI platforms._
 
 ## Screenshots:
