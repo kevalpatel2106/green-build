@@ -1,12 +1,12 @@
-[![Releases](https://img.shields.io/github/release/kevalpatel2106/green-build.svg)](http://bit.ly/2KitKV4) [![API](https://img.shields.io/badge/API-21%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Javadoc](https://img.shields.io/badge/Javadoc-Green%20Build-blue.svg)](http://kevalpatel2106.com/green-build/)
+﻿[![Releases](https://img.shields.io/github/release/kevalpatel2106/green-build.svg)](http://bit.ly/2KitKV4) [![API](https://img.shields.io/badge/API-21%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Javadoc](https://img.shields.io/badge/Javadoc-Green%20Build-blue.svg)](http://kevalpatel2106.com/green-build/)
 ![Graphic](./.github/feature-graphic.png)
 
 # Green Build - Pocket CI client
 
-#### An android app for easily managing your CI builds.
+#### An android app to easily managing your CI builds.
 
 ------------------------------------
-Green Build is an **open source** android application built from the ground up to mange your CI builds on the go. Green Build allows you to view and manage your continuous integration projects on the supported CI platforms.
+Green Build is an **open source** android application built from the ground up to manage your CI builds on the go. Green Build allows you to view and manage your continuous integration projects on the supported CI platforms.
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](http://bit.ly/2KitKV4) [<img src=".github/direct-apk-download.png" alt="Direct apk download" height="80">](https://github.com/kevalpatel2106/green-build/releases/latest)
       
