@@ -117,9 +117,9 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.repo_list_sort -> {
-                val popupMenu = PopupMenu(this,  )
-                popupMenu.inflate(R.menu.counters_overflow)
-                popupMenu.show()
+//                val popupMenu = PopupMenu(this,  )
+//                popupMenu.inflate(R.menu.counters_overflow)
+//                popupMenu.show()
             }
             android.R.id.home -> {
                 finish()
