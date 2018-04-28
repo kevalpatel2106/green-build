@@ -23,6 +23,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PopupMenu
+import android.view.Menu
 import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
@@ -34,6 +36,8 @@ import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import javax.inject.Inject
+import android.view.MenuInflater
+
 
 /**
  * An [AppCompatActivity] to display the list of list of user repo.
@@ -105,8 +109,22 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
         model.loadRepoList((pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        finish()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_repo_list, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.repo_list_sort -> {
+                val popupMenu = PopupMenu(this,  )
+                popupMenu.inflate(R.menu.counters_overflow)
+                popupMenu.show()
+            }
+            android.R.id.home -> {
+                finish()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 

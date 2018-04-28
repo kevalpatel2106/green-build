@@ -124,7 +124,7 @@ class TravisServerInterface internal constructor(
                                 context = activity,
                                 options = it,
                                 ciName = "Travis CI (Enterprise)",
-                                ciIcon = R.drawable.logo_travis_ci_com,
+                                ciIcon = R.drawable.logo_travis_ci_enterprice,
                                 baseUrl = null
                         )
                     }))

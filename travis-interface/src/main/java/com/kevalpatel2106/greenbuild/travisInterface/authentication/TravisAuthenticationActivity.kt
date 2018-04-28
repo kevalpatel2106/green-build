@@ -34,6 +34,8 @@ import android.view.View
 import androidx.core.os.postDelayed
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.utils.AnalyticsEvents
+import com.kevalpatel2106.ci.greenbuild.base.utils.logEvent
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.greenbuild.travisInterface.R
 import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
@@ -82,7 +84,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //Set the title.
-        authentication_ci_provider_iv.setImageResource(intent.getIntExtra(ARG_CI_ICON,0))
+        authentication_ci_provider_iv.setImageResource(intent.getIntExtra(ARG_CI_ICON, 0))
         authentication_ci_provider_tv.text = intent.getStringExtra(ARG_CI_NAME)
 
         //Set the api base url.
@@ -114,6 +116,9 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
         model.authenticatedAccount.observe(this@TravisAuthenticationActivity, Observer {
             it?.let {
                 showSnack(getString(R.string.account_successfully_authenticated))
+                logEvent(AnalyticsEvents.EVENT_ADD_CI, Bundle().apply {
+                    putString(AnalyticsEvents.ACCOUNT_TYPE, argumentBaseUrl)
+                })
 
                 Handler().postDelayed(3000) {
                     TravisModuleCallbacks.instance.openHome(this@TravisAuthenticationActivity)

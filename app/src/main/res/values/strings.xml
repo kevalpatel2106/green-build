@@ -61,4 +61,5 @@
     <string name="chip_private">Private</string>
     <string name="chip_owner">Owner</string>
     <string name="chip_java">Java</string>
+    <string name="menu_name_sort">Sort</string>
 </resources>
