@@ -17,8 +17,11 @@ apply plugin: "com.vanniktech.android.junit.jacoco"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
+    signingConfigs signingConfig
+
     buildTypes {
         debug {
             crunchPngs false
@@ -31,13 +34,14 @@ android {
         }
         release {
             minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), './proguard-rules.pro'
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
+            signingConfig signingConfigs.playStore
             shrinkResources true
             pseudoLocalesEnabled false
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), './proguard-rules.pro'
         }
     }
 }
@@ -53,4 +57,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation 'com.airbnb.android:lottie:2.5.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation 'com.google.firebase:firebase-core:15.0.0'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -204,7 +204,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
                 putExtra(ARG_API_BASE_URL, baseUrl)
                 putExtra(ARG_CI_NAME, ciName)
                 putExtra(ARG_CI_ICON, ciIcon)
-            }, null)
+            }, options?.toBundle())
         }
     }
 }

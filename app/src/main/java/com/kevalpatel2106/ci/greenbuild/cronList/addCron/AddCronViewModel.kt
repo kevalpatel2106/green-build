@@ -63,6 +63,10 @@ internal class AddCronViewModel @Inject constructor(
         intervalList.value = ArrayList()
 
         //Load the intervals
+        loadCronIntervals()
+    }
+
+    private fun loadCronIntervals() {
         serverInterface.supportedCronIntervals()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

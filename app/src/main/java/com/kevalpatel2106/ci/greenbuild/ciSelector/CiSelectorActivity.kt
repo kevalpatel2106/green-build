@@ -66,7 +66,7 @@ class CiSelectorActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        finish()
+        supportFinishAfterTransition()
         return super.onOptionsItemSelected(item)
     }
 

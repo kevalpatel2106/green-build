@@ -30,3 +30,8 @@
 /.idea/gradle.xml
 /.idea/checkstyle-idea.xml
 /.idea/findbugs-idea.xml
+
+## Secret files
+/app/google-services.json
+/misc/key.jks
+/misc/key.properties

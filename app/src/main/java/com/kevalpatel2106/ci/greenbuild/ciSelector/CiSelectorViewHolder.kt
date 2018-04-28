@@ -57,17 +57,19 @@ internal class CiSelectorViewHolder private constructor(itemView: View,
 
         itemView.ci_server_logo.setImageResource(ciServer.icon)
 
-        val pairs = arrayListOf<Pair<View, String>>(
-                Pair.create(itemView.ci_server_name, ViewCompat.getTransitionName(itemView.ci_server_name)),
-                Pair.create(itemView.ci_server_logo, ViewCompat.getTransitionName(itemView.ci_server_logo))
-                ).toTypedArray()
+        itemView.setOnClickListener {
+            val pairs = arrayListOf<Pair<View, String>>(
+                    Pair.create(itemView.ci_server_name, ViewCompat.getTransitionName(itemView.ci_server_name)),
+                    Pair.create(itemView.ci_server_logo, ViewCompat.getTransitionName(itemView.ci_server_logo))
+            ).toTypedArray()
 
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,
-                *pairs
-        )
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    *pairs
+            )
 
-        itemView.setOnClickListener { ciServer.onClick.invoke(options) }
+            ciServer.onClick.invoke(options)
+        }
     }
 
 }

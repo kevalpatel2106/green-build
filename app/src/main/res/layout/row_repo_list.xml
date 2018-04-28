@@ -97,31 +97,21 @@
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/last_build_status_tv"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:textAppearance="@style/SmallText.Secondary"
         android:transitionName="@string/repo_build_status_tv_transition_name"
-        app:layout_constraintBottom_toBottomOf="@+id/last_build_status_dropdown_iv"
-        app:layout_constraintEnd_toStartOf="@+id/last_build_status_dropdown_iv"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/last_build_status_dropdown_iv"
-        tools:text="@string/recent_build_status"/>
-
-    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
-        android:id="@+id/last_build_status_dropdown_iv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/last_run_time_iv"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_arrow_drop_down"/>
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toBottomOf="@+id/last_run_time_tv"
+        tools:text="@string/recent_build_status"/>
 
     <android.support.constraint.Group
         android:id="@+id/last_build_status_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="last_build_status_dropdown_iv,last_build_status_tv,last_run_time_tv,last_run_time_iv" />
+        app:constraint_referenced_ids="last_build_status_tv,last_run_time_tv,last_run_time_iv"/>
 
 </android.support.constraint.ConstraintLayout>

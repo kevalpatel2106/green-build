@@ -28,6 +28,13 @@ ext {
             'room'          : "1.0.0"
     ]
 
+    playStoreVersion = [
+            "version_code": 1,
+            "major"       : 1,
+            "minor"       : 0,
+            "patch"       : 0
+    ]
+
     packageExcludes = {
         exclude 'LICENSE.txt'
         exclude 'META-INF/DEPENDENCIES'
@@ -55,6 +62,19 @@ ext {
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
     }
 
+    signingConfig = {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('./misc/key.properties').newDataInputStream())
+
+        //This are th play store signing config.
+        playStore {
+            storeFile file(properties.getProperty('KEY_PATH'))
+            storePassword properties.getProperty('KEY_PASSWORD')
+            keyAlias properties.getProperty('KEY_ALIAS')
+            keyPassword properties.getProperty('ALIAS_PASSWORD')
+        }
+    }
+
     defaultAppConfig = {
         multiDexEnabled false
 
@@ -63,8 +83,9 @@ ext {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
 
-        versionCode 1
-        versionName "1.0"
+        //Versions config
+        versionCode playStoreVersion.version_code
+        versionName "$playStoreVersion.major.$playStoreVersion.minor.$playStoreVersion.patch"
 
         //strip other than english resources
         resConfigs "en"
@@ -81,8 +102,8 @@ ext {
         resConfigs "en"
 
         //Versions config
-        versionCode 1
-        versionName "1.0"
+        versionCode playStoreVersion.version_code
+        versionName "$playStoreVersion.major.$playStoreVersion.minor.$playStoreVersion.patch"
 
         consumerProguardFiles '../proguard-rules.pro'
 

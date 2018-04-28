@@ -19,4 +19,4 @@
               android:contentAuthority="@string/sync_adapter_account_authority"
               android:isAlwaysSyncable="true"
               android:supportsUploading="false"
-              android:userVisible="true"/>
+              android:userVisible="false"/>

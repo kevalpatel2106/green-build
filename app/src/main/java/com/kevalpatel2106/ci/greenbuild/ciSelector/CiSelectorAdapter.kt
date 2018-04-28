@@ -33,9 +33,7 @@ internal class CiSelectorAdapter(
         return CiSelectorViewHolder.create(activity, parent)
     }
 
-    override fun getItemCount(): Int {
-        return ciServers.size
-    }
+    override fun getItemCount(): Int = ciServers.size
 
     override fun onBindViewHolder(holder: CiSelectorViewHolder, position: Int) {
         holder.bind(ciServers[position])

@@ -26,5 +26,4 @@ interface CronListEventListener {
     fun deleteCron(cron: Cron)
 
     fun runCron(cron: Cron)
-
 }

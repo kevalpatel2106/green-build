@@ -165,16 +165,16 @@
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/authentication_ci_provider_iv"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:text="@tools:sample/us_zipcodes" />
+        tools:text="@tools:sample/us_zipcodes"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/imageView2"

@@ -19,6 +19,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs signingConfig
+
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -28,6 +30,9 @@ android {
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
+            signingConfig signingConfigs.playStore
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
         }
     }
 }

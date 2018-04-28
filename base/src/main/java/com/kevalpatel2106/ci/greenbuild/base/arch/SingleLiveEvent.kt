@@ -63,7 +63,7 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     /**
-     * Used for cases where T is Void, to make calls cleaner.
+     * Used for cases where T is Void or [Unit], to make calls cleaner.
      */
     @MainThread
     fun call() {

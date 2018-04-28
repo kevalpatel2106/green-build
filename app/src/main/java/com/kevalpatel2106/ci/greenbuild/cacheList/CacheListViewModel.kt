@@ -15,7 +15,6 @@
 package com.kevalpatel2106.ci.greenbuild.cacheList
 
 import android.arch.lifecycle.MutableLiveData
-import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
@@ -32,7 +31,6 @@ import javax.inject.Inject
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class CacheListViewModel @Inject constructor(
-        private val application: BaseApplication,
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
