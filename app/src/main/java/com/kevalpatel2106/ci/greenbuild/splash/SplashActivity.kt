@@ -16,12 +16,15 @@ package com.kevalpatel2106.ci.greenbuild.splash
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
+import timber.log.Timber
 import javax.inject.Inject
+
 
 /**
  * Created by Kevalpatel2106 on 16-Apr-18.
@@ -41,12 +44,40 @@ class SplashActivity : AppCompatActivity() {
                 .build()
                 .inject(this@SplashActivity)
 
+        signInAsAnonymousUser()
+    }
+
+    /**
+     * Sign In the user as anonymous user using firebase auth.
+     */
+    private fun signInAsAnonymousUser() {
+        with(FirebaseAuth.getInstance()) {
+            if (this.currentUser == null) {
+                this.signInAnonymously().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Timber.d("signInAsAnonymousUser:success ${it.result}")
+                        initFlow()
+                    } else {
+                        // If sign in fails.
+                        // Don't worry we will try again.
+                        initFlow()
+                    }
+                }
+            }else{
+                // User already logged in.
+                // Do nothing
+                initFlow()
+            }
+        }
+    }
+
+    private fun initFlow(){
         if (!accountsManager.isAnyAccountRegistered()) {
             CiSelectorActivity.launch(this@SplashActivity)
         } else {
             RepoListActivity.launch(this@SplashActivity)
         }
-
         finish()
     }
 }
