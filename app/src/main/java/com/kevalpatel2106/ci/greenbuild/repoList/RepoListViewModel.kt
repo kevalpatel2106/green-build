@@ -19,6 +19,7 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,6 +43,16 @@ internal class RepoListViewModel @Inject constructor(private val serverInterface
 
     internal var isLoadingFirstTime = MutableLiveData<Boolean>()
 
+    /**
+     * [RepoSortBy] the indicates the sort order of the builds. By default the builds are last build
+     * time in descending order.
+     */
+    internal var sortOrder: RepoSortBy = RepoSortBy.LAST_BUILD_TIME_DESC
+        set(value) {
+            field = value
+            loadRepoList(1)
+        }
+
     init {
         hasNextPage.value = true
         isLoadingList.value = false
@@ -52,7 +63,7 @@ internal class RepoListViewModel @Inject constructor(private val serverInterface
     }
 
     fun loadRepoList(page: Int) {
-        serverInterface.getRepoList(page, RepoSortBy.LAST_BUILD_TIME_DESC, false)
+        serverInterface.getRepoList(page, sortOrder, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {

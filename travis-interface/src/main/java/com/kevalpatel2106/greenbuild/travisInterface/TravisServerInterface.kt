@@ -183,9 +183,7 @@ class TravisServerInterface internal constructor(
                 .getMyRepos(
                         sortBy = sortByQuery,
                         onlyActive = true,
-                        offset = (page - 1) * PAGE_SIZE,
-                        onlyPrivate = baseUrl == Constants.TRAVIS_CI_COM
-                ).map {
+                        offset = (page - 1) * PAGE_SIZE).map {
                     val repoList = ArrayList<Repo>(it.repositories.size)
                     it.repositories.forEach { repoList.add(it.toRepo()) }
                     return@map Page(

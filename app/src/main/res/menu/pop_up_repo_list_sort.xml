@@ -13,16 +13,17 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/repo_list_filter"
-        android:icon="@drawable/ic_filter"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_name_filter"/>
+        android:id="@+id/repo_list_sort_by_name_asc"
+        android:icon="@drawable/ic_sort_a_to_z"
+        android:title="@string/sort_by_name"/>
     <item
-        android:id="@+id/repo_list_sort"
-        android:icon="@drawable/ic_sort"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_name_sort"/>
+        android:id="@+id/repo_list_sort_by_name_desc"
+        android:icon="@drawable/ic_sort_z_to_a"
+        android:title="@string/sort_by_name"/>
+    <item
+        android:id="@+id/repo_list_sort_by_time"
+        android:icon="@drawable/ic_sort_last_build_time"
+        android:title="@string/sort_by_last_build_time"/>
 </menu>

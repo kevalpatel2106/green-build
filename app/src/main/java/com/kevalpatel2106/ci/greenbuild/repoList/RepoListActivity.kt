@@ -24,25 +24,26 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PopupMenu
+import android.support.v7.widget.showIcons
 import android.view.Menu
 import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import javax.inject.Inject
-import android.view.MenuInflater
 
 
 /**
  * An [AppCompatActivity] to display the list of list of user repo.
  */
-class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerViewListener<Repo> {
+class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerViewListener<Repo>, PopupMenu.OnMenuItemClickListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
@@ -117,15 +118,51 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.repo_list_sort -> {
-//                val popupMenu = PopupMenu(this,  )
-//                popupMenu.inflate(R.menu.counters_overflow)
-//                popupMenu.show()
+                val sortPopUpMenu = PopupMenu(this, findViewById(R.id.repo_list_sort))
+                sortPopUpMenu.inflate(R.menu.pop_up_repo_list_sort)
+                sortPopUpMenu.showIcons()
+                sortPopUpMenu.setOnMenuItemClickListener(this)
+                sortPopUpMenu.show()
             }
             android.R.id.home -> {
                 finish()
             }
         }
-        return super.onOptionsItemSelected(item)
+        return false
+    }
+
+    /**
+     * This method will be invoked when a any popup menu item is clicked if the item
+     * itself did not already handle the event.
+     *
+     * @param item the menu item that was clicked
+     * @return `true` if the event was handled, `false` otherwise
+     */
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.repo_list_sort_by_name_asc -> {
+                repo_list_refresher.isRefreshing = true
+                repo_list_rv.smoothScrollToPosition(0)
+
+                // Reload the list
+                model.sortOrder = RepoSortBy.NAME_ASC
+            }
+            R.id.repo_list_sort_by_name_desc -> {
+                repo_list_refresher.isRefreshing = true
+                repo_list_rv.smoothScrollToPosition(0)
+
+                // Reload the list
+                model.sortOrder = RepoSortBy.NAME_DESC
+            }
+            R.id.repo_list_sort_by_time -> {
+                repo_list_refresher.isRefreshing = true
+                repo_list_rv.smoothScrollToPosition(0)
+
+                // Reload the list
+                model.sortOrder = RepoSortBy.LAST_BUILD_TIME_DESC
+            }
+        }
+        return false
     }
 
     companion object {

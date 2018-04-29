@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="97.762"
+    android:viewportWidth="97.761" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FFFFFF" android:pathData="M42.761,65.596H34.75V2c0,-1.105 -0.896,-2 -2,-2H16.62c-1.104,0 -2,0.895 -2,2v63.596H6.609c-0.77,0 -1.472,0.443 -1.804,1.137c-0.333,0.695 -0.237,1.519 0.246,2.117l18.076,26.955c0.38,0.473 0.953,0.746 1.558,0.746s1.178,-0.273 1.558,-0.746L44.319,68.85c0.482,-0.6 0.578,-1.422 0.246,-2.117C44.233,66.039 43.531,65.596 42.761,65.596z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M93.04,95.098L79.71,57.324c-0.282,-0.799 -1.038,-1.334 -1.887,-1.334h-3.86c-0.107,0 -0.213,0.008 -0.318,0.024c-0.104,-0.018 -0.21,-0.024 -0.318,-0.024h-3.76c-0.849,0 -1.604,0.535 -1.887,1.336L54.403,95.1c-0.215,0.611 -0.12,1.289 0.255,1.818s0.983,0.844 1.633,0.844h5.773c0.88,0 1.657,-0.574 1.913,-1.416l2.536,-8.324h14.419l2.536,8.324c0.256,0.842 1.033,1.416 1.913,1.416h5.771c0.649,0 1.258,-0.314 1.633,-0.844C93.16,96.387 93.255,95.709 93.04,95.098zM68.905,80.066c2.398,-7.77 4.021,-13.166 4.82,-16.041l4.928,16.041H68.905z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M87.297,34.053H69.479L88.407,6.848c0.233,-0.336 0.358,-0.734 0.358,-1.143V2.289c0,-1.104 -0.896,-2 -2,-2H60.694c-1.104,0 -2,0.896 -2,2v3.844c0,1.105 0.896,2 2,2h16.782L58.522,35.309c-0.233,0.336 -0.358,0.734 -0.358,1.146v3.441c0,1.105 0.896,2 2,2h27.135c1.104,0 2,-0.895 2,-2v-3.842C89.297,34.947 88.402,34.053 87.297,34.053z"/>
+</vector>

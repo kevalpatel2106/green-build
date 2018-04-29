@@ -62,4 +62,7 @@
     <string name="chip_owner">Owner</string>
     <string name="chip_java">Java</string>
     <string name="menu_name_sort">Sort</string>
+    <string name="menu_name_filter">Filter</string>
+    <string name="sort_by_name">By name</string>
+    <string name="sort_by_last_build_time">By last build time</string>
 </resources>

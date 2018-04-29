@@ -53,7 +53,6 @@ internal interface TravisEndpoints {
             @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
             @Query("offset") offset: Int,
             @Query("active") onlyActive: Boolean = false,
-            @Query("private") onlyPrivate: Boolean = false,
             @Query("include") include: String = "repository.last_started_build"
     ): Observable<ResponseMyRepo>
 
