@@ -20,25 +20,21 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-    signingConfigs signingConfig
+    if (rootProject.file('./misc/keystore.properties').exists()) {
+        signingConfigs signingConfig
+    }
 
     buildTypes {
-        debug {
-            crunchPngs false
-            testCoverageEnabled true
-            debuggable true
-            jniDebuggable true
-            renderscriptDebuggable false
-            minifyEnabled false
-            zipAlignEnabled true
-        }
+        debug debugAppBuildType
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), './proguard-rules.pro'
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
-            signingConfig signingConfigs.playStore
+            if (rootProject.file('./misc/keystore.properties').exists()) {
+                signingConfig signingConfigs.playStore
+            }
             shrinkResources true
             pseudoLocalesEnabled false
             zipAlignEnabled true
@@ -50,14 +46,13 @@ android {
 dependencies {
     implementation project(':base')
     implementation project(':travis-interface')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation project(':testutils')
     androidTestImplementation project(':testutils')
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation 'com.airbnb.android:lottie:2.5.4'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
-    implementation 'com.google.firebase:firebase-core:15.0.0'
+    releaseImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation "com.google.firebase:firebase-core:${versions.firebase}"
 }
 apply plugin: 'com.google.gms.google-services'

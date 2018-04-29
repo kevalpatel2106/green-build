@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "450969466523",
+    "firebase_url": "https://green-build-app.firebaseio.com",
+    "project_id": "green-build-app",
+    "storage_bucket": "green-build-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450969466523:android:ceccdb2819df62ce",
+        "android_client_info": {
+          "package_name": "com.kevalpatel2106.ci.greenbuild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450969466523-2eu3seknpnen31eg9occkd7ah89nlmh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKZQgJe68HItsyRJq_mkCkT16HoP36bHE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

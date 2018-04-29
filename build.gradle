@@ -69,6 +69,7 @@ subprojects {
 
                 //General options
                 compileOptions compileOption
+                dexOptions dexOption
                 packagingOptions packageExcludes
                 lintOptions lintOption
                 aaptOptions aaptOption

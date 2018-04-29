@@ -19,18 +19,19 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    signingConfigs signingConfig
+    if (rootProject.file('./misc/keystore.properties').exists()) {
+        signingConfigs signingConfig
+    }
 
     buildTypes {
-        debug {
-            testCoverageEnabled true
-            debuggable true
-        }
+        debug debugLibBuildType
         release {
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
-            signingConfig signingConfigs.playStore
+            if (rootProject.file('./misc/keystore.properties').exists()) {
+                signingConfig signingConfigs.playStore
+            }
             pseudoLocalesEnabled false
             zipAlignEnabled true
         }

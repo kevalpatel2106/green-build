@@ -32,6 +32,6 @@
 /.idea/findbugs-idea.xml
 
 ## Secret files
-/app/google-services.json
 /misc/key.jks
 /misc/key.properties
+/app/src/release/google-services.json

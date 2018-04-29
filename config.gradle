@@ -14,7 +14,7 @@
 
 ext {
     versions = [
-            'kotlin'        : '1.2.40',
+            'kotlin'        : '1.2.41',
             'buildTools'    : '27.0.3',
             'compileSdk'    : 27,
             'targetSdk'     : 27,
@@ -25,7 +25,8 @@ ext {
             'retrofit'      : "2.3.0",
             'archComponent' : "1.1.0",
             'daggerVersion' : "2.15",
-            'room'          : "1.0.0"
+            'room'          : "1.0.0",
+            'firebase'      : "15.0.0"
     ]
 
     playStoreVersion = [
@@ -63,15 +64,21 @@ ext {
     }
 
     signingConfig = {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('./misc/key.properties').newDataInputStream())
+        File credentials = rootProject.file('./misc/keystore.properties')
+        if (credentials.exists()) {
+            Properties properties = new Properties()
+            properties.load(credentials.newDataInputStream())
 
-        //This are th play store signing config.
-        playStore {
-            storeFile file(properties.getProperty('KEY_PATH'))
-            storePassword properties.getProperty('KEY_PASSWORD')
-            keyAlias properties.getProperty('KEY_ALIAS')
-            keyPassword properties.getProperty('ALIAS_PASSWORD')
+            //This are th play store signing config.
+            playStore {
+                storeFile file(properties.getProperty('KEY_PATH'))
+                storePassword properties.getProperty('KEY_PASSWORD')
+                keyAlias properties.getProperty('KEY_ALIAS')
+                keyPassword properties.getProperty('ALIAS_PASSWORD')
+            }
+        } else {
+            // File not present.
+            throw new GradleException("keystore.properties not found. Cannot generate release build.")
         }
     }
 
@@ -110,6 +117,30 @@ ext {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    debugAppBuildType = {
+        applicationIdSuffix ".debug"
+        versionNameSuffix ".debug"
+        multiDexEnabled true
+        crunchPngs false
+        testCoverageEnabled true
+        debuggable true
+        jniDebuggable true
+        renderscriptDebuggable false
+        minifyEnabled false
+        zipAlignEnabled true
+    }
+
+    debugLibBuildType = {
+        multiDexEnabled true
+        crunchPngs false
+        testCoverageEnabled true
+        debuggable true
+        jniDebuggable true
+        renderscriptDebuggable false
+        minifyEnabled false
+        zipAlignEnabled true
+    }
+
     lintOption = {
         abortOnError true
         htmlReport true
@@ -136,12 +167,13 @@ ext {
     }
 
     testOption = {
+        animationsDisabled = true
         unitTests.all {
-            minHeapSize = "1024m"
             includeAndroidResources = true
 
-            // set heap size for the test JVM(s)
             maxParallelForks 4
+
+            minHeapSize = "1024m"
             maxHeapSize = "1596m"
 
             testLogging {
@@ -168,5 +200,12 @@ ext {
 
     adbOption = {
         timeOutInMs 10_000
+    }
+
+    dexOption = {
+        javaMaxHeapSize = "1024"
+        maxProcessCount = 4
+        threadCount = 4
+        preDexLibraries = true
     }
 }
