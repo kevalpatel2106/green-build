@@ -59,7 +59,8 @@
             android:resizeableActivity="true"
             android:theme="@style/AppTheme"
             tools:ignore="UnusedAttribute" />
-        <activity android:name=".cronList.addCron.AddCronActivity"
+        <activity
+            android:name=".cronList.addCron.AddCronActivity"
             android:resizeableActivity="true"
             android:theme="@style/AppTheme"
             tools:ignore="UnusedAttribute" />
@@ -106,6 +107,8 @@
             android:exported="false"
             android:label="GitClient"
             android:syncable="true" />
+
+        <activity android:name=".about.AboutActivity"></activity>
     </application>
 
 </manifest>

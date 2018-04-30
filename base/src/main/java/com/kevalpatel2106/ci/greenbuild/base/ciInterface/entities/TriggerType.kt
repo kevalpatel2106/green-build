@@ -25,7 +25,8 @@ import com.kevalpatel2106.ci.greenbuild.base.R
 enum class TriggerType {
     PUSH,
     PULL_REQUEST,
-    CRON
+    CRON,
+    API
 }
 
 fun TriggerType.getTriggerTypeText(context: Context): String {
@@ -33,5 +34,6 @@ fun TriggerType.getTriggerTypeText(context: Context): String {
         TriggerType.PUSH -> context.getString(R.string.trigger_type_commit)
         TriggerType.PULL_REQUEST -> context.getString(R.string.trigger_type_pull_request)
         TriggerType.CRON -> context.getString(R.string.trigger_type_cron)
+        TriggerType.API -> context.getString(R.string.trigger_type_api)
     }
 }

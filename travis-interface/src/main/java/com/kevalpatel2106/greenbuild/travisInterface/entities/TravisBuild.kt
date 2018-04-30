@@ -114,6 +114,7 @@ internal data class TravisBuild(
             Constants.PUSH_EVENT -> TriggerType.PUSH
             Constants.PULL_REQUEST_EVENT -> TriggerType.PULL_REQUEST
             Constants.CRON_EVENT -> TriggerType.CRON
+            Constants.API_EVENT -> TriggerType.API
             else -> throw IllegalArgumentException("Invalid trigger event type: $eventType")
         }
     }

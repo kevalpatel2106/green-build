@@ -24,5 +24,6 @@
     <string name="trigger_type_commit">Commit</string>
     <string name="trigger_type_pull_request">PR</string>
     <string name="trigger_type_cron">Cron</string>
+    <string name="trigger_type_api">API</string>
     <string name="build_status_view_default_title">Build</string>
 </resources>

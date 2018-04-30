@@ -18,4 +18,9 @@
     <string name="repo_description_tv_transition_name" translatable="false">repo_description_tv</string>
     <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
     <string name="private_variable_value_mask" translatable="false">***************</string>
+    <string name="rate_app_url" translatable="false">https://play.google.com/store/apps/details?id=com.kevalpatel2106.ci.greenbuild</string>
+    <string name="about_author_github_subtitle" translatable="false">kevalpatel2106</string>
+    <string name="about_author_twitter_subtitle" translatable="false">kevalpatel2106</string>
+    <string name="support_email" translatable="false">greenbuildapp@gmail.com</string>
+    <string name="about_app_github_subtitle" translatable="false">kevalpatel2106/green-build</string>
 </resources>

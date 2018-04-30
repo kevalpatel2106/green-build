@@ -1,0 +1,30 @@
+<!--
+  ~  Copyright 2018 Keval Patel.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="540.8027"
+    android:viewportWidth="559.37573">
+    <path
+        android:fillAlpha="1"
+        android:fillColor="#76b041"
+        android:pathData="m279.7,279.7m34.8,90.7a97.1,97.1 129.9,1 0,-69.6 0l-65.4,170.5a279.7,279.7 0,1 1,200.4 0z"
+        android:strokeColor="#00000000"
+        android:strokeLineJoin="round"
+        android:strokeWidth="7.37396765" />
+</vector>

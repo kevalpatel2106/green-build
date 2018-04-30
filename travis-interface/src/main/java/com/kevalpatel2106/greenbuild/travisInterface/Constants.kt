@@ -49,6 +49,7 @@ internal class Constants {
         internal const val PUSH_EVENT = "push"
         internal const val PULL_REQUEST_EVENT = "pull_request"
         internal const val CRON_EVENT = "cron"
+        internal const val API_EVENT = "api"
     }
 
 
