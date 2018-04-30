@@ -125,4 +125,8 @@
     <string name="dialog_positive_report_issue">Create issue on GitHub</string>
     <string name="dialog_negative_report_issue">Report issue by email</string>
     <string name="issue_email_title" translatable="false">Issue on Green Build</string>
+    <string name="logout_confirmation_dialog_message">Do you want to logout from this account?</string>
+    <string name="logout_confirmation_dialog_positive_title">Logout</string>
+    <string name="logout_progress_dialog_message">Logging out...</string>
+    <string name="error_logging_out">Cannot remove this account.</string>
 </resources>

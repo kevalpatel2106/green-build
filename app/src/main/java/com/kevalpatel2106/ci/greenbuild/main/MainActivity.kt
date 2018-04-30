@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.main
 
+import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -28,7 +29,9 @@ import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.drawer_layout.*
@@ -40,6 +43,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
     private lateinit var model: MainActivityViewModel
+
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,12 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         model.currentTitle.observe(this@MainActivity, Observer {
             it?.let { supportActionBar?.title = it }
         })
-        model.openAbout.observe(this@MainActivity, Observer {
-            AboutActivity.launch(this@MainActivity)
-        })
-
         model.currentAccount.observe(this@MainActivity, Observer {
-            it?.let {
+            if (it != null) {
                 //Set the header
                 val headerView = nav_menu_holder.getHeaderView(0)
                 headerView.drawer_header_profile_iv.text = it.username
@@ -83,6 +84,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 headerView.drawer_header_account_tv.text = it.serverUrl.replace(
                         getString(R.string.schema_https), ""
                 ).replace("api.", "")
+            } else {
+                //Recreate the dagger object graph.
+                (application as? BaseApplication)?.createAppComponent()
+
+                //Launch splash
+                SplashActivity.launch(this@MainActivity.application)
+            }
+        })
+        model.isLoggingOut.observe(this@MainActivity, Observer {
+            it?.let {
+                if (it) {
+                    progressDialog = ProgressDialog(this@MainActivity).apply {
+                        setMessage(getString(R.string.logout_progress_dialog_message))
+                        setCancelable(false)
+                        isIndeterminate = true
+                        show()
+                    }
+                } else {
+                    progressDialog?.cancel()
+                }
             }
         })
     }
@@ -130,7 +151,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * @return true to display the item as the selected item
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        model.onNavigationItemSelected(item.itemId)
+        when (item.itemId) {
+            R.id.menu_drawer_repo_listing -> model.switchToRepositoryList()
+            R.id.nav_about -> AboutActivity.launch(this@MainActivity)
+            R.id.nav_logout -> alert(
+                    messageResource = R.string.logout_confirmation_dialog_message,
+                    func = {
+                        positiveButton(R.string.logout_confirmation_dialog_positive_title, {
+                            model.logoutCurrentAccount()
+                        })
+                        negativeButton(android.R.string.cancel)
+                        cancelable = true
+                    }
+            )
+            else -> throw IllegalArgumentException("Invalid id for the navigation drawer.")
+        }
         drawer_layout.closeDrawer(Gravity.START)
         return false
     }

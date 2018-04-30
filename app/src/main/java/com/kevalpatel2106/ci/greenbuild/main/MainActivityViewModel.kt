@@ -23,6 +23,7 @@ import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 /**
@@ -39,7 +40,8 @@ internal class MainActivityViewModel @Inject constructor(
     internal val currentFragment = MutableLiveData<Fragment>()
     internal val currentTitle = MutableLiveData<String>()
 
-    internal val openAbout = SingleLiveEvent<Unit>()
+    internal val errorLoggingOut = SingleLiveEvent<String>()
+    internal val isLoggingOut = MutableLiveData<Boolean>()
 
     private val repoListFragment = RepoListFragment.getInstance()
 
@@ -48,6 +50,7 @@ internal class MainActivityViewModel @Inject constructor(
         currentAccount.value = accountManager.getCurrentAccount()
         currentFragment.value = repoListFragment
         currentTitle.value = application.getString(R.string.title_activity_repo)
+        isLoggingOut.value = false
     }
 
     fun modelSwitchCurrentAccount(account: Account) {
@@ -55,17 +58,28 @@ internal class MainActivityViewModel @Inject constructor(
         currentAccount.value = account
     }
 
-    fun onNavigationItemSelected(itemId: Int) {
-        when (itemId) {
-            R.id.menu_drawer_repo_listing -> {
-                currentFragment.value = repoListFragment
-                currentTitle.value = application.getString(R.string.title_activity_repo)
-            }
-            R.id.nav_about -> {
-                openAbout.value = Unit
-            }
-            else -> throw IllegalArgumentException("Invalid id for the navigation drawer.")
-        }
+    fun switchToRepositoryList() {
+        currentFragment.value = repoListFragment
+        currentTitle.value = application.getString(R.string.title_activity_repo)
     }
 
+    fun logoutCurrentAccount() {
+        currentAccount.value?.let {
+            accountManager.deleteAccount(it.accountId)
+                    .doOnSubscribe {
+                        isLoggingOut.value = true
+                    }
+                    .doOnError {
+                        isLoggingOut.value = false
+                    }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        isLoggingOut.value = false
+                        currentAccount.value = accountManager.getCurrentAccount()
+                    }, {
+                        errorLoggingOut.value = application.getString(R.string.error_logging_out)
+                    })
+        }
+    }
 }

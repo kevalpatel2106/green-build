@@ -14,6 +14,8 @@
 
 package com.kevalpatel2106.ci.greenbuild.splash
 
+import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +24,6 @@ import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.main.MainActivity
-import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -65,7 +66,7 @@ class SplashActivity : AppCompatActivity() {
                         initFlow()
                     }
                 }
-            }else{
+            } else {
                 // User already logged in.
                 // Do nothing
                 initFlow()
@@ -73,12 +74,23 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFlow(){
+    private fun initFlow() {
         if (!accountsManager.isAnyAccountRegistered()) {
             CiSelectorActivity.launch(this@SplashActivity)
         } else {
             MainActivity.launch(this@SplashActivity)
         }
         finish()
+    }
+
+    companion object {
+
+        fun launch(application: Application) {
+            application.startActivity(Intent(application, SplashActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
+        }
     }
 }

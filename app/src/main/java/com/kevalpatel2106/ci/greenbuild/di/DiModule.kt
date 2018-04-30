@@ -36,32 +36,40 @@ internal class DiModule {
 
         val account = accountsManager.getCurrentAccount()
 
-        //Check if it is travis server?
-        TravisServerInterface.get(
-                application = application,
-                baseUrl = account.serverUrl,
-                accessToken = account.accessToken
-        )?.let {
-            return it
-        }
+        if (account != null) {
+            //Check if it is travis server?
+            TravisServerInterface.get(
+                    application = application,
+                    baseUrl = account.serverUrl,
+                    accessToken = account.accessToken
+            )?.let {
+                return it
+            }
 
-        //Unknown CI server.
-        throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
+            //Unknown CI server.
+            throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
+        } else {
+            throw IllegalStateException("No CI accounts found.")
+        }
     }
 
     @Provides
     fun provideCompatibilityCheck(accountsManager: AccountsManager): CompatibilityCheck {
 
         val account = accountsManager.getCurrentAccount()
+        if (account != null) {
 
-        //Check if it is travis server?
-        TravisCompatibilityCheck.get(
-                baseUrl = account.serverUrl
-        )?.let {
-            return it
+            //Check if it is travis server?
+            TravisCompatibilityCheck.get(
+                    baseUrl = account.serverUrl
+            )?.let {
+                return it
+            }
+
+            //Unknown CI server.
+            throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
+        } else {
+            throw IllegalStateException("No CI accounts found.")
         }
-
-        //Unknown CI server.
-        throw IllegalStateException("Unsupported CI server : ${account.serverUrl}")
     }
 }
