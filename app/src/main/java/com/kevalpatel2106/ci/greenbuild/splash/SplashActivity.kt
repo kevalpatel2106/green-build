@@ -21,7 +21,8 @@ import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
+import com.kevalpatel2106.ci.greenbuild.main.MainActivity
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -76,7 +77,7 @@ class SplashActivity : AppCompatActivity() {
         if (!accountsManager.isAnyAccountRegistered()) {
             CiSelectorActivity.launch(this@SplashActivity)
         } else {
-            RepoListActivity.launch(this@SplashActivity)
+            MainActivity.launch(this@SplashActivity)
         }
         finish()
     }

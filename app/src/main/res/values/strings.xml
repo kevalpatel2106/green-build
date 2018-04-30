@@ -65,4 +65,10 @@
     <string name="menu_name_filter">Filter</string>
     <string name="sort_by_name">By name</string>
     <string name="sort_by_last_build_time">By last build time</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_menu_title_repository">Repository</string>
+    <string name="nav_menu_title_builds">Builds</string>
+    <string name="nav_menu_title_about">About</string>
+    <string name="nav_menu_title_logout">Logout</string>
 </resources>

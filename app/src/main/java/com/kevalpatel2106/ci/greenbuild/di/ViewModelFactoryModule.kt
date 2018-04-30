@@ -26,6 +26,7 @@ import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
+import com.kevalpatel2106.ci.greenbuild.main.MainActivityViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
 import dagger.Binds
@@ -93,4 +94,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(BranchPickerViewModel::class)
     internal abstract fun bindBranchPickerViewModel(viewModel: BranchPickerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainActivityViewModel::class)
+    internal abstract fun bindMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
 }

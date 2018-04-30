@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +13,8 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <dimen name="md_activity_horizontal_margin">36dp</dimen>
-    <dimen name="md_activity_vertical_margin">24dp</dimen>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/colorAccent" android:state_selected="true" />
+    <item android:color="@color/colorAccent" android:state_checked="true" />
+    <item android:color="@android:color/white" />
+</selector>

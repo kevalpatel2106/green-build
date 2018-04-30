@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Keval Patel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,18 +12,18 @@
   ~ limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.kevalpatel2106.ci.greenbuild">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kevalpatel2106.ci.greenbuild">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"
-        android:maxSdkVersion="22"/>
+        android:maxSdkVersion="22" />
     <uses-permission
         android:name="android.permission.MANAGE_ACCOUNTS"
-        android:maxSdkVersion="22"/>
+        android:maxSdkVersion="22" />
 
     <application
         android:name=".GBApplication"
@@ -45,26 +44,30 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="UnusedAttribute">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".repoList.RepoListActivity"
-            android:resizeableActivity="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="UnusedAttribute"/>
         <activity
             android:name=".repoDetail.RepoDetailActivity"
             android:resizeableActivity="true"
             android:theme="@style/AppTheme.NoActionbar"
-            tools:ignore="UnusedAttribute"/>
+            tools:ignore="UnusedAttribute" />
         <activity
             android:name=".ciSelector.CiSelectorActivity"
             android:resizeableActivity="true"
             android:theme="@style/AppTheme"
-            tools:ignore="UnusedAttribute"/>
+            tools:ignore="UnusedAttribute" />
+        <activity android:name=".cronList.addCron.AddCronActivity"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="UnusedAttribute" />
+        <activity
+            android:name=".main.MainActivity"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionbar"
+            tools:ignore="UnusedAttribute" />
 
         <!-- This service implements our SyncAdapter. -->
         <service
@@ -77,24 +80,24 @@
             as needed.
             -->
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"/>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
             <!-- This points to a required XML file which describes our SyncAdapter. -->
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter"/>
+                android:resource="@xml/syncadapter" />
         </service>
         <service
             android:name=".syncAdapter.AccountAuthenticatorService"
             android:exported="false"
             android:process=":auth">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
 
         <provider
@@ -102,10 +105,7 @@
             android:authorities="@string/sync_adapter_account_authority"
             android:exported="false"
             android:label="GitClient"
-            android:syncable="true"/>
-
-        <activity android:name=".cronList.addCron.AddCronActivity">
-        </activity>
+            android:syncable="true" />
     </application>
 
 </manifest>
