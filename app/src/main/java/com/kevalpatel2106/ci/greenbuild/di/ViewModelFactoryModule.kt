@@ -16,16 +16,17 @@ package com.kevalpatel2106.ci.greenbuild.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.kevalpatel2106.ci.greenbuild.about.AboutViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerViewModel
 import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
-import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListViewModel
-import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
+import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
 import com.kevalpatel2106.ci.greenbuild.main.MainActivityViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
@@ -99,4 +100,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
     internal abstract fun bindMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AboutViewModel::class)
+    internal abstract fun bindAboutViewModel(viewModel: AboutViewModel): ViewModel
 }

@@ -15,6 +15,8 @@
 package com.kevalpatel2106.ci.greenbuild.about
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -26,16 +28,32 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
 import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.kevalpatel2106.ci.greenbuild.BuildConfig
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
+import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
+import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import javax.inject.Inject
 
 class AboutActivity : MaterialAboutActivity() {
 
+    @Inject
+    internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
-    private lateinit var model :AboutViewModel
+    private lateinit var model: AboutViewModel
+
     private var versionItem: MaterialAboutActionItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        DaggerDiComponent.builder()
+                .applicationComponent(BaseApplication.get(this@AboutActivity).getApplicationComponent())
+                .build()
+                .inject(this@AboutActivity)
+
+        model = ViewModelProviders
+                .of(this@AboutActivity, viewModelProvider)
+                .get(AboutViewModel::class.java)
 
         model.isCheckingUpdate.observe(this@AboutActivity, Observer {
             if (it!!) {
@@ -45,6 +63,12 @@ class AboutActivity : MaterialAboutActivity() {
             }
             refreshMaterialAboutList()
         })
+        model.isUpdateAvailable.observe(this@AboutActivity, Observer {
+            it?.let { refreshMaterialAboutList() }
+        })
+        model.latestVersion.observe(this@AboutActivity, Observer {
+            it?.let { refreshMaterialAboutList() }
+        })
     }
 
     override fun getActivityTitle(): CharSequence = getString(R.string.application_name)
@@ -53,10 +77,11 @@ class AboutActivity : MaterialAboutActivity() {
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
         val aboutList = MaterialAboutList()
         aboutList.addCard(getAboutCard())
-        aboutList.addCard(getUpdateCard("10.2"))
-
+        model.latestVersion.value?.let {
+            if (model.isUpdateAvailable.value!!) aboutList.addCard(getUpdateCard(it.latestVersion))
+        }
         aboutList.addCard(getSupportUsCard())
-        aboutList.addCard(getJoinUsCard())
+        aboutList.addCard(getContactUsCard())
         aboutList.addCard(getAuthorCard())
         return aboutList
     }
@@ -68,66 +93,14 @@ class AboutActivity : MaterialAboutActivity() {
                         .icon(R.drawable.ic_update)
                         .setIconGravity(Gravity.START)
                         .text(R.string.check_update_new_update_available)
-                        .subText("New version is $newVersion. Click here to newVersion.")
+                        .subText(getString(R.string.about_update_card_text, newVersion))
                         .setOnClickAction({
                             //Open the play store.
-                            openLink(getString(R.string.rate_app_url))
+                            AboutHelper.openPlayStorePage(application)
                         })
                         .build())
                 .build()
     }
-
-    private fun getSupportUsCard(): MaterialAboutCard {
-        //Rate
-        val rateUsItem = MaterialAboutActionItem.Builder()
-                .icon(R.drawable.ic_star_orange)
-                .setIconGravity(Gravity.START)
-                .text(R.string.about_rate_this_app)
-                .setOnClickAction({
-                    model.handleRateUs()
-                })
-                .build()
-
-        //Issue
-        val reportIssueItem = MaterialAboutActionItem.Builder()
-                .icon(R.drawable.ic_bug_report_brown)
-                .setIconGravity(Gravity.START)
-                .text(R.string.about_report_issue_title)
-                .subText(R.string.about_report_issue_subtitle)
-                .setOnClickAction({
-                    // TODO ("Yet to implement")
-                })
-                .build()
-
-        //Donate
-        val donateItem = MaterialAboutActionItem.Builder()
-                .icon(R.drawable.ic_heart_fill_red)
-                .setIconGravity(Gravity.START)
-                .text(R.string.about_support_development_title)
-                .setOnClickAction({
-                    // TODO ("Yet to implement")
-                })
-                .build()
-
-        //Share
-        val shareItem = MaterialAboutActionItem.Builder()
-                .icon(R.drawable.ic_share_blue)
-                .setIconGravity(Gravity.START)
-                .text(R.string.about_share_with_friends_title)
-                .setOnClickAction({
-                    // TODO ("Yet to implement")
-                })
-                .build()
-
-        return MaterialAboutCard.Builder()
-                .title(R.string.about_support_us_card_title)
-                .addItem(rateUsItem)
-                .addItem(reportIssueItem)
-                .addItem(donateItem)
-                .addItem(shareItem)
-                .build()
-    }
-
 
     private fun getAboutCard(): MaterialAboutCard {
         //CheckVersionResponse
@@ -137,7 +110,7 @@ class AboutActivity : MaterialAboutActivity() {
                 .text(R.string.about_check_version_title)
                 .subText(BuildConfig.VERSION_NAME)
                 .setOnClickAction({
-                    // TODO ("Yet to implement")
+                    model.checkForUpdates()
                 })
                 .build()
 
@@ -147,7 +120,7 @@ class AboutActivity : MaterialAboutActivity() {
                 .setIconGravity(Gravity.START)
                 .text(R.string.about_open_source_libs_title)
                 .setOnClickAction({
-                    model.handleOpenSourceLibs(this@AboutActivity)
+                    AboutHelper.displayOpenSourceLibs(this@AboutActivity)
                 })
                 .build()
 
@@ -158,6 +131,84 @@ class AboutActivity : MaterialAboutActivity() {
                 .build()
     }
 
+    private fun getSupportUsCard(): MaterialAboutCard {
+        //Rate
+        val rateUsItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_star_orange)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_rate_this_app)
+                .setOnClickAction({
+                    AboutHelper.openPlayStorePage(application)
+                })
+                .build()
+
+        //Issue
+        val reportIssueItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_bug_report_brown)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_report_issue_title)
+                .subText(R.string.about_report_issue_subtitle)
+                .setOnClickAction({
+                    alert(
+                            titleResource = R.string.dialog_title_report_issue,
+                            messageResource = R.string.dialog_message_report_issue,
+                            func = {
+                                positiveButton(R.string.dialog_positive_report_issue, {
+                                    openLink(getString(R.string.github_new_issue_link))
+                                })
+                                negativeButton(R.string.dialog_negative_report_issue, {
+                                    AboutHelper.sendEmail(
+                                            activity = this@AboutActivity,
+                                            title = getString(R.string.issue_email_title),
+                                            to = getString(R.string.support_email)
+                                    )
+                                })
+                                neutralButton(android.R.string.cancel)
+                                cancelable = true
+                            }
+                    )
+                })
+                .build()
+
+        //Donate
+        val donateItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_heart_fill_red)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_support_development_title)
+                .setOnClickAction({
+                    openLink(getString(R.string.paypal_link), false)
+                })
+                .build()
+
+        //Share
+        val shareItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_share_blue)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_share_with_friends_title)
+                .setOnClickAction({
+                    AboutHelper.shareWithFriends(this@AboutActivity)
+                })
+                .build()
+
+        //Fork
+        val forkItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_fork)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_fork_title)
+                .setOnClickAction({
+                    openLink(getString(R.string.github_fork_link))
+                })
+                .build()
+
+        return MaterialAboutCard.Builder()
+                .title(R.string.about_support_us_card_title)
+                .addItem(rateUsItem)
+                .addItem(reportIssueItem)
+                .addItem(donateItem)
+                .addItem(forkItem)
+                .addItem(shareItem)
+                .build()
+    }
 
     private fun getAuthorCard(): MaterialAboutCard {
         //Github
@@ -165,9 +216,9 @@ class AboutActivity : MaterialAboutActivity() {
                 .icon(R.drawable.ic_github_white)
                 .setIconGravity(Gravity.START)
                 .text(R.string.about_author_github_title)
-                .subText(R.string.about_author_github_subtitle)
+                .subText(R.string.github_username)
                 .setOnClickAction({
-                    // TODO ("Yet to implement")
+                    openLink(getString(R.string.author_github_link), false)
                 })
                 .build()
 
@@ -177,9 +228,9 @@ class AboutActivity : MaterialAboutActivity() {
                 .icon(R.drawable.ic_twitter)
                 .setIconGravity(Gravity.START)
                 .text(R.string.about_author_twitter_title)
-                .subText(R.string.about_author_twitter_subtitle)
+                .subText(R.string.author_twitter_username)
                 .setOnClickAction({
-                    // TODO ("Yet to implement")
+                    openLink(getString(R.string.author_twitter_link), false)
                 })
                 .build()
 
@@ -191,7 +242,7 @@ class AboutActivity : MaterialAboutActivity() {
                 .build()
     }
 
-    private fun getJoinUsCard(): MaterialAboutCard {
+    private fun getContactUsCard(): MaterialAboutCard {
 
         //Email
         val emailItem = MaterialAboutActionItem.Builder()
@@ -200,26 +251,32 @@ class AboutActivity : MaterialAboutActivity() {
                 .text(R.string.about_app_send_email_title)
                 .subText(R.string.support_email)
                 .setOnClickAction({
-                    // TODO ("Yet to implement")
+                    AboutHelper.sendEmail(
+                            activity = this@AboutActivity,
+                            to = getString(R.string.support_email),
+                            title = getString(R.string.contact_us_on_support_email_title)
+                    )
                 })
                 .build()
 
 
-        //Twitter
-        val twitterItem = MaterialAboutActionItem.Builder()
+        //GitHub
+        val githubItem = MaterialAboutActionItem.Builder()
                 .icon(R.drawable.ic_github_white)
                 .setIconGravity(Gravity.START)
                 .text(R.string.about_app_github_title)
-                .subText(R.string.about_app_github_subtitle)
+                .subText(getString(R.string.github_username)
+                        .plus("/")
+                        .plus(getString(R.string.github_project_name)))
                 .setOnClickAction({
-                    // TODO ("Yet to implement")
+                    openLink(getString(R.string.github_project_link))
                 })
                 .build()
 
         return MaterialAboutCard.Builder()
                 .title(R.string.about_app_connect_with_us_title)
                 .addItem(emailItem)
-                .addItem(twitterItem)
+                .addItem(githubItem)
                 .build()
     }
 

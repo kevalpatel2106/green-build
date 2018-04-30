@@ -15,16 +15,14 @@
 package com.kevalpatel2106.ci.greenbuild.about
 
 import android.arch.lifecycle.MutableLiveData
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import com.github.javiersantos.appupdater.AppUpdaterUtils
+import com.github.javiersantos.appupdater.enums.AppUpdaterError
+import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.github.javiersantos.appupdater.objects.Update
+import com.kevalpatel2106.ci.greenbuild.BuildConfig
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
-import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.LibsBuilder
 import javax.inject.Inject
 
 
@@ -36,34 +34,40 @@ import javax.inject.Inject
 internal class AboutViewModel @Inject constructor(private val application: BaseApplication) : BaseViewModel() {
 
     internal val isCheckingUpdate = MutableLiveData<Boolean>()
+    internal val latestVersion = MutableLiveData<Update>()
+    internal val isUpdateAvailable = MutableLiveData<Boolean>()
 
     init {
         isCheckingUpdate.value = false
+        isUpdateAvailable.value = false
+        latestVersion.value = Update(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+
+        //Check for updates automatically.
+        checkForUpdates()
     }
 
-    fun handleRateUs() {
-        try {
-            val uri = Uri.parse("market://details?id=" + application.packageName)
+    fun checkForUpdates() {
+        isCheckingUpdate.value = true
+        AppUpdaterUtils(application)
+                .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo(
+                        application.getString(R.string.github_username),
+                        application.getString(R.string.github_project_name)
+                )
+                .withListener(object : AppUpdaterUtils.UpdateListener {
+                    override fun onSuccess(update: Update, updateAvailable: Boolean) {
+                        isCheckingUpdate.value = false
+                        isUpdateAvailable.value = !updateAvailable
+                        latestVersion.value = update
+                    }
 
-            val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
-                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
-                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-            application.startActivity(goToMarket)
-        } catch (e: ActivityNotFoundException) {
-            application.openLink(application.getString(R.string.rate_app_url))
-        }
+                    override fun onFailed(p0: AppUpdaterError?) {
+                        isCheckingUpdate.value = false
+                        isUpdateAvailable.value = false
+                        latestVersion.value = Update(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+                    }
+                })
+                .start()
     }
-
-    fun handleOpenSourceLibs(context: Context) {
-        LibsBuilder().withActivityStyle(Libs.ActivityStyle.DARK)
-                .withActivityTitle("We  ♡  Open source")
-                .withAutoDetect(true)
-                .withAboutIconShown(true)
-                .withAboutVersionShownName(true)
-                .withAboutVersionShownCode(false)
-                .withLicenseShown(true)
-                .start(context)
-    }
-
 }

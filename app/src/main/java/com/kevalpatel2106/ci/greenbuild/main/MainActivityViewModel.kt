@@ -21,6 +21,7 @@ import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import javax.inject.Inject
 
@@ -38,13 +39,15 @@ internal class MainActivityViewModel @Inject constructor(
     internal val currentFragment = MutableLiveData<Fragment>()
     internal val currentTitle = MutableLiveData<String>()
 
+    internal val openAbout = SingleLiveEvent<Unit>()
+
     private val repoListFragment = RepoListFragment.getInstance()
 
 
     init {
         currentAccount.value = accountManager.getCurrentAccount()
         currentFragment.value = repoListFragment
-        currentTitle.value = "Repository"
+        currentTitle.value = application.getString(R.string.title_activity_repo)
     }
 
     fun modelSwitchCurrentAccount(account: Account) {
@@ -56,7 +59,12 @@ internal class MainActivityViewModel @Inject constructor(
         when (itemId) {
             R.id.menu_drawer_repo_listing -> {
                 currentFragment.value = repoListFragment
+                currentTitle.value = application.getString(R.string.title_activity_repo)
             }
+            R.id.nav_about -> {
+                openAbout.value = Unit
+            }
+            else -> throw IllegalArgumentException("Invalid id for the navigation drawer.")
         }
     }
 

@@ -20,21 +20,21 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
 import com.kevalpatel2106.ci.greenbuild.R
+import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_repo_detail.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
@@ -70,6 +70,9 @@ class MainActivity : AppCompatActivity() {
         model.currentTitle.observe(this@MainActivity, Observer {
             it?.let { supportActionBar?.title = it }
         })
+        model.openAbout.observe(this@MainActivity, Observer {
+            AboutActivity.launch(this@MainActivity)
+        })
 
         model.currentAccount.observe(this@MainActivity, Observer {
             it?.let {
@@ -92,11 +95,7 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.syncState()
         drawer_layout.addDrawerListener(drawerToggle)
 
-        nav_menu_extras.setNavigationItemSelectedListener {
-            model.onNavigationItemSelected(it.itemId)
-            drawer_layout.closeDrawer(Gravity.START)
-            return@setNavigationItemSelectedListener false
-        }
+        nav_menu_extras.setNavigationItemSelectedListener(this@MainActivity)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -121,6 +120,19 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    /**
+     * Called when an item in the navigation menu is selected.
+     *
+     * @param item The selected item
+     *
+     * @return true to display the item as the selected item
+     */
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        model.onNavigationItemSelected(item.itemId)
+        drawer_layout.closeDrawer(Gravity.START)
+        return false
     }
 
     companion object {

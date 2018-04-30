@@ -33,5 +33,5 @@
 
 ## Secret files
 /misc/key.jks
-/misc/key.properties
 /app/src/release/google-services.json
+/misc/keystore.properties
