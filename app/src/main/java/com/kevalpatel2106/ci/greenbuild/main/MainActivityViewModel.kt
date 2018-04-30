@@ -22,6 +22,8 @@ import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.arch.recall
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
@@ -33,34 +35,61 @@ import javax.inject.Inject
  */
 internal class MainActivityViewModel @Inject constructor(
         private val application: BaseApplication,
-        private val accountManager: AccountsManager
+        private val accountManager: AccountsManager,
+        private val compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
 
+    internal val reinjectDependency = SingleLiveEvent<Unit>()
+
+    internal val allAccounts = MutableLiveData<ArrayList<Account>>()
     internal val currentAccount = MutableLiveData<Account>()
     internal val currentFragment = MutableLiveData<Fragment>()
     internal val currentTitle = MutableLiveData<String>()
+    internal val isAccountsOpen = MutableLiveData<Boolean>()
 
     internal val errorLoggingOut = SingleLiveEvent<String>()
     internal val isLoggingOut = MutableLiveData<Boolean>()
 
     private val repoListFragment = RepoListFragment.getInstance()
 
-
     init {
-        currentAccount.value = accountManager.getCurrentAccount()
-        currentFragment.value = repoListFragment
-        currentTitle.value = application.getString(R.string.title_activity_repo)
+        allAccounts.value = ArrayList()
+        isAccountsOpen.value = false
+        refresh()
         isLoggingOut.value = false
+    }
+
+    fun refresh() {
+        currentAccount.value = accountManager.getCurrentAccount()
+
+        //Load the first fragment.
+        currentFragment.value = when {
+            compatibilityCheck.isRepoListingSupported() -> {
+                currentTitle.value = application.getString(R.string.title_activity_repo)
+                repoListFragment
+            }
+            compatibilityCheck.isRecentBuildsListSupported() -> {
+                currentTitle.value = application.getString(R.string.title_activity_builds_list)
+                repoListFragment
+            }
+            else -> throw IllegalStateException("This CI doesn't support any of the drawer feature.")
+        }
     }
 
     fun modelSwitchCurrentAccount(account: Account) {
         accountManager.changeCurrentAccount(account.accountId)
         currentAccount.value = account
+        reinjectDependency.recall()
     }
 
     fun switchToRepositoryList() {
         currentFragment.value = repoListFragment
         currentTitle.value = application.getString(R.string.title_activity_repo)
+    }
+
+    fun switchToBuildsList() {
+        currentFragment.value = repoListFragment
+        currentTitle.value = application.getString(R.string.title_activity_builds_list)
     }
 
     fun logoutCurrentAccount() {
@@ -76,7 +105,9 @@ internal class MainActivityViewModel @Inject constructor(
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         isLoggingOut.value = false
+
                         currentAccount.value = accountManager.getCurrentAccount()
+                        reinjectDependency.recall()
                     }, {
                         errorLoggingOut.value = application.getString(R.string.error_logging_out)
                     })

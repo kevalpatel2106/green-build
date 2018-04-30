@@ -38,6 +38,11 @@ interface CompatibilityCheck {
     fun isRecentBuildsListSupported(): Boolean
 
     /**
+     * Returns true if the CI server provides way to list all the repository else false.
+     */
+    fun isRepoListingSupported(): Boolean
+
+    /**
      * Returns true if the CI server provides way to list all the builds for the repository. Application
      * can retrieve the  builds list by calling [ServerInterface.getBuildList].
      *

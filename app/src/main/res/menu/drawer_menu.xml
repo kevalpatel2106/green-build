@@ -18,25 +18,27 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_drawer_repo_listing"
+            android:checkable="true"
             android:icon="@drawable/ic_repository_white"
-            android:title="@string/nav_menu_title_repository" />
+            android:title="@string/nav_menu_title_repository"/>
         <item
             android:id="@+id/menu_drawer_builds_listing"
+            android:checkable="true"
             android:icon="@drawable/ic_builds"
-            android:title="@string/nav_menu_title_builds" />
+            android:title="@string/nav_menu_title_builds"/>
     </group>
     <group
         android:id="@+id/nav_bar_app_extras"
         android:checkableBehavior="none">
         <item
             android:id="@+id/nav_about"
-            android:checkable="true"
+            android:checkable="false"
             android:icon="@drawable/ic_info"
-            android:title="@string/nav_menu_title_about" />
+            android:title="@string/nav_menu_title_about"/>
         <item
             android:id="@+id/nav_logout"
-            android:checkable="true"
+            android:checkable="false"
             android:icon="@drawable/ic_logout"
-            android:title="@string/nav_menu_title_logout" />
+            android:title="@string/nav_menu_title_logout"/>
     </group>
 </menu>

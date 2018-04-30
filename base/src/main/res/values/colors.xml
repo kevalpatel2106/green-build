@@ -15,7 +15,8 @@
 <resources>
     <color name="colorPrimary">#2D3035</color>
     <color name="colorPrimaryDark">#26282C</color>
-    <color name="colorAccent">@android:color/holo_orange_dark</color>
+    <color name="colorAccent">#FF8800</color>
+    <color name="colorAccent40">#995200</color>
     <color name="divider">#BDBDBD</color>
     <color name="ic_launcher_background">#FF8800</color>
 

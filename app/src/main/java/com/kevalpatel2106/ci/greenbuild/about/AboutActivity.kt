@@ -44,7 +44,6 @@ class AboutActivity : MaterialAboutActivity() {
     private var versionItem: MaterialAboutActionItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
         DaggerDiComponent.builder()
                 .applicationComponent(BaseApplication.get(this@AboutActivity).getApplicationComponent())
@@ -54,6 +53,7 @@ class AboutActivity : MaterialAboutActivity() {
         model = ViewModelProviders
                 .of(this@AboutActivity, viewModelProvider)
                 .get(AboutViewModel::class.java)
+        super.onCreate(savedInstanceState)
 
         model.isCheckingUpdate.observe(this@AboutActivity, Observer {
             if (it!!) {
