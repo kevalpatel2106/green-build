@@ -12,40 +12,41 @@
   ~ limitations under the License.
   -->
 
-<android.support.constraint.ConstraintLayout
+<ViewFlipper
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_list_view_flipper"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".repoList.RepoListFragment">
+    android:layout_height="match_parent">
 
-    <ViewFlipper
-        android:id="@+id/repo_list_view_flipper"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--0. List-->
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh
+        android:id="@+id/repo_list_refresher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!--0. List-->
-        <com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh
-            android:id="@+id/repo_list_refresher"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/repo_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_repo_list"/>
+    </com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/repo_list_rv"
-                tools:listitem="@layout/row_repo_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </com.kevalpatel2106.ci.greenbuild.base.view.GBSwipeRefresh>
+    <!--1. Progressbar-->
+    <ProgressBar
+        android:layout_width="@dimen/list_loading_progressbar_dimen"
+        android:layout_height="@dimen/list_loading_progressbar_dimen"
+        android:layout_gravity="center"/>
 
-        <!--1. Progressbar-->
-        <ProgressBar
-            android:layout_width="@dimen/list_loading_progressbar_dimen"
-            android:layout_height="@dimen/list_loading_progressbar_dimen"
-            android:layout_gravity="center" />
-    </ViewFlipper>
-</android.support.constraint.ConstraintLayout>
+    <!--2. No item-->
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+        android:id="@+id/repository_error_tv"
+        style="@style/MediumText.Secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/md_activity_horizontal_margin"
+        android:layout_marginStart="@dimen/md_activity_horizontal_margin"
+        android:layout_marginTop="@dimen/spacing_xxlarge"
+        android:gravity="center_horizontal"
+        tools:text="@string/error_no_repo_available"/>
+</ViewFlipper>

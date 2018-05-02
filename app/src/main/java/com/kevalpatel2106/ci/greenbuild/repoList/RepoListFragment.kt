@@ -35,7 +35,9 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import com.kevalpatel2106.ci.greenbuild.buildList.BuildListAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import kotlinx.android.synthetic.main.fragment_recent_builds.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import javax.inject.Inject
 
@@ -92,16 +94,29 @@ class RepoListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
         repo_list_rv.addItemDecoration(DividerItemDecoration(activity))
 
         model.repoList.observe(this@RepoListFragment, Observer {
-            (repo_list_rv.adapter as RepoListAdapter).notifyDataSetChanged()
+            it?.let {
+                if (it.isNotEmpty()) {
+                    repo_list_view_flipper.displayedChild = 0
+                    (repo_list_rv.adapter as RepoListAdapter).notifyDataSetChanged()
+                } else {
+                    repo_list_view_flipper.displayedChild = 2
+                    repository_error_tv.text = getString(R.string.error_no_build_started)
+                }
+                activity.invalidateOptionsMenu()
+            }
         })
 
         model.errorLoadingList.observe(this@RepoListFragment, Observer {
-            it?.let { showSnack(it) }
+            it?.let {
+                repo_list_view_flipper.displayedChild = 2
+                repository_error_tv.text = it
+            }
         })
 
         model.isLoadingFirstTime.observe(this@RepoListFragment, Observer {
             it?.let {
                 repo_list_view_flipper.displayedChild = if (it) 1 else 0
+                activity.invalidateOptionsMenu()
             }
         })
 
@@ -128,7 +143,10 @@ class RepoListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_repo_list, menu)
+        if (!model.repoList.value!!.isEmpty() && !model.isLoadingFirstTime.value!!) {
+            //Display only of the list is not empty
+            inflater.inflate(R.menu.menu_repo_list, menu)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -61,7 +61,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_no_environment_variable_set">No environment variable set.</string>
-    <string name="error_cache_available">There is nothing in cache!!!</string>
+    <string name="error_no_cache_available">There is nothing in cache!!!</string>
+    <string name="error_no_repo_available">You don\'t have any repository set up for CI.</string>
     <string name="error_no_build_started">No build started yet.</string>
     <string name="error_no_branch_found">No branch found.</string>
     <string name="btn_title_edit">Edit</string>

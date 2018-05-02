@@ -47,5 +47,5 @@
         android:layout_marginStart="@dimen/md_activity_horizontal_margin"
         android:layout_marginTop="@dimen/spacing_xxlarge"
         android:gravity="center_horizontal"
-        tools:text="@string/error_cache_available"/>
+        tools:text="@string/error_no_cache_available"/>
 </ViewFlipper>

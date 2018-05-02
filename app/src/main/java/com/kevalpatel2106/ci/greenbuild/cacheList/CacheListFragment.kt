@@ -91,7 +91,7 @@ class CacheListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
                     (cache_list_rv.adapter as CacheListAdapter).notifyDataSetChanged()
                 } else {
                     cache_list_view_flipper.displayedChild = 2
-                    caches_error_tv.text = getString(R.string.error_cache_available)
+                    caches_error_tv.text = getString(R.string.error_no_cache_available)
                 }
             }
         })
