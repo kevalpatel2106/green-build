@@ -31,15 +31,15 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.fragment_build_list.*
+import kotlinx.android.synthetic.main.fragment_repo_build_list.*
 import javax.inject.Inject
 
-class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
+class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
-    private lateinit var model: BuildsListViewModel
+    private lateinit var mModelRepo: RepoBuildsListViewModel
 
     private lateinit var repoId: String
 
@@ -47,7 +47,7 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_build_list, container, false)
+        return inflater.inflate(R.layout.fragment_repo_build_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,23 +56,24 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
         DaggerDiComponent.builder()
                 .applicationComponent(BaseApplication.get(context!!).getApplicationComponent())
                 .build()
-                .inject(this@BuildListFragment)
+                .inject(this@RepoBuildsListFragment)
 
-        model = ViewModelProviders
-                .of(this@BuildListFragment, viewModelProvider)
-                .get(BuildsListViewModel::class.java)
+        mModelRepo = ViewModelProviders
+                .of(this@RepoBuildsListFragment, viewModelProvider)
+                .get(RepoBuildsListViewModel::class.java)
 
         //Set the adapter
         builds_list_rv.layoutManager = LinearLayoutManager(context!!)
         builds_list_rv.adapter = BuildListAdapter(
                 context = context!!,
-                buildsList = model.buildsList.value!!,
+                buildsList = mModelRepo.buildsList.value!!,
+                displayRepoInfo = false,
                 listener = this
         )
         builds_list_rv.itemAnimator = DefaultItemAnimator()
         builds_list_rv.addItemDecoration(DividerItemDecoration(context!!))
 
-        model.buildsList.observe(this@BuildListFragment, Observer {
+        mModelRepo.buildsList.observe(this@RepoBuildsListFragment, Observer {
 
             it?.let {
                 if (it.isNotEmpty()) {
@@ -85,20 +86,20 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
             }
         })
 
-        model.errorLoadingList.observe(this@BuildListFragment, Observer {
+        mModelRepo.errorLoadingList.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 build_list_view_flipper.displayedChild = 2
                 builds_error_tv.text = it
             }
         })
 
-        model.isLoadingFirstTime.observe(this@BuildListFragment, Observer {
+        mModelRepo.isLoadingFirstTime.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 if (it) build_list_view_flipper.displayedChild = 1
             }
         })
 
-        model.isLoadingList.observe(this@BuildListFragment, Observer {
+        mModelRepo.isLoadingList.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 if (!it) {
                     builds_list_refresher.isRefreshing = false
@@ -107,13 +108,13 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
             }
         })
 
-        model.hasModeData.observe(this@BuildListFragment, Observer {
+        mModelRepo.hasModeData.observe(this@RepoBuildsListFragment, Observer {
             it?.let { (builds_list_rv.adapter as BuildListAdapter).hasNextPage = it }
         })
 
         builds_list_refresher.setOnRefreshListener {
             builds_list_refresher.isRefreshing = true
-            model.loadBuildsList(repoId, 1)
+            mModelRepo.loadBuildsList(repoId, 1)
         }
 
         with(arguments?.getString(ARG_REPO_ID)) {
@@ -122,13 +123,13 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
             repoId = this
         }
 
-        if (model.buildsList.value!!.isEmpty()) {
-            model.loadBuildsList(repoId, 1)
+        if (mModelRepo.buildsList.value!!.isEmpty()) {
+            mModelRepo.loadBuildsList(repoId, 1)
         }
     }
 
     override fun onPageComplete(pos: Int) {
-        model.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+        mModelRepo.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
     override fun onStop() {
@@ -140,8 +141,8 @@ class BuildListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListen
 
         internal const val ARG_REPO_ID = "repo_id"
 
-        internal fun get(repoId: String): BuildListFragment {
-            val buildListFragment = BuildListFragment()
+        internal fun get(repoId: String): RepoBuildsListFragment {
+            val buildListFragment = RepoBuildsListFragment()
             buildListFragment.retainInstance = true
             buildListFragment.arguments = Bundle().apply {
                 putString(ARG_REPO_ID, repoId)

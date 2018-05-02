@@ -41,7 +41,7 @@ abstract class BaseApplication : Application() {
         return appComponent
     }
 
-    private fun createAppComponent() {
+    fun createAppComponent() {
         appComponent = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this@BaseApplication))
                 .build()

@@ -130,3 +130,11 @@
 # http://stackoverflow.com/questions/29679177/cardview-shadow-not-appearing-in-lollipop-after-obfuscate-with-proguard/29698051
 -keep class android.support.v7.widget.RoundRectDrawable { *; }
 ##---------------End: proguard configuration for cardview  ----------
+
+
+##---------------Begin: proguard configuration for about libraries ----------
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}
+##---------------End: proguard configuration for about libraries ----------

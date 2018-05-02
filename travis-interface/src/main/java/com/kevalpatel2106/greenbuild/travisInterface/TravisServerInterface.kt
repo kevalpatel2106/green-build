@@ -14,7 +14,6 @@
 
 package com.kevalpatel2106.greenbuild.travisInterface
 
-import android.app.Activity
 import android.content.Context
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
@@ -183,12 +182,64 @@ class TravisServerInterface internal constructor(
                 .getMyRepos(
                         sortBy = sortByQuery,
                         onlyActive = true,
-                        offset = (page - 1) * PAGE_SIZE).map {
+                        offset = (page - 1) * PAGE_SIZE)
+                .map {
                     val repoList = ArrayList<Repo>(it.repositories.size)
-                    it.repositories.forEach { repoList.add(it.toRepo()) }
+                    it.repositories.forEach {
+                        repoList.add(it.apply {
+                            lastBuild?.repoName = null
+                            lastBuild?.ownerName = null
+                        }.toRepo())
+                    }
                     return@map Page(
                             hasNext = !it.pagination.isLast,
                             list = repoList
+                    )
+                }
+    }
+
+    /**
+     * Get the list of recent [Build].
+     */
+    override fun getRecentBuildsList(
+            page: Int,
+            repoSortBy: BuildSortBy,
+            buildState: BuildState?
+    ): Observable<Page<Build>> {
+        val sortByQuery = when (repoSortBy) {
+            BuildSortBy.STARTED_AT_ASC -> "started_at"
+            BuildSortBy.STARTED_AT_DESC -> "started_at:desc"
+            BuildSortBy.FINISHED_AT_ASC -> "finished_at"
+            BuildSortBy.FINISHED_AT_DESC -> "finished_at:desc"
+        }
+
+        val state = when (buildState) {
+            BuildState.CANCELED -> Constants.CANCEL_BUILD
+            BuildState.PASSED -> Constants.PASSED_BUILD
+            BuildState.RUNNING -> Constants.RUNNING_BUILD
+            BuildState.FAILED -> Constants.FAILED_BUILD
+            BuildState.ERRORED -> Constants.ERRORED_BUILD
+            BuildState.BOOTING -> Constants.BOOTING_BUILD
+            null -> null
+            else -> null
+        }
+
+        return travisEndpoints
+                .getRecentBuilds(
+                        sortBy = sortByQuery,
+                        offset = (page - 1) * PAGE_SIZE,
+                        state = state
+                ).map {
+                    val buildList = ArrayList<Build>(it.builds.size)
+                    it.builds.forEach {
+                        buildList.add(it.apply {
+                            repoName = it.repository.name
+                            ownerName = it.createdBy.login  //TODO
+                        }.toBuild())
+                    }
+                    return@map Page(
+                            hasNext = !it.pagination.isLast,
+                            list = buildList
                     )
                 }
     }

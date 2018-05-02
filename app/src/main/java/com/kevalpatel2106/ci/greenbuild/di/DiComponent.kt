@@ -14,17 +14,20 @@
 
 package com.kevalpatel2106.ci.greenbuild.di
 
+import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerDialog
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
-import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronActivity
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
-import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableDialog
+import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronActivity
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVariableListFragment
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableDialog
+import com.kevalpatel2106.ci.greenbuild.main.MainActivity
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
-import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -44,14 +47,14 @@ interface DiComponent {
     fun inject(splashActivity: SplashActivity)
 
     /**
-     * Inject the [DiModule] and [ApplicationComponent] in [RepoListActivity].
+     * Inject the [DiModule] and [ApplicationComponent] in [RepoListFragment].
      */
-    fun inject(repoListActivity: RepoListActivity)
+    fun inject(repoListFragment: RepoListFragment)
 
     /**
-     * Inject the [DiModule] and [ApplicationComponent] in [BuildListFragment].
+     * Inject the [DiModule] and [ApplicationComponent] in [RepoBuildsListFragment].
      */
-    fun inject(buildsListFragment: BuildListFragment)
+    fun inject(buildsListFragment: RepoBuildsListFragment)
 
     /**
      * Inject the [DiModule] and [ApplicationComponent] in [CiSelectorActivity].
@@ -92,4 +95,19 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [BranchPickerDialog].
      */
     fun inject(branchPickerDialog: BranchPickerDialog)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [MainActivity].
+     */
+    fun inject(mainActivity: MainActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [AboutActivity].
+     */
+    fun inject(aboutActivity: AboutActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [RecentBuildsFragment].
+     */
+    fun inject(recentBuildsFragment: RecentBuildsFragment)
 }

@@ -57,7 +57,6 @@ ext {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'android.arch.lifecycle', module: 'common'
         exclude group: 'android.arch.core', module: 'common'
-        exclude group: 'android.arch.core', module: 'common'
         exclude group: 'android.arch.lifecycle', module: 'runtime'
         exclude group: 'com.jakewharton.timber', module: 'timber'
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'

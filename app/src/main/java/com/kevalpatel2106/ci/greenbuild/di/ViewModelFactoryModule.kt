@@ -16,16 +16,20 @@ package com.kevalpatel2106.ci.greenbuild.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.kevalpatel2106.ci.greenbuild.about.AboutViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerViewModel
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
-import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListViewModel
-import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
+import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronViewModel
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVarsListViewModel
+import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableViewModel
+import com.kevalpatel2106.ci.greenbuild.main.MainActivityViewModel
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailViewModel
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListViewModel
 import dagger.Binds
@@ -51,8 +55,8 @@ abstract class ViewModelFactoryModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(BuildsListViewModel::class)
-    internal abstract fun bindBuildListViewModel(viewModel: BuildsListViewModel): ViewModel
+    @ViewModelKey(RepoBuildsListViewModel::class)
+    internal abstract fun bindBuildListViewModel(viewModelRepo: RepoBuildsListViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -93,4 +97,19 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(BranchPickerViewModel::class)
     internal abstract fun bindBranchPickerViewModel(viewModel: BranchPickerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainActivityViewModel::class)
+    internal abstract fun bindMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AboutViewModel::class)
+    internal abstract fun bindAboutViewModel(viewModel: AboutViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecentBuildsListViewModel::class)
+    internal abstract fun bindRecentBuildsListViewModel(viewModel: RecentBuildsListViewModel): ViewModel
 }

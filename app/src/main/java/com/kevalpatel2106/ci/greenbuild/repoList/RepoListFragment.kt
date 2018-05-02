@@ -14,19 +14,19 @@
 
 package com.kevalpatel2106.ci.greenbuild.repoList
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.showIcons
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
@@ -36,59 +36,76 @@ import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.activity_repo_list.*
+import kotlinx.android.synthetic.main.fragment_repo_list.*
 import javax.inject.Inject
 
 
 /**
  * An [AppCompatActivity] to display the list of list of user repo.
  */
-class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerViewListener<Repo>, PopupMenu.OnMenuItemClickListener {
+class RepoListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Repo>, PopupMenu.OnMenuItemClickListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
     private lateinit var model: RepoListViewModel
 
+    private lateinit var activity: Activity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is Activity) {
+            activity = context
+        } else {
+            throw IllegalStateException("This fragment should be linked to the activity.")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_repo_list)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setTitle(R.string.application_name)
-
         DaggerDiComponent.builder()
-                .applicationComponent(BaseApplication.get(this).getApplicationComponent())
+                .applicationComponent(BaseApplication.get(activity).getApplicationComponent())
                 .build()
-                .inject(this@RepoListActivity)
+                .inject(this@RepoListFragment)
 
         model = ViewModelProviders
-                .of(this@RepoListActivity, viewModelProvider)
+                .of(this@RepoListFragment, viewModelProvider)
                 .get(RepoListViewModel::class.java)
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_repo_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Set the adapter
-        val adapter = RepoListAdapter(this@RepoListActivity, model.repoList.value!!, this)
-        repo_list_rv.layoutManager = LinearLayoutManager(this@RepoListActivity)
+        val adapter = RepoListAdapter(activity, model.repoList.value!!, this)
+        repo_list_rv.layoutManager = LinearLayoutManager(activity)
         repo_list_rv.adapter = adapter
         repo_list_rv.itemAnimator = DefaultItemAnimator()
-        repo_list_rv.addItemDecoration(DividerItemDecoration(this@RepoListActivity))
+        repo_list_rv.addItemDecoration(DividerItemDecoration(activity))
 
-        model.repoList.observe(this@RepoListActivity, Observer {
+        model.repoList.observe(this@RepoListFragment, Observer {
             (repo_list_rv.adapter as RepoListAdapter).notifyDataSetChanged()
         })
 
-        model.errorLoadingList.observe(this@RepoListActivity, Observer {
+        model.errorLoadingList.observe(this@RepoListFragment, Observer {
             it?.let { showSnack(it) }
         })
 
-        model.isLoadingFirstTime.observe(this@RepoListActivity, Observer {
+        model.isLoadingFirstTime.observe(this@RepoListFragment, Observer {
             it?.let {
                 repo_list_view_flipper.displayedChild = if (it) 1 else 0
             }
         })
 
-        model.isLoadingList.observe(this@RepoListActivity, Observer {
+        model.isLoadingList.observe(this@RepoListFragment, Observer {
             it?.let {
                 if (!it) {
                     repo_list_refresher.isRefreshing = false
@@ -96,7 +113,7 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
                 }
             }
         })
-        model.hasNextPage.observe(this@RepoListActivity, Observer {
+        model.hasNextPage.observe(this@RepoListFragment, Observer {
             it?.let { adapter.hasNextPage = it }
         })
 
@@ -110,22 +127,18 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
         model.loadRepoList((pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_repo_list, menu)
-        return true
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_repo_list, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.repo_list_sort -> {
-                val sortPopUpMenu = PopupMenu(this, findViewById(R.id.repo_list_sort))
+                val sortPopUpMenu = PopupMenu(context!!, activity.findViewById(R.id.repo_list_sort))
                 sortPopUpMenu.inflate(R.menu.pop_up_repo_list_sort)
                 sortPopUpMenu.showIcons()
                 sortPopUpMenu.setOnMenuItemClickListener(this)
                 sortPopUpMenu.show()
-            }
-            android.R.id.home -> {
-                finish()
             }
         }
         return false
@@ -167,12 +180,11 @@ class RepoListActivity : AppCompatActivity(), PageRecyclerViewAdapter.RecyclerVi
 
     companion object {
 
-        internal fun launch(context: Context, isNewTask: Boolean = false) {
-            context.startActivity(Intent(context, RepoListActivity::class.java).apply {
-                if (isNewTask) {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                }
-            })
+        internal fun getInstance(): RepoListFragment {
+            return RepoListFragment().apply {
+                retainInstance = true
+                setHasOptionsMenu(true)
+            }
         }
     }
 }

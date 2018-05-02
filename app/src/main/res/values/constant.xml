@@ -18,4 +18,17 @@
     <string name="repo_description_tv_transition_name" translatable="false">repo_description_tv</string>
     <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
     <string name="private_variable_value_mask" translatable="false">***************</string>
+
+    <string name="play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.kevalpatel2106.ci.greenbuild</string>
+    <string name="github_project_link" translatable="false">https://github.com/kevalpatel2106/green-build</string>
+    <string name="github_new_issue_link" translatable="false">https://github.com/kevalpatel2106/green-build/issues/new</string>
+    <string name="github_fork_link" translatable="false">https://github.com/kevalpatel2106/green-build#fork-destination-box</string>
+    <string name="paypal_link" translatable="false">https://www.paypal.me/kevalpatel2106/2</string>
+
+    <string name="support_email" translatable="false">greenbuildapp@gmail.com</string>
+    <string name="github_username" translatable="false">kevalpatel2106</string>
+    <string name="author_github_link" translatable="false">https://github.com/kevalpatel2106</string>
+    <string name="author_twitter_username" translatable="false">kevalpatel2106</string>
+    <string name="author_twitter_link" translatable="false">https://twitter.com/kevalpatel2106</string>
+    <string name="github_project_name" translatable="false">green-build</string>
 </resources>

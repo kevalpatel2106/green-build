@@ -26,7 +26,6 @@ import timber.log.Timber
  * @see CompatibilityCheck
  */
 class TravisCompatibilityCheck : CompatibilityCheck {
-
     companion object {
 
         fun get(baseUrl: String): TravisCompatibilityCheck? {
@@ -43,6 +42,11 @@ class TravisCompatibilityCheck : CompatibilityCheck {
             }
         }
     }
+
+    /**
+     * Returns true if the CI server provides way to list all the repository else false.
+     */
+    override fun isRepoListingSupported(): Boolean = true
 
     /**
      * Returns true if the CI server provides way to list all the recent builds (for all the repositories)

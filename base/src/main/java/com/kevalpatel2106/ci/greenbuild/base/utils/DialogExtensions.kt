@@ -104,6 +104,14 @@ class AlertDialogHelper(context: Context,
         builder.setNegativeButton(text) { _, _ -> func?.invoke() }
     }
 
+    fun neutralButton(@StringRes textResource: Int, func: (() -> Unit)? = null) {
+        builder.setNeutralButton(textResource) { _, _ -> func?.invoke() }
+    }
+
+    fun neutralButton(text: CharSequence, func: (() -> Unit)? = null) {
+        builder.setNeutralButton(text) { _, _ -> func?.invoke() }
+    }
+
     fun create(): AlertDialog {
         dialog = builder.setCancelable(cancelable).create()
         return dialog

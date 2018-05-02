@@ -56,6 +56,15 @@ internal interface TravisEndpoints {
             @Query("include") include: String = "repository.last_started_build"
     ): Observable<ResponseMyRepo>
 
+    @GET("builds")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun getRecentBuilds(
+            @Query("limit") limit: Int = ServerInterface.PAGE_SIZE,
+            @Query("offset") offset: Int,
+            @Query("sort_by") sortBy: String,
+            @Query("state") state: String? = null
+    ): Observable<ResponseRecentBuilds>
+
     @GET("repo/{repoId}/builds")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun getBuildsForRepo(

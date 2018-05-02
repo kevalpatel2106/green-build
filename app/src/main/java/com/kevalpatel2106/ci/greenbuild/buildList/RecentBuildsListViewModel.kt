@@ -35,7 +35,7 @@ import javax.inject.Inject
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal class BuildsListViewModel @Inject constructor(
+internal class RecentBuildsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
         compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
@@ -50,8 +50,8 @@ internal class BuildsListViewModel @Inject constructor(
     internal var hasModeData = MutableLiveData<Boolean>()
 
     init {
-        if (!compatibilityCheck.isBuildsListByRepoSupported())
-            throw IllegalStateException("Builds listing by repository is not supported for this CI.")
+        if (!compatibilityCheck.isRecentBuildsListSupported())
+            throw IllegalStateException("Recent builds listing by repository is not supported for this CI.")
 
         hasModeData.value = true
         isLoadingList.value = false
@@ -60,8 +60,8 @@ internal class BuildsListViewModel @Inject constructor(
         buildsList.value = ArrayList()
     }
 
-    fun loadBuildsList(repoId: String, page: Int) {
-        serverInterface.getBuildList(page, repoId, BuildSortBy.FINISHED_AT_DESC)
+    fun loadRecentBuildsList(page: Int) {
+        serverInterface.getRecentBuildsList(page, BuildSortBy.FINISHED_AT_DESC)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {

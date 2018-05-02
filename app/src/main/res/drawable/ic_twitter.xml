@@ -1,0 +1,28 @@
+<!--
+  ~  Copyright 2018 Keval Patel.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="410.155"
+    android:viewportWidth="410.155">
+    <path
+        android:fillColor="#76A9EA"
+        android:pathData="M403.6,74.2c-9.1,4 -18.6,7.2 -28.3,9.5c10.7,-10.2 18.7,-22.9 23.3,-37.1l0,0c1.3,-4.1 -3.1,-7.6 -6.8,-5.4l0,0c-13.5,8 -28,14 -43.2,17.9c-0.9,0.2 -1.8,0.3 -2.7,0.3c-2.8,0 -5.5,-1 -7.6,-2.9c-16.2,-14.2 -36.9,-22.1 -58.5,-22.1c-9.3,0 -18.8,1.5 -28,4.3c-28.7,8.9 -50.8,32.5 -57.7,61.7c-2.6,10.9 -3.3,21.9 -2.1,32.6c0.1,1.2 -0.4,2.1 -0.8,2.5c-0.6,0.7 -1.5,1.1 -2.4,1.1c-0.1,0 -0.2,-0 -0.3,-0c-62.8,-5.8 -119.4,-36.1 -159.4,-85.1l0,0c-2,-2.5 -6,-2.2 -7.6,0.6l0,0C13.7,65.6 9.5,80.9 9.5,96.6c0,24 9.6,46.6 26.4,63c-7,-1.7 -13.8,-4.3 -20.2,-7.8l0,0c-3.1,-1.7 -6.8,0.5 -6.9,4l0,0c-0.4,35.6 20.4,67.3 51.6,81.6c-0.6,0 -1.3,0 -1.9,0c-5,0 -10,-0.5 -14.9,-1.4l0,0c-3.4,-0.7 -6.3,2.6 -5.3,6l0,0c10.1,31.7 37.4,55 70,60.3c-27.1,18.2 -58.6,27.8 -91.4,27.8l-10.2,-0c-3.2,0 -5.8,2.1 -6.6,5.1c-0.8,3 0.7,6.2 3.4,7.7c37,21.5 79.1,32.9 122,32.9c37.5,0 72.5,-7.4 104.2,-22.1c29,-13.4 54.7,-32.7 76.3,-57.1c20.1,-22.8 35.8,-49.1 46.7,-78.2c10.4,-27.7 15.9,-57.3 15.9,-85.6v-1.3c-0,-4.5 2.1,-8.8 5.6,-11.7c13.6,-11 25.4,-24 35.2,-38.6l0,0C411.9,77.1 407.9,72.3 403.6,74.2L403.6,74.2z"
+        tools:ignore="VectorPath"/>
+</vector>

@@ -20,7 +20,7 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
 import com.kevalpatel2106.ci.greenbuild.envVariableList.EnvVariableListFragment
@@ -46,7 +46,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
     internal val isEnvVarsListCompatible = compatibilityCheck.isEnvironmentVariableListSupported()
 
     private val fragmentsList = ArrayList<Fragment>()
-    private var buildListFragment: BuildListFragment? = null
+    private var mRepoBuildsListFragment: RepoBuildsListFragment? = null
     private var cacheListFragment: CacheListFragment? = null
     private var envVarListFragment: EnvVariableListFragment? = null
     private var cronListFragment: CronListFragment? = null
@@ -70,9 +70,9 @@ internal class RepoDetailViewModel @Inject internal constructor(
         //DON'T CHANGE THE ORDER OF THE FRAGMENTS IN ARRAY LIST.
         //This order should be in sync with the bottom navigation list menu.
 
-        if (buildListFragment == null && isBuildListCompatible) {
-            buildListFragment = BuildListFragment.get(repoId)
-            fragmentsList.add(buildListFragment!!)
+        if (mRepoBuildsListFragment == null && isBuildListCompatible) {
+            mRepoBuildsListFragment = RepoBuildsListFragment.get(repoId)
+            fragmentsList.add(mRepoBuildsListFragment!!)
         }
         if (envVarListFragment == null && isEnvVarsListCompatible) {
             envVarListFragment = EnvVariableListFragment.get(repoId)
@@ -117,7 +117,7 @@ internal class RepoDetailViewModel @Inject internal constructor(
         selectedItem.value = when (itemId) {
             R.id.repo_detail_menu_bottom_build -> {
                 isDisplayFab.value = false
-                fragmentsList.indexOf(buildListFragment as Fragment)
+                fragmentsList.indexOf(mRepoBuildsListFragment as Fragment)
             }
             R.id.repo_detail_menu_bottom_env_var -> {
                 isDisplayFab.value = compatibilityCheck.isAddEnvironmentVariableSupported()

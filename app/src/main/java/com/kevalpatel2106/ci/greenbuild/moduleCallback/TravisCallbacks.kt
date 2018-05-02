@@ -15,7 +15,8 @@
 package com.kevalpatel2106.ci.greenbuild.moduleCallback
 
 import android.content.Context
-import com.kevalpatel2106.ci.greenbuild.repoList.RepoListActivity
+import com.kevalpatel2106.ci.greenbuild.main.MainActivity
+import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
 
 /**
@@ -30,6 +31,6 @@ internal class TravisCallbacks : TravisModuleCallbacks() {
     }
 
     override fun openHome(context: Context) {
-        RepoListActivity.launch(context, true)
+        MainActivity.launch(context, true)
     }
 }

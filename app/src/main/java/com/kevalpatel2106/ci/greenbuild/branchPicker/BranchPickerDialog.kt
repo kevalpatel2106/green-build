@@ -33,7 +33,7 @@ import com.kevalpatel2106.ci.greenbuild.base.view.GBDialogFragment
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.dialog_branch_picker.*
-import kotlinx.android.synthetic.main.fragment_build_list.*
+import kotlinx.android.synthetic.main.fragment_repo_build_list.*
 import javax.inject.Inject
 
 /**

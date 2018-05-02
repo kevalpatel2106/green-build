@@ -15,6 +15,8 @@
 package com.kevalpatel2106.ci.greenbuild.base.account
 
 import android.accounts.AccountManager
+import android.accounts.AccountManagerCallback
+import android.accounts.AccountManagerFuture
 import android.content.ContentResolver
 import android.content.Context
 import android.os.Bundle
@@ -22,6 +24,7 @@ import android.os.Handler
 import android.os.Looper
 import com.kevalpatel2106.ci.greenbuild.base.R
 import com.kevalpatel2106.ci.greenbuild.base.utils.SharedPrefsProvider
+import io.reactivex.Completable
 
 
 /**
@@ -61,20 +64,22 @@ class AccountsManager(private val context: Context,
         sharedPrefsProvider.savePreferences(PREF_KEY_CURRENT_ACCOUNT_ID, accountId)
     }
 
-    fun getCurrentAccount(): Account {
+    fun getCurrentAccount(): Account? {
         return with(sharedPrefsProvider.getStringFromPreferences(PREF_KEY_CURRENT_ACCOUNT_ID, null)) {
 
-            return@with if (this == null) {
+            if (this == null) {
                 // No current account selected.
                 // Set first account as selected
-                getAllAccounts().first().apply {
+                if (getAllAccounts().isEmpty()) return null
+
+                return getAllAccounts().first().apply {
 
                     //Change the current account id.
                     changeCurrentAccount(this.accountId)
                 }
             } else {
                 // Get the current account from account id.
-                getAccount(this) ?: throw IllegalStateException("No account added.")
+                return getAccount(this)
             }
         }
     }
@@ -86,8 +91,7 @@ class AccountsManager(private val context: Context,
     fun getAllAccounts(): ArrayList<Account> {
         val accounts = arrayListOf<Account>()
         with(manager.getAccountsByType(type)) {
-            this.map { parseAccount(it) }
-                    .forEach { accounts.add(it) }
+            this.map { parseAccount(it) }.forEach { accounts.add(it) }
         }
         return accounts
     }
@@ -155,19 +159,30 @@ class AccountsManager(private val context: Context,
      * Delete the [Account] with [accountId]. If the account with [accountId] is not present, than
      * method will return false.
      */
-    fun deleteAccounts(accountId: String): Boolean {
-        var isAnyAccountDeleted = false
-        manager.getAccountsByType(type)
-                .filter { manager.getUserData(it, ARG_ID) == accountId }
-                .forEach {
-                    @Suppress("DEPRECATION")
-                    manager.removeAccount(it, {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }, Handler(Looper.getMainLooper()))
-                    isAnyAccountDeleted = true
-                }
+    @Suppress("ObjectLiteralToLambda")
+    fun deleteAccount(accountId: String): Completable {
+        return Completable.create {
+            val accountToDelete: android.accounts.Account? = manager.getAccountsByType(type)
+                    .first { manager.getUserData(it, ARG_ID) == accountId }
 
-        return isAnyAccountDeleted
+            if (accountToDelete == null) {
+                it.onComplete()
+            } else {
+                @Suppress("DEPRECATION")
+                manager.removeAccount(accountToDelete, object : AccountManagerCallback<Boolean> {
+                    override fun run(future: AccountManagerFuture<Boolean>?) {
+                        with(getCurrentAccount()) {
+                            if (this == null) {
+                                sharedPrefsProvider.savePreferences(PREF_KEY_CURRENT_ACCOUNT_ID, null)
+                            } else {
+                                changeCurrentAccount(this.accountId)
+                            }
+                        }
+                        it.onComplete()
+                    }
+                }, Handler(Looper.myLooper()))
+            }
+        }
     }
 
     fun getAccessToken(accountId: String): String? {
