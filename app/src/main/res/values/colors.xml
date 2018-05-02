@@ -17,4 +17,6 @@
     <color name="ci_server_domain_text">#2e7d32</color>
     <color name="ci_server_title_text">@color/colorAccent</color>
     <color name="default_branch_chip">#333333</color>
+    <color name="selected_navigation_item_color">#4f5763</color>
+    <color name="about_update_available_card_color">#111111</color>
 </resources>

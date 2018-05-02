@@ -47,8 +47,15 @@ internal class BuildViewHolder private constructor(itemView: View)
         }
     }
 
-    fun bind(build: Build) {
+    fun bind(build: Build, displayRepoInfo : Boolean) {
         itemView.build_status_view.setBackgroundColor(build.state.getBuildStateColor(itemView.context))
+
+        if (displayRepoInfo && build.repoName != null && build.ownerName != null) {
+            itemView.build_repo_name.isVisible = true
+            itemView.build_repo_name.text = "${build.ownerName}/${build.repoName}"
+        } else {
+            itemView.build_repo_name.isVisible = false
+        }
 
         when (build.state) {
             BuildState.PASSED -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_pass)

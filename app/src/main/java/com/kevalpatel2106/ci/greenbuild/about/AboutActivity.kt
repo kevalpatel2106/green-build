@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -30,6 +31,7 @@ import com.kevalpatel2106.ci.greenbuild.BuildConfig
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.utils.alert
+import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import javax.inject.Inject
@@ -69,6 +71,8 @@ class AboutActivity : MaterialAboutActivity() {
         model.latestVersion.observe(this@AboutActivity, Observer {
             it?.let { refreshMaterialAboutList() }
         })
+
+        model.checkForUpdates()
     }
 
     override fun getActivityTitle(): CharSequence = getString(R.string.application_name)
@@ -99,6 +103,7 @@ class AboutActivity : MaterialAboutActivity() {
                             AboutHelper.openPlayStorePage(application)
                         })
                         .build())
+                .cardColor(getColorCompat(R.color.about_update_available_card_color))
                 .build()
     }
 

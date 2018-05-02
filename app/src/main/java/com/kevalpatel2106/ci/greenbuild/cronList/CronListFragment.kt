@@ -34,7 +34,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
 import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.cronList.addCron.AddCronActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.fragment_cron_list.*
@@ -131,7 +131,7 @@ class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
             model.loadCronList(repoId, 1)
         }
 
-        with(arguments?.getString(BuildListFragment.ARG_REPO_ID)) {
+        with(arguments?.getString(RepoBuildsListFragment.ARG_REPO_ID)) {
             if (this == null)
                 throw IllegalArgumentException("No repo id available.")
             repoId = this

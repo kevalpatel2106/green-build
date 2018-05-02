@@ -83,6 +83,9 @@ internal data class TravisBuild(
         val startedAt: String? = null
 ) {
 
+    var repoName: String? = null
+    var ownerName: String? = null
+
     fun toBuild(): Build {
         return Build(
                 id = id.toLong(),
@@ -105,7 +108,9 @@ internal data class TravisBuild(
                         message = commit.message,
                         sha = commit.sha,
                         tagName = tag?.tagName
-                )
+                ),
+                repoName = repoName,
+                ownerName = ownerName
         )
     }
 

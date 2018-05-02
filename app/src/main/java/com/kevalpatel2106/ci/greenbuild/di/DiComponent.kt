@@ -17,7 +17,8 @@ package com.kevalpatel2106.ci.greenbuild.di
 import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerDialog
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment
@@ -51,9 +52,9 @@ interface DiComponent {
     fun inject(repoListFragment: RepoListFragment)
 
     /**
-     * Inject the [DiModule] and [ApplicationComponent] in [BuildListFragment].
+     * Inject the [DiModule] and [ApplicationComponent] in [RepoBuildsListFragment].
      */
-    fun inject(buildsListFragment: BuildListFragment)
+    fun inject(buildsListFragment: RepoBuildsListFragment)
 
     /**
      * Inject the [DiModule] and [ApplicationComponent] in [CiSelectorActivity].
@@ -104,4 +105,9 @@ interface DiComponent {
      * Inject the [DiModule] and [ApplicationComponent] in [AboutActivity].
      */
     fun inject(aboutActivity: AboutActivity)
+
+    /**
+     * Inject the [DiModule] and [ApplicationComponent] in [RecentBuildsFragment].
+     */
+    fun inject(recentBuildsFragment: RecentBuildsFragment)
 }

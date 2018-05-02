@@ -45,7 +45,11 @@ data class Build(
 
         val branch: Branch,
 
-        val commit: Commit
+        val commit: Commit,
+
+        val repoName: String?,
+
+        val ownerName: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -61,7 +65,10 @@ data class Build(
             TriggerType.valueOf(parcel.readString()),
             parcel.readParcelable(Author::class.java.classLoader),
             parcel.readParcelable(Branch::class.java.classLoader),
-            parcel.readParcelable(Commit::class.java.classLoader))
+            parcel.readParcelable(Commit::class.java.classLoader),
+            parcel.readString(),
+            parcel.readString()
+    )
 
     data class Author(
             val id: String,
@@ -147,6 +154,8 @@ data class Build(
         parcel.writeParcelable(author, flags)
         parcel.writeParcelable(branch, flags)
         parcel.writeParcelable(commit, flags)
+        parcel.writeString(repoName)
+        parcel.writeString(ownerName)
     }
 
     override fun describeContents(): Int {

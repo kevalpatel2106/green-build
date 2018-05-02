@@ -54,6 +54,21 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+        android:id="@+id/build_repo_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/spacing_micro"
+        android:singleLine="true"
+        android:textAppearance="@style/MediumText.Secondary"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@tools:sample/cities" />
+
     <View
         android:id="@+id/build_status_view"
         android:layout_width="@dimen/spacing_micro"
@@ -82,7 +97,7 @@
         android:layout_marginStart="8dp"
         android:gravity="center_vertical"
         app:layout_constraintStart_toEndOf="@+id/build_state_iv"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/build_repo_name"
         tools:text="# 125.5" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
@@ -101,9 +116,9 @@
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/build_trigger_type_tv"
+        style="@style/chip"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        style="@style/chip"
         app:layout_constraintBottom_toBottomOf="@+id/commit_message_tv"
         app:layout_constraintEnd_toStartOf="@+id/commit_message_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -129,11 +144,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
-        app:civ_border_color="@android:color/white"
         android:elevation="@dimen/spacing_pico"
+        app:civ_border_color="@android:color/white"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"/>
+        app:layout_constraintTop_toBottomOf="@+id/commit_message_tv" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/commit_author_name_tv"
@@ -174,7 +189,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:text="@tools:sample/us_zipcodes"/>
+        tools:text="@tools:sample/us_zipcodes" />
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/imageView2"

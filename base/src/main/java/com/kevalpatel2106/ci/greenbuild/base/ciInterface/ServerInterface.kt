@@ -63,6 +63,15 @@ abstract class ServerInterface(protected val accessToken: String) {
     ): Observable<Page<Repo>>
 
     /**
+     * Get the list of recent [Build].
+     */
+    abstract fun getRecentBuildsList(
+            page: Int,
+            repoSortBy: BuildSortBy,
+            buildState: BuildState? = null
+    ): Observable<Page<Build>>
+
+    /**
      * Get the list of [Build] for the given [Repo].
      */
     abstract fun getBuildList(

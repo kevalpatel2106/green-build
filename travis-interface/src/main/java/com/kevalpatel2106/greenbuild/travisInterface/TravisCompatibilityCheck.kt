@@ -52,7 +52,7 @@ class TravisCompatibilityCheck : CompatibilityCheck {
      * Returns true if the CI server provides way to list all the recent builds (for all the repositories)
      * else false.
      */
-    override fun isRecentBuildsListSupported() = false
+    override fun isRecentBuildsListSupported() = true
 
     /**
      * Returns true if the CI server provides way to list all the builds for the repository. Application

@@ -20,7 +20,9 @@ import com.kevalpatel2106.ci.greenbuild.about.AboutViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
 import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerViewModel
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsListViewModel
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorViewModel
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListViewModel
@@ -53,8 +55,8 @@ abstract class ViewModelFactoryModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(BuildsListViewModel::class)
-    internal abstract fun bindBuildListViewModel(viewModel: BuildsListViewModel): ViewModel
+    @ViewModelKey(RepoBuildsListViewModel::class)
+    internal abstract fun bindBuildListViewModel(viewModelRepo: RepoBuildsListViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -105,4 +107,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(AboutViewModel::class)
     internal abstract fun bindAboutViewModel(viewModel: AboutViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecentBuildsListViewModel::class)
+    internal abstract fun bindRecentBuildsListViewModel(viewModel: RecentBuildsListViewModel): ViewModel
 }

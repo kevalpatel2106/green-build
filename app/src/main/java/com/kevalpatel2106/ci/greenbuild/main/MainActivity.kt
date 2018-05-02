@@ -36,7 +36,8 @@ import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.utils.alert
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 if (it is RepoListFragment) {
                     nav_menu_extras.menu.findItem(R.id.menu_drawer_repo_listing).isChecked = true
-                } else if (it is BuildListFragment /* TODO Change */) {
+                } else if (it is RecentBuildsFragment) {
                     nav_menu_extras.menu.findItem(R.id.menu_drawer_builds_listing).isChecked = true
                 }
             }

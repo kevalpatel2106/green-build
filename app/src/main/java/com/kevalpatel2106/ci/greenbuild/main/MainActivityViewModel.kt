@@ -24,6 +24,7 @@ import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
@@ -51,6 +52,7 @@ internal class MainActivityViewModel @Inject constructor(
     internal val isLoggingOut = MutableLiveData<Boolean>()
 
     private val repoListFragment = RepoListFragment.getInstance()
+    private val recentBuildsFragment = RecentBuildsFragment.getInstance()
 
     init {
         allAccounts.value = ArrayList()
@@ -88,7 +90,7 @@ internal class MainActivityViewModel @Inject constructor(
     }
 
     fun switchToBuildsList() {
-        currentFragment.value = repoListFragment
+        currentFragment.value = recentBuildsFragment
         currentTitle.value = application.getString(R.string.title_activity_builds_list)
     }
 

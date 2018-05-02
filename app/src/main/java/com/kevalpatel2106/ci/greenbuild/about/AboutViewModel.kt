@@ -41,9 +41,6 @@ internal class AboutViewModel @Inject constructor(private val application: BaseA
         isCheckingUpdate.value = false
         isUpdateAvailable.value = false
         latestVersion.value = Update(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
-
-        //Check for updates automatically.
-        checkForUpdates()
     }
 
     fun checkForUpdates() {

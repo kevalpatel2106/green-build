@@ -48,7 +48,8 @@ internal object AboutHelper {
 
     fun openPlayStorePage(application: Application) {
         try {
-            val uri = Uri.parse("market://details?id=" + application.packageName)
+            val uri = Uri.parse("market://details?id=" + application.packageName
+                    .replace(".debug", ""))
 
             val goToMarket = Intent(Intent.ACTION_VIEW, uri)
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or

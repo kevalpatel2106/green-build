@@ -29,7 +29,7 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_repo_detail.*
 import javax.inject.Inject
@@ -54,7 +54,7 @@ class RepoDetailActivity : AppCompatActivity() {
                 .of(this@RepoDetailActivity, viewModelProvider)
                 .get(RepoDetailViewModel::class.java)
 
-        val repoId: String = with(intent?.getStringExtra(BuildListFragment.ARG_REPO_ID)) {
+        val repoId: String = with(intent?.getStringExtra(RepoBuildsListFragment.ARG_REPO_ID)) {
             if (this == null)
                 throw IllegalArgumentException("No repo id available.")
             return@with this

@@ -34,7 +34,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
 import com.kevalpatel2106.ci.greenbuild.base.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListFragment
+import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.EditVariableDialog
 import com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable.VariableEditListener
@@ -138,7 +138,7 @@ class EnvVariableListFragment : Fragment(),
             model.loadEnvVarsList(repoId, 1)
         }
 
-        with(arguments?.getString(BuildListFragment.ARG_REPO_ID)) {
+        with(arguments?.getString(RepoBuildsListFragment.ARG_REPO_ID)) {
             if (this == null)
                 throw IllegalArgumentException("No repo id available.")
             repoId = this
