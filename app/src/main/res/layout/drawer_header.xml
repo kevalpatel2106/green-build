@@ -92,6 +92,7 @@
         android:id="@+id/drawer_header_dropdown_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline50"
         app:layout_constraintEnd_toStartOf="@+id/guideline47"
         app:srcCompat="@drawable/ic_arrow_drop_down" />
