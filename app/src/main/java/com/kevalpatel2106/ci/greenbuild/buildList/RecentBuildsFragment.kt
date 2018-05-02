@@ -28,6 +28,7 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
@@ -39,7 +40,7 @@ import javax.inject.Inject
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-class RecentBuildsFragment: Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build>{
+class RecentBuildsFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build>, BuildListListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
@@ -70,7 +71,8 @@ class RecentBuildsFragment: Fragment(), PageRecyclerViewAdapter.RecyclerViewList
                 context = context!!,
                 buildsList = model.buildsList.value!!,
                 displayRepoInfo = true,
-                listener = this
+                listener = this,
+                buildListListener = this
         )
         recent_builds_list_rv.itemAnimator = DefaultItemAnimator()
         recent_builds_list_rv.addItemDecoration(DividerItemDecoration(context!!))
@@ -94,19 +96,38 @@ class RecentBuildsFragment: Fragment(), PageRecyclerViewAdapter.RecyclerViewList
                 recent_builds_error_tv.text = it
             }
         })
+        model.errorAbortingBuild.observe(this@RecentBuildsFragment, Observer {
+            it?.let { showSnack(it) }
+        })
+        model.errorRestartingBuild.observe(this@RecentBuildsFragment, Observer {
+            it?.let { showSnack(it) }
+        })
 
         model.isLoadingFirstTime.observe(this@RecentBuildsFragment, Observer {
             it?.let {
                 if (it) recent_build_list_view_flipper.displayedChild = 1
             }
         })
-
         model.isLoadingList.observe(this@RecentBuildsFragment, Observer {
             it?.let {
                 if (!it) {
                     recent_builds_list_refresher.isRefreshing = false
                     (recent_builds_list_rv.adapter as BuildListAdapter).onPageLoadComplete()
                 }
+            }
+        })
+        model.buildAbortComplete.observe(this@RecentBuildsFragment, Observer {
+            it?.let {
+                recent_builds_list_rv.scrollToPosition(0)
+                model.loadRecentBuildsList(1)
+                showSnack(R.string.success_message_build_abort)
+            }
+        })
+        model.buildRestartComplete.observe(this@RecentBuildsFragment, Observer {
+            it?.let {
+                recent_builds_list_rv.scrollToPosition(0)
+                model.loadRecentBuildsList(1)
+                showSnack(R.string.success_message_build_restart)
             }
         })
 
@@ -116,21 +137,33 @@ class RecentBuildsFragment: Fragment(), PageRecyclerViewAdapter.RecyclerViewList
 
         recent_builds_list_refresher.setOnRefreshListener {
             recent_builds_list_refresher.isRefreshing = true
-            model.loadRecentBuildsList( 1)
+            model.loadRecentBuildsList(1)
         }
 
         if (model.buildsList.value!!.isEmpty()) {
-            model.loadRecentBuildsList( 1)
+            model.loadRecentBuildsList(1)
         }
     }
 
     override fun onPageComplete(pos: Int) {
-        model.loadRecentBuildsList( (pos / ServerInterface.PAGE_SIZE) + 1)
+        model.loadRecentBuildsList((pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
     override fun onStop() {
         super.onStop()
         (recent_builds_list_rv.adapter as BuildListAdapter).close()
+    }
+
+    override fun onBuildClick(build: Build) {
+        //TODO Implement
+    }
+
+    override fun onBuildRestartClick(build: Build) {
+        model.restartBuild(build)
+    }
+
+    override fun onBuildAbort(build: Build) {
+        model.abortBuild(build)
     }
 
     companion object {

@@ -410,8 +410,27 @@ class TravisServerInterface internal constructor(
             interval: String,
             dontRunIfRecentlyBuilt: Boolean
     ): Observable<Cron> {
-        return travisEndpoints.scheuleNewCron(repoId, branchName, interval, dontRunIfRecentlyBuilt)
-
+        return travisEndpoints.scheduleNewCron(repoId, branchName, interval, dontRunIfRecentlyBuilt)
     }
 
+    /**
+     * Restart the [build]. You can only restart the build which has status other than
+     * [BuildState.RUNNING] or [BuildState.BOOTING].
+     *
+     * @return It will return the [Observable] with the id of the new build.
+     */
+    override fun restartBuild(build: Build): Observable<String> {
+        return travisEndpoints.restartBuild(build.id.toString())
+                .map { return@map build.id.toString() /* Travis doesn't change the build id. */ }
+    }
+
+    /**
+     * Abort the [build]. You can abort the build that are in [BuildState.RUNNING] only.
+     *
+     * @return It will return the [Observable] with the id of the new build.
+     */
+    override fun abortBuild(build: Build): Observable<String> {
+        return travisEndpoints.abortBuild(build.id.toString())
+                .map { return@map build.id.toString() /* Travis doesn't change the build id. */ }
+    }
 }

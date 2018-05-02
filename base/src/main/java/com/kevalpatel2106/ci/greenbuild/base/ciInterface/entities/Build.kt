@@ -52,6 +52,10 @@ data class Build(
         val ownerName: String?
 ) : Parcelable {
 
+    var isRestarting: Boolean = false
+
+    var isAborting: Boolean = false
+
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString(),

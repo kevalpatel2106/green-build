@@ -22,6 +22,7 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,7 +38,7 @@ import javax.inject.Inject
  */
 internal class RecentBuildsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
-        compatibilityCheck: CompatibilityCheck
+        private val compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
     internal val buildsList = MutableLiveData<ArrayList<Build>>()
 
@@ -48,6 +49,14 @@ internal class RecentBuildsListViewModel @Inject constructor(
     internal var isLoadingFirstTime = MutableLiveData<Boolean>()
 
     internal var hasModeData = MutableLiveData<Boolean>()
+
+    internal var buildRestartComplete = MutableLiveData<Unit>()
+
+    internal var errorRestartingBuild = SingleLiveEvent<String>()
+
+    internal var buildAbortComplete = MutableLiveData<Unit>()
+
+    internal var errorAbortingBuild = SingleLiveEvent<String>()
 
     init {
         if (!compatibilityCheck.isRecentBuildsListSupported())
@@ -84,6 +93,57 @@ internal class RecentBuildsListViewModel @Inject constructor(
                     buildsList.recall()
                 }, {
                     errorLoadingList.value = it.message
+                })
+    }
+
+
+    fun restartBuild(build: Build) {
+        if (!compatibilityCheck.isRestartBuildSupported())
+            throw IllegalStateException("Restart build is not supported for this CI platform.")
+
+        if (build.state == BuildState.RUNNING || build.state == BuildState.BOOTING)
+            throw IllegalStateException("Cannot restart running or booting build")
+
+        serverInterface.restartBuild(build)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    build.isRestarting = true
+                    buildsList.recall()
+                }
+                .doOnTerminate {
+                    build.isRestarting = false
+                    buildsList.recall()
+                }
+                .subscribe({
+                    buildRestartComplete.value = Unit
+                }, {
+                    errorRestartingBuild.value = it.message
+                })
+    }
+
+    fun abortBuild(build: Build) {
+        if (!compatibilityCheck.isAbortBuildSupported())
+            throw IllegalStateException("Abort build is not supported for this CI platform.")
+
+        if (build.state != BuildState.RUNNING)
+            throw IllegalStateException("Can only abort running build.")
+
+        serverInterface.abortBuild(build)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    build.isAborting = true
+                    buildsList.recall()
+                }
+                .doOnTerminate {
+                    build.isAborting = false
+                    buildsList.recall()
+                }
+                .subscribe({
+                    buildAbortComplete.value = Unit
+                }, {
+                    errorAbortingBuild.value = it.message
                 })
     }
 }

@@ -47,7 +47,11 @@ internal class BuildViewHolder private constructor(itemView: View)
         }
     }
 
-    fun bind(build: Build, displayRepoInfo : Boolean) {
+    fun bind(build: Build,
+             displayRepoInfo: Boolean,
+             onBuildClick: (build: Build) -> Unit,
+             onBuildRestartClick: (build: Build) -> Unit,
+             onBuildAbortClick: (build: Build) -> Unit) {
         itemView.build_status_view.setBackgroundColor(build.state.getBuildStateColor(itemView.context))
 
         if (displayRepoInfo && build.repoName != null && build.ownerName != null) {
@@ -98,6 +102,19 @@ internal class BuildViewHolder private constructor(itemView: View)
         }
 
         if (build.state == BuildState.RUNNING) startTimerForUpdatingBuildTimes(build)
+
+        //Set abort button
+        itemView.row_build_abort_btn.isVisible = build.state == BuildState.RUNNING
+        itemView.row_build_abort_btn.displayLoader(build.isAborting)
+        itemView.row_build_abort_btn.setOnClickListener { onBuildAbortClick.invoke(build) }
+
+        //Set restart button
+        itemView.row_build_restart_btn.isVisible = build.state !in setOf(BuildState.RUNNING, BuildState.BOOTING)
+        itemView.row_build_restart_btn.displayLoader(build.isRestarting)
+        itemView.row_build_restart_btn.setOnClickListener { onBuildRestartClick.invoke(build) }
+
+        //Set click listener
+        itemView.setOnClickListener { onBuildClick.invoke(build) }
     }
 
     private fun startTimerForUpdatingBuildTimes(build: Build) {

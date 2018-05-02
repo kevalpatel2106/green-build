@@ -182,6 +182,20 @@ abstract class ServerInterface(protected val accessToken: String) {
      */
     abstract fun supportedCronIntervals(): Observable<ArrayList<String>>
 
+    /**
+     * Restart the [build]. You can only restart the build which has status other than
+     * [BuildState.RUNNING] or [BuildState.BOOTING].
+     *
+     * @return It will return the [Observable] with the id of the new build.
+     */
+    abstract fun restartBuild(build: Build): Observable<String>
+
+    /**
+     * Abort the [build]. You can abort the build that are in [BuildState.RUNNING] only.
+     *
+     * @return It will return the [Observable] with the id of the new build.
+     */
+    abstract fun abortBuild(build: Build): Observable<String>
 
     companion object {
 

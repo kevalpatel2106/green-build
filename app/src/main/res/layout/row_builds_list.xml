@@ -13,46 +13,46 @@
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?selectableItemBackground">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="?selectableItemBackground">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.5"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
+        app:layout_constraintGuide_begin="@dimen/spacing_micro"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/spacing_micro" />
+        app:layout_constraintGuide_end="@dimen/spacing_micro"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="16dp"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/build_repo_name"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="@tools:sample/cities" />
+        tools:text="@tools:sample/cities"/>
 
     <View
         android:id="@+id/build_status_view"
@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        tools:background="@color/colorPrimary" />
+        tools:background="@color/colorPrimary"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/build_state_iv"
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toTopOf="@+id/built_number_tv"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        tools:src="@drawable/ic_build_state_error" />
+        tools:src="@drawable/ic_build_state_error"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/built_number_tv"
@@ -98,7 +98,7 @@
         android:gravity="center_vertical"
         app:layout_constraintStart_toEndOf="@+id/build_state_iv"
         app:layout_constraintTop_toBottomOf="@+id/build_repo_name"
-        tools:text="# 125.5" />
+        tools:text="# 125.5"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/branch_name_tv"
@@ -112,7 +112,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/built_number_tv"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toEndOf="@+id/built_number_tv"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem/random"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/build_trigger_type_tv"
@@ -123,7 +123,7 @@
         app:layout_constraintEnd_toStartOf="@+id/commit_message_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/commit_message_tv"
-        tools:text="Cron" />
+        tools:text="Cron"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/commit_message_tv"
@@ -137,7 +137,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/build_trigger_type_tv"
         app:layout_constraintTop_toBottomOf="@+id/branch_name_tv"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem/random"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBAvatarView
         android:id="@+id/commit_author_avatar_iv"
@@ -148,7 +148,7 @@
         app:civ_border_color="@android:color/white"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/commit_message_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/commit_author_name_tv"
@@ -163,7 +163,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toEndOf="@+id/commit_author_avatar_iv"
         app:layout_constraintTop_toTopOf="@+id/commit_author_avatar_iv"
-        tools:text="@tools:sample/full_names" />
+        tools:text="@tools:sample/full_names"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/imageView"
@@ -173,7 +173,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/commit_hash_tv"
         app:layout_constraintStart_toEndOf="@+id/commit_author_name_tv"
         app:layout_constraintTop_toTopOf="@+id/commit_hash_tv"
-        app:srcCompat="@drawable/git_commit" />
+        app:srcCompat="@drawable/git_commit"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/commit_hash_tv"
@@ -189,7 +189,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/commit_message_tv"
-        tools:text="@tools:sample/us_zipcodes" />
+        tools:text="@tools:sample/us_zipcodes"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/imageView2"
@@ -199,7 +199,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/time_taken_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/time_taken_tv"
-        app:srcCompat="@drawable/ic_sand_clock" />
+        app:srcCompat="@drawable/ic_sand_clock"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/time_taken_tv"
@@ -211,12 +211,10 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/commit_hash_tv"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="@tools:sample/date/hhmmss" />
+        tools:text="@tools:sample/date/hhmmss"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
         android:id="@+id/imageView3"
@@ -226,14 +224,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/build_start_time_tv"
         app:layout_constraintStart_toEndOf="@+id/time_taken_tv"
         app:layout_constraintTop_toTopOf="@+id/build_start_time_tv"
-        app:srcCompat="@drawable/ic_history" />
+        app:srcCompat="@drawable/ic_history"/>
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
         android:id="@+id/build_start_time_tv"
         style="@style/SmallText.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_micro"
         android:layout_marginStart="@dimen/spacing_micro"
         android:gravity="center_vertical"
         android:maxLines="1"
@@ -243,6 +240,45 @@
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/time_taken_tv"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="@tools:sample/date/ddmmyy" />
+        tools:text="@tools:sample/date/ddmmyy"/>
 
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
+        android:id="@+id/row_build_restart_btn"
+        style="@style/RoundButton"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_env_var_delete_btn"
+        android:drawablePadding="@dimen/spacing_micro"
+        android:drawableStart="@drawable/ic_restart"
+        android:drawableTint="@android:color/holo_red_dark"
+        android:text="@string/btn_title_restart"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/row_build_abort_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/build_status_view"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/time_taken_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UnusedAttribute"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
+        android:id="@+id/row_build_abort_btn"
+        style="@style/RoundButton"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_env_var_edit_btn"
+        android:drawablePadding="@dimen/spacing_micro"
+        android:drawableStart="@drawable/ic_abort"
+        android:drawableTint="@color/colorAccent"
+        android:text="@string/btn_title_abort"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/row_build_restart_btn"
+        app:layout_constraintTop_toBottomOf="@+id/time_taken_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UnusedAttribute"/>
 </android.support.constraint.ConstraintLayout>

@@ -29,7 +29,8 @@ import java.io.Closeable
 internal class BuildListAdapter(
         context: Context,
         buildsList: ArrayList<Build>,
-        private val displayRepoInfo : Boolean,
+        private val displayRepoInfo: Boolean,
+        private val buildListListener: BuildListListener,
         listener: PageRecyclerViewAdapter.RecyclerViewListener<Build>)
     : PageRecyclerViewAdapter<BuildViewHolder, Build>(context, buildsList, listener), Closeable {
 
@@ -37,7 +38,13 @@ internal class BuildListAdapter(
 
     override fun bindView(holder: BuildViewHolder, item: Build) {
         visibleViewHolder.add(holder)
-        holder.bind(item, displayRepoInfo)
+        holder.bind(
+                item,
+                displayRepoInfo,
+                { buildListListener.onBuildClick(it) },
+                { buildListListener.onBuildRestartClick(it) },
+                { buildListListener.onBuildAbort(it) }
+        )
     }
 
     override fun onViewRecycled(holder: PageViewHolder) {

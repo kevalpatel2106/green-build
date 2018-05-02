@@ -131,4 +131,8 @@
     <string name="logout_confirmation_dialog_positive_title">Logout</string>
     <string name="logout_progress_dialog_message">Logging out...</string>
     <string name="error_logging_out">Cannot remove this account.</string>
+    <string name="success_message_build_restart">Build restarted successfully.</string>
+    <string name="success_message_build_abort">Build aborted successfully.</string>
+    <string name="btn_title_abort">Abort</string>
+    <string name="btn_title_restart">Restart</string>
 </resources>

@@ -28,18 +28,20 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import kotlinx.android.synthetic.main.fragment_recent_builds.*
 import kotlinx.android.synthetic.main.fragment_repo_build_list.*
 import javax.inject.Inject
 
-class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build> {
+class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListener<Build>, BuildListListener {
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
 
-    private lateinit var mModelRepo: RepoBuildsListViewModel
+    private lateinit var model: RepoBuildsListViewModel
 
     private lateinit var repoId: String
 
@@ -58,7 +60,7 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
                 .build()
                 .inject(this@RepoBuildsListFragment)
 
-        mModelRepo = ViewModelProviders
+        model = ViewModelProviders
                 .of(this@RepoBuildsListFragment, viewModelProvider)
                 .get(RepoBuildsListViewModel::class.java)
 
@@ -66,14 +68,15 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
         builds_list_rv.layoutManager = LinearLayoutManager(context!!)
         builds_list_rv.adapter = BuildListAdapter(
                 context = context!!,
-                buildsList = mModelRepo.buildsList.value!!,
+                buildsList = model.buildsList.value!!,
                 displayRepoInfo = false,
-                listener = this
+                listener = this,
+                buildListListener = this
         )
         builds_list_rv.itemAnimator = DefaultItemAnimator()
         builds_list_rv.addItemDecoration(DividerItemDecoration(context!!))
 
-        mModelRepo.buildsList.observe(this@RepoBuildsListFragment, Observer {
+        model.buildsList.observe(this@RepoBuildsListFragment, Observer {
 
             it?.let {
                 if (it.isNotEmpty()) {
@@ -86,20 +89,26 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
             }
         })
 
-        mModelRepo.errorLoadingList.observe(this@RepoBuildsListFragment, Observer {
+        model.errorLoadingList.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 build_list_view_flipper.displayedChild = 2
                 builds_error_tv.text = it
             }
         })
 
-        mModelRepo.isLoadingFirstTime.observe(this@RepoBuildsListFragment, Observer {
+        model.isLoadingFirstTime.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 if (it) build_list_view_flipper.displayedChild = 1
             }
         })
+        model.errorAbortingBuild.observe(this@RepoBuildsListFragment, Observer {
+            it?.let { showSnack(it) }
+        })
+        model.errorRestartingBuild.observe(this@RepoBuildsListFragment, Observer {
+            it?.let { showSnack(it) }
+        })
 
-        mModelRepo.isLoadingList.observe(this@RepoBuildsListFragment, Observer {
+        model.isLoadingList.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 if (!it) {
                     builds_list_refresher.isRefreshing = false
@@ -107,14 +116,28 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
                 }
             }
         })
+        model.buildAbortComplete.observe(this@RepoBuildsListFragment, Observer {
+            it?.let {
+                builds_list_rv.scrollToPosition(0)
+                model.loadBuildsList(repoId, 1)
+                showSnack(R.string.success_message_build_abort)
+            }
+        })
+        model.buildRestartComplete.observe(this@RepoBuildsListFragment, Observer {
+            it?.let {
+                builds_list_rv.scrollToPosition(0)
+                model.loadBuildsList(repoId, 1)
+                showSnack(R.string.success_message_build_restart)
+            }
+        })
 
-        mModelRepo.hasModeData.observe(this@RepoBuildsListFragment, Observer {
+        model.hasModeData.observe(this@RepoBuildsListFragment, Observer {
             it?.let { (builds_list_rv.adapter as BuildListAdapter).hasNextPage = it }
         })
 
         builds_list_refresher.setOnRefreshListener {
             builds_list_refresher.isRefreshing = true
-            mModelRepo.loadBuildsList(repoId, 1)
+            model.loadBuildsList(repoId, 1)
         }
 
         with(arguments?.getString(ARG_REPO_ID)) {
@@ -123,18 +146,30 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
             repoId = this
         }
 
-        if (mModelRepo.buildsList.value!!.isEmpty()) {
-            mModelRepo.loadBuildsList(repoId, 1)
+        if (model.buildsList.value!!.isEmpty()) {
+            model.loadBuildsList(repoId, 1)
         }
     }
 
     override fun onPageComplete(pos: Int) {
-        mModelRepo.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
+        model.loadBuildsList(repoId, (pos / ServerInterface.PAGE_SIZE) + 1)
     }
 
     override fun onStop() {
         super.onStop()
         (builds_list_rv.adapter as BuildListAdapter).close()
+    }
+
+    override fun onBuildClick(build: Build) {
+        //TODO Implement
+    }
+
+    override fun onBuildRestartClick(build: Build) {
+        model.restartBuild(build)
+    }
+
+    override fun onBuildAbort(build: Build) {
+        model.abortBuild(build)
     }
 
     companion object {

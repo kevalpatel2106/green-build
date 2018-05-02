@@ -128,10 +128,18 @@ internal interface TravisEndpoints {
     @POST("/repo/{repoid}/branch/{branchName}/cron")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     @FormUrlEncoded
-    fun scheuleNewCron(
+    fun scheduleNewCron(
             @Path("repoid") repoid: String,
             @Path("branchName") branchName: String,
             @Field("cron.interval") interval: String,
             @Field("cron.dont_run_if_recent_build_exists") dontRunIfRecentlyBuilt: Boolean
     ): Observable<Cron>
+
+    @POST("build/{buildId}/restart")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun restartBuild(@Path("buildId") buildId: String): Observable<EmptyResponse>
+
+    @POST("build/{buildId}/cancel")
+    @Headers("Travis-API-Version: 3", "Add-Auth: true")
+    fun abortBuild(@Path("buildId") buildId: String): Observable<EmptyResponse>
 }
