@@ -36,8 +36,8 @@ class MockServerManager : Closeable {
     @SuppressLint("NewApi")
     fun getResponsesPath(): String {
 
-        if (System.getenv("CI") == "true") {
-            return "/home/travis/kevalpatel2106/green-build/testutils/src/main/res/raw"
+        if (System.getenv("TRAVIS") == "true") {
+            return "${System.getenv("TRAVIS_BUILD_DIR")}/testutils/src/main/res/raw"
         }
 
         @Suppress("UselessCallOnNotNull")
