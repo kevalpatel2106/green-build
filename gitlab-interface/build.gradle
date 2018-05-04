@@ -1,0 +1,50 @@
+/*
+ * Copyright 2018 Keval Patel.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'com.android.library'
+apply plugin: "com.vanniktech.android.junit.jacoco"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    if (rootProject.file('./misc/keystore.properties').exists()) {
+        signingConfigs signingConfig
+    }
+
+    buildTypes {
+        debug debugLibBuildType
+        release {
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            if (rootProject.file('./misc/keystore.properties').exists()) {
+                signingConfig signingConfigs.playStore
+            }
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+        }
+    }
+}
+
+dependencies {
+    implementation project(':base')
+    testImplementation project(':testutils')
+    androidTestImplementation project(':testutils')
+
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    implementation 'com.github.bachors:Android-Prefix-Input:1.1'
+}

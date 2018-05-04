@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/gitlab-interface" />
             <option value="$PROJECT_DIR$/testutils" />
             <option value="$PROJECT_DIR$/travis-interface" />
           </set>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context="com.kevalpatel2106.greenbuild.gitlabInterface.authentication.GitlabAuthenticationActivity"
+                                             tools:layout_editor_absoluteY="81dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="17dp"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="17dp"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/auth_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/authentication_base_url_til"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/authentication_token_til"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:passwordToggleEnabled="false">
+
+        <com.bachors.prefixinput.EditText
+            android:id="@+id/authentication_base_url_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/authentication_hint_enter_domain"
+            android:inputType="text"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:singleLine="true"
+            android:text="@string/schema_https"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/authentication_token_til"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="22"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/authentication_btn"
+        app:layout_constraintEnd_toStartOf="@+id/authentication_paste_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/authentication_base_url_til"
+        app:passwordToggleContentDescription="Toggle password visibility"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/white">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/authentication_token_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/authentication_hint_enter_access_token"
+            android:inputType="textPassword"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
+        android:id="@+id/authentication_paste_btn"
+        android:layout_width="@dimen/spacing_xlarge"
+        android:layout_height="@dimen/spacing_xlarge"
+        android:layout_marginStart="8dp"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/spacing_nano"
+        app:layout_constraintBottom_toBottomOf="@+id/authentication_token_til"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/authentication_token_til"
+        app:layout_constraintTop_toTopOf="@+id/authentication_token_til"
+        app:layout_constraintVertical_bias="0.38"
+        app:srcCompat="@drawable/ic_paste"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBButton
+        android:id="@+id/authentication_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/authentication_hint_login"
+        app:layout_constraintBottom_toTopOf="@+id/travis_access_token_hint_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/authentication_token_til"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+        android:id="@+id/travis_access_token_hint_tv"
+        style="@style/SmallText.Accent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/spacing_micro"
+        android:text="@string/authorization_hint_where_can_i_get_the_access_token"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
+        android:id="@+id/authentication_ci_provider_iv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/gitlab_logo_height"
+        android:transitionName="@string/ci_provider_image_iv_transition_name"
+        app:layout_constraintBottom_toTopOf="@+id/authentication_ci_provider_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:src="@drawable/gitlab_logo"/>
+
+    <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+        android:id="@+id/authentication_ci_provider_tv"
+        style="@style/LargeText.Accent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:transitionName="@string/ci_provider_title_tv_transition_name"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/authentication_ci_provider_iv"
+        tools:text="Gitlab CI"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="200dp"/>
+
+</android.support.constraint.ConstraintLayout>

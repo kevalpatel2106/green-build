@@ -12,4 +12,24 @@
  * limitations under the License.
  */
 
-include ':app', ':base', ':testutils', ':travis-interface', ':gitlab-interface'
+package com.kevalpatel2106.greenbuild.gitlabInterface
+
+import android.content.Context
+
+/**
+ * Created by Keval on 23/04/18.
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
+ */
+abstract class GitlabModuleCallbacks {
+
+    companion object {
+        internal lateinit var instance: GitlabModuleCallbacks
+
+        fun init(travisModuleCallbacks: GitlabModuleCallbacks) {
+            this.instance = travisModuleCallbacks
+        }
+    }
+
+    abstract fun openHome(context: Context)
+}

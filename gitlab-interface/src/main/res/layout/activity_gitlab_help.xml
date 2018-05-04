@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2018 Keval Patel.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.kevalpatel2106.greenbuild.gitlabInterface.authentication.GitlabHelpActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="17dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/md_activity_vertical_margin"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+            android:id="@+id/travis_help_title_tv"
+            style="@style/LargeText.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/travis_help_title"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toTopOf="@+id/guideline19"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+            android:id="@+id/travis_help_tv_1"
+            style="@style/MediumText.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/travis_help_step_1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_title_tv"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+            android:id="@+id/travis_help_tv_2"
+            style="@style/MediumText.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/travis_help_step_2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_tv_1"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
+            android:id="@+id/travis_help_iv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/gitlab_hint_image_height"
+            android:layout_marginTop="@dimen/spacing_micro"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_tv_2"
+            app:srcCompat="@drawable/travis_hint_img_1"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+            android:id="@+id/travis_help_tv_3"
+            style="@style/MediumText.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/travis_help_step_3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_iv_1"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBImageView
+            android:id="@+id/travis_help_iv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/gitlab_hint_image_height"
+            android:layout_marginTop="@dimen/spacing_micro"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_tv_3"
+            app:srcCompat="@drawable/travis_hint_img_2"/>
+
+        <com.kevalpatel2106.ci.greenbuild.base.view.GBTextView
+            android:id="@+id/travis_help_tv_4"
+            style="@style/MediumText.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/travis_help_step_4"
+            app:layout_constraintBottom_toTopOf="@id/guideline21"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintTop_toBottomOf="@+id/travis_help_iv_2"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
