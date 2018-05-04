@@ -16,14 +16,14 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.CheckResult
-import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
-import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.recall
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

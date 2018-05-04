@@ -20,10 +20,10 @@ import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
-import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.recall
 import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers

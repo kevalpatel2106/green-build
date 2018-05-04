@@ -17,10 +17,9 @@ package com.kevalpatel2106.ci.greenbuild.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.kevalpatel2106.ci.greenbuild.about.AboutViewModel
-import com.kevalpatel2106.ci.greenbuild.base.arch.DaggerViewModelFactory
-import com.kevalpatel2106.ci.greenbuild.base.arch.ViewModelKey
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.DaggerViewModelFactory
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.ViewModelKey
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerViewModel
-import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
 import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListViewModel
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListViewModel

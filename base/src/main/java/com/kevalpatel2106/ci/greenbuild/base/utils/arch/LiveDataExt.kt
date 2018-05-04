@@ -12,17 +12,15 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.arch
+package com.kevalpatel2106.ci.greenbuild.base.utils.arch
 
-import android.arch.lifecycle.ViewModel
-import dagger.MapKey
-import kotlin.reflect.KClass
+import android.arch.lifecycle.MutableLiveData
 
 /**
- * Created by Keval on 17/04/18.
+ * Created by Keval on 24/04/18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
+fun <T> MutableLiveData<T>.recall() {
+    postValue(value)
+}

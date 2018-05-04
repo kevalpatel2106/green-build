@@ -22,7 +22,7 @@ import com.github.javiersantos.appupdater.objects.Update
 import com.kevalpatel2106.ci.greenbuild.BuildConfig
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
 import javax.inject.Inject
 
 

@@ -16,9 +16,9 @@ package com.kevalpatel2106.ci.greenbuild.ciSelector
 
 import android.arch.lifecycle.MutableLiveData
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.recall
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import javax.inject.Inject
 

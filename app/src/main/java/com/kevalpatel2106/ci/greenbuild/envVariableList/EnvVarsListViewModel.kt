@@ -15,15 +15,15 @@
 package com.kevalpatel2106.ci.greenbuild.envVariableList
 
 import android.arch.lifecycle.MutableLiveData
-import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.SingleLiveEvent
+import com.kevalpatel2106.ci.greenbuild.base.utils.arch.recall
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
-import com.kevalpatel2106.ci.greenbuild.base.arch.recall
 
 /**
  * Created by Keval on 18/04/18.

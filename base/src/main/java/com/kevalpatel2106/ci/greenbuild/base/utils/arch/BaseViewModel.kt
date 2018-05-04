@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.arch
+package com.kevalpatel2106.ci.greenbuild.base.utils.arch
 
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.CallSuper
