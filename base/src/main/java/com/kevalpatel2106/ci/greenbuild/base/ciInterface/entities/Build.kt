@@ -31,13 +31,13 @@ data class Build(
 
         var duration: Long,
 
-        val state: BuildState,
+        var state: BuildState,
 
-        val previousState: BuildState?,
+        var previousState: BuildState?,
 
-        val startedAt: Long = 0,
+        var startedAt: Long = 0,
 
-        val finishedAt: Long = 0,
+        var finishedAt: Long = 0,
 
         val triggerType: TriggerType,
 

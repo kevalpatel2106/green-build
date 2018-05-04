@@ -18,12 +18,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.postDelayed
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
@@ -119,14 +121,12 @@ class RecentBuildsFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewLis
         model.buildAbortComplete.observe(this@RecentBuildsFragment, Observer {
             it?.let {
                 recent_builds_list_rv.scrollToPosition(0)
-                model.loadRecentBuildsList(1)
                 showSnack(R.string.success_message_build_abort)
             }
         })
         model.buildRestartComplete.observe(this@RecentBuildsFragment, Observer {
             it?.let {
                 recent_builds_list_rv.scrollToPosition(0)
-                model.loadRecentBuildsList(1)
                 showSnack(R.string.success_message_build_restart)
             }
         })
@@ -137,10 +137,6 @@ class RecentBuildsFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewLis
 
         recent_builds_list_refresher.setOnRefreshListener {
             recent_builds_list_refresher.isRefreshing = true
-            model.loadRecentBuildsList(1)
-        }
-
-        if (model.buildsList.value!!.isEmpty()) {
             model.loadRecentBuildsList(1)
         }
     }

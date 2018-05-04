@@ -32,7 +32,6 @@ import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.fragment_recent_builds.*
 import kotlinx.android.synthetic.main.fragment_repo_build_list.*
 import javax.inject.Inject
 
@@ -119,14 +118,12 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
         model.buildAbortComplete.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 builds_list_rv.scrollToPosition(0)
-                model.loadBuildsList(repoId, 1)
                 showSnack(R.string.success_message_build_abort)
             }
         })
         model.buildRestartComplete.observe(this@RepoBuildsListFragment, Observer {
             it?.let {
                 builds_list_rv.scrollToPosition(0)
-                model.loadBuildsList(repoId, 1)
                 showSnack(R.string.success_message_build_restart)
             }
         })
@@ -165,11 +162,11 @@ class RepoBuildsListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewL
     }
 
     override fun onBuildRestartClick(build: Build) {
-        model.restartBuild(build)
+        model.restartBuild(repoId, build)
     }
 
     override fun onBuildAbort(build: Build) {
-        model.abortBuild(build)
+        model.abortBuild(repoId, build)
     }
 
     companion object {

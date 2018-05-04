@@ -97,7 +97,7 @@ internal class RepoBuildsListViewModel @Inject constructor(
     }
 
 
-    fun restartBuild(build: Build) {
+    fun restartBuild(repoId: String,build: Build) {
         if (!compatibilityCheck.isRestartBuildSupported())
             throw IllegalStateException("Restart build is not supported for this CI platform.")
 
@@ -117,12 +117,18 @@ internal class RepoBuildsListViewModel @Inject constructor(
                 }
                 .subscribe({
                     buildRestartComplete.value = Unit
+
+                    //Refresh the page
+                    addDisposable(Observable.timer(1200, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe { loadBuildsList(repoId,1) })
                 }, {
                     errorRestartingBuild.value = it.message
                 })
     }
 
-    fun abortBuild(build: Build) {
+    fun abortBuild(repoId: String,build: Build) {
         if (!compatibilityCheck.isAbortBuildSupported())
             throw IllegalStateException("Abort build is not supported for this CI platform.")
 
@@ -142,6 +148,12 @@ internal class RepoBuildsListViewModel @Inject constructor(
                 }
                 .subscribe({
                     buildAbortComplete.value = Unit
+
+                    //Refresh the page
+                    addDisposable(Observable.timer(1200, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe { loadBuildsList(repoId,1) })
                 }, {
                     errorAbortingBuild.value = it.message
                 })

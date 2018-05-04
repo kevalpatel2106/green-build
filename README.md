@@ -1,4 +1,4 @@
-﻿[![Releases](https://img.shields.io/github/release/kevalpatel2106/green-build.svg)](http://bit.ly/2KitKV4) [![API](https://img.shields.io/badge/API-21%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Javadoc](https://img.shields.io/badge/Javadoc-Green%20Build-blue.svg)](http://kevalpatel2106.com/green-build/)
+﻿[![Build Status](https://travis-ci.org/kevalpatel2106/green-build.svg?branch=master)](https://travis-ci.org/kevalpatel2106/green-build) [![codecov](https://codecov.io/gh/kevalpatel2106/green-build/branch/master/graph/badge.svg)](https://codecov.io/gh/kevalpatel2106/green-build) [![Releases](https://img.shields.io/github/release/kevalpatel2106/green-build.svg)](http://bit.ly/2KitKV4) [![API](https://img.shields.io/badge/API-21%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Javadoc](https://img.shields.io/badge/Javadoc-Green%20Build-blue.svg)](http://kevalpatel2106.com/green-build/)
 ![Graphic](./.github/feature-graphic.png)
 
 # Green Build - Pocket CI client

@@ -15,6 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.buildList
 
 import android.arch.lifecycle.MutableLiveData
+import android.support.annotation.CheckResult
 import com.kevalpatel2106.ci.greenbuild.base.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.base.arch.SingleLiveEvent
 import com.kevalpatel2106.ci.greenbuild.base.arch.recall
@@ -24,38 +25,92 @@ import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
  * Created by Keval on 18/04/18.
  *
+ * @constructor Dagger injectable public constructor.
+ * @param serverInterface [ServerInterface] for loading the list of recent [Build] and restarting/aborting
+ * the build.
+ * @param compatibilityCheck [CompatibilityCheck] to check the compatibility with the CI platform.
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class RecentBuildsListViewModel @Inject constructor(
         private val serverInterface: ServerInterface,
         private val compatibilityCheck: CompatibilityCheck
 ) : BaseViewModel() {
+
+    /**
+     * [Disposable] for the polling [Observable]. If this [Disposable] is disposed or null, application
+     * is not polling for the changes.
+     */
+    private var pollingDisposable: Disposable? = null
+
+    /**
+     * [MutableLiveData] of the [ArrayList] of recent [Build]. UI can observe this to check any changes.
+     */
     internal val buildsList = MutableLiveData<ArrayList<Build>>()
 
+    /**
+     * [SingleLiveEvent] that emits the error message occurred while loading.
+     *
+     * @see loadRecentBuildsList
+     */
     internal val errorLoadingList = SingleLiveEvent<String>()
 
+    /**
+     * [MutableLiveData] that sets vale true if the builds are loading else false.
+     *
+     * @see loadRecentBuildsList
+     */
     internal var isLoadingList = MutableLiveData<Boolean>()
 
+    /**
+     * [MutableLiveData] that sets vale true if [loadRecentBuildsList] is loading first page else false.
+     *
+     * @see loadRecentBuildsList
+     */
     internal var isLoadingFirstTime = MutableLiveData<Boolean>()
 
+    /**
+     * [MutableLiveData] that sets vale true if there are no more [Build] to load.
+     *
+     * @see loadRecentBuildsList
+     */
     internal var hasModeData = MutableLiveData<Boolean>()
 
+    /**
+     * [MutableLiveData] that notifies when [restartBuild], restarts the [Build] successfully.
+     *
+     * @see restartBuild
+     */
     internal var buildRestartComplete = MutableLiveData<Unit>()
 
+    /**
+     * [SingleLiveEvent] that emits the error message occurred while restarting the [Build].
+     *
+     * @see restartBuild
+     */
     internal var errorRestartingBuild = SingleLiveEvent<String>()
 
+    /**
+     * [MutableLiveData] that notifies when [abortBuild], aborts the [Build] successfully.
+     *
+     * @see abortBuild
+     */
     internal var buildAbortComplete = MutableLiveData<Unit>()
 
+    /**
+     * [SingleLiveEvent] that emits the error message occurred while aborting the [Build].
+     *
+     * @see abortBuild
+     */
     internal var errorAbortingBuild = SingleLiveEvent<String>()
 
     init {
@@ -67,8 +122,48 @@ internal class RecentBuildsListViewModel @Inject constructor(
         isLoadingFirstTime.value = false
 
         buildsList.value = ArrayList()
+
+        //Load the first page.
+        loadRecentBuildsList(1)
+
+//        // Start polling
+//        pollingDisposable = startPolling()
     }
 
+    @CheckResult
+    private fun startPolling(): Disposable {
+        return Observable.interval(5, 10, TimeUnit.SECONDS)
+                .timeInterval()
+                .flatMap { serverInterface.getRecentBuildsList(1, BuildSortBy.FINISHED_AT_DESC) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapIterable { it.list }
+                .map {
+                    val newBuild = it
+                    buildsList.value?.let {
+                        it.filter {
+                            it.id == newBuild.id
+                        }.forEach {
+                            //Fill with the new values.
+                            it.finishedAt = newBuild.finishedAt
+                            it.startedAt = newBuild.startedAt
+                            it.state = newBuild.state
+                            it.previousState = newBuild.previousState
+                        }
+                    }
+                    return@map
+                }
+                .subscribe({
+                    Timber.e("Changes done.")
+                    buildsList.recall()
+                }, {
+                    errorLoadingList.value = it.message
+                })
+    }
+
+    /**
+     * Load the list of the recent [Build] from the server for the [page].
+     */
     fun loadRecentBuildsList(page: Int) {
         serverInterface.getRecentBuildsList(page, BuildSortBy.FINISHED_AT_DESC)
                 .subscribeOn(Schedulers.io())
@@ -96,7 +191,13 @@ internal class RecentBuildsListViewModel @Inject constructor(
                 })
     }
 
-
+    /**
+     * Restart the [build] if the build is not running.
+     *
+     * @throws IllegalStateException If the [build] state is [BuildState.BOOTING] or [BuildState.RUNNING].
+     * @throws IllegalStateException If the restart build is not supported by the CI provider. (i.e.
+     * [CompatibilityCheck.isRestartBuildSupported] is false.)
+     */
     fun restartBuild(build: Build) {
         if (!compatibilityCheck.isRestartBuildSupported())
             throw IllegalStateException("Restart build is not supported for this CI platform.")
@@ -117,11 +218,24 @@ internal class RecentBuildsListViewModel @Inject constructor(
                 }
                 .subscribe({
                     buildRestartComplete.value = Unit
+
+                    //Refresh the page
+                    addDisposable(Observable.timer(1200, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe { loadRecentBuildsList(1) })
                 }, {
                     errorRestartingBuild.value = it.message
                 })
     }
 
+    /**
+     * Abort the [build] if the build is running.
+     *
+     * @throws IllegalStateException If the [build] state is not [BuildState.BOOTING] or [BuildState.RUNNING].
+     * @throws IllegalStateException If the abort build is not supported by the CI provider. (i.e.
+     * [CompatibilityCheck.isAbortBuildSupported] is false.)
+     */
     fun abortBuild(build: Build) {
         if (!compatibilityCheck.isAbortBuildSupported())
             throw IllegalStateException("Abort build is not supported for this CI platform.")
@@ -142,6 +256,12 @@ internal class RecentBuildsListViewModel @Inject constructor(
                 }
                 .subscribe({
                     buildAbortComplete.value = Unit
+
+                    //Refresh the page
+                    addDisposable(Observable.timer(1200, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe { loadRecentBuildsList(1) })
                 }, {
                     errorAbortingBuild.value = it.message
                 })
