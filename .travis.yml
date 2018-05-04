@@ -47,7 +47,7 @@ before_script:
     - chmod +x gradlew      #Grant permissions
 
 script:
-    - ./gradlew lint app:assembleDebug -PdisablePreDex --stacktrace
+    - ./gradlew lint app:assembleDebug jacocoTestReportDebug -PdisablePreDex --stacktrace
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
