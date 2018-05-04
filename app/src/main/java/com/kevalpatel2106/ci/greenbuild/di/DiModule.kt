@@ -18,10 +18,13 @@ import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
+import com.kevalpatel2106.ci.greenbuild.dataProvider.AppRxSchedulers
 import com.kevalpatel2106.greenbuild.travisInterface.TravisCompatibilityCheck
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by Kevalpatel2106 on 17-Apr-18.
@@ -72,4 +75,12 @@ internal class DiModule {
             throw IllegalStateException("No CI accounts found.")
         }
     }
+
+    @Provides
+    fun provideRxSchedulers(): AppRxSchedulers = AppRxSchedulers(
+            database = Schedulers.single(),
+            disk = Schedulers.io(),
+            network = Schedulers.io(),
+            main = AndroidSchedulers.mainThread()
+    )
 }
