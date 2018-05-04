@@ -52,7 +52,7 @@ class NWInterceptorAuthTest {
     @Test
     @Throws(IOException::class)
     fun checkAddAuthHeader() {
-        mNetworkApi = NetworkApi(TEST_PREF_STRING_2)
+        mNetworkApi = NetworkApi(null,TEST_PREF_STRING_2)
 
         val request = Request.Builder()
                 .url("http://example.com")
@@ -72,7 +72,7 @@ class NWInterceptorAuthTest {
     @Test
     @Throws(IOException::class)
     fun checkApiRequestWithAuthHeader() {
-        mNetworkApi = NetworkApi(TEST_PREF_STRING_2)
+        mNetworkApi = NetworkApi(null,TEST_PREF_STRING_2)
 
         mockWebServer.enqueueResponse(File(mockWebServer.getResponsesPath() + "/success_sample.json"))
 
@@ -103,7 +103,7 @@ class NWInterceptorAuthTest {
     @Test
     @Throws(IOException::class)
     fun checkApiRequestWithoutAuthHeader() {
-        mNetworkApi = NetworkApi(TEST_PREF_STRING_2)
+        mNetworkApi = NetworkApi(null,TEST_PREF_STRING_2)
 
         mockWebServer.enqueueResponse(File(mockWebServer.getResponsesPath() + "/success_sample.json"))
 
