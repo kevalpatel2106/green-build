@@ -63,21 +63,29 @@ ext {
     }
 
     signingConfig = {
-        File credentials = rootProject.file('./misc/keystore.properties')
-        if (credentials.exists()) {
-            Properties properties = new Properties()
-            properties.load(credentials.newDataInputStream())
+        //This are th play store signing config.
+        playStore {
+            if (System.getenv("CI") == "true") {
 
-            //This are th play store signing config.
-            playStore {
-                storeFile file(properties.getProperty('KEY_PATH'))
-                storePassword properties.getProperty('KEY_PASSWORD')
-                keyAlias properties.getProperty('KEY_ALIAS')
-                keyPassword properties.getProperty('ALIAS_PASSWORD')
+                storeFile file(System.getenv('KEY_PATH'))
+                storePassword System.getenv('KEY_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('ALIAS_PASSWORD')
+            } else {
+                File credentials = rootProject.file('./misc/keystore.properties')
+                if (credentials.exists()) {
+                    Properties properties = new Properties()
+                    properties.load(credentials.newDataInputStream())
+
+                    storeFile file(properties.getProperty('KEY_PATH'))
+                    storePassword properties.getProperty('KEY_PASSWORD')
+                    keyAlias properties.getProperty('KEY_ALIAS')
+                    keyPassword properties.getProperty('ALIAS_PASSWORD')
+                } else {
+                    // File not present.
+                    throw new GradleException("keystore.properties not found. Cannot generate release build.")
+                }
             }
-        } else {
-            // File not present.
-            throw new GradleException("keystore.properties not found. Cannot generate release build.")
         }
     }
 
