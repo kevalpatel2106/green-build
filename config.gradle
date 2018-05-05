@@ -30,10 +30,10 @@ ext {
     ]
 
     playStoreVersion = [
-            "version_code": 4,
+            "version_code": 5,
             "major"       : 1,
             "minor"       : 1,
-            "patch"       : 0
+            "patch"       : 1
     ]
 
     packageExcludes = {
