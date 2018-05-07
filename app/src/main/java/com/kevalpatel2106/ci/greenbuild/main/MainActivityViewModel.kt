@@ -17,8 +17,8 @@ package com.kevalpatel2106.ci.greenbuild.main
 import android.arch.lifecycle.MutableLiveData
 import android.support.v4.app.Fragment
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.grrenbuild.entities.Account
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.greenbuild.utils.arch.BaseViewModel

@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.grrenbuild.entities.Permissions
 import com.kevalpatel2106.grrenbuild.entities.Repo
 
 internal data class TravisRepo(
@@ -56,25 +57,24 @@ internal data class TravisRepo(
         val githubLanguage: String? = null,
 
         @field:SerializedName("last_started_build")
-        val lastBuild: TravisBuild?
+        val lastStartedBuild: TravisBuild?
 ) {
 
     internal fun toRepo(): Repo {
         return Repo(
+                localId = 0,
                 id = id.toString(),
                 name = name,
                 description = description,
-                defaultBranch = defaultBranch?.name,
-                isEnabledForCi = isEnabledOnCi,
                 isPrivate = isPrivate,
-                permissions = permissions?.toRepoPermission(),
+                isEnabledForCi = isEnabledOnCi,
                 language = githubLanguage,
-                owner = Repo.Owner(
-                        name = owner.login,
-                        avatar = null
-                ),
-                lastBuild = lastBuild?.toBuild()
-        )
+                defaultBranch = defaultBranch?.toBranch(id.toString()),
+                owner = owner.toAuthor(),
+                permissions = permissions?.toRepoPermission()
+        ).apply {
+            this.lastBuild = lastStartedBuild?.toBuild(id)
+        }
     }
 
     internal data class RepoPermissions(
@@ -113,8 +113,8 @@ internal data class TravisRepo(
             val deactivate: Boolean
     ) {
 
-        fun toRepoPermission(): Repo.Permissions {
-            return Repo.Permissions(
+        fun toRepoPermission(): Permissions {
+            return Permissions(
                     isAdmin = admin,
                     canCreateEnvVar = createEnvVar,
                     canDisableCIBuild = deactivate,

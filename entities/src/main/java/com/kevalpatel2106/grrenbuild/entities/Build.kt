@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -22,32 +23,53 @@ import android.os.Parcelable
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
+@Entity(tableName = Build.BUILD_TABLE_NAME)
 data class Build(
 
+        @PrimaryKey(autoGenerate = true)
+        @Suppress("MemberVisibilityCanBePrivate")
+        val localId: Long,
+
+        @ColumnInfo(name = BUILD_ID)
         val id: Long,
 
+        @ColumnInfo(name = BUILD_NUMBER)
         val number: String,
 
+        @ColumnInfo(name = BUILD_DURATION)
         var duration: Long,
 
+        @ColumnInfo(name = BUILD_CURRENT_STATE)
         var state: BuildState,
 
+        @ColumnInfo(name = BUILD_PREVIOUS_STATE)
         var previousState: BuildState?,
 
+        @ColumnInfo(name = BUILD_START_TIME)
         var startedAt: Long = 0,
 
+        @ColumnInfo(name = BUILD_END_TIME)
         var finishedAt: Long = 0,
 
+        @ColumnInfo(name = BUILD_TRIGGER_TYPE)
         val triggerType: TriggerType,
 
-        val author: Author,
+        @Embedded
+        val commitAuthor: Author,
 
-        val branch: Branch,
+        @Embedded
+        val commitBranch: Branch,
 
+        @Embedded
         val commit: Commit,
 
+        @ColumnInfo(name = BUILD_REPO_NAME)
         val repoName: String?,
 
+        @ColumnInfo(name = BUILD_REPO_ID)
+        val repoId: String,
+
+        @ColumnInfo(name = BUILD_OWNER_NAME)
         val ownerName: String?
 ) : Parcelable {
 
@@ -56,6 +78,7 @@ data class Build(
     var isAborting: Boolean = false
 
     constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readLong(),
             parcel.readString(),
             parcel.readLong(),
@@ -70,8 +93,11 @@ data class Build(
             parcel.readParcelable(Branch::class.java.classLoader),
             parcel.readParcelable(Commit::class.java.classLoader),
             parcel.readString(),
-            parcel.readString()
-    )
+            parcel.readString(),
+            parcel.readString()) {
+        isRestarting = parcel.readByte() != 0.toByte()
+        isAborting = parcel.readByte() != 0.toByte()
+    }
 
     init {
         if (startedAt != 0L && state in setOf(BuildState.RUNNING, BuildState.BOOTING)) {
@@ -80,6 +106,7 @@ data class Build(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(localId)
         parcel.writeLong(id)
         parcel.writeString(number)
         parcel.writeLong(duration)
@@ -88,11 +115,14 @@ data class Build(
         parcel.writeLong(startedAt)
         parcel.writeLong(finishedAt)
         parcel.writeString(triggerType.name)
-        parcel.writeParcelable(author, flags)
-        parcel.writeParcelable(branch, flags)
+        parcel.writeParcelable(commitAuthor, flags)
+        parcel.writeParcelable(commitBranch, flags)
         parcel.writeParcelable(commit, flags)
         parcel.writeString(repoName)
+        parcel.writeString(repoId)
         parcel.writeString(ownerName)
+        parcel.writeByte(if (isRestarting) 1 else 0)
+        parcel.writeByte(if (isAborting) 1 else 0)
     }
 
     override fun describeContents(): Int {
@@ -100,6 +130,19 @@ data class Build(
     }
 
     companion object CREATOR : Parcelable.Creator<Build> {
+        const val BUILD_TABLE_NAME = "builds"
+        const val BUILD_ID = "build_id"
+        const val BUILD_REPO_ID = "build_repo_id"
+        const val BUILD_NUMBER = "build_number"
+        const val BUILD_DURATION = "build_duration"
+        const val BUILD_CURRENT_STATE = "build_current_state"
+        const val BUILD_PREVIOUS_STATE = "build_previous_state"
+        const val BUILD_START_TIME = "build_start_time"
+        const val BUILD_END_TIME = "build_end_time"
+        const val BUILD_TRIGGER_TYPE = "build_trigger_type"
+        const val BUILD_REPO_NAME = "build_repo_name"
+        const val BUILD_OWNER_NAME = "build_owner_name"
+
         override fun createFromParcel(parcel: Parcel): Build {
             return Build(parcel)
         }

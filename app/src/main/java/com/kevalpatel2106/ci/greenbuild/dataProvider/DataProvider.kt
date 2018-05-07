@@ -31,13 +31,13 @@ import javax.inject.Inject
  * @constructor Dagger injectable public constructor.
  * @param serverInterface [ServerInterface] for making the api calls to the CI servers.
  * @param compatibilityCheck [CompatibilityCheck] to check the compatibility with the CI platform.
- * @param appRxSchedulers [AppRxSchedulers] to provide threads.
+ * @param GBRxSchedulers [GBRxSchedulers] to provide threads.
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class DataProvider @Inject constructor(
         private val serverInterface: ServerInterface,
         private val compatibilityCheck: CompatibilityCheck,
-        private val appRxSchedulers: AppRxSchedulers
+        private val GBRxSchedulers: GBRxSchedulers
 ) {
     /**
      * Get the [Observable] of the list of recent [Build].
@@ -53,7 +53,7 @@ internal class DataProvider @Inject constructor(
             buildState: BuildState? = null
     ): Observable<Page<Build>> {
         return serverInterface.getRecentBuildsList(page, repoSortBy, buildState)
-                .observeOn(appRxSchedulers.main)
-                .subscribeOn(appRxSchedulers.network)
+                .observeOn(GBRxSchedulers.main)
+                .subscribeOn(GBRxSchedulers.network)
     }
 }

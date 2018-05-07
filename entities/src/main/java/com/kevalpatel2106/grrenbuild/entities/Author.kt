@@ -14,11 +14,12 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Ignore
 import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by Keval on 06/05/18.
  * Bin to hold the information about the author of the [Commit].
  *
  * @constructor Public constructor.
@@ -27,8 +28,11 @@ import android.os.Parcelable
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 data class Author(
-        val id: String,
-        val username: String
+        @ColumnInfo(name = AUTHOR_USERNAME)
+        val username: String,
+
+        @ColumnInfo(name = AUTHOR_AVATAR)
+        val avatar: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -36,16 +40,16 @@ data class Author(
             parcel.readString())
 
     override fun equals(other: Any?): Boolean {
-        return other != null && other is Author && other.id == id
+        return other != null && other is Author && other.username == username
     }
 
     override fun hashCode(): Int {
-        return id.hashCode()
+        return username.hashCode()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
         parcel.writeString(username)
+        parcel.writeString(avatar)
     }
 
     override fun describeContents(): Int {
@@ -53,6 +57,9 @@ data class Author(
     }
 
     companion object CREATOR : Parcelable.Creator<Author> {
+        const val AUTHOR_AVATAR = "author_avatar"
+        const val AUTHOR_USERNAME = "author_username"
+
         override fun createFromParcel(parcel: Parcel): Author {
             return Author(parcel)
         }

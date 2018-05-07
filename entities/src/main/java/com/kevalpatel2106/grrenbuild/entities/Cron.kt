@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -23,52 +24,70 @@ import android.os.Parcelable
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
+@Entity(tableName = Cron.CRON_TABLE_NAME)
 data class Cron(
 
-        val id: String,
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = CRON_LOCAL_ID)
+        var localId: Long,
 
-        val nextRun: Long,
+        @ColumnInfo(name = CRON_ID)
+        var id: String,
 
-        val lastRun: Long,
+        @ColumnInfo(name = CRON_NEXT_RUN)
+        var nextRun: Long,
 
-        val branchName: String,
+        @ColumnInfo(name = CRON_LAST_RUN)
+        var lastRun: Long,
 
-        val createdAt: Long,
+        @Embedded(prefix = "crons_")
+        var branch: Branch,
 
-        val isRunIfRecentlyBuilt: Boolean = true,
+        @ColumnInfo(name = CRON_CREATE_TIME)
+        var createdAt: Long,
 
-        val canIDelete: Boolean,
+        @ColumnInfo(name = CRON_RUN_IF_RECENTLY_BUILT)
+        var isRunIfRecentlyBuilt: Boolean,
 
-        val canIStartCron: Boolean,
+        @ColumnInfo(name = CRON_CAN_I_DELETE)
+        var canIDelete: Boolean,
 
-        val repo: Repo
+        @ColumnInfo(name = CRON_CAN_I_START)
+        var canIStartCron: Boolean,
+
+        @ColumnInfo(name = CRON_REPO_ID)
+        var repoId: String
 ) : Parcelable {
 
     var isDeleting = false
     var isStartingCron = false
 
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readLong(),
             parcel.readLong(),
             parcel.readString(),
             parcel.readLong(),
+            parcel.readLong(),
+            parcel.readParcelable(Branch::class.java.classLoader),
+            parcel.readLong(),
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
-            parcel.readByte() != 0.toByte()) {
+            parcel.readByte() != 0.toByte(),
+            parcel.readString()) {
         isDeleting = parcel.readByte() != 0.toByte()
         isStartingCron = parcel.readByte() != 0.toByte()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(localId)
         parcel.writeString(id)
         parcel.writeLong(nextRun)
         parcel.writeLong(lastRun)
-        parcel.writeString(branchName)
+        parcel.writeParcelable(branch, flags)
         parcel.writeLong(createdAt)
         parcel.writeByte(if (isRunIfRecentlyBuilt) 1 else 0)
         parcel.writeByte(if (canIDelete) 1 else 0)
         parcel.writeByte(if (canIStartCron) 1 else 0)
+        parcel.writeString(repoId)
         parcel.writeByte(if (isDeleting) 1 else 0)
         parcel.writeByte(if (isStartingCron) 1 else 0)
     }
@@ -78,6 +97,17 @@ data class Cron(
     }
 
     companion object CREATOR : Parcelable.Creator<Cron> {
+        const val CRON_TABLE_NAME = "crons"
+        const val CRON_LOCAL_ID = "cron_local_id"
+        const val CRON_ID = "cron_id"
+        const val CRON_NEXT_RUN = "cron_next_run"
+        const val CRON_LAST_RUN = "cron_last_run"
+        const val CRON_CREATE_TIME = "cron_create_time"
+        const val CRON_RUN_IF_RECENTLY_BUILT = "cron_run_if_recently_built"
+        const val CRON_CAN_I_DELETE = "cron_can_i_delete"
+        const val CRON_CAN_I_START = "cron_can_i_start"
+        const val CRON_REPO_ID = "cron_repo_id"
+
         override fun createFromParcel(parcel: Parcel): Cron {
             return Cron(parcel)
         }
@@ -86,4 +116,5 @@ data class Cron(
             return arrayOfNulls(size)
         }
     }
+
 }

@@ -42,4 +42,7 @@ dependencies {
     implementation project(':utils')
     testImplementation project(':testutils')
     androidTestImplementation project(':testutils')
+
+    implementation ("android.arch.persistence.room:runtime:${versions.room}", excludeGrp)
+    kapt ("android.arch.persistence.room:compiler:${versions.room}", excludeGrp)
 }

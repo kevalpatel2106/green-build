@@ -16,8 +16,8 @@ package com.kevalpatel2106.greenbuild.travisInterface.authentication
 
 import android.arch.lifecycle.MutableLiveData
 import android.util.Patterns
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.grrenbuild.entities.Account
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.greenbuild.utils.arch.BaseViewModel
 import com.kevalpatel2106.greenbuild.utils.arch.SingleLiveEvent

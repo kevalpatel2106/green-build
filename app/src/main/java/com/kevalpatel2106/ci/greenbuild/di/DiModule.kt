@@ -14,11 +14,11 @@
 
 package com.kevalpatel2106.ci.greenbuild.di
 
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.dataProvider.AppRxSchedulers
+import com.kevalpatel2106.ci.greenbuild.dataProvider.GBRxSchedulers
 import com.kevalpatel2106.greenbuild.travisInterface.TravisCompatibilityCheck
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
 import dagger.Module
@@ -77,10 +77,5 @@ internal class DiModule {
     }
 
     @Provides
-    fun provideRxSchedulers(): AppRxSchedulers = AppRxSchedulers(
-            database = Schedulers.single(),
-            disk = Schedulers.io(),
-            network = Schedulers.io(),
-            main = AndroidSchedulers.mainThread()
-    )
+    fun provideRxSchedulers(): GBRxSchedulers = GBRxSchedulers()
 }

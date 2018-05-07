@@ -14,20 +14,30 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 
+@Entity(tableName = Cache.CACHE_TABLE)
 data class Cache(
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = CACHE_LOCAL_ID)
+        var localId: Long,
 
-        val size: Long,
+        @ColumnInfo(name = CACHE_SIZE)
+        var size: Long,
 
-        val name: String? = null,
+        @ColumnInfo(name = CACHE_NAME)
+        var name: String,
 
-        val branchName: String,
+        @Embedded(prefix = "caches_")
+        var branch: Branch,
 
-        val lastModified: Long,
+        @ColumnInfo(name = CACHE_LAST_MODIFIED)
+        var lastModified: Long,
 
-        val repo: Repo
+        @ColumnInfo(name = CACHE_REPO_ID)
+        var repoId: String
 ) : Parcelable {
 
     /**
@@ -37,30 +47,32 @@ data class Cache(
 
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
-            parcel.readString(),
-            parcel.readString(),
             parcel.readLong(),
-            parcel.readParcelable(Repo::class.java.classLoader)) {
+            parcel.readString(),
+            parcel.readParcelable(Branch::class.java.classLoader),
+            parcel.readLong(),
+            parcel.readString()) {
         isDeleting = parcel.readByte() != 0.toByte()
     }
 
     override fun equals(other: Any?): Boolean {
         return other != null
                 && other is Cache
-                && other.repo.id == repo.id
-                && other.branchName == branchName
+                && other.repoId == repoId
+                && other.branch == branch
     }
 
     override fun hashCode(): Int {
-        return repo.id.hashCode() * 10 + branchName.hashCode()
+        return repoId.hashCode() * 10 + branch.hashCode()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(localId)
         parcel.writeLong(size)
         parcel.writeString(name)
-        parcel.writeString(branchName)
+        parcel.writeParcelable(branch, flags)
         parcel.writeLong(lastModified)
-        parcel.writeParcelable(repo, flags)
+        parcel.writeString(repoId)
         parcel.writeByte(if (isDeleting) 1 else 0)
     }
 
@@ -69,6 +81,13 @@ data class Cache(
     }
 
     companion object CREATOR : Parcelable.Creator<Cache> {
+        const val CACHE_TABLE = "cache_table"
+        const val CACHE_LOCAL_ID = "cache_local_id"
+        const val CACHE_SIZE = "cache_size"
+        const val CACHE_NAME = "cache_name"
+        const val CACHE_LAST_MODIFIED = "cache_last_modified"
+        const val CACHE_REPO_ID = "cache_repo_id"
+
         override fun createFromParcel(parcel: Parcel): Cache {
             return Cache(parcel)
         }

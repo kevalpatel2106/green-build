@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.ciInterface
 
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 import com.kevalpatel2106.grrenbuild.entities.Build
 import com.kevalpatel2106.grrenbuild.entities.BuildState
 import com.kevalpatel2106.grrenbuild.entities.Cache

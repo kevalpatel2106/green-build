@@ -14,6 +14,10 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -22,24 +26,40 @@ import android.os.Parcelable
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
+@Entity(tableName = EnvVars.ENV_VAR_TABLE_NAME)
 data class EnvVars(
 
-        val id: String,
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = ENV_VAR_LOCAL_ID)
+        var localId: Long,
 
-        val name: String,
+        @ColumnInfo(name = ENV_VAR_ID)
+        var id: String,
 
-        val value: String?,
+        @ColumnInfo(name = ENV_VAR_REPO_ID)
+        var repoId: String,
 
-        val public: Boolean
+        @ColumnInfo(name = ENV_VAR_NAME)
+        var name: String,
+
+        @ColumnInfo(name = ENV_VAR_VALUE)
+        var value: String?,
+
+        @ColumnInfo(name = ENV_VAR_IS_PUBLIC)
+        var public: Boolean
 ) : Parcelable {
 
     var isDeleting = false
 
     constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readByte() != 0.toByte())
+            parcel.readString(),
+            parcel.readByte() != 0.toByte()) {
+        isDeleting = parcel.readByte() != 0.toByte()
+    }
 
     override fun equals(other: Any?): Boolean {
         return other != null && other is EnvVars && other.id == id
@@ -47,13 +67,16 @@ data class EnvVars(
 
     override fun hashCode(): Int {
         return id.hashCode()
-    }
+   }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(localId)
         parcel.writeString(id)
+        parcel.writeString(repoId)
         parcel.writeString(name)
         parcel.writeString(value)
         parcel.writeByte(if (public) 1 else 0)
+        parcel.writeByte(if (isDeleting) 1 else 0)
     }
 
     override fun describeContents(): Int {
@@ -61,6 +84,14 @@ data class EnvVars(
     }
 
     companion object CREATOR : Parcelable.Creator<EnvVars> {
+        const val ENV_VAR_TABLE_NAME = "env_vars"
+        const val ENV_VAR_LOCAL_ID = "env_var_local_id"
+        const val ENV_VAR_ID = "env_var_id"
+        const val ENV_VAR_REPO_ID = "env_var_repo_id"
+        const val ENV_VAR_NAME = "env_var_name"
+        const val ENV_VAR_VALUE = "env_var_value"
+        const val ENV_VAR_IS_PUBLIC = "env_var_is_public"
+
         override fun createFromParcel(parcel: Parcel): EnvVars {
             return EnvVars(parcel)
         }
@@ -69,4 +100,5 @@ data class EnvVars(
             return arrayOfNulls(size)
         }
     }
+
 }

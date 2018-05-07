@@ -14,10 +14,12 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.TypeConverter
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import com.kevalpatel2106.greenbuild.utils.getColorCompat
+
 
 /**
  * Created by Kevalpatel2106 on 18-Apr-18.

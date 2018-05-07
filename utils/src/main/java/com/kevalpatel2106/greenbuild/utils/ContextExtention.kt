@@ -29,7 +29,6 @@ import android.support.annotation.StringRes
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
-import com.kevalpatel2106.ci.greenbuild.base.R
 
 
 /**
@@ -89,7 +88,6 @@ fun Context.showToast(@StringRes message: Int) {
 fun Context.openLink(url: String, useCustomTabs: Boolean = true) {
     if (useCustomTabs) {
         val builder = CustomTabsIntent.Builder()
-        builder.setToolbarColor(getColorCompat(R.color.colorAccent))
         builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
 
         val customTabsIntent = builder.build()

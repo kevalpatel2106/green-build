@@ -23,17 +23,17 @@ ext {
             'espresso'      : '3.0.1',
             'okHttp'        : "3.10.0",
             'retrofit'      : "2.3.0",
-            'archComponent' : "1.1.0",
+            'archComponent' : "1.1.1",
             'daggerVersion' : "2.15",
-            'room'          : "1.0.0",
+            'room'          : "1.1.0-rc1",
             'firebase'      : "15.0.0"
     ]
 
     playStoreVersion = [
-            "version_code": 4,
+            "version_code": 5,
             "major"       : 1,
             "minor"       : 1,
-            "patch"       : 0
+            "patch"       : 1
     ]
 
     packageExcludes = {

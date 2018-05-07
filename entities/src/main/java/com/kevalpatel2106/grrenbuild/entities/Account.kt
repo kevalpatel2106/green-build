@@ -12,8 +12,9 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.account
+package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.Ignore
 import android.os.Parcel
 import android.os.Parcelable
 

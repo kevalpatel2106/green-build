@@ -14,6 +14,7 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -22,121 +23,58 @@ import android.os.Parcelable
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
+@Entity(tableName = Repo.REPO_TABLE_NAME)
 data class Repo(
 
-        val id: String,
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = REPO_LOCAL_ID)
+        var localId: Long,
 
-        val name: String,
+        @ColumnInfo(name = REPO_ID)
+        var id: String,
 
-        val description: String? = null,
+        @ColumnInfo(name = REPO_NAME)
+        var name: String,
 
-        val isPrivate: Boolean,
+        @ColumnInfo(name = REPO_DESCRIPTION)
+        var description: String?,
 
-        val isEnabledForCi: Boolean,
+        @ColumnInfo(name = REPO_IS_PRIVATE)
+        var isPrivate: Boolean,
 
-        val language: String? = null,
+        @ColumnInfo(name = REPO_IS_CI_ENABLED)
+        var isEnabledForCi: Boolean,
 
-        val owner: Owner,
+        @ColumnInfo(name = REPO_LANGUAGE)
+        var language: String?,
 
-        val defaultBranch: String? = null,
+        @Embedded(prefix = "repos_")
+        var owner: Author,
 
-        val permissions: Permissions?,
+        @Embedded(prefix = "repos_")
+        var defaultBranch: Branch?,
 
-        val lastBuild: Build?
+        @Embedded(prefix = "repos_")
+        var permissions: Permissions?
 ) : Parcelable {
 
+    @Ignore
+    var lastBuild: Build? = null
+
     constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
-            parcel.readParcelable(Owner::class.java.classLoader),
-            parcel.readString(),
-            parcel.readParcelable(Permissions::class.java.classLoader),
-            parcel.readParcelable(Build::class.java.classLoader))
-
-    data class Owner(
-            val name: String,
-            val avatar: String? = null
-    ) : Parcelable {
-
-        constructor(parcel: Parcel) : this(
-                parcel.readString(),
-                parcel.readString())
-
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeString(name)
-            parcel.writeString(avatar)
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Owner> {
-            override fun createFromParcel(parcel: Parcel): Owner {
-                return Owner(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Owner?> {
-                return arrayOfNulls(size)
-            }
-        }
-    }
-
-    data class Permissions(
-
-            val canRead: Boolean,
-
-            val canEnableCIBuild: Boolean,
-
-            val isAdmin: Boolean,
-
-            val canCreateEnvVar: Boolean,
-
-            val canScheduleCron: Boolean,
-
-            val canRequestBuild: Boolean,
-
-            val canDisableCIBuild: Boolean
-    ) : Parcelable {
-        constructor(parcel: Parcel) : this(
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte(),
-                parcel.readByte() != 0.toByte())
-
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeByte(if (canRead) 1 else 0)
-            parcel.writeByte(if (canEnableCIBuild) 1 else 0)
-            parcel.writeByte(if (isAdmin) 1 else 0)
-            parcel.writeByte(if (canCreateEnvVar) 1 else 0)
-            parcel.writeByte(if (canScheduleCron) 1 else 0)
-            parcel.writeByte(if (canRequestBuild) 1 else 0)
-            parcel.writeByte(if (canDisableCIBuild) 1 else 0)
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Permissions> {
-            override fun createFromParcel(parcel: Parcel): Permissions {
-                return Permissions(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Permissions?> {
-                return arrayOfNulls(size)
-            }
-        }
-    }
+            parcel.readParcelable(Author::class.java.classLoader),
+            parcel.readParcelable(Branch::class.java.classLoader),
+            parcel.readParcelable(Permissions::class.java.classLoader))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(localId)
         parcel.writeString(id)
         parcel.writeString(name)
         parcel.writeString(description)
@@ -144,9 +82,8 @@ data class Repo(
         parcel.writeByte(if (isEnabledForCi) 1 else 0)
         parcel.writeString(language)
         parcel.writeParcelable(owner, flags)
-        parcel.writeString(defaultBranch)
+        parcel.writeParcelable(defaultBranch, flags)
         parcel.writeParcelable(permissions, flags)
-        parcel.writeParcelable(lastBuild, flags)
     }
 
     override fun describeContents(): Int {
@@ -154,11 +91,87 @@ data class Repo(
     }
 
     companion object CREATOR : Parcelable.Creator<Repo> {
+        const val REPO_TABLE_NAME = "table_name"
+        const val REPO_LOCAL_ID = "repo_local_id"
+        const val REPO_ID = "repo_id"
+        const val REPO_NAME = "repo_name"
+        const val REPO_DESCRIPTION = "repo_description"
+        const val REPO_IS_PRIVATE = "repo_is_private"
+        const val REPO_IS_CI_ENABLED = "repo_is_ci_enabled"
+        const val REPO_LANGUAGE = "repo_language"
+
         override fun createFromParcel(parcel: Parcel): Repo {
             return Repo(parcel)
         }
 
         override fun newArray(size: Int): Array<Repo?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}
+
+data class Permissions(
+
+        @ColumnInfo(name = REPO_CAN_READ)
+        var canRead: Boolean,
+
+        @ColumnInfo(name = REPO_CAN_ENABLE_CI_BUILD)
+        var canEnableCIBuild: Boolean,
+
+        @ColumnInfo(name = REPO_IS_ADMIN)
+        var isAdmin: Boolean,
+
+        @ColumnInfo(name = REPO_CAN_CREATE_ENV_VAR)
+        var canCreateEnvVar: Boolean,
+
+        @ColumnInfo(name = REPO_CAN_SCHEDULE_CRON)
+        var canScheduleCron: Boolean,
+
+        @ColumnInfo(name = REPO_CAN_REQUEST_BUILD)
+        var canRequestBuild: Boolean,
+
+        @ColumnInfo(name = REPO_CAN_DISABLE_CI_BUILD)
+        var canDisableCIBuild: Boolean
+) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte())
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeByte(if (canRead) 1 else 0)
+        parcel.writeByte(if (canEnableCIBuild) 1 else 0)
+        parcel.writeByte(if (isAdmin) 1 else 0)
+        parcel.writeByte(if (canCreateEnvVar) 1 else 0)
+        parcel.writeByte(if (canScheduleCron) 1 else 0)
+        parcel.writeByte(if (canRequestBuild) 1 else 0)
+        parcel.writeByte(if (canDisableCIBuild) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Permissions> {
+        const val REPO_CAN_READ = "repo_can_read"
+        const val REPO_CAN_ENABLE_CI_BUILD = "repo_can_enable_ci_build"
+        const val REPO_IS_ADMIN = "repo_is_admin"
+        const val REPO_CAN_CREATE_ENV_VAR = "repo_can_create_env_var"
+        const val REPO_CAN_SCHEDULE_CRON = "repo_can_schedule_cron"
+        const val REPO_CAN_REQUEST_BUILD = "repo_can_request_build"
+        const val REPO_CAN_DISABLE_CI_BUILD = "repo_can_disable_ci_build"
+
+        override fun createFromParcel(parcel: Parcel): Permissions {
+            return Permissions(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Permissions?> {
             return arrayOfNulls(size)
         }
     }

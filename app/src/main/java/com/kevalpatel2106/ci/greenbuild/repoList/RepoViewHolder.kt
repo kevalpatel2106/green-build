@@ -56,10 +56,10 @@ internal class RepoViewHolder private constructor(private val activity: Activity
     }
 
     fun bind(repo: Repo) {
-        val spannableString = SpannableString("${repo.owner.name}/${repo.name}")
+        val spannableString = SpannableString("${repo.owner.username}/${repo.name}")
         spannableString.setSpan(
                 ForegroundColorSpan(itemView.context.getColorCompat(R.color.colorAccent)),
-                repo.owner.name.length + 1,
+                repo.owner.username.length + 1,
                 spannableString.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )

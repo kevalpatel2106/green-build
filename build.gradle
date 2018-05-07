@@ -26,7 +26,7 @@ buildscript {
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.16"
         classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.11.0"
         classpath 'com.google.gms:google-services:3.2.1'
-        classpath 'io.fabric.tools:gradle:1.25.1'
+        classpath 'io.fabric.tools:gradle:1.25.3'
     }
 }
 apply from: './config.gradle'

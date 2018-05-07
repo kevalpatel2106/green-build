@@ -96,7 +96,7 @@ internal class CacheListViewModel @Inject constructor(
      * @see ServerInterface.deleteCache
      */
     internal fun deleteCache(cache: Cache) {
-        serverInterface.deleteCache(cache.repositoryId, cache.branchName)
+        serverInterface.deleteCache(cache.repoId, cache.branch.name)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {

@@ -44,12 +44,14 @@ internal data class TravisEnvVars(
             val write: Boolean? = null
     )
 
-    fun toEnvVars(): EnvVars {
+    fun toEnvVars(repoId: String): EnvVars {
         return EnvVars(
+                localId = 0,
+                id = id,
+                repoId = repoId,
                 name = name,
                 public = isPublic,
-                value = value,
-                id = id
+                value = value
         )
     }
 }

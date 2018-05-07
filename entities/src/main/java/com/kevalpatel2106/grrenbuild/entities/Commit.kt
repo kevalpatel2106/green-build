@@ -14,6 +14,8 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Ignore
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -26,41 +28,42 @@ import android.os.Parcelable
  * @param committedAt Commit time in milliseconds.
  * @param message Commit message. The commit message should never be null.
  * @param tagName Name of the tag if the commit is associate with any tag, otherwise it will be null.
- * @param repo [Repo] in which this commit is made.
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 data class Commit(
-        val committedAt: String? = null,
 
-        val message: String,
+        @ColumnInfo(name = COMMIT_TIME)
+        var committedAt: Long = 0,
 
-        val sha: String,
+        @ColumnInfo(name = COMMIT_MESSAGE)
+        var message: String,
 
-        val tagName: String?,
+        @ColumnInfo(name = COMMIT_SHA)
+        var sha: String,
 
-        val repo: Repo
+        @ColumnInfo(name = COMMIT_TAG_NAME)
+        var tagName: String?
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readParcelable(Repo::class.java.classLoader))
+            parcel.readString())
 
     override fun equals(other: Any?): Boolean {
-        return other != null && other is Commit && other.sha == sha && other.repo.id == repo.id
+        return other != null && other is Commit && other.sha == sha
     }
 
     override fun hashCode(): Int {
-        return sha.hashCode() * 10 + repo.id.hashCode()
+        return sha.hashCode()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(committedAt)
+        parcel.writeLong(committedAt)
         parcel.writeString(message)
         parcel.writeString(sha)
         parcel.writeString(tagName)
-        parcel.writeParcelable(repo, flags)
     }
 
     override fun describeContents(): Int {
@@ -68,6 +71,11 @@ data class Commit(
     }
 
     companion object CREATOR : Parcelable.Creator<Commit> {
+        const val COMMIT_TIME = "commit_time"
+        const val COMMIT_MESSAGE = "commit_message"
+        const val COMMIT_SHA = "commit_sha"
+        const val COMMIT_TAG_NAME = "commit_tag_name"
+
         override fun createFromParcel(parcel: Parcel): Commit {
             return Commit(parcel)
         }
@@ -76,5 +84,4 @@ data class Commit(
             return arrayOfNulls(size)
         }
     }
-
 }

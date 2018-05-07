@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.main
 
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 
 /**
  * Created by Kevalpatel2106 on 30-Apr-18.

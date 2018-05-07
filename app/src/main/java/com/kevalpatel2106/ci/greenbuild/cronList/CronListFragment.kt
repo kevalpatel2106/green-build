@@ -146,7 +146,7 @@ class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
 
     override fun deleteCron(cron: Cron) {
         alert(title = null,
-                message = getString(R.string.delete_cron_title_confirmation_title, cron.branchName),
+                message = getString(R.string.delete_cron_title_confirmation_title, cron.branch),
                 func = {
                     positiveButton(R.string.btn_title_delete, {
                         model.deleteCron(cron = cron, repoId = repoId)

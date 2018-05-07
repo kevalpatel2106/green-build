@@ -14,24 +14,36 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Ignore
 import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by Kevalpatel2106 on 24-Apr-18.
+ * Created by Kevalpatel2106 on 07-May-18.
+ *
+ * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
+ */
+
+/**
  * The branch for the [Repo].
  *
  * @constructor Public constructor.
  * @param name Name of the branch
  * @param isDefault True if the branch is the default git branch. (Generally "master" is the default
  * branch.) The default value is false.
- * @param repo [Repo] information for the branch.
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 data class Branch(
-        val name: String,
-        val isDefault: Boolean = false,
-        val repo: Repo
+
+        @ColumnInfo(name = BRANCH_REPO_ID)
+        var repoId: String,
+
+        @ColumnInfo(name = BRANCH_NAME)
+        var name: String,
+
+        @ColumnInfo(name = BRANCH_IS_DEFAULT)
+        var isDefault: Boolean
 ) : Parcelable {
 
     /**
@@ -42,23 +54,15 @@ data class Branch(
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.readByte() != 0.toByte(),
-            parcel.readParcelable(Repo::class.java.classLoader)) {
+            parcel.readString(),
+            parcel.readByte() != 0.toByte()) {
         isSelected = parcel.readByte() != 0.toByte()
     }
 
-    override fun equals(other: Any?): Boolean {
-        return other != null && other is Branch && other.name == name && other.repo.id == repo.id
-    }
-
-    override fun hashCode(): Int {
-        return name.hashCode() * 10 + repo.id.hashCode()
-    }
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(repoId)
         parcel.writeString(name)
         parcel.writeByte(if (isDefault) 1 else 0)
-        parcel.writeParcelable(repo, flags)
         parcel.writeByte(if (isSelected) 1 else 0)
     }
 
@@ -67,6 +71,10 @@ data class Branch(
     }
 
     companion object CREATOR : Parcelable.Creator<Branch> {
+        const val BRANCH_REPO_ID = "branch_repo_id"
+        const val BRANCH_NAME = "branch_name"
+        const val BRANCH_IS_DEFAULT = "branch_is_default"
+
         override fun createFromParcel(parcel: Parcel): Branch {
             return Branch(parcel)
         }

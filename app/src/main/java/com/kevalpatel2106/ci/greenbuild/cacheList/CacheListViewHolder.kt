@@ -53,7 +53,7 @@ internal class CacheListViewHolder private constructor(
         val formattedDate = ConversationUtils.getDate(cache.lastModified)
         itemView.cache_name_tv.text = cache.name ?: itemView.context.getString(R.string.cache_prefix, formattedDate)
 
-        itemView.cache_branch_tv.text = cache.branchName
+        itemView.cache_branch_tv.text = cache.branch.name
         itemView.cache_last_modified_tv.text = formattedDate
         itemView.cache_size_tv.text = ConversationUtils.humanReadableByteCount(cache.size)
 

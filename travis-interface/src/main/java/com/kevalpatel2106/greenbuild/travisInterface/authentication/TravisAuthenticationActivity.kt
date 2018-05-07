@@ -32,7 +32,7 @@ import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.postDelayed
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.AnalyticsEvents
 import com.kevalpatel2106.ci.greenbuild.base.logEvent

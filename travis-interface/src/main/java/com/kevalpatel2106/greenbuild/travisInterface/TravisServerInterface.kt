@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import android.content.Context
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.grrenbuild.entities.Branch
 import com.kevalpatel2106.grrenbuild.entities.CiServer
@@ -159,7 +159,7 @@ class TravisServerInterface internal constructor(
                         offset = (page - 1) * PAGE_SIZE
                 ).map {
                     val branchList = ArrayList<Branch>(it.branches.size)
-                    it.branches.forEach { branchList.add(it.toBranch()) }
+                    it.branches.forEach { branchList.add(it.toBranch(repoId)) }
                     return@map Page(
                             hasNext = !it.pagination.isLast,
                             list = branchList
@@ -187,8 +187,8 @@ class TravisServerInterface internal constructor(
                     val repoList = ArrayList<Repo>(it.repositories.size)
                     it.repositories.forEach {
                         repoList.add(it.apply {
-                            lastBuild?.repoName = null
-                            lastBuild?.ownerName = null
+                            lastStartedBuild?.repoName = null
+                            lastStartedBuild?.ownerName = null
                         }.toRepo())
                     }
                     return@map Page(
@@ -231,12 +231,14 @@ class TravisServerInterface internal constructor(
                         state = state
                 ).map {
                     val buildList = ArrayList<Build>(it.builds.size)
+
                     it.builds.forEach {
                         buildList.add(it.apply {
                             repoName = it.repository.name
                             ownerName = it.createdBy.login  //TODO
-                        }.toBuild())
+                        }.toBuild(it.repository.id.toString()))
                     }
+
                     return@map Page(
                             hasNext = !it.pagination.isLast,
                             list = buildList
@@ -274,7 +276,7 @@ class TravisServerInterface internal constructor(
                         state = state
                 ).map {
                     val buildList = ArrayList<Build>(it.builds.size)
-                    it.builds.forEach { buildList.add(it.toBuild()) }
+                    it.builds.forEach { buildList.add(it.toBuild(repoId)) }
                     return@map Page(
                             hasNext = !it.pagination.isLast,
                             list = buildList
@@ -288,7 +290,7 @@ class TravisServerInterface internal constructor(
                 .getEnvVariablesForRepo(repoId = repoId)
                 .map {
                     val buildList = ArrayList<EnvVars>(it.envVars.size)
-                    it.envVars.forEach { buildList.add(it.toEnvVars()) }
+                    it.envVars.forEach { buildList.add(it.toEnvVars(repoId)) }
                     return@map Page(
                             hasNext = false, /* This api is not designed for pagination */
                             list = buildList
@@ -351,7 +353,7 @@ class TravisServerInterface internal constructor(
                         envValue = newValue,
                         isPublic = isPublic
                 )
-                .map { it.toEnvVars() }
+                .map { it.toEnvVars(repoId) }
     }
 
     /**

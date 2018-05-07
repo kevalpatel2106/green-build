@@ -58,7 +58,7 @@ internal class CronListViewHolder private constructor(
         @SuppressLint("SetTextI18n")
         itemView.row_cron_id_tv.text = "#${cron.id}"
 
-        itemView.row_cron_branch_tv.text = cron.branchName
+        itemView.row_cron_branch_tv.text = cron.branch.name
 
         itemView.row_cron_last_run_time_tv.text = if (cron.lastRun.isEmpty()) {
             itemView.context.getString(R.string.cron_last_ran_never)

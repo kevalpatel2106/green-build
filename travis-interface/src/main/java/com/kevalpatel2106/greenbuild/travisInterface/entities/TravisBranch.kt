@@ -26,8 +26,9 @@ internal data class TravisBranch(
         val isDefault: Boolean
 ) {
 
-    fun toBranch(): Branch {
+    fun toBranch(repoId: String): Branch {
         return Branch(
+                repoId = repoId,
                 name = name,
                 isDefault = isDefault
         )

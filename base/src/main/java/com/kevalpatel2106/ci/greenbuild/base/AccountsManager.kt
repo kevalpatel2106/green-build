@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.base.account
+package com.kevalpatel2106.ci.greenbuild.base
 
 import android.accounts.AccountManager
 import android.accounts.AccountManagerCallback
@@ -22,8 +22,8 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.kevalpatel2106.ci.greenbuild.base.R
 import com.kevalpatel2106.greenbuild.utils.SharedPrefsProvider
+import com.kevalpatel2106.grrenbuild.entities.Account
 import io.reactivex.Completable
 
 

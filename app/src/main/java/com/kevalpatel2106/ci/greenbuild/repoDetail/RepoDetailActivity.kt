@@ -122,7 +122,7 @@ class RepoDetailActivity : AppCompatActivity() {
         model.repo.observe(this@RepoDetailActivity, Observer {
             it?.let {
                 repo_name_tv.text = it.name
-                repo_owner_name_tv.text = it.owner.name
+                repo_owner_name_tv.text = it.owner.username
 
                 repo_image_logo.text = it.name
 
