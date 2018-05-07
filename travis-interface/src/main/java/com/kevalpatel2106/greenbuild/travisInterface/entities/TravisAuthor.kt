@@ -15,6 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.grrenbuild.entities.Author
 
 /**
  * Created by Kevalpatel2106 on 18-Apr-18.
@@ -30,4 +31,10 @@ internal data class TravisAuthor(
 
         @field:SerializedName("@href")
         val href: String
-)
+){
+
+        fun toAuthor() = Author(
+                username = login,
+                avatar = null
+        )
+}

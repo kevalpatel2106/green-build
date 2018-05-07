@@ -23,9 +23,9 @@ ext {
             'espresso'      : '3.0.1',
             'okHttp'        : "3.10.0",
             'retrofit'      : "2.3.0",
-            'archComponent' : "1.1.0",
+            'archComponent' : "1.1.1",
             'daggerVersion' : "2.15",
-            'room'          : "1.0.0",
+            'room'          : "1.1.0-rc1",
             'firebase'      : "15.0.0"
     ]
 

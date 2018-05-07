@@ -15,8 +15,9 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Cache
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Branch
 
 internal data class TravisCaches(
 
@@ -32,7 +33,7 @@ internal data class TravisCaches(
         @field:SerializedName("repository_id")
         val repositoryId: Int,
 
-        @field:SerializedName("branch")
+        @field:SerializedName("commitBranch")
         val branch: String,
 
         @field:SerializedName("last_modified")
@@ -41,11 +42,16 @@ internal data class TravisCaches(
 
     fun toCache(): Cache {
         return Cache(
+                localId = 0,
                 name = name,
                 size = size.toLong(),
-                branchName = branch,
+                branch = Branch(
+                        name = branch,
+                        repoId = repositoryId.toString(),
+                        isDefault = false
+                ),
                 lastModified = ConversationUtils.rfc3339ToMills(lastModified),
-                repositoryId = repositoryId.toString()
+                repoId = repositoryId.toString()
         )
     }
 }

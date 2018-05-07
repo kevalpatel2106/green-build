@@ -30,14 +30,11 @@ import android.view.*
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy
-import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
+import com.kevalpatel2106.grrenbuild.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.RepoSortBy
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
-import com.kevalpatel2106.ci.greenbuild.buildList.BuildListAdapter
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import kotlinx.android.synthetic.main.fragment_recent_builds.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import javax.inject.Inject
 

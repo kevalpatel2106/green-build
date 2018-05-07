@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.buildList
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.grrenbuild.entities.Build
 
 /**
  * Created by Kevalpatel2106 on 02-May-18.

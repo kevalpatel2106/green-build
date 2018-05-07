@@ -26,12 +26,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColor
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateName
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.Repo
+import com.kevalpatel2106.grrenbuild.entities.getBuildStateColor
+import com.kevalpatel2106.grrenbuild.entities.getBuildStateName
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.greenbuild.utils.getColorCompat
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
 import kotlinx.android.synthetic.main.row_repo_list.view.*
@@ -56,10 +56,10 @@ internal class RepoViewHolder private constructor(private val activity: Activity
     }
 
     fun bind(repo: Repo) {
-        val spannableString = SpannableString("${repo.owner.name}/${repo.name}")
+        val spannableString = SpannableString("${repo.owner.username}/${repo.name}")
         spannableString.setSpan(
                 ForegroundColorSpan(itemView.context.getColorCompat(R.color.colorAccent)),
-                repo.owner.name.length + 1,
+                repo.owner.username.length + 1,
                 spannableString.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )

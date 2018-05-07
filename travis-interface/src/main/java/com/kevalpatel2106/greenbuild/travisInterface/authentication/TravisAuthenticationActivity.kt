@@ -32,11 +32,11 @@ import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.postDelayed
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.utils.AnalyticsEvents
-import com.kevalpatel2106.ci.greenbuild.base.utils.logEvent
-import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
+import com.kevalpatel2106.ci.greenbuild.base.AnalyticsEvents
+import com.kevalpatel2106.ci.greenbuild.base.logEvent
+import com.kevalpatel2106.greenbuild.utils.showSnack
 import com.kevalpatel2106.greenbuild.travisInterface.R
 import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
 import com.kevalpatel2106.greenbuild.travisInterface.di.DaggerTravisDiComponent

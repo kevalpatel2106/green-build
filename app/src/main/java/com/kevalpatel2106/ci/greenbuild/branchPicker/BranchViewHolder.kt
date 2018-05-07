@@ -18,7 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Branch
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_branch_select.view.*
 

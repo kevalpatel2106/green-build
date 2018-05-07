@@ -15,6 +15,8 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Commit
 
 
 internal data class TravisCommit(
@@ -33,4 +35,12 @@ internal data class TravisCommit(
 
         @field:SerializedName("sha")
         val sha: String
-)
+) {
+
+    fun toCommit() = Commit(
+            message = message,
+            sha = sha,
+            committedAt = if (committedAt == null) 0 else ConversationUtils.rfc3339ToMills(committedAt),
+            tagName = null
+    )
+}

@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.envVariableList.editVariable
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.grrenbuild.entities.EnvVars
 import java.io.Serializable
 
 /**

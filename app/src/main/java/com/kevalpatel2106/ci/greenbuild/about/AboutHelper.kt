@@ -26,7 +26,7 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import com.cocosw.bottomsheet.BottomSheet
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
+import com.kevalpatel2106.greenbuild.utils.openLink
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 

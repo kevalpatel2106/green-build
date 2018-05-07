@@ -16,8 +16,8 @@ package com.kevalpatel2106.greenbuild.travisInterface.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.kevalpatel2106.ci.greenbuild.base.utils.arch.DaggerViewModelFactory
-import com.kevalpatel2106.ci.greenbuild.base.utils.arch.ViewModelKey
+import com.kevalpatel2106.greenbuild.utils.arch.DaggerViewModelFactory
+import com.kevalpatel2106.greenbuild.utils.arch.ViewModelKey
 import com.kevalpatel2106.greenbuild.travisInterface.authentication.TravisAuthenticationViewModel
 import dagger.Binds
 import dagger.Module

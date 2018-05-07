@@ -14,6 +14,8 @@
 
 package com.kevalpatel2106.ci.greenbuild.base.utils
 
+import com.kevalpatel2106.greenbuild.utils.toFloatSafe
+import com.kevalpatel2106.greenbuild.utils.toIntSafe
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

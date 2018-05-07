@@ -18,8 +18,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.support.v4.app.Fragment
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
-import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
+import com.kevalpatel2106.grrenbuild.entities.Repo
+import com.kevalpatel2106.greenbuild.utils.arch.BaseViewModel
 import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.cacheList.CacheListFragment
 import com.kevalpatel2106.ci.greenbuild.cronList.CronListFragment

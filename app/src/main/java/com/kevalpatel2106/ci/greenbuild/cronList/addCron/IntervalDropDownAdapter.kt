@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
+import com.kevalpatel2106.greenbuild.utils.getColorCompat
 
 /**
  * Created by Kevalpatel2106 on 25-Apr-18.

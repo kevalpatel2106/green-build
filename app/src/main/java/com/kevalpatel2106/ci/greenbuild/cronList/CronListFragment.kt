@@ -30,8 +30,8 @@ import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
-import com.kevalpatel2106.ci.greenbuild.base.utils.alert
+import com.kevalpatel2106.grrenbuild.entities.Cron
+import com.kevalpatel2106.greenbuild.utils.alert
 import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
@@ -146,7 +146,7 @@ class CronListFragment : Fragment(), PageRecyclerViewAdapter.RecyclerViewListene
 
     override fun deleteCron(cron: Cron) {
         alert(title = null,
-                message = getString(R.string.delete_cron_title_confirmation_title, cron.branchName),
+                message = getString(R.string.delete_cron_title_confirmation_title, cron.branch),
                 func = {
                     positiveButton(R.string.btn_title_delete, {
                         model.deleteCron(cron = cron, repoId = repoId)

@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Branch
 
 
 internal data class TravisBranch(
@@ -26,8 +26,9 @@ internal data class TravisBranch(
         val isDefault: Boolean
 ) {
 
-    fun toBranch(): Branch {
+    fun toBranch(repoId: String): Branch {
         return Branch(
+                repoId = repoId,
                 name = name,
                 isDefault = isDefault
         )

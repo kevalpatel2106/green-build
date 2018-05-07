@@ -19,10 +19,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.*
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
-import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.greenbuild.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
+import com.kevalpatel2106.grrenbuild.entities.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -71,7 +71,7 @@ internal class BuildViewHolder private constructor(itemView: View)
             BuildState.UNKNOWN -> itemView.build_state_iv.setImageResource(R.drawable.ic_build_state_unknown)
         }
         itemView.built_number_tv.text = "#${build.number}"
-        itemView.branch_name_tv.text = build.branch.name
+        itemView.branch_name_tv.text = build.commitBranch.name
 
         itemView.commit_message_tv.text = build.commit.message
         itemView.commit_hash_tv.text = build.commit.sha.drop(build.commit.sha.length - 8 /* Show last 8 letters */)
@@ -83,8 +83,8 @@ internal class BuildViewHolder private constructor(itemView: View)
             itemView.build_trigger_type_tv.text = build.triggerType.getTriggerTypeText(itemView.context)
         }
 
-        itemView.commit_author_name_tv.text = build.author.username
-        itemView.commit_author_avatar_iv.text = build.author.username
+        itemView.commit_author_name_tv.text = build.commitAuthor.username
+        itemView.commit_author_avatar_iv.text = build.commitAuthor.username
 
         if (build.duration.isEmpty()) {
             itemView.time_taken_tv.text = "-"

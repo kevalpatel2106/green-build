@@ -15,7 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.base.utils
 
 import android.content.Context
-import com.kevalpatel2106.utils.FileUtils
+import com.kevalpatel2106.greenbuild.utils.FileUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test

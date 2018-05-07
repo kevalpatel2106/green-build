@@ -23,22 +23,19 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import androidx.core.os.postDelayed
 import androidx.core.view.isVisible
 import androidx.core.widget.toast
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
-import com.kevalpatel2106.ci.greenbuild.base.utils.showSnack
+import com.kevalpatel2106.grrenbuild.entities.Branch
+import com.kevalpatel2106.greenbuild.utils.showSnack
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerDialog
 import com.kevalpatel2106.ci.greenbuild.branchPicker.BranchPickerListener
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
-import com.kevalpatel2106.greenbuild.travisInterface.TravisModuleCallbacks
 import kotlinx.android.synthetic.main.activity_add_cron.*
 import javax.inject.Inject
 

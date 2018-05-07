@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation project(':base')
+    implementation project(':entities')
+    implementation project(':utils')
     testImplementation project(':testutils')
     androidTestImplementation project(':testutils')
 

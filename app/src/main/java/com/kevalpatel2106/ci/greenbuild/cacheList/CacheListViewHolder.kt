@@ -20,8 +20,8 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cache
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Cache
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_caches.view.*
 
@@ -53,7 +53,7 @@ internal class CacheListViewHolder private constructor(
         val formattedDate = ConversationUtils.getDate(cache.lastModified)
         itemView.cache_name_tv.text = cache.name ?: itemView.context.getString(R.string.cache_prefix, formattedDate)
 
-        itemView.cache_branch_tv.text = cache.branchName
+        itemView.cache_branch_tv.text = cache.branch.name
         itemView.cache_last_modified_tv.text = formattedDate
         itemView.cache_size_tv.text = ConversationUtils.humanReadableByteCount(cache.size)
 

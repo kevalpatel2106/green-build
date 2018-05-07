@@ -27,8 +27,8 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
-import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
+import com.kevalpatel2106.greenbuild.utils.getColorCompat
+import com.kevalpatel2106.greenbuild.utils.openLink
 
 
 class TravisHelpActivity : AppCompatActivity() {

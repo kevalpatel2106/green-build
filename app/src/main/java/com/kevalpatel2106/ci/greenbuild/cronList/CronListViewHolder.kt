@@ -21,9 +21,9 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
-import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
+import com.kevalpatel2106.grrenbuild.entities.Cron
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.greenbuild.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_cron.view.*
 
@@ -58,7 +58,7 @@ internal class CronListViewHolder private constructor(
         @SuppressLint("SetTextI18n")
         itemView.row_cron_id_tv.text = "#${cron.id}"
 
-        itemView.row_cron_branch_tv.text = cron.branchName
+        itemView.row_cron_branch_tv.text = cron.branch.name
 
         itemView.row_cron_last_run_time_tv.text = if (cron.lastRun.isEmpty()) {
             itemView.context.getString(R.string.cron_last_ran_never)
