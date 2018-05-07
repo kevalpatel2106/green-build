@@ -190,7 +190,7 @@ count of deleted EnvVars items.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars&gt;</code></td>
+<td class="colFirst"><code>io.reactivex.Observable&lt;com.kevalpatel2106.grrenbuild.entities.EnvVars&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/kevalpatel2106/greenbuild/travisInterface/TravisServerInterface.html#editEnvVariable-repoId-envVarId-newName-newValue-isPublic-">editEnvVariable</a></span>(java.lang.String&nbsp;repoId,
                java.lang.String&nbsp;envVarId,
                java.lang.String&nbsp;newName,
@@ -208,8 +208,8 @@ Observable with the updated EnvVars.</div>
 <td class="colFirst"><code>io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/kevalpatel2106/greenbuild/travisInterface/TravisServerInterface.html#getBuildList-page-repoId-repoSortBy-buildState-">getBuildList</a></span>(int&nbsp;page,
             java.lang.String&nbsp;repoId,
-            com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy&nbsp;repoSortBy,
-            com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState&nbsp;buildState)</code>&nbsp;</td>
+            com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy&nbsp;repoSortBy,
+            com.kevalpatel2106.grrenbuild.entities.BuildState&nbsp;buildState)</code>&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page&gt;</code></td>
@@ -235,7 +235,7 @@ Once the object is received, <a href="#">ResponseMyAccount</a> will be converted
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/kevalpatel2106/greenbuild/travisInterface/TravisServerInterface.html#getRepoList-page-repoSortBy-showOnlyPrivate-">getRepoList</a></span>(int&nbsp;page,
-           com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy&nbsp;repoSortBy,
+           com.kevalpatel2106.ci.greenbuild.base.ciInterface.RepoSortBy&nbsp;repoSortBy,
            boolean&nbsp;showOnlyPrivate)</code>&nbsp;</td>
 </tr>
 </table>
@@ -304,7 +304,7 @@ Once the object is received, <a href="#">ResponseMyAccount</a> will be converted
 <li class="blockList">
 <h4>getRepoList</h4>
 <pre>public&nbsp;io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page&gt;&nbsp;getRepoList(int&nbsp;page,
-                                                                                                   com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.RepoSortBy&nbsp;repoSortBy,
+                                                                                                   com.kevalpatel2106.ci.greenbuild.base.ciInterface.RepoSortBy&nbsp;repoSortBy,
                                                                                                    boolean&nbsp;showOnlyPrivate)</pre>
 </li>
 </ul>
@@ -316,8 +316,8 @@ Once the object is received, <a href="#">ResponseMyAccount</a> will be converted
 <h4>getBuildList</h4>
 <pre>public&nbsp;io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page&gt;&nbsp;getBuildList(int&nbsp;page,
                                                                                                     java.lang.String&nbsp;repoId,
-                                                                                                    com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy&nbsp;repoSortBy,
-                                                                                                    com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState&nbsp;buildState)</pre>
+                                                                                                    com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy&nbsp;repoSortBy,
+                                                                                                    com.kevalpatel2106.grrenbuild.entities.BuildState&nbsp;buildState)</pre>
 </li>
 </ul>
 <a name="getEnvironmentVariablesList-page-repoId-">
@@ -372,7 +372,7 @@ count of deleted EnvVars items.</p></p></div>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>editEnvVariable</h4>
-<pre>public&nbsp;io.reactivex.Observable&lt;com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars&gt;&nbsp;editEnvVariable(java.lang.String&nbsp;repoId,
+<pre>public&nbsp;io.reactivex.Observable&lt;com.kevalpatel2106.grrenbuild.entities.EnvVars&gt;&nbsp;editEnvVariable(java.lang.String&nbsp;repoId,
                                                                                                                   java.lang.String&nbsp;envVarId,
                                                                                                                   java.lang.String&nbsp;newName,
                                                                                                                   java.lang.String&nbsp;newValue,

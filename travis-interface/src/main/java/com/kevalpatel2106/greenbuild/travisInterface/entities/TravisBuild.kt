@@ -15,11 +15,11 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.TriggerType
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Build
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.TriggerType
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
 import com.kevalpatel2106.greenbuild.travisInterface.Constants
 
 

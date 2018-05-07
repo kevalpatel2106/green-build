@@ -19,7 +19,7 @@ import android.graphics.Color
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import com.kevalpatel2106.ci.greenbuild.base.R
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
+import com.kevalpatel2106.greenbuild.utils.getColorCompat
 import com.mklimek.circleinitialsview.CircleInitialsView
 
 /**

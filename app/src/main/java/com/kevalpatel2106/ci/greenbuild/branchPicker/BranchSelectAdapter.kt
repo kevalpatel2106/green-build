@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.branchPicker
 import android.content.Context
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Branch
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 
 /**

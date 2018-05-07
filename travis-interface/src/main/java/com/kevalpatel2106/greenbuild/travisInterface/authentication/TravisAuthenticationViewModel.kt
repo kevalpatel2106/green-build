@@ -19,8 +19,8 @@ import android.util.Patterns
 import com.kevalpatel2106.ci.greenbuild.base.account.Account
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.utils.arch.BaseViewModel
-import com.kevalpatel2106.ci.greenbuild.base.utils.arch.SingleLiveEvent
+import com.kevalpatel2106.greenbuild.utils.arch.BaseViewModel
+import com.kevalpatel2106.greenbuild.utils.arch.SingleLiveEvent
 import com.kevalpatel2106.greenbuild.travisInterface.Constants
 import com.kevalpatel2106.greenbuild.travisInterface.R
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface

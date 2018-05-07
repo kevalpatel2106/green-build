@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.ciSelector
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
+import com.kevalpatel2106.grrenbuild.entities.CiServer
 
 /**
  * Created by Keval on 21/04/18.

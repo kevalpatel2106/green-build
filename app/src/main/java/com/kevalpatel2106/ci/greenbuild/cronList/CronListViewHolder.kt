@@ -21,9 +21,9 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
-import com.kevalpatel2106.ci.greenbuild.base.utils.isEmpty
+import com.kevalpatel2106.grrenbuild.entities.Cron
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
+import com.kevalpatel2106.greenbuild.utils.isEmpty
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import kotlinx.android.synthetic.main.row_cron.view.*
 

@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.envVariableList
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.grrenbuild.entities.EnvVars
 
 /**
  * Created by Keval on 23/04/18.

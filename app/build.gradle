@@ -44,6 +44,8 @@ android {
 
 
 dependencies {
+    implementation project(':entities')
+    implementation project(':utils')
     implementation project(':base')
     implementation project(':travis-interface')
     testImplementation project(':testutils')

@@ -18,10 +18,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.kevalpatel2106.ci.greenbuild.base.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateColorRes
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.getBuildStateName
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorStateListCompat
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.getBuildStateColorRes
+import com.kevalpatel2106.grrenbuild.entities.getBuildStateName
+import com.kevalpatel2106.greenbuild.utils.getColorStateListCompat
 
 /**
  * Created by Keval on 26/04/18.

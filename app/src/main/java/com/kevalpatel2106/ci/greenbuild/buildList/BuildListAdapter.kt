@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 import android.content.Context
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
+import com.kevalpatel2106.grrenbuild.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.view.PageRecyclerViewAdapter
 import java.io.Closeable
 

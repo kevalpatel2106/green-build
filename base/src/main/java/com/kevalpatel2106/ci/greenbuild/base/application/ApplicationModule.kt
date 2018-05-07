@@ -17,7 +17,7 @@ package com.kevalpatel2106.ci.greenbuild.base.application
 import android.app.Application
 import android.content.Context
 import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
-import com.kevalpatel2106.ci.greenbuild.base.utils.SharedPrefsProvider
+import com.kevalpatel2106.greenbuild.utils.SharedPrefsProvider
 import dagger.Module
 import dagger.Provides
 

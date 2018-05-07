@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation project(':entities')
+    implementation project(':utils')
     testImplementation project(':testutils')
     androidTestImplementation project(':testutils')
 
@@ -48,6 +50,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.okHttp}"
     implementation "com.google.firebase:firebase-core:${versions.firebase}"
-    implementation "com.android.support:customtabs:${versions.supportLibrary}"
     api "com.github.mklimek:circle-initials-view:1.0.9"
 }

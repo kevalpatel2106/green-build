@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
+import com.kevalpatel2106.grrenbuild.entities.Cron
 import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable

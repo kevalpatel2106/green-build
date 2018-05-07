@@ -17,9 +17,9 @@ package com.kevalpatel2106.ci.greenbuild.dataProvider
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildSortBy
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.Build
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy
+import com.kevalpatel2106.grrenbuild.entities.BuildState
 import io.reactivex.Observable
 import javax.inject.Inject
 

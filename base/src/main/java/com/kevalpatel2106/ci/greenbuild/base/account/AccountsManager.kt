@@ -23,7 +23,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.kevalpatel2106.ci.greenbuild.base.R
-import com.kevalpatel2106.ci.greenbuild.base.utils.SharedPrefsProvider
+import com.kevalpatel2106.greenbuild.utils.SharedPrefsProvider
 import io.reactivex.Completable
 
 

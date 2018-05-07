@@ -27,8 +27,8 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Repo
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import kotlinx.android.synthetic.main.activity_repo_detail.*
