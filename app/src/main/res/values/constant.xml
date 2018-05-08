@@ -19,7 +19,7 @@
     <string name="repo_build_status_tv_transition_name" translatable="false">repo_build_status_tv</string>
     <string name="private_variable_value_mask" translatable="false">***************</string>
 
-    <string name="privacy_policy_url" translatable="false">https://cdn.rawgit.com/kevalpatel2106/green-build/63596a6b/privacy_policy.html</string>
+    <string name="privacy_policy_url" translatable="false">https://cdn.rawgit.com/kevalpatel2106/green-build/243a4446/privacy_policy.html</string>
     <string name="play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.kevalpatel2106.ci.greenbuild</string>
     <string name="github_project_link" translatable="false">https://github.com/kevalpatel2106/green-build</string>
     <string name="github_new_issue_link" translatable="false">https://github.com/kevalpatel2106/green-build/issues/new</string>
