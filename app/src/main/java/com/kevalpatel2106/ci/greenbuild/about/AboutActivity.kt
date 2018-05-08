@@ -128,10 +128,22 @@ class AboutActivity : MaterialAboutActivity() {
                 })
                 .build()
 
+
+        //privacy policy
+        val privacyPolicyItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_privacy_policy)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_privacy_policy_title)
+                .setOnClickAction({
+                    openLink(getString(R.string.privacy_policy_url), true)
+                })
+                .build()
+
         return MaterialAboutCard.Builder()
                 .title(R.string.about_card_title_about)
                 .addItem(versionItem)
                 .addItem(openSourceLibsItem)
+                .addItem(privacyPolicyItem)
                 .build()
     }
 
