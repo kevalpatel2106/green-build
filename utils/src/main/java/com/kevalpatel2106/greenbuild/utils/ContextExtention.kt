@@ -15,20 +15,18 @@
 package com.kevalpatel2106.greenbuild.utils
 
 import android.annotation.SuppressLint
-import android.app.KeyguardManager
 import android.content.Context
-import android.content.Context.POWER_SERVICE
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import android.os.PowerManager
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
-import android.support.annotation.StringRes
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
-import android.widget.Toast
+import android.util.TypedValue
 
 
 /**
@@ -56,39 +54,13 @@ fun Context.vibrate(mills: Long): Boolean {
     return false
 }
 
-@Suppress("DEPRECATION")
-@SuppressLint("ObsoleteSdkInt")
-fun Context.isScreenOn(): Boolean {
-    val powerManager = getSystemService(POWER_SERVICE) as PowerManager
-    return powerManager.isScreenOn
-}
-
-@Suppress("DEPRECATION")
-@SuppressLint("ObsoleteSdkInt")
-fun Context.isDeviceLocked(): Boolean {
-    val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-    return keyguardManager.inKeyguardRestrictedInputMode()
-}
-
-
-/**
- * Show the toast for [Toast.LENGTH_SHORT] duration.
- */
-fun Context.showToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-/**
- * Show the toast for [Toast.LENGTH_SHORT] duration.
- */
-fun Context.showToast(@StringRes message: Int) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
 fun Context.openLink(url: String, useCustomTabs: Boolean = true) {
     if (useCustomTabs) {
-        val builder = CustomTabsIntent.Builder()
-        builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        val builder = CustomTabsIntent.Builder().apply {
+            setExitAnimations(this@openLink, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            setToolbarColor(getAccentColor())
+            setShowTitle(true)
+        }
 
         val customTabsIntent = builder.build()
         customTabsIntent.launchUrl(this, Uri.parse(url))
@@ -97,4 +69,22 @@ fun Context.openLink(url: String, useCustomTabs: Boolean = true) {
             data = Uri.parse(url)
         })
     }
+}
+
+@ColorInt
+private fun Context.getAccentColor(): Int {
+    val typedValue = TypedValue()
+    val a = obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorAccent))
+    val color = a.getColor(0, 0)
+    a.recycle()
+    return color
+}
+
+@ColorInt
+private fun Context.getPrimaryColor(): Int {
+    val typedValue = TypedValue()
+    val a = obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorPrimary))
+    val color = a.getColor(0, 0)
+    a.recycle()
+    return color
 }

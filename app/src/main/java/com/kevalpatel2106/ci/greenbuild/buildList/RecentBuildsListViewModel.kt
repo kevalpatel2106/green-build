@@ -17,9 +17,9 @@ package com.kevalpatel2106.ci.greenbuild.buildList
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.CheckResult
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.grrenbuild.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.dataProvider.BuildsProvider
 import com.kevalpatel2106.grrenbuild.entities.BuildState
 import com.kevalpatel2106.greenbuild.utils.arch.BaseViewModel
 import com.kevalpatel2106.greenbuild.utils.arch.SingleLiveEvent
@@ -36,14 +36,12 @@ import javax.inject.Inject
  * Created by Keval on 18/04/18.
  *
  * @constructor Dagger injectable public constructor.
- * @param serverInterface [ServerInterface] for loading the list of recent [Build] and restarting/aborting
+ * @param buildsProvider [BuildsProvider] for loading the list of recent [Build] and restarting/aborting
  * the build.
- * @param compatibilityCheck [CompatibilityCheck] to check the compatibility with the CI platform.
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 internal class RecentBuildsListViewModel @Inject constructor(
-        private val serverInterface: ServerInterface,
-        private val compatibilityCheck: CompatibilityCheck
+        private val buildsProvider: BuildsProvider
 ) : BaseViewModel() {
 
     /**
@@ -114,9 +112,6 @@ internal class RecentBuildsListViewModel @Inject constructor(
     internal var errorAbortingBuild = SingleLiveEvent<String>()
 
     init {
-        if (!compatibilityCheck.isRecentBuildsListSupported())
-            throw IllegalStateException("Recent builds listing by repository is not supported for this CI.")
-
         hasModeData.value = true
         isLoadingList.value = false
         isLoadingFirstTime.value = false
@@ -134,7 +129,7 @@ internal class RecentBuildsListViewModel @Inject constructor(
     private fun startPolling(): Disposable {
         return Observable.interval(5, 10, TimeUnit.SECONDS)
                 .timeInterval()
-                .flatMap { serverInterface.getRecentBuildsList(1, BuildSortBy.FINISHED_AT_DESC) }
+                .flatMap { buildsProvider.getRecentBuildsList(1, BuildSortBy.FINISHED_AT_DESC) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable { it.list }
@@ -165,9 +160,7 @@ internal class RecentBuildsListViewModel @Inject constructor(
      * Load the list of the recent [Build] from the server for the [page].
      */
     fun loadRecentBuildsList(page: Int) {
-        serverInterface.getRecentBuildsList(page, BuildSortBy.FINISHED_AT_DESC)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        buildsProvider.getRecentBuildsList(page, BuildSortBy.FINISHED_AT_DESC)
                 .doOnSubscribe {
                     isLoadingList.value = true
                     buildsList.value?.let { if (it.isEmpty()) isLoadingFirstTime.value = true }
@@ -199,15 +192,7 @@ internal class RecentBuildsListViewModel @Inject constructor(
      * [CompatibilityCheck.isRestartBuildSupported] is false.)
      */
     fun restartBuild(build: Build) {
-        if (!compatibilityCheck.isRestartBuildSupported())
-            throw IllegalStateException("Restart build is not supported for this CI platform.")
-
-        if (build.state == BuildState.RUNNING || build.state == BuildState.BOOTING)
-            throw IllegalStateException("Cannot restart running or booting build")
-
-        serverInterface.restartBuild(build)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+         buildsProvider.restartBuild(build)
                 .doOnSubscribe {
                     build.isRestarting = true
                     buildsList.recall()
@@ -237,15 +222,7 @@ internal class RecentBuildsListViewModel @Inject constructor(
      * [CompatibilityCheck.isAbortBuildSupported] is false.)
      */
     fun abortBuild(build: Build) {
-        if (!compatibilityCheck.isAbortBuildSupported())
-            throw IllegalStateException("Abort build is not supported for this CI platform.")
-
-        if (build.state != BuildState.RUNNING)
-            throw IllegalStateException("Can only abort running build.")
-
-        serverInterface.abortBuild(build)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        buildsProvider.abortBuild(build)
                 .doOnSubscribe {
                     build.isAborting = true
                     buildsList.recall()
