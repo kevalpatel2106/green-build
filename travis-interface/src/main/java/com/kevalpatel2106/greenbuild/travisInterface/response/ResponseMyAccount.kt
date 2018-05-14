@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.response
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 
 internal data class ResponseMyAccount(
 

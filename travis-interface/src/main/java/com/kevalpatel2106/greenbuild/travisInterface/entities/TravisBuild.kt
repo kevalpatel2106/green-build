@@ -15,11 +15,11 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Build
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.BuildState
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.TriggerType
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Build
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.TriggerType
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
 import com.kevalpatel2106.greenbuild.travisInterface.Constants
 
 
@@ -52,7 +52,7 @@ internal data class TravisBuild(
         @field:SerializedName("repository")
         val repository: TravisRepo,
 
-        @field:SerializedName("branch")
+        @field:SerializedName("commitBranch")
         val branch: TravisBranch?,
 
         @field:SerializedName("created_by")
@@ -86,29 +86,25 @@ internal data class TravisBuild(
     var repoName: String? = null
     var ownerName: String? = null
 
-    fun toBuild(): Build {
+    fun toBuild(repoId: String): Build {
         return Build(
+                localId = 0 /* No id. */,
                 id = id.toLong(),
-                state = getBuildState(state),
-                duration = duration.toLong() * 1000 /* Converting to mills */,
-                triggerType = getEventType(eventType),
                 number = number,
-                finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),
-                startedAt = if (startedAt == null) 0 else ConversationUtils.rfc3339ToMills(startedAt),
+                duration = duration.toLong() * 1000 /* Converting to mills */,
+                state = getBuildState(state),
                 previousState = if (previousState != null) getBuildState(previousState) else null,
-                author = Build.Author(
-                        id = createdBy.id.toString(),
-                        username = createdBy.login
+                startedAt = if (startedAt == null) 0 else ConversationUtils.rfc3339ToMills(startedAt),
+                finishedAt = if (finishedAt == null) 0 else ConversationUtils.rfc3339ToMills(finishedAt),
+                triggerType = getEventType(eventType),
+                commitAuthor = createdBy.toAuthor(),
+                commitBranch = Branch(
+                        repoId = repoId,
+                        name = branch?.name ?: "default",
+                        isDefault = false
                 ),
-                branch = Branch(
-                        name = branch?.name ?: "default"
-                ),
-                commit = Build.Commit(
-                        committedAt = commit.committedAt,
-                        message = commit.message,
-                        sha = commit.sha,
-                        tagName = tag?.tagName
-                ),
+                commit = commit.toCommit(),
+                repoId = repoId,
                 repoName = repoName,
                 ownerName = ownerName
         )

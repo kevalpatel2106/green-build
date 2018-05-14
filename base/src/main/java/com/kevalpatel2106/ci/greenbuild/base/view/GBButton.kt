@@ -20,7 +20,7 @@ import android.os.Build
 import android.support.v7.widget.AppCompatButton
 import android.util.AttributeSet
 import android.view.MotionEvent
-import com.kevalpatel2106.ci.greenbuild.base.utils.ViewUtils
+import com.kevalpatel2106.greenbuild.utils.ViewUtils
 import com.kevalpatel2106.ci.greenbuild.base.view.progressButton.ProgressButton
 
 

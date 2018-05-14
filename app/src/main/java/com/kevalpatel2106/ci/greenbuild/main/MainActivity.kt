@@ -32,12 +32,11 @@ import android.view.MenuItem
 import android.view.View
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
-import com.kevalpatel2106.ci.greenbuild.base.utils.alert
+import com.kevalpatel2106.greenbuild.utils.alert
 import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
-import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment

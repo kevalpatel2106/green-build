@@ -15,8 +15,8 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
-import com.kevalpatel2106.ci.greenbuild.base.utils.ConversationUtils
+import com.kevalpatel2106.grrenbuild.entities.Cron
+import com.kevalpatel2106.greenbuild.utils.ConversationUtils
 
 internal data class TravisCron(
 
@@ -44,7 +44,7 @@ internal data class TravisCron(
         @field:SerializedName("repository")
         val repository: TravisRepo,
 
-        @field:SerializedName("branch")
+        @field:SerializedName("commitBranch")
         val branch: TravisBranch
 ) {
 
@@ -63,14 +63,16 @@ internal data class TravisCron(
 
     fun toCron(): Cron {
         return Cron(
+                localId = 0,
                 id = id.toString(),
-                branchName = branch.name,
+                nextRun = ConversationUtils.rfc3339ToMills(nextRun),
+                lastRun = if (lastRun == null) 0 else ConversationUtils.rfc3339ToMills(lastRun),
+                branch = branch.toBranch(repository.id.toString()),
+                createdAt = ConversationUtils.rfc3339ToMills(createdAt),
+                isRunIfRecentlyBuilt = dontRunIfRecentBuildExists,
                 canIDelete = permissions.delete,
                 canIStartCron = permissions.start,
-                isRunIfRecentlyBuilt = dontRunIfRecentBuildExists,
-                createdAt = ConversationUtils.rfc3339ToMills(createdAt),
-                lastRun = if (lastRun == null) 0 else ConversationUtils.rfc3339ToMills(lastRun),
-                nextRun = ConversationUtils.rfc3339ToMills(nextRun)
+                repoId = repository.id.toString()
         )
     }
 }

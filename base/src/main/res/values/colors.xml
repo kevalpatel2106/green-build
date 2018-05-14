@@ -29,15 +29,6 @@
     <color name="window_background_color">#22252A</color>
     <color name="window_background_color_light">#4f5763</color>
 
-    <!--Build status colors-->
-    <color name="build_running">#E9D816</color>
-    <color name="build_booting">#E9D816</color>
-    <color name="build_unknown">#666666</color>
-    <color name="build_passed">#39AA56</color>
-    <color name="build_failed">#DB4545</color>
-    <color name="build_canceled">#CE6D4A</color>
-    <color name="build_errored">#C2185B</color>
-
     <!--Avatar view background color-->
     <color name="avatar_view_bg_0">#41A6F6</color>
     <color name="avatar_view_bg_1">#CE6D4A</color>

@@ -14,16 +14,5 @@
   -->
 
 <resources>
-    <string name="build_state_unknown">Unknown</string>
-    <string name="build_state_booting">Booting</string>
-    <string name="build_state_error">Errored</string>
-    <string name="build_state_canceled">Canceled</string>
-    <string name="build_state_failed">Failed</string>
-    <string name="build_state_running">Running</string>
-    <string name="build_state_passed">Passed</string>
-    <string name="trigger_type_commit">Commit</string>
-    <string name="trigger_type_pull_request">PR</string>
-    <string name="trigger_type_cron">Cron</string>
-    <string name="trigger_type_api">API</string>
     <string name="build_status_view_default_title">Build</string>
 </resources>

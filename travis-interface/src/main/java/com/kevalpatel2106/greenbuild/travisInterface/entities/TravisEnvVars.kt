@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface.entities
 
 import com.google.gson.annotations.SerializedName
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.EnvVars
+import com.kevalpatel2106.grrenbuild.entities.EnvVars
 
 internal data class TravisEnvVars(
 
@@ -44,12 +44,14 @@ internal data class TravisEnvVars(
             val write: Boolean? = null
     )
 
-    fun toEnvVars(): EnvVars {
+    fun toEnvVars(repoId: String): EnvVars {
         return EnvVars(
+                localId = 0,
+                id = id,
+                repoId = repoId,
                 name = name,
                 public = isPublic,
-                value = value,
-                id = id
+                value = value
         )
     }
 }

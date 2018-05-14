@@ -19,7 +19,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.account.Account
+import com.kevalpatel2106.grrenbuild.entities.Account
 import kotlinx.android.synthetic.main.row_account.view.*
 
 /**

@@ -14,7 +14,7 @@
 
 package com.kevalpatel2106.ci.greenbuild.branchPicker
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Branch
+import com.kevalpatel2106.grrenbuild.entities.Branch
 import java.io.Serializable
 
 /**

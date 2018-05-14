@@ -12,4 +12,4 @@
  * limitations under the License.
  */
 
-include ':app', ':base', ':testutils', ':travis-interface', ':gitlab-interface'
+include ':app', ':base', ':testutils', ':travis-interface', ':gitlab-interface', ':entities', ':utils'

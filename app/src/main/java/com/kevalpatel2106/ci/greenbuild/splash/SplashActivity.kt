@@ -19,7 +19,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.kevalpatel2106.ci.greenbuild.base.account.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent

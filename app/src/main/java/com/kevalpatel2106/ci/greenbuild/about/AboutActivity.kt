@@ -19,7 +19,6 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -30,9 +29,9 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.kevalpatel2106.ci.greenbuild.BuildConfig
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.utils.alert
-import com.kevalpatel2106.ci.greenbuild.base.utils.getColorCompat
-import com.kevalpatel2106.ci.greenbuild.base.utils.openLink
+import com.kevalpatel2106.greenbuild.utils.alert
+import com.kevalpatel2106.greenbuild.utils.getColorCompat
+import com.kevalpatel2106.greenbuild.utils.openLink
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import javax.inject.Inject
 
@@ -129,10 +128,22 @@ class AboutActivity : MaterialAboutActivity() {
                 })
                 .build()
 
+
+        //privacy policy
+        val privacyPolicyItem = MaterialAboutActionItem.Builder()
+                .icon(R.drawable.ic_privacy_policy)
+                .setIconGravity(Gravity.START)
+                .text(R.string.about_privacy_policy_title)
+                .setOnClickAction({
+                    openLink(getString(R.string.privacy_policy_url), true)
+                })
+                .build()
+
         return MaterialAboutCard.Builder()
                 .title(R.string.about_card_title_about)
                 .addItem(versionItem)
                 .addItem(openSourceLibsItem)
+                .addItem(privacyPolicyItem)
                 .build()
     }
 

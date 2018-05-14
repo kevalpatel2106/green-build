@@ -23,7 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kevalpatel2106.ci.greenbuild.R
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.CiServer
+import com.kevalpatel2106.grrenbuild.entities.CiServer
 import kotlinx.android.synthetic.main.row_ci_selector_list.view.*
 
 /**

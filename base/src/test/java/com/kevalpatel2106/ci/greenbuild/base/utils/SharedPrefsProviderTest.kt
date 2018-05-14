@@ -15,6 +15,7 @@
 package com.kevalpatel2106.ci.greenbuild.base.utils
 
 import android.content.Context
+import com.kevalpatel2106.greenbuild.utils.SharedPrefsProvider
 import com.kevalpatel2106.testutils.MockSharedPreference
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

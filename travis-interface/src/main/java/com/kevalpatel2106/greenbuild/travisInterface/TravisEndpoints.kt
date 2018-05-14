@@ -15,7 +15,7 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.entities.Cron
+import com.kevalpatel2106.grrenbuild.entities.Cron
 import com.kevalpatel2106.greenbuild.travisInterface.entities.TravisEnvVars
 import com.kevalpatel2106.greenbuild.travisInterface.response.*
 import io.reactivex.Observable
@@ -91,7 +91,7 @@ internal interface TravisEndpoints {
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     fun deleteCacheByBranch(
             @Path("repoId") repoId: String,
-            @Query("branch") branchName: String
+            @Query("commitBranch") branchName: String
     ): Observable<DeleteCacheResponse>
 
     @DELETE("repo/{repoId}/env_var/{varId}")
@@ -125,12 +125,12 @@ internal interface TravisEndpoints {
             @Path("cronId") cronId: String
     ): Observable<EmptyResponse>
 
-    @POST("/repo/{repoid}/branch/{branchName}/cron")
+    @POST("/repo/{repoid}/branch/{branch}/cron")
     @Headers("Travis-API-Version: 3", "Add-Auth: true")
     @FormUrlEncoded
     fun scheduleNewCron(
             @Path("repoid") repoid: String,
-            @Path("branchName") branchName: String,
+            @Path("branch") branchName: String,
             @Field("cron.interval") interval: String,
             @Field("cron.dont_run_if_recent_build_exists") dontRunIfRecentlyBuilt: Boolean
     ): Observable<Cron>
