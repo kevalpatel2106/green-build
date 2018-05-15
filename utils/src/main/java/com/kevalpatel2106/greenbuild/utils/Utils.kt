@@ -27,7 +27,7 @@ import android.view.inputmethod.InputMethodManager
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
 
-object ViewUtils {
+object Utils {
 
     @JvmStatic
     fun toPx(context: Context, dp: Int): Int = TypedValue

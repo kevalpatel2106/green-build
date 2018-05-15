@@ -30,17 +30,19 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.about.AboutActivity
-import com.kevalpatel2106.grrenbuild.entities.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
-import com.kevalpatel2106.greenbuild.utils.alert
+import com.kevalpatel2106.ci.greenbuild.base.view.DividerItemDecoration
 import com.kevalpatel2106.ci.greenbuild.buildList.RecentBuildsFragment
 import com.kevalpatel2106.ci.greenbuild.ciSelector.CiSelectorActivity
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
+import com.kevalpatel2106.greenbuild.utils.alert
+import com.kevalpatel2106.greenbuild.utils.showSnack
+import com.kevalpatel2106.grrenbuild.entities.Account
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.drawer_layout.*
@@ -52,9 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     @Inject
     internal lateinit var viewModelProvider: ViewModelProvider.Factory
-
-    @Inject
-    internal lateinit var compatibilityCheck: CompatibilityCheck
 
     private lateinit var model: MainActivityViewModel
 
@@ -96,19 +95,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         model.currentTitle.observe(this@MainActivity, Observer {
             it?.let { supportActionBar?.title = it }
         })
-        model.reinjectDependency.observe(this@MainActivity, Observer {
-            //Recreate the dagger object graph.
-            (application as? BaseApplication)?.createAppComponent()
-            DaggerDiComponent.builder()
-                    .applicationComponent(BaseApplication.get(this).getApplicationComponent())
-                    .build()
-                    .inject(this)
-            model = ViewModelProviders
-                    .of(this@MainActivity, viewModelProvider)
-                    .get(MainActivityViewModel::class.java)
-
-            model.refresh()
-        })
         model.currentAccount.observe(this@MainActivity, Observer {
             if (it != null) {
                 //Set the header
@@ -121,6 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 //Refresh the drawer
                 refreshDrawer()
+                drawer_layout.closeDrawer(Gravity.START)
             } else {
                 //Launch splash
                 SplashActivity.launch(this@MainActivity.application)
@@ -139,6 +126,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     progressDialog?.cancel()
                 }
             }
+        })
+        model.errorLoggingOut.observe(this@MainActivity, Observer {
+            it?.let { showSnack(it) }
         })
     }
 
@@ -159,40 +149,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                //Do nothing
+                refreshDrawer()
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                refreshDrawer()
+                //Do nothing
             }
         })
         nav_menu_extras.setNavigationItemSelectedListener(this@MainActivity)
 
         //Set the drawer switcher button
         nav_menu_holder.getHeaderView(0).drawer_header_dropdown_iv.setOnClickListener {
-            model.isAccountsOpen.value = !model.isAccountsOpen.value!!
+            val isAccountOpen = nav_menu_holder.nav_menu_accounts.isVisible
+            changeDrawer(isAccountOpen)
         }
-        model.isAccountsOpen.observe(this@MainActivity, Observer {
-            it?.let {
-
-                //Animate the button
-                nav_menu_holder.getHeaderView(0)
-                        .drawer_header_dropdown_iv
-                        .animate()
-                        .rotation(if (!it) 0f else 180f)
-                        .setDuration(300)
-                        .start()
-
-                //Switch the drawer
-                nav_menu_holder.nav_menu_extras.visibility = if (!it) View.VISIBLE else View.GONE
-                nav_menu_holder.nav_menu_accounts.visibility = if (it) View.VISIBLE else View.GONE
-            }
-        })
 
         //set the accounts listing
         accountsAdapter = AccountsAdapter(model.allAccounts.value!!, this)
         with(nav_menu_accounts.nav_accounts_list_rv) {
             this.adapter = accountsAdapter
+            this.addItemDecoration(DividerItemDecoration(this@MainActivity))
             this.layoutManager = LinearLayoutManager(this@MainActivity)
             this.itemAnimator = DefaultItemAnimator()
         }
@@ -206,12 +182,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun changeDrawer(isAccountOpen: Boolean) {
+        //Animate the button
+        nav_menu_holder.getHeaderView(0)
+                .drawer_header_dropdown_iv
+                .animate()
+                .rotation(if (isAccountOpen) 0f else 180f)
+                .setDuration(300)
+                .start()
+
+        //Switch the drawer
+        nav_menu_holder.nav_menu_extras.visibility = if (isAccountOpen) View.VISIBLE else View.GONE
+        nav_menu_holder.nav_menu_accounts.visibility = if (!isAccountOpen) View.VISIBLE else View.GONE
+    }
+
     private fun refreshDrawer() {
         //Refresh the drawer
-        nav_menu_extras.menu.findItem(R.id.menu_drawer_repo_listing).isVisible =
-                compatibilityCheck.isRepoListingSupported()
-        nav_menu_extras.menu.findItem(R.id.menu_drawer_builds_listing).isVisible =
-                compatibilityCheck.isRecentBuildsListSupported()
+        //TODO check if the compatibility changes and menu of the drawer
+//        nav_menu_extras.menu.findItem(R.id.menu_drawer_repo_listing).isVisible =
+//                compatibilityCheck.isRepoListingSupported()
+//        nav_menu_extras.menu.findItem(R.id.menu_drawer_builds_listing).isVisible =
+//                compatibilityCheck.isRecentBuildsListSupported()
+        changeDrawer(true)
     }
 
     override fun onAccountClick(account: Account) {

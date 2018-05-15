@@ -18,13 +18,11 @@ import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.ci.greenbuild.dataProvider.GBRxSchedulers
 import com.kevalpatel2106.greenbuild.travisInterface.TravisCompatibilityCheck
 import com.kevalpatel2106.greenbuild.travisInterface.TravisServerInterface
+import com.kevalpatel2106.greenbuild.utils.SessionScope
 import dagger.Module
 import dagger.Provides
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by Kevalpatel2106 on 17-Apr-18.
@@ -35,8 +33,8 @@ import io.reactivex.schedulers.Schedulers
 internal class DiModule {
 
     @Provides
+    @SessionScope
     fun provideServerInterface(application: BaseApplication, accountsManager: AccountsManager): ServerInterface {
-
         val account = accountsManager.getCurrentAccount()
 
         if (account != null) {
@@ -57,8 +55,8 @@ internal class DiModule {
     }
 
     @Provides
+    @SessionScope
     fun provideCompatibilityCheck(accountsManager: AccountsManager): CompatibilityCheck {
-
         val account = accountsManager.getCurrentAccount()
         if (account != null) {
 
@@ -75,7 +73,4 @@ internal class DiModule {
             throw IllegalStateException("No CI accounts found.")
         }
     }
-
-    @Provides
-    fun provideRxSchedulers(): GBRxSchedulers = GBRxSchedulers()
 }

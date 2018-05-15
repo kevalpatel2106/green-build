@@ -14,10 +14,13 @@
 
 package com.kevalpatel2106.ci.greenbuild.dataProvider
 
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.*
+import com.kevalpatel2106.ci.greenbuild.base.GBRxSchedulers
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.CompatibilityCheck
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.grrenbuild.entities.Build
 import com.kevalpatel2106.grrenbuild.entities.BuildState
-import com.kevalpatel2106.grrenbuild.entities.Repo
 import io.reactivex.Observable
 import javax.inject.Inject
 

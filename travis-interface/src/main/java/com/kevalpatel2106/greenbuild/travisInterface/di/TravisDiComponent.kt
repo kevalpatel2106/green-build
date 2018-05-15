@@ -16,15 +16,15 @@ package com.kevalpatel2106.greenbuild.travisInterface.di
 
 import com.kevalpatel2106.ci.greenbuild.base.application.ApplicationComponent
 import com.kevalpatel2106.greenbuild.travisInterface.authentication.TravisAuthenticationActivity
+import com.kevalpatel2106.greenbuild.utils.SessionScope
 import dagger.Component
-import javax.inject.Singleton
 
 /**
  * Created by Kevalpatel2106 on 17-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-@Singleton
+@SessionScope
 @Component(dependencies = [ApplicationComponent::class], modules = [TravisViewModelFactoryModule::class])
 internal interface TravisDiComponent {
 

@@ -17,8 +17,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="?selectableItemBackground">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline51"
@@ -57,13 +58,12 @@
 
     <com.kevalpatel2106.ci.greenbuild.base.view.GBAvatarView
         android:id="@+id/account_list_avatar_iv"
-        android:layout_width="@dimen/spacing_xxlarge"
-        android:layout_height="@dimen/spacing_xxlarge"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/spacing_xlarge"
+        android:layout_height="@dimen/spacing_xlarge"
+        app:layout_constraintBottom_toTopOf="@+id/guideline52"
         app:layout_constraintStart_toStartOf="@+id/guideline53"
         app:layout_constraintTop_toTopOf="@+id/guideline51"
-        app:layout_constraintVertical_bias="0.0"/>
+        />
 
     <TextView
         android:id="@+id/account_list_name_tv"
@@ -85,11 +85,12 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textAppearance="@style/SmallText.Secondary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline52"
         app:layout_constraintEnd_toStartOf="@+id/guideline55"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline56"
         app:layout_constraintTop_toBottomOf="@+id/account_list_name_tv"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@tools:sample/full_names"/>
 
 </android.support.constraint.ConstraintLayout>

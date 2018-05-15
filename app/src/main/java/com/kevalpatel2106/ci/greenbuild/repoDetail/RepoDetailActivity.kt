@@ -27,10 +27,10 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kevalpatel2106.ci.greenbuild.R
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.grrenbuild.entities.BuildState
-import com.kevalpatel2106.grrenbuild.entities.Repo
 import com.kevalpatel2106.ci.greenbuild.buildList.RepoBuildsListFragment
 import com.kevalpatel2106.ci.greenbuild.di.DaggerDiComponent
+import com.kevalpatel2106.grrenbuild.entities.BuildState
+import com.kevalpatel2106.grrenbuild.entities.Repo
 import kotlinx.android.synthetic.main.activity_repo_detail.*
 import javax.inject.Inject
 
@@ -135,7 +135,7 @@ class RepoDetailActivity : AppCompatActivity() {
 
                 //Set build status
                 build_status_badge.isVisible = it.defaultBranch != null
-                build_status_badge.title = getString(R.string.build_status_badge_title, it.defaultBranch)
+                build_status_badge.title = getString(R.string.build_status_badge_title, it.defaultBranch?.name)
                 build_status_badge.buildStatus = it.lastBuild?.state ?: BuildState.UNKNOWN
 
                 //Add chips

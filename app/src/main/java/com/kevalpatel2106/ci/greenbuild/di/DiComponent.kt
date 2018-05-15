@@ -29,15 +29,15 @@ import com.kevalpatel2106.ci.greenbuild.main.MainActivity
 import com.kevalpatel2106.ci.greenbuild.repoDetail.RepoDetailActivity
 import com.kevalpatel2106.ci.greenbuild.repoList.RepoListFragment
 import com.kevalpatel2106.ci.greenbuild.splash.SplashActivity
+import com.kevalpatel2106.greenbuild.utils.SessionScope
 import dagger.Component
-import javax.inject.Singleton
 
 /**
  * Created by Kevalpatel2106 on 17-Apr-18.
  *
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-@Singleton
+@SessionScope
 @Component(dependencies = [ApplicationComponent::class], modules = [DiModule::class])
 interface DiComponent {
 

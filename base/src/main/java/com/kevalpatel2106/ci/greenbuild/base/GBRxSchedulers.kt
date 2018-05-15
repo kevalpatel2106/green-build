@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.kevalpatel2106.ci.greenbuild.dataProvider
+package com.kevalpatel2106.ci.greenbuild.base
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers
  * @param network [Scheduler] to perform network calls. Default value is [Schedulers.io].
  * @author <a href="https://github.com/kevalpatel2106">kevalpatel2106</a>
  */
-internal data class GBRxSchedulers(
+data class GBRxSchedulers(
         val database: Scheduler = Schedulers.single(),
         val disk: Scheduler = Schedulers.io(),
         val network: Scheduler = Schedulers.io(),

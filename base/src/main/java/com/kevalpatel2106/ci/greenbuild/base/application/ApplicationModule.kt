@@ -17,10 +17,12 @@ package com.kevalpatel2106.ci.greenbuild.base.application
 import android.app.Application
 import android.content.Context
 import com.kevalpatel2106.ci.greenbuild.base.AccountsManager
+import com.kevalpatel2106.ci.greenbuild.base.GBRxSchedulers
 import com.kevalpatel2106.ci.greenbuild.base.db.GBDatabase
 import com.kevalpatel2106.greenbuild.utils.SharedPrefsProvider
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * Created by Kevalpatel2106 on 17-Apr-18.
@@ -34,33 +36,43 @@ class ApplicationModule(private val application: Application) {
         fun get(application: Application) = ApplicationModule(application)
     }
 
+    @Singleton
     @Provides
     fun provideContext(): Context {
         return application
     }
 
+    @Singleton
     @Provides
     fun provideApplication(): Application {
         return application
     }
 
+    @Singleton
     @Provides
     fun provideBaseApplication(): BaseApplication {
         return application as BaseApplication
     }
 
+    @Singleton
     @Provides
     fun provideAccountManager(application: Application, sharedPrefsProvider: SharedPrefsProvider): AccountsManager {
         return AccountsManager(application, sharedPrefsProvider)
     }
 
+    @Singleton
     @Provides
     fun provideSharedPrefsManager(application: Application): SharedPrefsProvider {
         return SharedPrefsProvider(application)
     }
 
+    @Singleton
     @Provides
     fun provideDatabase(application: Application): GBDatabase {
         return GBDatabase.getAppDatabase(application)
     }
+
+    @Singleton
+    @Provides
+    fun provideRxSchedulers(): GBRxSchedulers = GBRxSchedulers()
 }
