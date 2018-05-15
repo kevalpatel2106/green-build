@@ -8,7 +8,7 @@
 ------------------------------------
 Green Build is an **open source** android application built from the ground up to manage your CI builds on the go. Green Build allows you to view and manage your continuous integration projects on the supported CI platforms.
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](http://bit.ly/2KitKV4) [<img src=".github/direct-apk-download.png" alt="Direct apk download" height="80">](https://github.com/kevalpatel2106/green-build/releases/latest)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](http://bit.ly/2KitKV4)
       
 ## Features:
 - View list of all the active projects.

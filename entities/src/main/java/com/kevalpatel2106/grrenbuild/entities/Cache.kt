@@ -14,7 +14,10 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -28,7 +31,7 @@ data class Cache(
         var size: Long,
 
         @ColumnInfo(name = CACHE_NAME)
-        var name: String,
+        var name: String?,
 
         @Embedded(prefix = "caches_")
         var branch: Branch,

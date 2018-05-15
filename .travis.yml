@@ -5,7 +5,9 @@ sudo: false
 env:
     global:
         - ADB_INSTALL_TIMEOUT=10    #Time out to 10 mins
-    
+        - ANDROID_TARGET=android-21
+        - ANDROID_ABI=armeabi-v7a
+
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
@@ -28,7 +30,7 @@ android:
         - extra-android-m2repository
 
         #system images
-        - sys-img-armeabi-v7a-android-21
+        - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
   
 licenses:
     - 'android-sdk-preview-license-.+'
@@ -46,8 +48,22 @@ before_install:
 before_script:
     - chmod +x gradlew      #Grant permissions
 
+    # Create animations
+    - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI -d "Nexus 6"
+
+    # Start emulator
+    - emulator -avd test -no-skin -no-audio -no-window &
+    - android-wait-for-emulator
+
+    # Disable animations
+    - adb devices
+    - adb shell settings put global window_animation_scale 0.0 
+    - adb shell settings put global transition_animation_scale 0.0
+    - adb shell settings put global animator_duration_scale 0.0
+    - adb shell input keyevent 82 &
+
 script:
-    - ./gradlew lint app:assembleDebug jacocoTestReportDebug -PdisablePreDex --stacktrace
+    - ./gradlew lint app:assembleDebug jacocoTestReportDebug connectedAndroidTest -PdisablePreDex --stacktrace
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

@@ -165,7 +165,7 @@ internal class MainActivityViewModel @Inject constructor(
                         isLoggingOut.value = false
 
                         currentAccount.value = accountManager.getCurrentAccount()
-                        refresh()
+                        currentAccount.value?.let { refresh() }
                     }, {
                         errorLoggingOut.value = application.getString(R.string.error_logging_out)
                     })

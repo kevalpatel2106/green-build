@@ -15,22 +15,14 @@
 package com.kevalpatel2106.greenbuild.travisInterface
 
 import android.content.Context
-import com.kevalpatel2106.grrenbuild.entities.Account
 import com.kevalpatel2106.ci.greenbuild.base.application.BaseApplication
-import com.kevalpatel2106.grrenbuild.entities.Branch
-import com.kevalpatel2106.grrenbuild.entities.CiServer
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
-import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
-import com.kevalpatel2106.grrenbuild.entities.Build
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.BuildSortBy
-import com.kevalpatel2106.grrenbuild.entities.BuildState
-import com.kevalpatel2106.grrenbuild.entities.Cache
-import com.kevalpatel2106.grrenbuild.entities.Cron
-import com.kevalpatel2106.grrenbuild.entities.EnvVars
-import com.kevalpatel2106.grrenbuild.entities.Repo
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.Page
 import com.kevalpatel2106.ci.greenbuild.base.ciInterface.RepoSortBy
+import com.kevalpatel2106.ci.greenbuild.base.ciInterface.ServerInterface
 import com.kevalpatel2106.ci.greenbuild.base.network.NetworkApi
 import com.kevalpatel2106.greenbuild.travisInterface.authentication.TravisAuthenticationActivity
+import com.kevalpatel2106.grrenbuild.entities.*
 import io.reactivex.Observable
 import timber.log.Timber
 
@@ -115,8 +107,8 @@ class TravisServerInterface internal constructor(
                     }))
             ciServers.add(CiServer(
                     icon = R.drawable.logo_travis_ci_enterprice,
-                    name = activity.getString(R.string.ci_provider_name_travis_enterprice),
-                    description = activity.getString(R.string.ci_provider_description_travis_enterprice),
+                    name = activity.getString(R.string.ci_provider_name_travis_enterprise),
+                    description = activity.getString(R.string.ci_provider_description_travis_enterprise),
                     domain = null,
                     onClick = {
                         TravisAuthenticationActivity.launch(

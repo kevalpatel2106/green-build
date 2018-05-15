@@ -14,7 +14,6 @@
 
 package com.kevalpatel2106.grrenbuild.entities
 
-import android.arch.persistence.room.Ignore
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -60,7 +59,7 @@ data class Account(
      * Unique local id of the user account that is assures that no two account from different ci providers
      * have the same [accountId].
      */
-    val accountId: String = prepareAccountId(userId, serverUrl)
+    val accountId: String = "$userId-$serverUrl"
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -92,6 +91,7 @@ data class Account(
         parcel.writeString(name)
         parcel.writeString(avatarUrl)
         parcel.writeString(serverUrl)
+        parcel.writeString(accessToken)
     }
 
     override fun describeContents(): Int {
@@ -99,8 +99,6 @@ data class Account(
     }
 
     companion object CREATOR : Parcelable.Creator<Account> {
-        fun prepareAccountId(userId: String, serverUrl: String): String = "$userId-$serverUrl"
-
         override fun createFromParcel(parcel: Parcel): Account {
             return Account(parcel)
         }
@@ -109,4 +107,5 @@ data class Account(
             return arrayOfNulls(size)
         }
     }
+
 }
