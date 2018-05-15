@@ -71,7 +71,9 @@ data class Repo(
             parcel.readString(),
             parcel.readParcelable(Author::class.java.classLoader),
             parcel.readParcelable(Branch::class.java.classLoader),
-            parcel.readParcelable(Permissions::class.java.classLoader))
+            parcel.readParcelable(Permissions::class.java.classLoader)) {
+        lastBuild = parcel.readParcelable(Build::class.java.classLoader)
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(localId)
@@ -84,6 +86,7 @@ data class Repo(
         parcel.writeParcelable(owner, flags)
         parcel.writeParcelable(defaultBranch, flags)
         parcel.writeParcelable(permissions, flags)
+        parcel.writeParcelable(lastBuild, flags)
     }
 
     override fun describeContents(): Int {
