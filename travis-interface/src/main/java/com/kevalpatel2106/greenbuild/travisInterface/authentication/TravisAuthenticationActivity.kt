@@ -190,7 +190,7 @@ class TravisAuthenticationActivity : AppCompatActivity(), TextWatcher {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        finish()
+        supportFinishAfterTransition()
         return super.onOptionsItemSelected(item)
     }
 
