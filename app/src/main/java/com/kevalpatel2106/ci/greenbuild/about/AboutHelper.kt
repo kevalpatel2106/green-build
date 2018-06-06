@@ -54,7 +54,7 @@ internal object AboutHelper {
             val goToMarket = Intent(Intent.ACTION_VIEW, uri)
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
                     Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
-                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+                    Intent.FLAG_ACTIVITY_NEW_TASK)
             application.startActivity(goToMarket)
         } catch (e: ActivityNotFoundException) {
             application.openLink(application.getString(R.string.play_store_url))
